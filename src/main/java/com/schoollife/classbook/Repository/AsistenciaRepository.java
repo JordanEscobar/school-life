@@ -1,5 +1,9 @@
 package com.schoollife.classbook.Repository;
 
-public interface AsistenciaRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.schoollife.classbook.Entities.Asistencia;
+
+public interface AsistenciaRepository extends CrudRepository<Asistencia, Integer>{
 
 }

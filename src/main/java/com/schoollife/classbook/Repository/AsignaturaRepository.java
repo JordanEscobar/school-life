@@ -1,5 +1,9 @@
 package com.schoollife.classbook.Repository;
 
-public interface AsignaturaRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.schoollife.classbook.Entities.Asignatura;
+
+public interface AsignaturaRepository extends CrudRepository<Asignatura, Integer>{
 
 }

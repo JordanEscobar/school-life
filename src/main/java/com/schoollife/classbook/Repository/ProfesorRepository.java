@@ -1,5 +1,9 @@
 package com.schoollife.classbook.Repository;
 
-public interface ProfesorRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.schoollife.classbook.Entities.Profesor;
+
+public interface ProfesorRepository extends CrudRepository<Profesor, Integer>{
 
 }
