@@ -18,8 +18,6 @@ public class HomeController {
 		this.colegioService = colegioService;
 	}
 
-
-
 	@GetMapping("/")
 	public String index(Model model) {
 		var listaColegios = colegioService.getAllColegios();
