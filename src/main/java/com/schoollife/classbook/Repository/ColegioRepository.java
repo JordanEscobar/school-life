@@ -1,5 +1,9 @@
 package com.schoollife.classbook.Repository;
 
-public interface ColegioRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.schoollife.classbook.Entities.Colegio;
+
+public interface ColegioRepository extends CrudRepository<Colegio, Integer>{
 
 }

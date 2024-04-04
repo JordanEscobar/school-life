@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de clases virtual School Life</title>
+</head>
+<body>
+	<h1 th:text=" 'Libro de Clases School Life' "></h1>
+	
+	<h2 th:text=" 'Colegios asociados' "></h2>
+	
+	<table>
+	<thead>
+		<tr>
+			<th>NOMBRE</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="c : ${listaColegios}">
+			<td>
+				<h4 th:text="${c.nombre}"></h4>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	
+	
+</body>
+</html>
