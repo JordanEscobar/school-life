@@ -5,17 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.schoollife.classbook.Entities.Apoderado;
+import com.schoollife.classbook.Service.ApoderadoService;
 import com.schoollife.classbook.Service.ColegioService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
 	private final ColegioService colegioService;
+	@Autowired
+	private final ApoderadoService apoderadoService;
 
-	public HomeController(ColegioService colegioService) {
+	public HomeController(ColegioService colegioService, ApoderadoService apoderadoService) {
 		super();
 		this.colegioService = colegioService;
+		this.apoderadoService = apoderadoService;
 	}
 
 	@GetMapping("/")
@@ -24,5 +31,10 @@ public class HomeController {
 		
 		model.addAttribute("listaColegios",listaColegios);
 		return "Index";
+	}
+	
+	@GetMapping("/login")
+	public String login(Apoderado apoderado,HttpSession sesion) {
+		return "Login";
 	}
 }
