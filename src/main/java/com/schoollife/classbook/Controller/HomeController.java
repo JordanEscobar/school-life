@@ -9,6 +9,7 @@ import com.schoollife.classbook.Entities.Apoderado;
 import com.schoollife.classbook.Service.ApoderadoService;
 import com.schoollife.classbook.Service.ColegioService;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -36,5 +37,11 @@ public class HomeController {
 	@GetMapping("/login")
 	public String login(Apoderado apoderado,HttpSession sesion) {
 		return "Login";
+	}
+	
+	@GetMapping("/cerrarSesion")
+	public String cerrarSesion(Model model,HttpSession sesion) throws ServletException {
+		sesion.invalidate();
+		return "redirect:/";
 	}
 }

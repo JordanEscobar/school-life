@@ -23,7 +23,7 @@ public class EstudianteController {
 	public String estudianteLista(Model model) {
 		var listaEstudiante = estudianteService.getAllEstudiante();
 		model.addAttribute("listaEstudiante",listaEstudiante);
-		return "Index";
+		return "ListaEstudiante";
 	}
 
 }
