@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.schoollife.classbook.Entities.Profesor;
 import com.schoollife.classbook.Service.ProfesorService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -25,5 +28,7 @@ public class ProfesorController {
 		model.addAttribute("listaProfesor",listaProfesor);
 		return "Index";
 	}
+	
+
 
 }

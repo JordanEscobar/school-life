@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.schoollife.classbook.Entities.Asistencia;
 import com.schoollife.classbook.Service.AsistenciaService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AsistenciaController {
@@ -24,5 +27,7 @@ public class AsistenciaController {
 		model.addAttribute("listaAsistencia",listaAsistencia);
 		return "Index";
 	}
+	
+
 
 }

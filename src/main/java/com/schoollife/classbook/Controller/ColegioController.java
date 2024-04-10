@@ -26,6 +26,8 @@ public class ColegioController {
 		model.addAttribute("listaColegio",listaColegio);
 		return "Index";
 	}
+	
+	
 
 
 }

@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.schoollife.classbook.Entities.Apoderado;
-import com.schoollife.classbook.Service.ApoderadoService;
 import com.schoollife.classbook.Service.ColegioService;
 
 import jakarta.servlet.ServletException;
@@ -17,13 +16,10 @@ public class HomeController {
 	
 	@Autowired
 	private final ColegioService colegioService;
-	@Autowired
-	private final ApoderadoService apoderadoService;
 
-	public HomeController(ColegioService colegioService, ApoderadoService apoderadoService) {
+	public HomeController(ColegioService colegioService) {
 		super();
 		this.colegioService = colegioService;
-		this.apoderadoService = apoderadoService;
 	}
 
 	@GetMapping("/")

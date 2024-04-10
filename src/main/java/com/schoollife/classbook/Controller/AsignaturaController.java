@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.schoollife.classbook.Entities.Asignatura;
 import com.schoollife.classbook.Service.AsignaturaService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AsignaturaController {
@@ -24,5 +27,7 @@ public class AsignaturaController {
 		model.addAttribute("listaAsignatura",listaAsignatura);
 		return "Index";
 	}
+	
+
 
 }

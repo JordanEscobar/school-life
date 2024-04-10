@@ -25,6 +25,7 @@ public class Estudiante {
 	private Date fecha_nacimiento;
 	@Column(name= "apoderado")
 	private Integer apoderado;
+	
 	public Estudiante(Integer id, String rut, String nombre, String apellido, Date fecha_nacimiento,
 			Integer apoderado) {
 		super();
@@ -35,9 +36,11 @@ public class Estudiante {
 		this.fecha_nacimiento = fecha_nacimiento;
 		this.apoderado = apoderado;
 	}
+	
 	public Estudiante() {
 		super();
 	}
+	
 	public Integer getId() {
 		return id;
 	}

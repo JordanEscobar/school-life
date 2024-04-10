@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.schoollife.classbook.Entities.Matricula;
 import com.schoollife.classbook.Service.MatriculaService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -25,5 +28,6 @@ public class MatriculaController {
 		model.addAttribute("listaMatricula",listaMatricula);
 		return "Index";
 	}
+	
 
 }
