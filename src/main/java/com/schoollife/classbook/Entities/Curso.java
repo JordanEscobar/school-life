@@ -17,7 +17,7 @@ public class Curso {
 	private String curso;
 	@Column(name = "cantidad")
 	private Integer cantidad;
-	@Column(name= "profesor")
+	@Column(name= "profesor_a_cargo")
 	private Integer profesor;
 	@Column(name = "estudiante")
 	private Integer estudiante;

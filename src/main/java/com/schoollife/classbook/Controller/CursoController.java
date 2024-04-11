@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Service.CursoService;
@@ -25,7 +26,17 @@ public class CursoController {
 	public String cursoLista(Model model) {
 		var listaCurso = cursoService.getAllCurso();
 		model.addAttribute("listaCurso",listaCurso);
-		return "Index";
+		return "Cursos";
+	}
+	
+	@GetMapping("/eliminar/{id}/")
+	public String eliminarCurso(Curso curso,HttpSession sesion) {
+		if(sesion!=null) {
+			if(curso!=null ) {
+				cursoService.deleteCurso(curso.getId());	
+			}
+		}
+		return "redirect:/";
 	}
 	
 
