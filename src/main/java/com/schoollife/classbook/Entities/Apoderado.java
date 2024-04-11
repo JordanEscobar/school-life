@@ -17,20 +17,33 @@ public class Apoderado {
 	private String rut;
 	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "apellido")
-	private String apellido;
-	@Column(name = "login")
-	private Integer login;
-	@Column(name = "colegio")
-	private Integer colegio;
-	public Apoderado(Integer id, String rut, String nombre, String apellido, Integer login, Integer colegio) {
+	@Column(name = "apaterno")
+	private String apaterno;
+	@Column(name = "amaterno")
+	private String amaterno;
+	@Column(name = "direccion")
+	private Integer direccion;
+	@Column(name = "correo")
+	private String correo;
+	@Column(name = "telefono")
+	private Integer telefono;
+	@Column(name = "estado")
+	private String estado;
+	@Column(name = "estudiante")
+	private Integer estudiante;
+	public Apoderado(Integer id, String rut, String nombre, String apaterno, String amaterno, Integer direccion,
+			String correo, Integer telefono, String estado, Integer estudiante) {
 		super();
 		this.id = id;
 		this.rut = rut;
 		this.nombre = nombre;
-		this.apellido = apellido;
-		this.login = login;
-		this.colegio = colegio;
+		this.apaterno = apaterno;
+		this.amaterno = amaterno;
+		this.direccion = direccion;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.estado = estado;
+		this.estudiante = estudiante;
 	}
 	public Apoderado() {
 		super();
@@ -53,32 +66,54 @@ public class Apoderado {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApellido() {
-		return apellido;
+	public String getApaterno() {
+		return apaterno;
 	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setApaterno(String apaterno) {
+		this.apaterno = apaterno;
 	}
-	public Integer getLogin() {
-		return login;
+	public String getAmaterno() {
+		return amaterno;
 	}
-	public void setLogin(Integer login) {
-		this.login = login;
+	public void setAmaterno(String amaterno) {
+		this.amaterno = amaterno;
 	}
-	public Integer getColegio() {
-		return colegio;
+	public Integer getDireccion() {
+		return direccion;
 	}
-	public void setColegio(Integer colegio) {
-		this.colegio = colegio;
+	public void setDireccion(Integer direccion) {
+		this.direccion = direccion;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	public Integer getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(Integer telefono) {
+		this.telefono = telefono;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public Integer getEstudiante() {
+		return estudiante;
+	}
+	public void setEstudiante(Integer estudiante) {
+		this.estudiante = estudiante;
 	}
 	@Override
 	public String toString() {
-		return "Apoderado [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apellido=" + apellido + ", login="
-				+ login + ", colegio=" + colegio + "]";
+		return "Apoderado [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
+				+ amaterno + ", direccion=" + direccion + ", correo=" + correo + ", telefono=" + telefono + ", estado="
+				+ estado + ", estudiante=" + estudiante + "]";
 	}
-	
-	
-	
 	
 	
 	

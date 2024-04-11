@@ -16,22 +16,22 @@ public class Matricula {
 	@Column(name = "descripcion")
 	private String descripcion;
 	@Column(name = "estado")
-	private boolean estado;
+	private String estado;
 	@Column(name = "estudiante")
 	private Integer estudiante;
-	@Column(name = "colegio")
-	private Integer colegio;
 	@Column(name = "apoderado")
 	private Integer apoderado;
-	public Matricula(Integer id, String descripcion, boolean estado, Integer estudiante, Integer colegio,
-			Integer apoderado) {
+	@Column(name = "colegio")
+	private Integer colegio;
+	public Matricula(Integer id, String descripcion, String estado, Integer estudiante, Integer apoderado,
+			Integer colegio) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.estado = estado;
 		this.estudiante = estudiante;
-		this.colegio = colegio;
 		this.apoderado = apoderado;
+		this.colegio = colegio;
 	}
 	public Matricula() {
 		super();
@@ -48,10 +48,10 @@ public class Matricula {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public boolean isEstado() {
+	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	public Integer getEstudiante() {
@@ -60,23 +60,27 @@ public class Matricula {
 	public void setEstudiante(Integer estudiante) {
 		this.estudiante = estudiante;
 	}
-	public Integer getColegio() {
-		return colegio;
-	}
-	public void setColegio(Integer colegio) {
-		this.colegio = colegio;
-	}
 	public Integer getApoderado() {
 		return apoderado;
 	}
 	public void setApoderado(Integer apoderado) {
 		this.apoderado = apoderado;
 	}
+	public Integer getColegio() {
+		return colegio;
+	}
+	public void setColegio(Integer colegio) {
+		this.colegio = colegio;
+	}
 	@Override
 	public String toString() {
 		return "Matricula [id=" + id + ", descripcion=" + descripcion + ", estado=" + estado + ", estudiante="
-				+ estudiante + ", colegio=" + colegio + ", apoderado=" + apoderado + "]";
+				+ estudiante + ", apoderado=" + apoderado + ", colegio=" + colegio + "]";
 	}
+	
+	
+
+	
 	
 	
 

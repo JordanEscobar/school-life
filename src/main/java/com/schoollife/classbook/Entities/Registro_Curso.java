@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "registro_curso")
+@Table(name = "registro_cursos")
 public class Registro_Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +17,14 @@ public class Registro_Curso {
 	private Integer estudiante;
 	@Column(name = "curso")
 	private Integer curso;
-	public Registro_Curso(Integer id, Integer estudiante, Integer curso) {
+	@Column(name = "descripcion")
+	private String descripcion;
+	public Registro_Curso(Integer id, Integer estudiante, Integer curso, String descripcion) {
 		super();
 		this.id = id;
 		this.estudiante = estudiante;
 		this.curso = curso;
+		this.descripcion = descripcion;
 	}
 	public Registro_Curso() {
 		super();
@@ -44,10 +47,19 @@ public class Registro_Curso {
 	public void setCurso(Integer curso) {
 		this.curso = curso;
 	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	@Override
 	public String toString() {
-		return "Registro_Curso [id=" + id + ", estudiante=" + estudiante + ", curso=" + curso + "]";
+		return "Registro_Curso [id=" + id + ", estudiante=" + estudiante + ", curso=" + curso + ", descripcion="
+				+ descripcion + "]";
 	}
+	
+	
 	
 	
 

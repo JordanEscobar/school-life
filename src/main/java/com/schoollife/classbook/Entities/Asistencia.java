@@ -10,29 +10,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "asistencia")
+@Table(name = "asistencias")
 public class Asistencia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "registro_asignatura")
+	private Integer registro_asignatura;
 	@Column(name = "fecha")
 	private Date fecha;
 	@Column(name = "estado")
 	private boolean estado;
-	@Column(name = "justificacion")
-	private String justificacion;
-	@Column(name = "total")
-	private Integer total;
-	@Column(name = "asignatura")
-	private Integer asignatura;
-	public Asistencia(Integer id, Date fecha, boolean estado, String justificacion, Integer total, Integer asignatura) {
+	@Column(name = "descripcion")
+	private String descripcion;
+	public Asistencia(Integer id, Integer registro_asignatura, Date fecha, boolean estado, String descripcion) {
 		super();
 		this.id = id;
+		this.registro_asignatura = registro_asignatura;
 		this.fecha = fecha;
 		this.estado = estado;
-		this.justificacion = justificacion;
-		this.total = total;
-		this.asignatura = asignatura;
+		this.descripcion = descripcion;
 	}
 	public Asistencia() {
 		super();
@@ -42,6 +39,12 @@ public class Asistencia {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getRegistro_asignatura() {
+		return registro_asignatura;
+	}
+	public void setRegistro_asignatura(Integer registro_asignatura) {
+		this.registro_asignatura = registro_asignatura;
 	}
 	public Date getFecha() {
 		return fecha;
@@ -55,29 +58,20 @@ public class Asistencia {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	public String getJustificacion() {
-		return justificacion;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setJustificacion(String justificacion) {
-		this.justificacion = justificacion;
-	}
-	public Integer getTotal() {
-		return total;
-	}
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
-	public Integer getAsignatura() {
-		return asignatura;
-	}
-	public void setAsignatura(Integer asignatura) {
-		this.asignatura = asignatura;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	@Override
 	public String toString() {
-		return "Asistencia [id=" + id + ", fecha=" + fecha + ", estado=" + estado + ", justificacion=" + justificacion
-				+ ", total=" + total + ", asignatura=" + asignatura + "]";
+		return "Asistencia [id=" + id + ", registro_asignatura=" + registro_asignatura + ", fecha=" + fecha
+				+ ", estado=" + estado + ", descripcion=" + descripcion + "]";
 	}
+	
+	
+
 	
 	
 	
