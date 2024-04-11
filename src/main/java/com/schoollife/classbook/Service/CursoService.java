@@ -12,7 +12,9 @@ public interface CursoService {
 
 	Curso getCursoById(Integer id);
 
-	void deleteCurso(Integer id);
+	void desactivarCurso(Curso curso, Integer id);
+	
+	void activarCurso(Curso curso, Integer id);
 	
 	void updateCurso(Curso curso, Integer id);
 	

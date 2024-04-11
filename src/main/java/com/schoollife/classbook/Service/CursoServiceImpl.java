@@ -1,6 +1,7 @@
 package com.schoollife.classbook.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,25 +38,49 @@ public class CursoServiceImpl implements CursoService{
 	public Curso getCursoById(Integer id) {
 		return cursoRepository.findById(id).get();
 	}
-
+	
 	@Override
 	@Transactional
-	public void deleteCurso(Integer id) {
-		cursoRepository.deleteById(id);
-		
+	public Curso findCurso(Curso curso) {
+		return cursoRepository.findById(curso.getId()).orElse(null);
 	}
 
 	@Override
 	@Transactional
 	public void updateCurso(Curso curso, Integer id) {
-		// TODO Auto-generated method stub
-		
+		Optional<Curso> cursoId = cursoRepository.findById(id);
+		Curso cursoN = cursoId.get();
+		cursoN.setId(curso.getId());
+		cursoN.setNombre(curso.getNombre());
+		cursoN.setSeccion(curso.getSeccion());
+		cursoN.setCantidad(curso.getCantidad());
+		cursoN.setEstado(curso.getEstado());
+		cursoN.setProfesor_jefe(curso.getProfesor_jefe());
+		cursoRepository.save(cursoN);
 	}
 
 	@Override
 	@Transactional
-	public Curso findCurso(Curso curso) {
-		return cursoRepository.findById(curso.getId()).orElse(null);
+	public void desactivarCurso(Curso curso, Integer id) {
+		if (curso != null) {
+			Optional<Curso> cursoId = cursoRepository.findById(id);
+			Curso cursoN = cursoId.get();
+			cursoN.setId(curso.getId());
+			cursoN.setEstado("desactivado");
+			cursoRepository.save(cursoN);
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void activarCurso(Curso curso, Integer id) {
+		if (curso != null) {
+			Optional<Curso> cursoId = cursoRepository.findById(id);
+			Curso cursoN = cursoId.get();
+			cursoN.setId(curso.getId());
+			cursoN.setEstado("activo");
+			cursoRepository.save(cursoN);
+		}
 	}
 
 }
