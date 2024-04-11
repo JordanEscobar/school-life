@@ -34,6 +34,7 @@
 				<td th:text="${c.seccion}"></td>
 				<td th:text="${c.cantidad}"></td>
 				<td th:text="${c.estado}"></td>
+				
 				<td>
 					<a class="btn btn-secondary" th:href="@{/cursosModificar/} + ${c.id}">EDITAR</a>
 					<a class="btn btn-danger" th:if="${c.estado} == 'activo' " th:href="@{/desactivar/} + ${c.id} ">DESACTIVAR</a>

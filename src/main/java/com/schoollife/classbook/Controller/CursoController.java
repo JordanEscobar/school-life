@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.classbook.Entities.Curso;
+import com.schoollife.classbook.Entities.Profesor;
 import com.schoollife.classbook.Service.CursoService;
+import com.schoollife.classbook.Service.ProfesorService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,10 +22,13 @@ public class CursoController {
 	
 	@Autowired
 	private final CursoService cursoService;
+	
+	private final ProfesorService profesorService; 
 
-	public CursoController(CursoService cursoService) {
+	public CursoController(CursoService cursoService, ProfesorService profesorService) {
 		super();
 		this.cursoService = cursoService;
+		this.profesorService = profesorService;
 	}
 
 	@GetMapping("/curso/listar/")
@@ -68,6 +73,8 @@ public class CursoController {
 	@GetMapping("/cursosModificar/{id}")
 	public String cursoModificar(Curso curso, Model model) {
 		curso = cursoService.findCurso(curso);
+		var profesores = profesorService.getAllProfesor();
+		model.addAttribute("profesores",profesores);
 		model.addAttribute("curso", curso);
 		return "CursosModificar";
 	}
@@ -85,7 +92,6 @@ public class CursoController {
 				c.setSeccion(cursos.get(i).getSeccion());
 			}
 		}
-		
 		cursoService.updateCurso(curso, curso.getId());
 		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("curso",curso);

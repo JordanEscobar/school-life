@@ -35,10 +35,13 @@
 		    <option th:value="'desactivado'" th:text="desactivado"></option>
 		</select>
 	  </div>
-	  <div class="mb-3">
-	    <label for="profesorJefe" class="form-label">Profesor Jefe</label>
-	    <input type="number" class="form-control" id="profesor_jefe" th:field="*{profesor_jefe}">
+	  <div class="mb-3" >
+	  <label for="estado" class="form-label">Selecciona el Profesor</label>
+	  	<select class="form-control" th:field="*{profesor_jefe}" >
+		    <option th:each="p : ${profesores}" th:value="${p.id}"  th:text="${p.nombre} + ' ' + ${p.apaterno} + ' ' + ${p.amaterno}"></option>
+		</select>
 	  </div>
+	  <br>
 	  <a class="btn btn-secondary" th:href="@{/cursoAtras}">Cancelar</a>
 	  <button type="submit" class="btn btn-primary">Modificar Curso</button>
 	</form>
@@ -47,6 +50,5 @@
 	<div class="col-md-4 mt-5 text-center">
 		<div class="alert alert-success text-center" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
-
 </body>
 </html>
