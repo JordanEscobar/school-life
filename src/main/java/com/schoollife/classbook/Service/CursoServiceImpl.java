@@ -2,12 +2,15 @@ package com.schoollife.classbook.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.schoollife.classbook.Entities.Curso;
+import com.schoollife.classbook.Entities.Profesor;
 import com.schoollife.classbook.Repository.CursoRepository;
+import com.schoollife.classbook.Repository.ProfesorRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -15,10 +18,13 @@ import jakarta.transaction.Transactional;
 public class CursoServiceImpl implements CursoService{
 	@Autowired
 	public final CursoRepository cursoRepository;
+	@Autowired
+	public final ProfesorRepository profesorRepository;
 
-	public CursoServiceImpl(CursoRepository cursoRepository) {
+	public CursoServiceImpl(CursoRepository cursoRepository, ProfesorRepository profesorRepository) {
 		super();
 		this.cursoRepository = cursoRepository;
+		this.profesorRepository = profesorRepository;
 	}
 
 	@Override
@@ -81,6 +87,26 @@ public class CursoServiceImpl implements CursoService{
 			cursoN.setEstado("activo");
 			cursoRepository.save(cursoN);
 		}
+	}
+
+	@Override
+	@Transactional
+	public Curso getCursoByIdProfesorJefe(Integer id) {
+		List<Curso> listaCurso = (List<Curso>) cursoRepository.findAll();
+		listaCurso = listaCurso.stream().filter(p -> p.getProfesor_jefe() == id).collect(Collectors.toList());
+		Curso c = new Curso();
+		for (Curso curso : listaCurso) {
+			if(curso.getProfesor_jefe() == id) {
+				c.setId(curso.getId());
+				c.setCantidad(curso.getCantidad());
+				c.setEstado(curso.getEstado());
+				c.setNombre(curso.getNombre());
+				c.setProfesor_jefe(curso.getProfesor_jefe());
+				c.setSeccion(curso.getSeccion());
+			}
+			
+		}
+		return c;
 	}
 
 }

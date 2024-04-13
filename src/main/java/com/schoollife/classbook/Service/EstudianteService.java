@@ -11,6 +11,8 @@ public interface EstudianteService {
 	Estudiante CreateEstudiante(Estudiante estudiante);
 
 	Estudiante getEstudianteById(Integer id);
+	
+	List<Estudiante> getEstudianteByIdCurso(Integer id);
 
 	void deleteEstudiante(Integer id);
 	

@@ -24,7 +24,7 @@ public class Estudiante {
 	@Column(name = "amaterno")
 	private String amaterno;
 	@Column(name = "direccion")
-	private Integer direccion;
+	private String direccion;
 	@Column(name = "telefono")
 	private Integer telefono;
 	@Column(name = "correo")
@@ -35,8 +35,10 @@ public class Estudiante {
 	private Integer colegio;
 	@Column(name = "cuenta_sys")
 	private Integer cuenta_sys;
-	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, Integer direccion,
-			Integer telefono, String correo, String estado, Integer colegio, Integer cuenta_sys) {
+	@Column(name = "curso")
+	private Integer curso;
+	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, String direccion,
+			Integer telefono, String correo, String estado, Integer colegio, Integer cuenta_sys, Integer curso) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -49,6 +51,7 @@ public class Estudiante {
 		this.estado = estado;
 		this.colegio = colegio;
 		this.cuenta_sys = cuenta_sys;
+		this.curso = curso;
 	}
 	public Estudiante() {
 		super();
@@ -83,10 +86,10 @@ public class Estudiante {
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
 	}
-	public Integer getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
-	public void setDireccion(Integer direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 	public Integer getTelefono() {
@@ -119,11 +122,17 @@ public class Estudiante {
 	public void setCuenta_sys(Integer cuenta_sys) {
 		this.cuenta_sys = cuenta_sys;
 	}
+	public Integer getCurso() {
+		return curso;
+	}
+	public void setCurso(Integer curso) {
+		this.curso = curso;
+	}
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
 				+ amaterno + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", estado="
-				+ estado + ", colegio=" + colegio + ", cuenta_sys=" + cuenta_sys + "]";
+				+ estado + ", colegio=" + colegio + ", cuenta_sys=" + cuenta_sys + ", curso=" + curso + "]";
 	}
 	
 	

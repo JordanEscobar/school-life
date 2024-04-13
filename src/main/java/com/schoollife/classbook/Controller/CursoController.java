@@ -1,6 +1,6 @@
 package com.schoollife.classbook.Controller;
 
-import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.classbook.Entities.Curso;
+import com.schoollife.classbook.Entities.Estudiante;
 import com.schoollife.classbook.Entities.Profesor;
 import com.schoollife.classbook.Service.CursoService;
+import com.schoollife.classbook.Service.EstudianteService;
 import com.schoollife.classbook.Service.ProfesorService;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,13 +24,14 @@ public class CursoController {
 	
 	@Autowired
 	private final CursoService cursoService;
-	
-	private final ProfesorService profesorService; 
+	private final ProfesorService profesorService;
+	private final EstudianteService estudianteService;
 
-	public CursoController(CursoService cursoService, ProfesorService profesorService) {
+	public CursoController(CursoService cursoService, ProfesorService profesorService, EstudianteService estudianteService) {
 		super();
 		this.cursoService = cursoService;
 		this.profesorService = profesorService;
+		this.estudianteService = estudianteService;
 	}
 
 	@GetMapping("/curso/listar/")
@@ -101,6 +104,17 @@ public class CursoController {
 	@GetMapping("/cursoAtras")
 	public String cursoAtras(Curso curso, Model model) {
 		return "redirect:/curso/listar/";
+	}
+	
+	@GetMapping("/curso/profesorJefe/{profesor_jefe}")
+	public String listCursoByProfesorJefe(Curso curso, @PathVariable Integer profesor_jefe, Model model) {
+		Curso cursoProfeJefe = cursoService.getCursoByIdProfesorJefe(profesor_jefe);		
+		Integer cursoId = cursoProfeJefe.getId();
+		List<Estudiante> estudiantes = estudianteService.getEstudianteByIdCurso(cursoId);
+		
+		model.addAttribute("estudiantes",estudiantes);
+		model.addAttribute("cursoProfeJefe",cursoProfeJefe);
+		return "CursoProfesorJefe";
 	}
 	
 

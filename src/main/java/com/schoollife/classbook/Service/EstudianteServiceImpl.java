@@ -1,10 +1,13 @@
 package com.schoollife.classbook.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Entities.Estudiante;
 import com.schoollife.classbook.Repository.EstudianteRepository;
 
@@ -56,6 +59,17 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Transactional
 	public Estudiante findEstudiante(Estudiante estudiante) {
 		return estudianteRepository.findById(estudiante.getId()).orElse(null);
+	}
+
+
+	@Override
+	@Transactional
+	public List<Estudiante> getEstudianteByIdCurso(Integer id) {
+		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(p -> p.getCurso() == id).collect(Collectors.toList());
+		System.out.print(listaEstudiante);
+
+		return listaEstudiante;
 	}
 
 }

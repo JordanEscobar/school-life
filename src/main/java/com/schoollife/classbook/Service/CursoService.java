@@ -11,6 +11,8 @@ public interface CursoService {
 	Curso CreateCurso(Curso curso);
 
 	Curso getCursoById(Integer id);
+	
+	Curso getCursoByIdProfesorJefe(Integer id);
 
 	void desactivarCurso(Curso curso, Integer id);
 	
