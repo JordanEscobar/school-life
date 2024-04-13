@@ -17,8 +17,7 @@
 
 
 	<!--  
-	<div class="container text-center">
-		<table class="table table-hover text-center">
+	
 		<thead class="table-primary">
 			<tr>
 				<th>CURSO</th>
@@ -44,23 +43,31 @@
 CURSO DEL PROFE JEFE SELECCIONADO: <h3 th:text="${cursoProfeJefe.nombre} + ' ' + ${cursoProfeJefe.seccion}"></h3>
 <hr>
 ESTUDIANTES DEL CURSO: 
-
-<table class="table table-hover text-center">
-		<thead class="table-primary">
-			<tr>
-				<th>NOMBRE</th>
-				<th>APELLIDO PATERNO</th>
-				<th>APELLIDO MATERNO</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="e : ${estudiantes}">
-				<td th:text="${e.nombre}"></td>
-				<td th:text="${e.apaterno}"></td>
-				<td th:text="${e.amaterno}"></td>
-			</tr>
-		</tbody>
-	</table>
-	
+	<div class="container text-center">
+		<table class="table table-hover text-center">
+					<thead class="table-primary">
+						<tr>
+							<th>RUT</th>
+							<th>NOMBRE</th>
+							<th>CORREO</th>
+							<th>TELEFONO</th>
+							<th>DIRECCION</th>
+							<th>OPCIONES</th>
+						</tr>
+					</thead>
+			<tbody>
+					<tr th:each="e : ${estudiantes}">
+					<td th:text="${e.rut}"></td>
+					<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno} "></td>
+					<td th:text="${e.correo}"></td>
+					<td th:text="${e.telefono}"></td>
+					<td th:text="${e.direccion}"></td>
+					<td>
+						<a class="btn btn-danger">OPCIÓN</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

@@ -67,8 +67,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public List<Estudiante> getEstudianteByIdCurso(Integer id) {
 		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
 		listaEstudiante = listaEstudiante.stream().filter(p -> p.getCurso() == id).collect(Collectors.toList());
-		System.out.print(listaEstudiante);
-
 		return listaEstudiante;
 	}
 

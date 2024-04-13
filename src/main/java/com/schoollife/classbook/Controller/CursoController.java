@@ -108,7 +108,8 @@ public class CursoController {
 	
 	@GetMapping("/curso/profesorJefe/{profesor_jefe}")
 	public String listCursoByProfesorJefe(Curso curso, @PathVariable Integer profesor_jefe, Model model) {
-		Curso cursoProfeJefe = cursoService.getCursoByIdProfesorJefe(profesor_jefe);		
+		
+		Curso cursoProfeJefe = cursoService.getCursoByIdProfesorJefe(profesor_jefe);	
 		Integer cursoId = cursoProfeJefe.getId();
 		List<Estudiante> estudiantes = estudianteService.getEstudianteByIdCurso(cursoId);
 		

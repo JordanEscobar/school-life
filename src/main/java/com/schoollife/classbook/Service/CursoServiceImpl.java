@@ -104,7 +104,6 @@ public class CursoServiceImpl implements CursoService{
 				c.setProfesor_jefe(curso.getProfesor_jefe());
 				c.setSeccion(curso.getSeccion());
 			}
-			
 		}
 		return c;
 	}
