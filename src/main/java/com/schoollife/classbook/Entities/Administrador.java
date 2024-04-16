@@ -1,6 +1,5 @@
 package com.schoollife.classbook.Entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,44 +7,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "profesores")
-public class Profesor {
+@Table(name = "administradores")
+public class Administrador {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "apaterno")
 	private String apaterno;
-	@Column(name = "amaterno")
 	private String amaterno;
-	@Column(name = "rut")
-	private String rut;
-	@Column(name = "correo")
 	private String correo;
-	@Column(name = "telefono")
 	private Integer telefono;
-	@Column(name = "especialidad")
-	private String especialidad;
-	@Column(name = "estado")
-	private String estado;
-	@Column(name = "colegio")
+	private Integer cuenta;
 	private Integer colegio;
-	public Profesor(Integer id, String nombre, String apaterno, String amaterno, String rut, String correo,
-			Integer telefono, String especialidad, String estado, Integer colegio) {
+	private String estado;
+	public Administrador(Integer id, String nombre, String apaterno, String amaterno, String correo, Integer telefono,
+			Integer cuenta, Integer colegio, String estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
-		this.rut = rut;
 		this.correo = correo;
 		this.telefono = telefono;
-		this.especialidad = especialidad;
-		this.estado = estado;
+		this.cuenta = cuenta;
 		this.colegio = colegio;
+		this.estado = estado;
 	}
-	public Profesor() {
+	public Administrador() {
 		super();
 	}
 	public Integer getId() {
@@ -72,12 +61,6 @@ public class Profesor {
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
 	}
-	public String getRut() {
-		return rut;
-	}
-	public void setRut(String rut) {
-		this.rut = rut;
-	}
 	public String getCorreo() {
 		return correo;
 	}
@@ -90,17 +73,11 @@ public class Profesor {
 	public void setTelefono(Integer telefono) {
 		this.telefono = telefono;
 	}
-	public String getEspecialidad() {
-		return especialidad;
+	public Integer getCuenta() {
+		return cuenta;
 	}
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setCuenta(Integer cuenta) {
+		this.cuenta = cuenta;
 	}
 	public Integer getColegio() {
 		return colegio;
@@ -108,17 +85,18 @@ public class Profesor {
 	public void setColegio(Integer colegio) {
 		this.colegio = colegio;
 	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	@Override
 	public String toString() {
-		return "Profesor [id=" + id + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno=" + amaterno
-				+ ", rut=" + rut + ", correo=" + correo + ", telefono=" + telefono + ", especialidad=" + especialidad
-				+ ", estado=" + estado + ", colegio=" + colegio + "]";
+		return "Administrador [id=" + id + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno=" + amaterno
+				+ ", correo=" + correo + ", telefono=" + telefono + ", cuenta=" + cuenta + ", colegio=" + colegio
+				+ ", estado=" + estado + "]";
 	}
-	
-	
-	
-	
-	
 	
 	
 

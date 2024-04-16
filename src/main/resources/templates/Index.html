@@ -10,19 +10,42 @@
 <script type="text/javascript" src="/js/sidebars.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 </head>
+<body>
 
-<header>
-  <nav id="sidebarMenu" class="d-lg-block sidebar bg-white">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Matrículas</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Asistencia</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Cursos</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Profesores</span></a>
-      </div>
-    </div>
-  </nav>
-</header>
+<div class="row">
+	<div class="col-2">
+		<header>
+		  <nav id="sidebarMenu" class="d-lg-block sidebar bg-white">
+		    <div class="position-sticky">
+		      <div class="list-group list-group-flush mx-3 mt-4">
+		      <a th:href="@{/}" class="list-group-item list-group-item-action py-2 ripple"><span>INICIO</span></a>
+		        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Matrículas</span></a>
+		        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Asistencia</span></a>
+		        <a th:href="@{/curso/listar/}" class="list-group-item list-group-item-action py-2 ripple"><span>Cursos</span></a>
+		        <a href="#" th:if="${tipo_user} == 'admin' " class="list-group-item list-group-item-action py-2 ripple"><span>Profesores</span></a>
+		        <a th:href="@{/login}" class="btn btn-outline-danger "><span>Cerrar Sesión</span></a>
+		      </div>
+		    </div>
+		  </nav>
+		</header>
+	</div>
+	<div class="col-10">
+		<div class="p-5 mb-4 bg-light rounded-2">
+			<div th:each="c : ${listaColegios}" class="container-fluid py-5">
+		    	<h1 class="display-5 fw-bold" th:text="${c.nombre}"></h1>
+		        <p class="col-md-8 fs-4" th:text="${c.descripcion}"></p>
+		        <br>
+		        <label>Correo</label>
+		    	<span th:text="${c.correo}"></span> - 
+		    	<label>Teléfono</label>
+		    	<span th:text="${c.telefono}"></span>
+		    </div>
+    	</div>	
+	</div>
+</div>
+
+
+
 	
 </body>
 </html>

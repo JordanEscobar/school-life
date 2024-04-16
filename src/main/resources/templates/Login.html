@@ -33,7 +33,8 @@
 	    <h3 class="h3 mb-3 fw-normal">Libro de Clases Online</h3>
 	
 	    <div class="form-floating">
-	      <input type="text" class="form-control" id="usuario" placeholder="Ingrese el usuario">
+	      <input type="text" class="form-control" th:value="${usuario}" id="usuario" placeholder="Ingrese el usuario">
+	      <input type="hidden" th:value="${usuario}">
 	      <label for="floatingInput">Usuario</label>
 	    </div>
 	    <div class="form-floating">
