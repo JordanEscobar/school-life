@@ -28,7 +28,6 @@
 </head>
 <body class="text-center">    
 	<main class="form-signin">
-	  <form th:action="@{/}" th:method="GET">
 	    <h1 class=" mb-3 fw-normal">School Life</h1>
 	    <h3 class="h3 mb-3 fw-normal">Libro de Clases Online</h3>
 	
@@ -43,8 +42,7 @@
 	    </div>
 	    <div class="mb-3">
 	    </div>
-	    <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
-	  </form>
+	    <a class="w-100 btn btn-lg btn-primary" th:href="@{/}" >Ingresar</a>
 	</main>     
   </body>
 </html>

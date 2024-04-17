@@ -22,11 +22,11 @@ public class ProfesorController {
 		this.profesorService = profesorService;
 	}
 
-	@GetMapping("/profesor/listar/")
+	@GetMapping("/profesor/listar")
 	public String profesorLista(Model model) {
 		var listaProfesor = profesorService.getAllProfesor();
 		model.addAttribute("listaProfesor",listaProfesor);
-		return "Index";
+		return "Profesor";
 	}
 	
 

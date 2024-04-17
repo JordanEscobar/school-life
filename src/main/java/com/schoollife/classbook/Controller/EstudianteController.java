@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Entities.Estudiante;
 import com.schoollife.classbook.Service.EstudianteService;
 
@@ -41,6 +42,14 @@ public class EstudianteController {
 		model.addAttribute("asistencias",asistencias);
 		model.addAttribute("listaEstudiante",listaEstudiante);
 		return "ListaEstudiante";
+	}
+	
+	@GetMapping("/estudiante/curso/{id}")
+	public String estudianteCurso(Curso curso,Model model) {
+		var estudiantesCurso = estudianteService.getEstudianteByIdCurso(curso.getId());
+		
+		model.addAttribute("estudiantesCurso",estudiantesCurso);
+		return "EstudianteCurso";
 	}
 	
 	@PostMapping("/guardarAsistencia")

@@ -34,22 +34,9 @@ public class HomeController {
 	
 	@GetMapping("/login")
 	public String login(Model model) {
-		String usuario = "";
-		model.addAttribute("usuario",usuario);
 		return "Login";
 	}
-	@GetMapping("/iniciarSesion")
-	public String loginIniciarSesion(@Param(value = "usuario") String usuario, Model model) {
-		String tipo_user = "";
-		if(usuario == "admin") {
-			tipo_user = "admin";
-		}
-		if(usuario == "profesor") {
-			tipo_user = "profesor";
-		}
-		model.addAttribute("tipo_user",tipo_user);
-		return "Index";
-	}
+
 	
 	@GetMapping("/cerrarSesion")
 	public String cerrarSesion(Model model,HttpSession sesion) throws ServletException {
