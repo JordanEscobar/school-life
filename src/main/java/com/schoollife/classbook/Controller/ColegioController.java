@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.schoollife.classbook.Entities.Administrador;
 import com.schoollife.classbook.Service.ColegioService;
 
 
@@ -20,12 +22,14 @@ public class ColegioController {
 		this.colegioService = colegioService;
 	}
 
-	@GetMapping("/colegio/listar/")
-	public String colegioLista(Model model) {
-		var listaColegio = colegioService.getAllColegios();
+	@GetMapping("/colegio/listar/{id}")
+	public String colegioLista(Administrador administrador,Model model) {
+		var listaColegio = colegioService.getColegioByUsuarioId(administrador.getId());
 		model.addAttribute("listaColegio",listaColegio);
 		return "Index";
 	}
+	
+	
 	
 	
 

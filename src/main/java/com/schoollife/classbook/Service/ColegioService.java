@@ -11,6 +11,8 @@ public interface ColegioService {
 	Colegio CreateColegio(Colegio colegio);
 
 	Colegio getColegioById(Integer id);
+	
+	Colegio getColegioByUsuarioId(Integer idAdministrador);
 
 	void deleteColegio(Integer id);
 	

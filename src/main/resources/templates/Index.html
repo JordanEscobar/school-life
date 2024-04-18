@@ -32,13 +32,21 @@
 	</div>
 	<div class="col-10">
 		<div class="container">
-			<div class="p-5 mb-4 rounded-2 text-center">
-				<img alt="logo"  src="/img/logo-school-life.png">
+			<div class="p-5 mb-4 rounded-2 text-center" th:if="${listaColegio != null}">
+				<h1 th:text="${listaColegio.getNombre()}"></h1>
+				<h3 th:text="${listaColegio.getDescripcion()}"></h3>
+				<br>
+				<br>
+				<h3 th:text="${listaColegio.getDireccion()}"></h3>
+				Correo: <span th:text="${listaColegio.getCorreo()}"></span>
+				,Teléfono: <span th:text="${listaColegio.getTelefono()}"></span>
     		</div>
 		</div>
 	
 	</div>
 </div>
+
+
 
 
 
