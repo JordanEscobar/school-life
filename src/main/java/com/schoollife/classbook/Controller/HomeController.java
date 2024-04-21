@@ -36,6 +36,11 @@ public class HomeController {
 	public String login(Model model) {
 		return "Login";
 	}
+	
+	@GetMapping("/asistenciaIndex")
+	public String asistenciaIndex(Model model) {
+		return "AsistenciaIndex";
+	}
 
 	
 	@GetMapping("/cerrarSesion")

@@ -21,7 +21,7 @@
 		      <div class="list-group list-group-flush mx-3 mt-4">
 		      <a th:href="@{/}" class="list-group-item list-group-item-action py-2 ripple"><span><i class="fa-solid fa-house"></i> Inicio</span></a>
 		        <a href="#" class="list-group-item list-group-item-action py-2 ripple text-info disabled"><span>Matrículas</span></a>
-		        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><span>Asistencia</span></a>
+		        <a th:href="@{/asistenciaIndex}" class="list-group-item list-group-item-action py-2 ripple"><span>Asistencia</span></a>
 		        <a th:href="@{/curso/listar/}" class="list-group-item list-group-item-action py-2 ripple"><span>Cursos</span></a>
 		        <a th:href="@{/profesor/listar}" class="list-group-item list-group-item-action py-2 ripple"><span>Profesores</span></a>
 		        <a th:href="@{/login}" class="btn btn-outline-danger "><span>Cerrar Sesión</span></a>
@@ -41,15 +41,10 @@
 				Correo: <span th:text="${listaColegio.getCorreo()}"></span>
 				,Teléfono: <span th:text="${listaColegio.getTelefono()}"></span>
     		</div>
-		</div>
-	
+		</div>	
 	</div>
 </div>
 
 
-
-
-
-	
 </body>
 </html>
