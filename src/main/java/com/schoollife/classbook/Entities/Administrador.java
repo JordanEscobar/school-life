@@ -13,26 +13,28 @@ public class Administrador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String rut;
 	private String nombre;
 	private String apaterno;
 	private String amaterno;
 	private String correo;
-	private Integer telefono;
-	private Integer cuenta;
-	private Integer colegio;
+	private String telefono;
 	private String estado;
-	public Administrador(Integer id, String nombre, String apaterno, String amaterno, String correo, Integer telefono,
-			Integer cuenta, Integer colegio, String estado) {
+	private Integer id_colegio;
+	private Integer id_login;
+	public Administrador(Integer id, String rut, String nombre, String apaterno, String amaterno, String correo,
+			String telefono, String estado, Integer id_colegio, Integer id_login) {
 		super();
 		this.id = id;
+		this.rut = rut;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
 		this.correo = correo;
 		this.telefono = telefono;
-		this.cuenta = cuenta;
-		this.colegio = colegio;
 		this.estado = estado;
+		this.id_colegio = id_colegio;
+		this.id_login = id_login;
 	}
 	public Administrador() {
 		super();
@@ -42,6 +44,12 @@ public class Administrador {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getRut() {
+		return rut;
+	}
+	public void setRut(String rut) {
+		this.rut = rut;
 	}
 	public String getNombre() {
 		return nombre;
@@ -67,23 +75,11 @@ public class Administrador {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-	public Integer getCuenta() {
-		return cuenta;
-	}
-	public void setCuenta(Integer cuenta) {
-		this.cuenta = cuenta;
-	}
-	public Integer getColegio() {
-		return colegio;
-	}
-	public void setColegio(Integer colegio) {
-		this.colegio = colegio;
 	}
 	public String getEstado() {
 		return estado;
@@ -91,13 +87,27 @@ public class Administrador {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public Integer getId_colegio() {
+		return id_colegio;
+	}
+	public void setId_colegio(Integer id_colegio) {
+		this.id_colegio = id_colegio;
+	}
+	public Integer getId_login() {
+		return id_login;
+	}
+	public void setId_login(Integer id_login) {
+		this.id_login = id_login;
+	}
 	@Override
 	public String toString() {
-		return "Administrador [id=" + id + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno=" + amaterno
-				+ ", correo=" + correo + ", telefono=" + telefono + ", cuenta=" + cuenta + ", colegio=" + colegio
-				+ ", estado=" + estado + "]";
+		return "Administrador [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno
+				+ ", amaterno=" + amaterno + ", correo=" + correo + ", telefono=" + telefono + ", estado=" + estado
+				+ ", id_colegio=" + id_colegio + ", id_login=" + id_login + "]";
 	}
 	
+	
+
 	
 
 }

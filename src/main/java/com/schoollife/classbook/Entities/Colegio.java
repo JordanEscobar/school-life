@@ -15,26 +15,26 @@ public class Colegio {
 	private Integer id;
 	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "correo")
-	private String correo;
-	@Column(name = "telefono")
-	private Integer telefono;
 	@Column(name = "rbd")
 	private Integer rbd;
 	@Column(name = "direccion")
 	private String direccion;
+	@Column(name = "telefono")
+	private String telefono;
 	@Column(name = "descripcion")
 	private String descripcion;
-	public Colegio(Integer id, String nombre, String correo, Integer telefono, Integer rbd, String direccion,
-			String descripcion) {
+	@Column(name = "correo")
+	private String correo;
+	public Colegio(Integer id, String nombre, Integer rbd, String direccion, String telefono, String descripcion,
+			String correo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.correo = correo;
-		this.telefono = telefono;
 		this.rbd = rbd;
 		this.direccion = direccion;
+		this.telefono = telefono;
 		this.descripcion = descripcion;
+		this.correo = correo;
 	}
 	public Colegio() {
 		super();
@@ -51,18 +51,6 @@ public class Colegio {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	public Integer getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(Integer telefono) {
-		this.telefono = telefono;
-	}
 	public Integer getRbd() {
 		return rbd;
 	}
@@ -75,17 +63,31 @@ public class Colegio {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 	@Override
 	public String toString() {
-		return "Colegio [id=" + id + ", nombre=" + nombre + ", correo=" + correo + ", telefono=" + telefono + ", rbd="
-				+ rbd + ", direccion=" + direccion + ", descripcion=" + descripcion + "]";
+		return "Colegio [id=" + id + ", nombre=" + nombre + ", rbd=" + rbd + ", direccion=" + direccion + ", telefono="
+				+ telefono + ", descripcion=" + descripcion + ", correo=" + correo + "]";
 	}
+	
+	
 	
 	
 	

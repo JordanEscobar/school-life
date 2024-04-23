@@ -19,18 +19,28 @@ public class Curso {
 	private char seccion;
 	@Column(name = "cantidad")
 	private Integer cantidad;
+	@Column(name = "cantidad_max")
+	private Integer cantidad_max;
+	@Column(name = "cantidad_min")
+	private Integer cantidad_min;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name= "profesor_jefe")
-	private Integer profesor_jefe;
-	public Curso(Integer id, String nombre, char seccion, Integer cantidad, String estado, Integer profesor_jefe) {
+	@Column(name= "id_colegio")
+	private Integer id_colegio;
+	@Column(name= "id_profesor_jefe")
+	private Integer id_profesor_jefe;
+	public Curso(Integer id, String nombre, char seccion, Integer cantidad, Integer cantidad_max, Integer cantidad_min,
+			String estado, Integer id_colegio, Integer id_profesor_jefe) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.seccion = seccion;
 		this.cantidad = cantidad;
+		this.cantidad_max = cantidad_max;
+		this.cantidad_min = cantidad_min;
 		this.estado = estado;
-		this.profesor_jefe = profesor_jefe;
+		this.id_colegio = id_colegio;
+		this.id_profesor_jefe = id_profesor_jefe;
 	}
 	public Curso() {
 		super();
@@ -59,23 +69,46 @@ public class Curso {
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
+	public Integer getCantidad_max() {
+		return cantidad_max;
+	}
+	public void setCantidad_max(Integer cantidad_max) {
+		this.cantidad_max = cantidad_max;
+	}
+	public Integer getCantidad_min() {
+		return cantidad_min;
+	}
+	public void setCantidad_min(Integer cantidad_min) {
+		this.cantidad_min = cantidad_min;
+	}
 	public String getEstado() {
 		return estado;
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getProfesor_jefe() {
-		return profesor_jefe;
+	public Integer getId_colegio() {
+		return id_colegio;
 	}
-	public void setProfesor_jefe(Integer profesor_jefe) {
-		this.profesor_jefe = profesor_jefe;
+	public void setId_colegio(Integer id_colegio) {
+		this.id_colegio = id_colegio;
+	}
+	public Integer getId_profesor_jefe() {
+		return id_profesor_jefe;
+	}
+	public void setId_profesor_jefe(Integer id_profesor_jefe) {
+		this.id_profesor_jefe = id_profesor_jefe;
 	}
 	@Override
 	public String toString() {
 		return "Curso [id=" + id + ", nombre=" + nombre + ", seccion=" + seccion + ", cantidad=" + cantidad
-				+ ", estado=" + estado + ", profesor_jefe=" + profesor_jefe + "]";
+				+ ", cantidad_max=" + cantidad_max + ", cantidad_min=" + cantidad_min + ", estado=" + estado
+				+ ", id_colegio=" + id_colegio + ", id_profesor_jefe=" + id_profesor_jefe + "]";
 	}
+	
+	
+	
+	
 	
 	
 	

@@ -91,7 +91,9 @@ public class CursoController {
 				c.setCantidad(cursos.get(i).getCantidad());
 				c.setEstado(cursos.get(i).getEstado());
 				c.setNombre(cursos.get(i).getNombre());
-				c.setProfesor_jefe(cursos.get(i).getProfesor_jefe());
+				c.setCantidad_min(cursos.get(i).getCantidad_min());
+				c.setCantidad_max(cursos.get(i).getCantidad_max());
+				c.setId_colegio(cursos.get(i).getId_colegio());
 				c.setSeccion(cursos.get(i).getSeccion());
 			}
 		}

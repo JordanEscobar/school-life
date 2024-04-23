@@ -17,21 +17,21 @@ public class Matricula {
 	private String descripcion;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "estudiante")
-	private Integer estudiante;
-	@Column(name = "apoderado")
-	private Integer apoderado;
-	@Column(name = "colegio")
-	private Integer colegio;
-	public Matricula(Integer id, String descripcion, String estado, Integer estudiante, Integer apoderado,
-			Integer colegio) {
+	@Column(name = "id_estudiante")
+	private Integer id_estudiante;
+	@Column(name = "id_apoderado")
+	private Integer id_apoderado;
+	@Column(name = "id_colegio")
+	private Integer id_colegio;
+	public Matricula(Integer id, String descripcion, String estado, Integer id_estudiante, Integer id_apoderado,
+			Integer id_colegio) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.estado = estado;
-		this.estudiante = estudiante;
-		this.apoderado = apoderado;
-		this.colegio = colegio;
+		this.id_estudiante = id_estudiante;
+		this.id_apoderado = id_apoderado;
+		this.id_colegio = id_colegio;
 	}
 	public Matricula() {
 		super();
@@ -54,29 +54,32 @@ public class Matricula {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getEstudiante() {
-		return estudiante;
+	public Integer getId_estudiante() {
+		return id_estudiante;
 	}
-	public void setEstudiante(Integer estudiante) {
-		this.estudiante = estudiante;
+	public void setId_estudiante(Integer id_estudiante) {
+		this.id_estudiante = id_estudiante;
 	}
-	public Integer getApoderado() {
-		return apoderado;
+	public Integer getId_apoderado() {
+		return id_apoderado;
 	}
-	public void setApoderado(Integer apoderado) {
-		this.apoderado = apoderado;
+	public void setId_apoderado(Integer id_apoderado) {
+		this.id_apoderado = id_apoderado;
 	}
-	public Integer getColegio() {
-		return colegio;
+	public Integer getId_colegio() {
+		return id_colegio;
 	}
-	public void setColegio(Integer colegio) {
-		this.colegio = colegio;
+	public void setId_colegio(Integer id_colegio) {
+		this.id_colegio = id_colegio;
 	}
 	@Override
 	public String toString() {
-		return "Matricula [id=" + id + ", descripcion=" + descripcion + ", estado=" + estado + ", estudiante="
-				+ estudiante + ", apoderado=" + apoderado + ", colegio=" + colegio + "]";
+		return "Matricula [id=" + id + ", descripcion=" + descripcion + ", estado=" + estado + ", id_estudiante="
+				+ id_estudiante + ", id_apoderado=" + id_apoderado + ", id_colegio=" + id_colegio + "]";
 	}
+	
+	
+	
 	
 	
 

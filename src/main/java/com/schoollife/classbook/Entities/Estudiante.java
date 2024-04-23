@@ -26,19 +26,19 @@ public class Estudiante {
 	@Column(name = "direccion")
 	private String direccion;
 	@Column(name = "telefono")
-	private Integer telefono;
+	private String telefono;
 	@Column(name = "correo")
 	private String correo;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "colegio")
-	private Integer colegio;
-	@Column(name = "cuenta_sys")
-	private Integer cuenta_sys;
-	@Column(name = "curso")
-	private Integer curso;
+	@Column(name = "id_colegio")
+	private Integer id_colegio;
+	@Column(name = "id_login")
+	private Integer id_login;
+	@Column(name = "id_curso")
+	private Integer id_curso;
 	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, String direccion,
-			Integer telefono, String correo, String estado, Integer colegio, Integer cuenta_sys, Integer curso) {
+			String telefono, String correo, String estado, Integer id_colegio, Integer id_login, Integer id_curso) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -49,9 +49,9 @@ public class Estudiante {
 		this.telefono = telefono;
 		this.correo = correo;
 		this.estado = estado;
-		this.colegio = colegio;
-		this.cuenta_sys = cuenta_sys;
-		this.curso = curso;
+		this.id_colegio = id_colegio;
+		this.id_login = id_login;
+		this.id_curso = id_curso;
 	}
 	public Estudiante() {
 		super();
@@ -92,10 +92,10 @@ public class Estudiante {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public String getCorreo() {
@@ -110,30 +110,34 @@ public class Estudiante {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getColegio() {
-		return colegio;
+	public Integer getId_colegio() {
+		return id_colegio;
 	}
-	public void setColegio(Integer colegio) {
-		this.colegio = colegio;
+	public void setId_colegio(Integer id_colegio) {
+		this.id_colegio = id_colegio;
 	}
-	public Integer getCuenta_sys() {
-		return cuenta_sys;
+	public Integer getId_login() {
+		return id_login;
 	}
-	public void setCuenta_sys(Integer cuenta_sys) {
-		this.cuenta_sys = cuenta_sys;
+	public void setId_login(Integer id_login) {
+		this.id_login = id_login;
 	}
-	public Integer getCurso() {
-		return curso;
+	public Integer getId_curso() {
+		return id_curso;
 	}
-	public void setCurso(Integer curso) {
-		this.curso = curso;
+	public void setId_curso(Integer id_curso) {
+		this.id_curso = id_curso;
 	}
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
 				+ amaterno + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", estado="
-				+ estado + ", colegio=" + colegio + ", cuenta_sys=" + cuenta_sys + ", curso=" + curso + "]";
+				+ estado + ", id_colegio=" + id_colegio + ", id_login=" + id_login + ", id_curso=" + id_curso + "]";
 	}
+	
+	
+	
+	
 	
 	
 	

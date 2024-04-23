@@ -20,15 +20,15 @@ public class Asignatura {
 	private Time hora_inicio;
 	@Column(name = "hora_termino")
 	private Time hora_termino;
-	@Column(name = "profesor_encargado")
-	private Integer profesor_encargado;
-	public Asignatura(Integer id, String nombre, Time hora_inicio, Time hora_termino, Integer profesor_encargado) {
+	@Column(name = "descripcion")
+	private String descripcion;
+	public Asignatura(Integer id, String nombre, Time hora_inicio, Time hora_termino, String descripcion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.hora_inicio = hora_inicio;
 		this.hora_termino = hora_termino;
-		this.profesor_encargado = profesor_encargado;
+		this.descripcion = descripcion;
 	}
 	public Asignatura() {
 		super();
@@ -57,17 +57,18 @@ public class Asignatura {
 	public void setHora_termino(Time hora_termino) {
 		this.hora_termino = hora_termino;
 	}
-	public Integer getProfesor_encargado() {
-		return profesor_encargado;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setProfesor_encargado(Integer profesor_encargado) {
-		this.profesor_encargado = profesor_encargado;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	@Override
 	public String toString() {
 		return "Asignatura [id=" + id + ", nombre=" + nombre + ", hora_inicio=" + hora_inicio + ", hora_termino="
-				+ hora_termino + ", profesor_encargado=" + profesor_encargado + "]";
+				+ hora_termino + ", descripcion=" + descripcion + "]";
 	}
+	
 	
 	
 	

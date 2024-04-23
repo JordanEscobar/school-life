@@ -8,32 +8,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "registro_asignatura")
-public class Registro_asignatura {
+@Table(name = "registro_cursos")
+public class Registro_curso {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "id_profesor")
-	private Integer id_profesor;
 	@Column(name = "id_estudiante")
 	private Integer id_estudiante;
 	@Column(name = "id_curso")
 	private Integer id_curso;
-	@Column(name = "id_asignatura")
-	private Integer id_asignatura;
+	@Column(name = "id_profesor_jefe")
+	private Integer id_profesor_jefe;
 	@Column(name = "descripcion")
 	private String descripcion;
-	public Registro_asignatura(Integer id, Integer id_profesor, Integer id_estudiante, Integer id_curso,
-			Integer id_asignatura, String descripcion) {
+	public Registro_curso(Integer id, Integer id_estudiante, Integer id_curso, Integer id_profesor_jefe,
+			String descripcion) {
 		super();
 		this.id = id;
-		this.id_profesor = id_profesor;
 		this.id_estudiante = id_estudiante;
 		this.id_curso = id_curso;
-		this.id_asignatura = id_asignatura;
+		this.id_profesor_jefe = id_profesor_jefe;
 		this.descripcion = descripcion;
 	}
-	public Registro_asignatura() {
+	public Registro_curso() {
 		super();
 	}
 	public Integer getId() {
@@ -41,12 +39,6 @@ public class Registro_asignatura {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public Integer getId_profesor() {
-		return id_profesor;
-	}
-	public void setId_profesor(Integer id_profesor) {
-		this.id_profesor = id_profesor;
 	}
 	public Integer getId_estudiante() {
 		return id_estudiante;
@@ -60,11 +52,11 @@ public class Registro_asignatura {
 	public void setId_curso(Integer id_curso) {
 		this.id_curso = id_curso;
 	}
-	public Integer getId_asignatura() {
-		return id_asignatura;
+	public Integer getId_profesor_jefe() {
+		return id_profesor_jefe;
 	}
-	public void setId_asignatura(Integer id_asignatura) {
-		this.id_asignatura = id_asignatura;
+	public void setId_profesor_jefe(Integer id_profesor_jefe) {
+		this.id_profesor_jefe = id_profesor_jefe;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -74,10 +66,9 @@ public class Registro_asignatura {
 	}
 	@Override
 	public String toString() {
-		return "Registro_asignatura [id=" + id + ", id_profesor=" + id_profesor + ", id_estudiante=" + id_estudiante
-				+ ", id_curso=" + id_curso + ", id_asignatura=" + id_asignatura + ", descripcion=" + descripcion + "]";
+		return "Registro_curso [id=" + id + ", id_estudiante=" + id_estudiante + ", id_curso=" + id_curso
+				+ ", id_profesor_jefe=" + id_profesor_jefe + ", descripcion=" + descripcion + "]";
 	}
-	
 	
 	
 	

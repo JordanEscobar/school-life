@@ -61,7 +61,7 @@ public class CursoServiceImpl implements CursoService{
 		cursoN.setSeccion(curso.getSeccion());
 		cursoN.setCantidad(curso.getCantidad());
 		cursoN.setEstado(curso.getEstado());
-		cursoN.setProfesor_jefe(curso.getProfesor_jefe());
+		cursoN.setId_profesor_jefe(curso.getId_profesor_jefe());
 		cursoRepository.save(cursoN);
 	}
 
@@ -93,19 +93,19 @@ public class CursoServiceImpl implements CursoService{
 	@Transactional
 	public Curso getCursoByIdProfesorJefe(Integer id) {
 		List<Curso> listaCurso = (List<Curso>) cursoRepository.findAll();
-		listaCurso = listaCurso.stream().filter(p -> p.getProfesor_jefe() == id).collect(Collectors.toList());
+		listaCurso = listaCurso.stream().filter(p -> p.getId_profesor_jefe() == id).collect(Collectors.toList());
 		Curso c = new Curso();
 		for (Curso curso : listaCurso) {
-			if(curso.getProfesor_jefe() == id) {
+			if(curso.getId_profesor_jefe() == id) {
 				c.setId(curso.getId());
 				c.setCantidad(curso.getCantidad());
 				c.setEstado(curso.getEstado());
 				c.setNombre(curso.getNombre());
-				c.setProfesor_jefe(curso.getProfesor_jefe());
+				c.setId_profesor_jefe(curso.getId_profesor_jefe());
 				c.setSeccion(curso.getSeccion());
 			}
 		}
-		return c;
+		return null;
 	}
 
 }

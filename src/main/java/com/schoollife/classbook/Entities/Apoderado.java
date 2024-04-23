@@ -26,13 +26,13 @@ public class Apoderado {
 	@Column(name = "correo")
 	private String correo;
 	@Column(name = "telefono")
-	private Integer telefono;
+	private String telefono;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "estudiante")
-	private Integer estudiante;
+	@Column(name = "id_estudiante")
+	private Integer id_estudiante;
 	public Apoderado(Integer id, String rut, String nombre, String apaterno, String amaterno, Integer direccion,
-			String correo, Integer telefono, String estado, Integer estudiante) {
+			String correo, String telefono, String estado, Integer id_estudiante) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -43,7 +43,7 @@ public class Apoderado {
 		this.correo = correo;
 		this.telefono = telefono;
 		this.estado = estado;
-		this.estudiante = estudiante;
+		this.id_estudiante = id_estudiante;
 	}
 	public Apoderado() {
 		super();
@@ -90,10 +90,10 @@ public class Apoderado {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public String getEstado() {
@@ -102,19 +102,18 @@ public class Apoderado {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getEstudiante() {
-		return estudiante;
+	public Integer getId_estudiante() {
+		return id_estudiante;
 	}
-	public void setEstudiante(Integer estudiante) {
-		this.estudiante = estudiante;
+	public void setId_estudiante(Integer id_estudiante) {
+		this.id_estudiante = id_estudiante;
 	}
 	@Override
 	public String toString() {
 		return "Apoderado [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
 				+ amaterno + ", direccion=" + direccion + ", correo=" + correo + ", telefono=" + telefono + ", estado="
-				+ estado + ", estudiante=" + estudiante + "]";
+				+ estado + ", id_estudiante=" + id_estudiante + "]";
 	}
-	
 	
 	
 	

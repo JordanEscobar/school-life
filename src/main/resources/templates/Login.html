@@ -32,17 +32,16 @@
 	    <h3 class="h3 mb-3 fw-normal">Libro de Clases Online</h3>
 	
 	    <div class="form-floating">
-	      <input type="text" class="form-control" th:value="${usuario}" id="usuario" placeholder="Ingrese el usuario">
-	      <input type="hidden" th:value="${usuario}">
+	      <input type="text" name="usuario" class="form-control" th:value="${usuario}" id="usuario" >
 	      <label for="floatingInput">Usuario</label>
 	    </div>
 	    <div class="form-floating">
-	      <input type="password" class="form-control" id="password" placeholder="Password">
+	      <input type="password" name="contrasena" th:value="${contrasena}" class="form-control" id="contrasena" >
 	      <label for="floatingPassword">Contraseña</label>
 	    </div>
 	    <div class="mb-3">
 	    </div>
-	    <a class="w-100 btn btn-lg btn-primary" th:href="@{/}" >Ingresar</a>
+	    <a class="w-100 btn btn-lg btn-primary" th:href="@{/iniciarSesion}" >Ingresar</a>
 	</main>     
   </body>
 </html>

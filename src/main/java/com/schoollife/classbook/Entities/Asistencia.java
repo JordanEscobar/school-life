@@ -15,18 +15,18 @@ public class Asistencia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "registro_asignatura")
-	private Integer registro_asignatura;
+	@Column(name = "registro_asignaturas")
+	private Integer id_registro_asignaturas;
 	@Column(name = "fecha")
 	private Date fecha;
 	@Column(name = "estado")
-	private boolean estado;
+	private String estado;
 	@Column(name = "descripcion")
 	private String descripcion;
-	public Asistencia(Integer id, Integer registro_asignatura, Date fecha, boolean estado, String descripcion) {
+	public Asistencia(Integer id, Integer id_registro_asignaturas, Date fecha, String estado, String descripcion) {
 		super();
 		this.id = id;
-		this.registro_asignatura = registro_asignatura;
+		this.id_registro_asignaturas = id_registro_asignaturas;
 		this.fecha = fecha;
 		this.estado = estado;
 		this.descripcion = descripcion;
@@ -40,11 +40,11 @@ public class Asistencia {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getRegistro_asignatura() {
-		return registro_asignatura;
+	public Integer getId_registro_asignaturas() {
+		return id_registro_asignaturas;
 	}
-	public void setRegistro_asignatura(Integer registro_asignatura) {
-		this.registro_asignatura = registro_asignatura;
+	public void setId_registro_asignaturas(Integer id_registro_asignaturas) {
+		this.id_registro_asignaturas = id_registro_asignaturas;
 	}
 	public Date getFecha() {
 		return fecha;
@@ -52,10 +52,10 @@ public class Asistencia {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public boolean isEstado() {
+	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	public String getDescripcion() {
@@ -66,9 +66,11 @@ public class Asistencia {
 	}
 	@Override
 	public String toString() {
-		return "Asistencia [id=" + id + ", registro_asignatura=" + registro_asignatura + ", fecha=" + fecha
+		return "Asistencia [id=" + id + ", id_registro_asignaturas=" + id_registro_asignaturas + ", fecha=" + fecha
 				+ ", estado=" + estado + ", descripcion=" + descripcion + "]";
 	}
+	
+	
 	
 	
 

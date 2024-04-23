@@ -21,29 +21,32 @@ public class Profesor {
 	private String amaterno;
 	@Column(name = "rut")
 	private String rut;
+	@Column(name = "especialidad")
+	private String especialidad;
 	@Column(name = "correo")
 	private String correo;
 	@Column(name = "telefono")
-	private Integer telefono;
-	@Column(name = "especialidad")
-	private String especialidad;
+	private String telefono;
+	@Column(name = "id_colegio")
+	private Integer id_colegio;
+	@Column(name = "id_login")
+	private Integer id_login;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "colegio")
-	private Integer colegio;
-	public Profesor(Integer id, String nombre, String apaterno, String amaterno, String rut, String correo,
-			Integer telefono, String especialidad, String estado, Integer colegio) {
+	public Profesor(Integer id, String nombre, String apaterno, String amaterno, String rut, String especialidad,
+			String correo, String telefono, Integer id_colegio, Integer id_login, String estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
 		this.rut = rut;
+		this.especialidad = especialidad;
 		this.correo = correo;
 		this.telefono = telefono;
-		this.especialidad = especialidad;
+		this.id_colegio = id_colegio;
+		this.id_login = id_login;
 		this.estado = estado;
-		this.colegio = colegio;
 	}
 	public Profesor() {
 		super();
@@ -78,23 +81,35 @@ public class Profesor {
 	public void setRut(String rut) {
 		this.rut = rut;
 	}
+	public String getEspecialidad() {
+		return especialidad;
+	}
+	public void setEspecialidad(String especialidad) {
+		this.especialidad = especialidad;
+	}
 	public String getCorreo() {
 		return correo;
 	}
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Integer getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getEspecialidad() {
-		return especialidad;
+	public Integer getId_colegio() {
+		return id_colegio;
 	}
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
+	public void setId_colegio(Integer id_colegio) {
+		this.id_colegio = id_colegio;
+	}
+	public Integer getId_login() {
+		return id_login;
+	}
+	public void setId_login(Integer id_login) {
+		this.id_login = id_login;
 	}
 	public String getEstado() {
 		return estado;
@@ -102,21 +117,15 @@ public class Profesor {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getColegio() {
-		return colegio;
-	}
-	public void setColegio(Integer colegio) {
-		this.colegio = colegio;
-	}
 	@Override
 	public String toString() {
 		return "Profesor [id=" + id + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno=" + amaterno
-				+ ", rut=" + rut + ", correo=" + correo + ", telefono=" + telefono + ", especialidad=" + especialidad
-				+ ", estado=" + estado + ", colegio=" + colegio + "]";
+				+ ", rut=" + rut + ", especialidad=" + especialidad + ", correo=" + correo + ", telefono=" + telefono
+				+ ", id_colegio=" + id_colegio + ", id_login=" + id_login + ", estado=" + estado + "]";
 	}
 	
 	
-	
+
 	
 	
 	

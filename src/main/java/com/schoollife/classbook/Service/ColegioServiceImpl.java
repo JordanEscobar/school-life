@@ -74,10 +74,10 @@ public class ColegioServiceImpl implements ColegioService{
 		Optional<Administrador> ad = administradorRepository.findById(idAdministrador);
 		
 		List<Colegio> listaColegio = (List<Colegio>) colegioRepository.findAll();
-		listaColegio = listaColegio.stream().filter(c -> c.getId() == ad.get().getColegio()).collect(Collectors.toList());
+		listaColegio = listaColegio.stream().filter(c -> c.getId() == ad.get().getId_colegio()).collect(Collectors.toList());
 		Colegio c = new Colegio();
 		for (Colegio colegio : listaColegio) {
-			if(colegio.getId() == ad.get().getColegio()) {
+			if(colegio.getId() == ad.get().getId_colegio()) {
 				c.setCorreo(colegio.getCorreo());
 				c.setDescripcion(colegio.getDescripcion());
 				c.setDireccion(colegio.getDireccion());
