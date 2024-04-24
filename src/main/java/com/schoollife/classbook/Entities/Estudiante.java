@@ -1,12 +1,11 @@
 package com.schoollife.classbook.Entities;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +22,10 @@ public class Estudiante {
 	private String apaterno;
 	@Column(name = "amaterno")
 	private String amaterno;
+	@Column(name = "fecha_nacimiento")
+	private String fecha_nacimiento;
+	@ Column(name = "edad")
+	private Integer edad;
 	@Column(name = "direccion")
 	private String direccion;
 	@Column(name = "telefono")
@@ -31,20 +34,23 @@ public class Estudiante {
 	private String correo;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "id_colegio")
+	@JoinColumn(name = "id_colegio", nullable = false)
 	private Integer id_colegio;
-	@Column(name = "id_login")
+	@JoinColumn(name = "id_login", nullable = false)
 	private Integer id_login;
-	@Column(name = "id_curso")
+	@JoinColumn(name = "id_curso", nullable = false)
 	private Integer id_curso;
-	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, String direccion,
-			String telefono, String correo, String estado, Integer id_colegio, Integer id_login, Integer id_curso) {
+	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, String fecha_nacimiento,
+			Integer edad, String direccion, String telefono, String correo, String estado, Integer id_colegio,
+			Integer id_login, Integer id_curso) {
 		super();
 		this.id = id;
 		this.rut = rut;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.edad = edad;
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.correo = correo;
@@ -85,6 +91,18 @@ public class Estudiante {
 	}
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
+	}
+	public String getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+	public void setFecha_nacimiento(String fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+	public Integer getEdad() {
+		return edad;
+	}
+	public void setEdad(Integer edad) {
+		this.edad = edad;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -131,8 +149,9 @@ public class Estudiante {
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
-				+ amaterno + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", estado="
-				+ estado + ", id_colegio=" + id_colegio + ", id_login=" + id_login + ", id_curso=" + id_curso + "]";
+				+ amaterno + ", fecha_nacimiento=" + fecha_nacimiento + ", edad=" + edad + ", direccion=" + direccion
+				+ ", telefono=" + telefono + ", correo=" + correo + ", estado=" + estado + ", id_colegio=" + id_colegio
+				+ ", id_login=" + id_login + ", id_curso=" + id_curso + "]";
 	}
 	
 	

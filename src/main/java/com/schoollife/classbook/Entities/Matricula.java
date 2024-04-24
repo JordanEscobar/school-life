@@ -1,10 +1,13 @@
 package com.schoollife.classbook.Entities;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,24 +16,22 @@ public class Matricula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "descripcion")
+	private Date fecha_matricula;
 	private String descripcion;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "id_estudiante")
+	@JoinColumn(name = "id_estudiante", nullable = false)
 	private Integer id_estudiante;
-	@Column(name = "id_apoderado")
-	private Integer id_apoderado;
-	@Column(name = "id_colegio")
+	@JoinColumn(name = "id_colegio", nullable = false)
 	private Integer id_colegio;
-	public Matricula(Integer id, String descripcion, String estado, Integer id_estudiante, Integer id_apoderado,
+	public Matricula(Integer id, Date fecha_matricula, String descripcion, String estado, Integer id_estudiante,
 			Integer id_colegio) {
 		super();
 		this.id = id;
+		this.fecha_matricula = fecha_matricula;
 		this.descripcion = descripcion;
 		this.estado = estado;
 		this.id_estudiante = id_estudiante;
-		this.id_apoderado = id_apoderado;
 		this.id_colegio = id_colegio;
 	}
 	public Matricula() {
@@ -41,6 +42,12 @@ public class Matricula {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Date getFecha_matricula() {
+		return fecha_matricula;
+	}
+	public void setFecha_matricula(Date fecha_matricula) {
+		this.fecha_matricula = fecha_matricula;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -60,12 +67,6 @@ public class Matricula {
 	public void setId_estudiante(Integer id_estudiante) {
 		this.id_estudiante = id_estudiante;
 	}
-	public Integer getId_apoderado() {
-		return id_apoderado;
-	}
-	public void setId_apoderado(Integer id_apoderado) {
-		this.id_apoderado = id_apoderado;
-	}
 	public Integer getId_colegio() {
 		return id_colegio;
 	}
@@ -74,9 +75,12 @@ public class Matricula {
 	}
 	@Override
 	public String toString() {
-		return "Matricula [id=" + id + ", descripcion=" + descripcion + ", estado=" + estado + ", id_estudiante="
-				+ id_estudiante + ", id_apoderado=" + id_apoderado + ", id_colegio=" + id_colegio + "]";
+		return "Matricula [id=" + id + ", fecha_matricula=" + fecha_matricula + ", descripcion=" + descripcion
+				+ ", estado=" + estado + ", id_estudiante=" + id_estudiante + ", id_colegio=" + id_colegio + "]";
 	}
+	
+	
+	
 	
 	
 	

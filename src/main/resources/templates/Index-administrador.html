@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de clases virtual School Life</title>
+<link href="/css/Style.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<script type="text/javascript" src="/js/Script.js"></script>
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+	<div class="row">
+		<div class="col-2">
+			<header>
+				<nav id="sidebarMenu" class="d-lg-block sidebar bg-white">
+					<div class="position-sticky">
+						<div class="list-group list-group-flush mx-3 mt-4">
+							<a class="list-group-item list-group-item-action py-2 ripple bg-primary text-light"><span><i
+									class="fa-solid fa-house"></i> Inicio</span></a> 
+							<a th:href="@{/curso}"  class="list-group-item list-group-item-action py-2 ripple"><span>Cursos</span></a>
+							<a th:href="@{/inicio/perfil}" class="btn btn-outline-danger "><span>Salir</span></a>
+						</div>
+					</div>
+				</nav>
+			</header>
+		</div>
+		<div class="col-10">
+		
+			<div class="container-fluid text-center">
+			<br><br>
+				<h2>Colegios Asociados</h2>
+				<br><br>
+				<div th:each="c : ${colegios}" class="container">
+					<br><br>
+					<h4 th:text="${c.nombre}"></h4>
+					<h6 th:text="' Dirección: ' +  ${c.direccion}"></h6>
+					<p th:text="' Correo: ' + ${c.correo} + '  Teléfono: ' + ${c.telefono}">
+					<br><br>
+				</div>
+				<br><br>
+				
+			
+			
+			
+			</div>
+		
+			
+			
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/css/Style.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<script type="text/javascript" src="/js/Script.js"></script>
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+
+	<div class="row">
+		<div class="col-2">
+			<header>
+				<nav id="sidebarMenu" class="d-lg-block sidebar bg-white">
+					<div class="position-sticky">
+						<div class="list-group list-group-flush mx-3 mt-4">
+							<a th:href="@{/inicio}" class="list-group-item list-group-item-action py-2 ripple"><span><i
+									class="fa-solid fa-house"></i> Inicio</span></a> <a class="list-group-item list-group-item-action py-2 ripple bg-primary text-light"><span>Cursos</span></a>
+							<a th:href="@{/inicio/perfil}" class="btn btn-outline-danger "><span>Salir</span></a>
+						</div>
+					</div>
+				</nav>
+			</header>
+		</div>
+		<div class="col-10">
+			<div class="container ">
+				<br><br>
+				<h2 class="text-center">Lista de Curso</h2>
+				<br><br>
+				<a th:href="@{/cursoAtras}" class="btn btn-outline-primary text-left">Atrás</a>
+				<br><br>
+				<div class="container text-center">
+		<table class="table table-hover text-center">
+		<thead class="table-primary">
+			<tr>
+				<th>#</th>
+				<th>NOMBRE</th>
+				<th>RUT</th>
+				<th>GENERO</th>
+				<th>CORREO</th>
+				<th>TELÉFONO</th>
+				<th>DIRECCIÓN</th>
+				<th>ESTADO</th>
+				<th>OPCIONES</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="e : ${estudiantesCurso}">
+				<td th:text="${e.id}"></td>
+				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' '  + ${e.amaterno}"></td>
+				<td th:text="${e.rut}"></td>
+				<td th:text="${e.edad}"></td>
+				<td th:text="${e.correo}"></td>
+				<td th:text="${e.telefono}"></td>
+				<td th:text="${e.direccion}"></td>
+				<td th:text="${e.estado}"></td>
+				<td>
+					<a class="btn btn-success" th:href="@{/asistencia/estudiante/} + ${e.id}" data-toggle="tooltip" data-placement="bottom" title="Ver asistencia"><i class="fa-solid fa-clipboard-user"></i></a>
+					<a th:href="@{/estudianteModificar/} + ${e.id}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

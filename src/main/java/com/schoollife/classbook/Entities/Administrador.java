@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,7 +21,9 @@ public class Administrador {
 	private String correo;
 	private String telefono;
 	private String estado;
+	@JoinColumn(name = "id_colegio", nullable = false)
 	private Integer id_colegio;
+	@JoinColumn(name = "id_login", nullable = false)
 	private Integer id_login;
 	public Administrador(Integer id, String rut, String nombre, String apaterno, String amaterno, String correo,
 			String telefono, String estado, Integer id_colegio, Integer id_login) {

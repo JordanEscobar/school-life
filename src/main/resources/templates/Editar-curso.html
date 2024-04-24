@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Libro de clases Online School Life</title>
+<title>Libro de clases virtual School Life</title>
 <link href="/css/Style.css" rel="stylesheet" type="text/css"
 	crossorigin="anonymous" />
 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
@@ -18,21 +18,26 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<div class="container text-center">
-	<div class="container m-0 vh-100 row justify-content-center align-items-center">
-		<div class="container row text-center row justify-content-center align-items-center">
-			<div class="col-sm-6 ">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">School Life</h5>
-						<p class="card-text">Libro de Clases Online</p>
-						<a th:href="@{/inicio/perfil}" class="btn btn-primary">Ingresar</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+<div class="container">
+	<form th:action="@{/cursoModificado}" method="post" th:object="${curso}">
+	<br><br>
+	<h3>Modificar datos del curso <span style="text-transform:uppercase;color:red;" th:text=" *{grado} + ' ' + *{seccion}"></span></h3>
+	<br><br>
+	<input type="hidden" name="id" th:field="*{id}"> 
+	  <div class="mb-3">
+	    <label for="grado" class="form-label">Grado</label>
+	    <input class="form-control" id="grado" th:field="*{grado}" type="text">
+	  </div>
+	  <div class="mb-3">
+	    <label for="seccion" class="form-label">Sección</label>
+	    <input type="text" class="form-control" id="seccion" th:field="*{seccion}">
+	  </div>
+	  <br>
+	  <a class="btn btn-secondary" th:href="@{/cursoAtras}">Cancelar</a>
+	  <button type="submit" class="btn btn-primary">Modificar Curso</button>
+	</form>
 </div>
-	
+<br><br>
 </body>
 </html>

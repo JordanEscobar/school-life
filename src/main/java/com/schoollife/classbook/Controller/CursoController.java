@@ -12,100 +12,105 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Entities.Estudiante;
-import com.schoollife.classbook.Entities.Profesor;
 import com.schoollife.classbook.Service.CursoService;
 import com.schoollife.classbook.Service.EstudianteService;
-import com.schoollife.classbook.Service.ProfesorService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CursoController {
-	
 	@Autowired
 	private final CursoService cursoService;
-	private final ProfesorService profesorService;
+	@Autowired
 	private final EstudianteService estudianteService;
-
-	public CursoController(CursoService cursoService, ProfesorService profesorService, EstudianteService estudianteService) {
+	
+	public CursoController(CursoService cursoService, EstudianteService estudianteService) {
 		super();
 		this.cursoService = cursoService;
-		this.profesorService = profesorService;
 		this.estudianteService = estudianteService;
 	}
 
-	@GetMapping("/curso/listar/")
-	public String cursoLista(Model model, HttpSession sesion) {
-		var listaCurso = cursoService.getAllCurso();
-		model.addAttribute("listaCurso",listaCurso);
-		return "Cursos";
+	@GetMapping("/curso")
+	public String indexCurso(Model model) {
+		var cursos = cursoService.getAll();
+		model.addAttribute("cursos",cursos);
+		return "Index-curso";
 	}
 	
-	@GetMapping("/desactivar/{id}")
-	public String desactivarCurso(Curso curso,RedirectAttributes flash,Model model, HttpSession sesion) {
-
-		var cursos = cursoService.getAllCurso();
-		Curso c = new Curso();
-		for (int i = 0; i < cursos.size(); i++) {
-			if (cursos.get(i).getId()==curso.getId()) {				
-				c.setId(cursos.get(i).getId());
-				c.setEstado(cursos.get(i).getEstado());		
-			}		
-		}		
-		cursoService.desactivarCurso(curso, curso.getId());
-		flash.addFlashAttribute("success","Curso desactivado correctamente");
-		return "redirect:/curso/listar/";	
-	}
-	
-	@GetMapping("/activar/{id}")
-	public String activarCurso(Curso curso,RedirectAttributes flash,Model model, HttpSession sesion) {
-
-		var cursos = cursoService.getAllCurso();
-		Curso c = new Curso();
-		for (int i = 0; i < cursos.size(); i++) {
-			if (cursos.get(i).getId()==curso.getId()) {				
-				c.setId(cursos.get(i).getId());
-				c.setEstado(cursos.get(i).getEstado());		
-			}		
-		}		
-		cursoService.activarCurso(curso, curso.getId());
-		flash.addFlashAttribute("success","Curso Activo correctamente");
-		return "redirect:/curso/listar/";	
+	@GetMapping("/misCursos")
+	public String indexMisCursos(Model model) {
+		var cursos = cursoService.getAll();
+		model.addAttribute("cursos",cursos);
+		return "Index-misCursos";
 	}
 	
 	@GetMapping("/cursosModificar/{id}")
-	public String cursoModificar(Curso curso, Model model) {
+	public String editCurso(Curso curso, Model model) {
 		curso = cursoService.findCurso(curso);
-		var profesores = profesorService.getAllProfesor();
-		model.addAttribute("profesores",profesores);
 		model.addAttribute("curso", curso);
-		return "CursosModificar";
+		return "Editar-curso";
 	}
-	@PostMapping(path = "/modificarCurso" /*, consumes = "application/x-ww-form-urlencoded"*/)
+	
+	@PostMapping(path = "/cursoModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
 	public String modificarCurso(Curso curso,RedirectAttributes flash, Model model) {
-		var cursos = cursoService.getAllCurso();
+		var cursos = cursoService.getAll();
 		Curso c = new Curso();
 		for (int i = 0; i < cursos.size(); i++) {
 			if (cursos.get(i).getId() == curso.getId()) {
 				c.setId(cursos.get(i).getId());
-				c.setCantidad(cursos.get(i).getCantidad());
-				c.setEstado(cursos.get(i).getEstado());
-				c.setNombre(cursos.get(i).getNombre());
-				c.setCantidad_min(cursos.get(i).getCantidad_min());
-				c.setCantidad_max(cursos.get(i).getCantidad_max());
-				c.setId_colegio(cursos.get(i).getId_colegio());
+				c.setGrado(cursos.get(i).getGrado());
 				c.setSeccion(cursos.get(i).getSeccion());
 			}
 		}
 		cursoService.updateCurso(curso, curso.getId());
 		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("curso",curso);
-		return "redirect:/curso/listar/";
+		return "redirect:/curso";
 	}
 	
 	@GetMapping("/cursoAtras")
 	public String cursoAtras(Curso curso, Model model) {
-		return "redirect:/curso/listar/";
+		return "redirect:/curso";
+	}
+	
+	@GetMapping("/curso/estudiante/{id}")
+	public String estudianteCurso(Curso curso,Model model) {
+		var estudiantesCurso = cursoService.getEstudianteByIdCurso(curso.getId());
+		model.addAttribute("estudiantesCurso",estudiantesCurso);
+		return "Curso-estudiante";
+	}
+	
+	@GetMapping("/estudianteModificar/{id}")
+	public String editEstudiante(Estudiante estudiante, Model model) {
+		estudiante = estudianteService.findEstudiante(estudiante);
+		model.addAttribute("estudiante", estudiante);
+		return "Editar-estudiante";
+	}
+	
+	@PostMapping(path = "/estudianteModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
+	public String modificarCurso(Estudiante estudiante,RedirectAttributes flash, Model model) {
+		var estudiantes = estudianteService.getAllEstudiante();
+		Estudiante e = new Estudiante();
+		for (int i = 0; i < estudiantes.size(); i++) {
+			if (estudiantes.get(i).getId() == estudiante.getId()) {
+				e.setId(estudiantes.get(i).getId());
+				e.setAmaterno(estudiantes.get(i).getAmaterno());
+				e.setApaterno(estudiantes.get(i).getApaterno());
+				e.setCorreo(estudiantes.get(i).getCorreo());
+				e.setId_colegio(estudiantes.get(i).getId_colegio());
+				e.setId_curso(estudiantes.get(i).getId_curso());
+				e.setId_login(estudiantes.get(i).getId_login());
+				e.setFecha_nacimiento(estudiantes.get(i).getFecha_nacimiento());
+				e.setDireccion(estudiantes.get(i).getDireccion());
+				e.setEstado(estudiantes.get(i).getEstado());
+				e.setEdad(estudiantes.get(i).getEdad());
+				e.setNombre(estudiantes.get(i).getNombre());
+				e.setRut(estudiantes.get(i).getRut());
+				e.setTelefono(estudiantes.get(i).getTelefono());
+			}
+		}
+		estudianteService.updateEstudiante(estudiante, estudiante.getId());
+		flash.addFlashAttribute("success","Modificado Correctamente");
+		model.addAttribute("estudiante",estudiante);
+		return "redirect:/curso";
 	}
 	
 	@GetMapping("/curso/profesorJefe/{profesor_jefe}")
@@ -120,6 +125,4 @@ public class CursoController {
 		return "CursoProfesorJefe";
 	}
 	
-
-
 }

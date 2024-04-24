@@ -6,49 +6,31 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.schoollife.classbook.Entities.Curso;
-import com.schoollife.classbook.Entities.Profesor;
+import com.schoollife.classbook.Entities.Estudiante;
 import com.schoollife.classbook.Repository.CursoRepository;
-import com.schoollife.classbook.Repository.ProfesorRepository;
+import com.schoollife.classbook.Repository.EstudianteRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class CursoServiceImpl implements CursoService{
+	
 	@Autowired
-	public final CursoRepository cursoRepository;
+	private final CursoRepository cursoRepository;
 	@Autowired
-	public final ProfesorRepository profesorRepository;
+	private final EstudianteRepository estudianteRepository;
 
-	public CursoServiceImpl(CursoRepository cursoRepository, ProfesorRepository profesorRepository) {
+	public CursoServiceImpl(CursoRepository cursoRepository, EstudianteRepository estudianteRepository) {
 		super();
 		this.cursoRepository = cursoRepository;
-		this.profesorRepository = profesorRepository;
+		this.estudianteRepository = estudianteRepository;
 	}
 
 	@Override
 	@Transactional
-	public List<Curso> getAllCurso() {
-		return (List<Curso>) cursoRepository.findAll();
-	}
-
-	@Override
-	@Transactional
-	public Curso CreateCurso(Curso curso) {
-		return cursoRepository.save(curso);
-	}
-
-	@Override
-	@Transactional
-	public Curso getCursoById(Integer id) {
-		return cursoRepository.findById(id).get();
-	}
-	
-	@Override
-	@Transactional
-	public Curso findCurso(Curso curso) {
-		return cursoRepository.findById(curso.getId()).orElse(null);
+	public List<Curso> getAll() {
+		return cursoRepository.findAll();
 	}
 
 	@Override
@@ -57,55 +39,43 @@ public class CursoServiceImpl implements CursoService{
 		Optional<Curso> cursoId = cursoRepository.findById(id);
 		Curso cursoN = cursoId.get();
 		cursoN.setId(curso.getId());
-		cursoN.setNombre(curso.getNombre());
+		cursoN.setGrado(curso.getGrado());
 		cursoN.setSeccion(curso.getSeccion());
-		cursoN.setCantidad(curso.getCantidad());
-		cursoN.setEstado(curso.getEstado());
-		cursoN.setId_profesor_jefe(curso.getId_profesor_jefe());
 		cursoRepository.save(cursoN);
 	}
 
 	@Override
 	@Transactional
-	public void desactivarCurso(Curso curso, Integer id) {
-		if (curso != null) {
-			Optional<Curso> cursoId = cursoRepository.findById(id);
-			Curso cursoN = cursoId.get();
-			cursoN.setId(curso.getId());
-			cursoN.setEstado("desactivado");
-			cursoRepository.save(cursoN);
-		}
-	}
-	
-	@Override
-	@Transactional
-	public void activarCurso(Curso curso, Integer id) {
-		if (curso != null) {
-			Optional<Curso> cursoId = cursoRepository.findById(id);
-			Curso cursoN = cursoId.get();
-			cursoN.setId(curso.getId());
-			cursoN.setEstado("activo");
-			cursoRepository.save(cursoN);
-		}
+	public Curso findCurso(Curso curso) {
+		return cursoRepository.findById(curso.getId()).orElse(null);
 	}
 
 	@Override
-	@Transactional
+	public List<Estudiante> getEstudianteByIdCurso(Integer id) {
+		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(e -> e.getId_curso() == id).collect(Collectors.toList());
+		return listaEstudiante;
+	}
+
+	@Override
 	public Curso getCursoByIdProfesorJefe(Integer id) {
 		List<Curso> listaCurso = (List<Curso>) cursoRepository.findAll();
-		listaCurso = listaCurso.stream().filter(p -> p.getId_profesor_jefe() == id).collect(Collectors.toList());
+		listaCurso = listaCurso.stream().filter(c -> c.getId_profesor_jefe() == id).collect(Collectors.toList());
 		Curso c = new Curso();
 		for (Curso curso : listaCurso) {
 			if(curso.getId_profesor_jefe() == id) {
 				c.setId(curso.getId());
 				c.setCantidad(curso.getCantidad());
 				c.setEstado(curso.getEstado());
-				c.setNombre(curso.getNombre());
+				c.setGrado(curso.getGrado());
+				c.setCantidad_max(curso.getCantidad_max());
+				c.setCantidad_min(curso.getCantidad_min());
+				c.setId_colegio(curso.getId_colegio());
 				c.setId_profesor_jefe(curso.getId_profesor_jefe());
 				c.setSeccion(curso.getSeccion());
 			}
 		}
-		return null;
+		return c;
 	}
 
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de Clases Online School life</title>
+<link href="/css/Style.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<script type="text/javascript" src="/js/Script.js"></script>
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<div class="container">
+	<form th:action="@{/asistenciaModificado}" method="post" th:object="${asistencias}">
+	<br><br>
+	<h3>Modificar Asistencia</h3>
+	<br><br>
+	<input type="hidden" name="id" th:field="*{id}"> 
+	  <div class="mb-3">
+			<input class="form-control" type="hidden" name="id_estudiante" th:field="*{id_estudiante}"> 
+	  </div>
+	  <div class="mb-3">
+	  <label for="estado" class="form-label">Estado</label>
+	  	<select class="form-control" th:field="*{estado}">
+		    <option th:value="'presente'" th:text="presente"></option>
+		    <option th:value="'ausente'" th:text="ausente"></option>
+		</select>
+		<span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Error Estado</span>
+	  </div>
+	  <div class="mb-3">
+	  	<input class="form-control" type="hidden" name="id_asignatura" th:field="*{id_asignatura}"> 
+	  </div>
+	  <div class="mb-3">
+	  	<input class="form-control" type="hidden" name="fecha" th:field="*{fecha}"> 
+	  </div>
+	  <div class="mb-3">
+	  <label for="descripcion" class="form-label">Descripción</label>
+	  	<input class="form-control" type="text" name="descripcion" th:field="*{descripcion}"> 
+	  	<span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error Descripción</span>
+	  </div>
+	  <br>
+	  <a class="btn btn-secondary" th:href="@{/cursoAtras}">Cancelar</a>
+	  <button type="submit" class="btn btn-primary">Modificar Asistencia</button>
+	</form>
+</div>
+<br><br>
+	<div class="col-md-4 mt-5 text-center">
+		<div class="alert alert-success text-center" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
+</body>
+</html>

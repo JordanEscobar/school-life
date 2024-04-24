@@ -11,11 +11,16 @@ public interface AsistenciaService {
 	Asistencia CreateAsistencia(Asistencia asistencia);
 
 	Asistencia getAsistenciaById(Integer id);
-
-	void deleteAsistencia(Integer id);
 	
 	void updateAsistencia(Asistencia asistencia, Integer id);
 	
     Asistencia findAsistencia(Asistencia asistencia);
+    
+    List<Asistencia> listaAsistencias();
+    
+    List<Object[]> obtenerDatos(Integer profesorId, Integer asignaturaId, Integer cursoId);
+    
+    List<Asistencia> obtenerAsistenciaEstudiante(Integer estudianteId);
+    
 
 }

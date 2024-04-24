@@ -5,35 +5,45 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cursos")
 public class Curso {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "nombre")
-	private String nombre;
+	@NotNull
+	@Column(name = "grado")
+	private String grado;
+	@NotNull
 	@Column(name = "seccion")
 	private char seccion;
+	@Min(value = 1)
 	@Column(name = "cantidad")
 	private Integer cantidad;
+	@Min(value = 1)
 	@Column(name = "cantidad_max")
 	private Integer cantidad_max;
+	@Min(value = 1)
 	@Column(name = "cantidad_min")
 	private Integer cantidad_min;
+	@NotNull
 	@Column(name = "estado")
 	private String estado;
-	@Column(name= "id_colegio")
+	@JoinColumn(name = "id_colegio", nullable = false)
 	private Integer id_colegio;
-	@Column(name= "id_profesor_jefe")
+	@JoinColumn(name = "id_profesor_jefe", nullable = false)
 	private Integer id_profesor_jefe;
-	public Curso(Integer id, String nombre, char seccion, Integer cantidad, Integer cantidad_max, Integer cantidad_min,
+	public Curso(Integer id, String grado, char seccion, Integer cantidad, Integer cantidad_max, Integer cantidad_min,
 			String estado, Integer id_colegio, Integer id_profesor_jefe) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
+		this.grado = grado;
 		this.seccion = seccion;
 		this.cantidad = cantidad;
 		this.cantidad_max = cantidad_max;
@@ -51,11 +61,11 @@ public class Curso {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getGrado() {
+		return grado;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setGrado(String grado) {
+		this.grado = grado;
 	}
 	public char getSeccion() {
 		return seccion;
@@ -101,15 +111,10 @@ public class Curso {
 	}
 	@Override
 	public String toString() {
-		return "Curso [id=" + id + ", nombre=" + nombre + ", seccion=" + seccion + ", cantidad=" + cantidad
+		return "Curso [id=" + id + ", grado=" + grado + ", seccion=" + seccion + ", cantidad=" + cantidad
 				+ ", cantidad_max=" + cantidad_max + ", cantidad_min=" + cantidad_min + ", estado=" + estado
 				+ ", id_colegio=" + id_colegio + ", id_profesor_jefe=" + id_profesor_jefe + "]";
 	}
-	
-	
-	
-	
-	
 	
 	
 	

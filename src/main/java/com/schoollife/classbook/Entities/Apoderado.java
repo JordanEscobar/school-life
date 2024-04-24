@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,7 +30,7 @@ public class Apoderado {
 	private String telefono;
 	@Column(name = "estado")
 	private String estado;
-	@Column(name = "id_estudiante")
+	@JoinColumn(name = "id_estudiante", nullable = false)
 	private Integer id_estudiante;
 	public Apoderado(Integer id, String rut, String nombre, String apaterno, String amaterno, Integer direccion,
 			String correo, String telefono, String estado, Integer id_estudiante) {

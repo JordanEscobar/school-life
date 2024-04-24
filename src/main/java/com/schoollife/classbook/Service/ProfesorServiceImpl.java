@@ -24,7 +24,7 @@ public class ProfesorServiceImpl implements ProfesorService{
 	@Override
 	@Transactional
 	public List<Profesor> getAllProfesor() {
-		return (List<Profesor>) profesorRepository.findAll();
+		return profesorRepository.findAll();
 	}
 
 	@Override

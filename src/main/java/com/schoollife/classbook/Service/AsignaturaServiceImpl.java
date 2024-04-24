@@ -23,7 +23,7 @@ public class AsignaturaServiceImpl implements AsignaturaService{
 	@Override
 	@Transactional
 	public List<Asignatura> getAllAsignaturas() {
-		return (List<Asignatura>) asignaturaRepository.findAll();
+		return asignaturaRepository.findAll();
 	}
 
 	@Override

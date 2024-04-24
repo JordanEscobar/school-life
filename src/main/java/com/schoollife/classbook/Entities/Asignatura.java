@@ -1,11 +1,11 @@
 package com.schoollife.classbook.Entities;
 
-import java.sql.Time;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,19 +16,16 @@ public class Asignatura {
 	private Integer id;
 	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "hora_inicio")
-	private Time hora_inicio;
-	@Column(name = "hora_termino")
-	private Time hora_termino;
 	@Column(name = "descripcion")
 	private String descripcion;
-	public Asignatura(Integer id, String nombre, Time hora_inicio, Time hora_termino, String descripcion) {
+	@JoinColumn(name = "id_profesor", nullable = false)
+	private Integer id_profesor;
+	public Asignatura(Integer id, String nombre, String descripcion, Integer id_profesor) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.hora_inicio = hora_inicio;
-		this.hora_termino = hora_termino;
 		this.descripcion = descripcion;
+		this.id_profesor = id_profesor;
 	}
 	public Asignatura() {
 		super();
@@ -45,29 +42,25 @@ public class Asignatura {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Time getHora_inicio() {
-		return hora_inicio;
-	}
-	public void setHora_inicio(Time hora_inicio) {
-		this.hora_inicio = hora_inicio;
-	}
-	public Time getHora_termino() {
-		return hora_termino;
-	}
-	public void setHora_termino(Time hora_termino) {
-		this.hora_termino = hora_termino;
-	}
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public Integer getId_profesor() {
+		return id_profesor;
+	}
+	public void setId_profesor(Integer id_profesor) {
+		this.id_profesor = id_profesor;
+	}
 	@Override
 	public String toString() {
-		return "Asignatura [id=" + id + ", nombre=" + nombre + ", hora_inicio=" + hora_inicio + ", hora_termino="
-				+ hora_termino + ", descripcion=" + descripcion + "]";
+		return "Asignatura [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", id_profesor="
+				+ id_profesor + "]";
 	}
+	
+	
 	
 	
 	
