@@ -42,7 +42,6 @@ Microsoft SQL Server - Base de datos
 Autores ✒️
 - Jordan Escobar Soto
 - Martín Reyes Pereira
-- Valentina Silva
 
 
 
