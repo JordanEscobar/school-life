@@ -2,6 +2,9 @@ package com.schoollife.classbook.Entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,23 +19,21 @@ public class Matricula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Date fecha_matricula;
-	private String descripcion;
+	@DateTimeFormat(iso=ISO.DATE)
+	private Date fecha;
 	@Column(name = "estado")
 	private String estado;
-	@JoinColumn(name = "id_estudiante", nullable = false)
-	private Integer id_estudiante;
-	@JoinColumn(name = "id_colegio", nullable = false)
-	private Integer id_colegio;
-	public Matricula(Integer id, Date fecha_matricula, String descripcion, String estado, Integer id_estudiante,
-			Integer id_colegio) {
+	@JoinColumn(name = "estudiante_id", nullable = false)
+	private Integer estudiante_id;
+	@JoinColumn(name = "colegio_id", nullable = false)
+	private Integer colegio_id;
+	public Matricula(Integer id, Date fecha, String estado, Integer estudiante_id, Integer colegio_id) {
 		super();
 		this.id = id;
-		this.fecha_matricula = fecha_matricula;
-		this.descripcion = descripcion;
+		this.fecha = fecha;
 		this.estado = estado;
-		this.id_estudiante = id_estudiante;
-		this.id_colegio = id_colegio;
+		this.estudiante_id = estudiante_id;
+		this.colegio_id = colegio_id;
 	}
 	public Matricula() {
 		super();
@@ -43,17 +44,11 @@ public class Matricula {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Date getFecha_matricula() {
-		return fecha_matricula;
+	public Date getFecha() {
+		return fecha;
 	}
-	public void setFecha_matricula(Date fecha_matricula) {
-		this.fecha_matricula = fecha_matricula;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	public String getEstado() {
 		return estado;
@@ -61,25 +56,23 @@ public class Matricula {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getId_estudiante() {
-		return id_estudiante;
+	public Integer getEstudiante_id() {
+		return estudiante_id;
 	}
-	public void setId_estudiante(Integer id_estudiante) {
-		this.id_estudiante = id_estudiante;
+	public void setEstudiante_id(Integer estudiante_id) {
+		this.estudiante_id = estudiante_id;
 	}
-	public Integer getId_colegio() {
-		return id_colegio;
+	public Integer getColegio_id() {
+		return colegio_id;
 	}
-	public void setId_colegio(Integer id_colegio) {
-		this.id_colegio = id_colegio;
+	public void setColegio_id(Integer colegio_id) {
+		this.colegio_id = colegio_id;
 	}
 	@Override
 	public String toString() {
-		return "Matricula [id=" + id + ", fecha_matricula=" + fecha_matricula + ", descripcion=" + descripcion
-				+ ", estado=" + estado + ", id_estudiante=" + id_estudiante + ", id_colegio=" + id_colegio + "]";
+		return "Matricula [id=" + id + ", fecha=" + fecha + ", estado=" + estado + ", estudiante_id=" + estudiante_id
+				+ ", colegio_id=" + colegio_id + "]";
 	}
-	
-	
 	
 	
 	

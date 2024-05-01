@@ -14,37 +14,34 @@ public class Apoderado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "rut")
-	private String rut;
 	@Column(name = "nombre")
 	private String nombre;
 	@Column(name = "apaterno")
 	private String apaterno;
 	@Column(name = "amaterno")
 	private String amaterno;
+	@Column(name = "rut")
+	private String rut;
 	@Column(name = "direccion")
 	private Integer direccion;
-	@Column(name = "correo")
-	private String correo;
 	@Column(name = "telefono")
 	private String telefono;
 	@Column(name = "estado")
 	private String estado;
-	@JoinColumn(name = "id_estudiante", nullable = false)
-	private Integer id_estudiante;
-	public Apoderado(Integer id, String rut, String nombre, String apaterno, String amaterno, Integer direccion,
-			String correo, String telefono, String estado, Integer id_estudiante) {
+	@JoinColumn(name = "estudiante_id", nullable = false)
+	private Integer estudiante_id;
+	public Apoderado(Integer id, String nombre, String apaterno, String amaterno, String rut, Integer direccion,
+			String telefono, String estado, Integer estudiante_id) {
 		super();
 		this.id = id;
-		this.rut = rut;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
+		this.rut = rut;
 		this.direccion = direccion;
-		this.correo = correo;
 		this.telefono = telefono;
 		this.estado = estado;
-		this.id_estudiante = id_estudiante;
+		this.estudiante_id = estudiante_id;
 	}
 	public Apoderado() {
 		super();
@@ -54,12 +51,6 @@ public class Apoderado {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getRut() {
-		return rut;
-	}
-	public void setRut(String rut) {
-		this.rut = rut;
 	}
 	public String getNombre() {
 		return nombre;
@@ -79,17 +70,17 @@ public class Apoderado {
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
 	}
+	public String getRut() {
+		return rut;
+	}
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
 	public Integer getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(Integer direccion) {
 		this.direccion = direccion;
-	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
 	}
 	public String getTelefono() {
 		return telefono;
@@ -103,17 +94,17 @@ public class Apoderado {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getId_estudiante() {
-		return id_estudiante;
+	public Integer getEstudiante_id() {
+		return estudiante_id;
 	}
-	public void setId_estudiante(Integer id_estudiante) {
-		this.id_estudiante = id_estudiante;
+	public void setEstudiante_id(Integer estudiante_id) {
+		this.estudiante_id = estudiante_id;
 	}
 	@Override
 	public String toString() {
-		return "Apoderado [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
-				+ amaterno + ", direccion=" + direccion + ", correo=" + correo + ", telefono=" + telefono + ", estado="
-				+ estado + ", id_estudiante=" + id_estudiante + "]";
+		return "Apoderado [id=" + id + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno=" + amaterno
+				+ ", rut=" + rut + ", direccion=" + direccion + ", telefono=" + telefono + ", estado=" + estado
+				+ ", estudiante_id=" + estudiante_id + "]";
 	}
 	
 	

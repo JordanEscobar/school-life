@@ -2,11 +2,15 @@ package com.schoollife.classbook.Entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +27,7 @@ public class Profesor {
 	private String apaterno;
 	@Column(name = "amaterno")
 	private String amaterno;
-	@Column(name = "fecha_nacimiento")
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
 	@Column(name = "telefono")
 	private String telefono;
@@ -31,16 +35,14 @@ public class Profesor {
 	private String direccion;
 	@Column(name = "correo")
 	private String correo;
-	@Column(name = "especialidad")
-	private String especialidad;
+	@Column(name = "contrasena")
+	private String contrasena;
 	@Column(name = "estado")
 	private String estado;
-	private Integer edad;
-	private Integer id_colegio;
-	private Integer id_login;
+	@JoinColumn(name = "colegio_id", nullable = false)
+	private Integer colegio_id;
 	public Profesor(Integer id, String rut, String nombre, String apaterno, String amaterno, Date fecha_nacimiento,
-			String telefono, String direccion, String correo, String especialidad, String estado, Integer edad,
-			Integer id_colegio, Integer id_login) {
+			String telefono, String direccion, String correo, String contrasena, String estado, Integer colegio_id) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -51,11 +53,9 @@ public class Profesor {
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.correo = correo;
-		this.especialidad = especialidad;
+		this.contrasena = contrasena;
 		this.estado = estado;
-		this.edad = edad;
-		this.id_colegio = id_colegio;
-		this.id_login = id_login;
+		this.colegio_id = colegio_id;
 	}
 	public Profesor() {
 		super();
@@ -114,11 +114,11 @@ public class Profesor {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getEspecialidad() {
-		return especialidad;
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	public String getEstado() {
 		return estado;
@@ -126,33 +126,22 @@ public class Profesor {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getEdad() {
-		return edad;
+	public Integer getColegio_id() {
+		return colegio_id;
 	}
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
-	public Integer getId_colegio() {
-		return id_colegio;
-	}
-	public void setId_colegio(Integer id_colegio) {
-		this.id_colegio = id_colegio;
-	}
-	public Integer getId_login() {
-		return id_login;
-	}
-	public void setId_login(Integer id_login) {
-		this.id_login = id_login;
+	public void setColegio_id(Integer colegio_id) {
+		this.colegio_id = colegio_id;
 	}
 	@Override
 	public String toString() {
 		return "Profesor [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
 				+ amaterno + ", fecha_nacimiento=" + fecha_nacimiento + ", telefono=" + telefono + ", direccion="
-				+ direccion + ", correo=" + correo + ", especialidad=" + especialidad + ", estado=" + estado + ", edad="
-				+ edad + ", id_colegio=" + id_colegio + ", id_login=" + id_login + "]";
+				+ direccion + ", correo=" + correo + ", contrasena=" + contrasena + ", estado=" + estado
+				+ ", colegio_id=" + colegio_id + "]";
 	}
 	
 	
+
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.schoollife.classbook.Entities;
 
-import jakarta.persistence.Column;
+import java.sql.Time;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,18 +15,23 @@ public class Asignatura {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "nombre")
 	private String nombre;
-	@Column(name = "descripcion")
-	private String descripcion;
-	@JoinColumn(name = "id_profesor", nullable = false)
-	private Integer id_profesor;
-	public Asignatura(Integer id, String nombre, String descripcion, Integer id_profesor) {
+	private String estado;
+	@JoinColumn(name = "profesor_id", nullable = false)
+	private Integer profesor_id;
+	private String dia;
+	private Time hora_inicio;
+	private Time hora_final;
+	public Asignatura(Integer id, String nombre, String estado, Integer profesor_id, String dia, Time hora_inicio,
+			Time hora_final) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.id_profesor = id_profesor;
+		this.estado = estado;
+		this.profesor_id = profesor_id;
+		this.dia = dia;
+		this.hora_inicio = hora_inicio;
+		this.hora_final = hora_final;
 	}
 	public Asignatura() {
 		super();
@@ -42,23 +48,43 @@ public class Asignatura {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDescripcion() {
-		return descripcion;
+	public String getEstado() {
+		return estado;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-	public Integer getId_profesor() {
-		return id_profesor;
+	public Integer getProfesor_id() {
+		return profesor_id;
 	}
-	public void setId_profesor(Integer id_profesor) {
-		this.id_profesor = id_profesor;
+	public void setProfesor_id(Integer profesor_id) {
+		this.profesor_id = profesor_id;
+	}
+	public String getDia() {
+		return dia;
+	}
+	public void setDia(String dia) {
+		this.dia = dia;
+	}
+	public Time getHora_inicio() {
+		return hora_inicio;
+	}
+	public void setHora_inicio(Time hora_inicio) {
+		this.hora_inicio = hora_inicio;
+	}
+	public Time getHora_final() {
+		return hora_final;
+	}
+	public void setHora_final(Time hora_final) {
+		this.hora_final = hora_final;
 	}
 	@Override
 	public String toString() {
-		return "Asignatura [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", id_profesor="
-				+ id_profesor + "]";
+		return "Asignatura [id=" + id + ", nombre=" + nombre + ", estado=" + estado + ", profesor_id=" + profesor_id
+				+ ", dia=" + dia + ", hora_inicio=" + hora_inicio + ", hora_final=" + hora_final + "]";
 	}
+	
+	
 	
 	
 	

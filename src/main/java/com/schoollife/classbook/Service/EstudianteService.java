@@ -5,17 +5,23 @@ import java.util.List;
 import com.schoollife.classbook.Entities.Estudiante;
 
 public interface EstudianteService {
-	
+	//Listar
 	List<Estudiante> getAllEstudiante();
-	
+	//Crear
 	Estudiante CreateEstudiante(Estudiante estudiante);
-
+	//Buscar por ID
 	Estudiante getEstudianteById(Integer id);
-	
-	List<Estudiante> getEstudianteByIdCurso(Integer id);
-
+	//Buscar estudiante por colegio y curso
+	List<Estudiante> estudiantePorColegioYCurso(Integer cursoid, Integer colegioid);
+	//Actualizar
 	void updateEstudiante(Estudiante estudiante, Integer id);
-
+	//Buscar estudiante por estudiante
     Estudiante findEstudiante(Estudiante estudiante);
+    
+    //Buscar estudiantes SEP
+  	List<Estudiante> estudiantesSep(String sep);
+  	
+  //Buscar estudiantes PIE
+  	List<Estudiante> estudiantesPie(String pie);
 
 }

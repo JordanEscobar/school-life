@@ -26,7 +26,7 @@
 	<br><br>
 	<input type="hidden" name="id" th:field="*{id}"> 
 	  <div class="mb-3">
-			<input class="form-control" type="hidden" name="id_estudiante" th:field="*{id_estudiante}"> 
+			<input class="form-control" type="hidden" name="id_estudiante" th:field="*{estudiante_id}"> 
 	  </div>
 	  <div class="mb-3">
 	  <label for="estado" class="form-label">Estado</label>
@@ -37,7 +37,7 @@
 		<span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Error Estado</span>
 	  </div>
 	  <div class="mb-3">
-	  	<input class="form-control" type="hidden" name="id_asignatura" th:field="*{id_asignatura}"> 
+	  	<input class="form-control" type="hidden" name="id_asignatura" th:field="*{asignatura_id}"> 
 	  </div>
 	  <div class="mb-3">
 	  	<input class="form-control" type="hidden" name="fecha" th:field="*{fecha}"> 

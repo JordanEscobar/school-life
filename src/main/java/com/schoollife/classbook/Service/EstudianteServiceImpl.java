@@ -21,60 +21,77 @@ public class EstudianteServiceImpl implements EstudianteService{
 		super();
 		this.estudianteRepository = estudianteRepository;
 	}
-
+	//listar
 	@Override
 	@Transactional
 	public List<Estudiante> getAllEstudiante() {
 		return estudianteRepository.findAll();
 	}
-
+	//Crear
 	@Override
 	@Transactional
 	public Estudiante CreateEstudiante(Estudiante estudiante) {
 		return estudianteRepository.save(estudiante);
 	}
-
+	//Buscar por ID
 	@Override
 	@Transactional
 	public Estudiante getEstudianteById(Integer id) {
 		return estudianteRepository.findById(id).get();
 	}
-
+	//Buscar estudiante por estudiante
 	@Override
 	@Transactional
 	public Estudiante findEstudiante(Estudiante estudiante) {
 		return estudianteRepository.findById(estudiante.getId()).orElse(null);
 	}
-
+	//Actualizar
 	@Override
 	@Transactional
-	public void updateEstudiante(Estudiante estudiante, Integer id) {
+	public void updateEstudiante(Estudiante estudiante, Integer id) {	
 		Optional<Estudiante> estudianteId = estudianteRepository.findById(id);
 		Estudiante estudianteN = estudianteId.get();
 		estudianteN.setId(estudiante.getId());
 		estudianteN.setAmaterno(estudiante.getAmaterno());
 		estudianteN.setApaterno(estudiante.getApaterno());
 		estudianteN.setCorreo(estudiante.getCorreo());
-		estudianteN.setId_curso(estudiante.getId_curso());
-		estudianteN.setId_colegio(estudiante.getId_colegio());
-		estudianteN.setId_login(estudiante.getId_login());
-		estudianteN.setEdad(estudiante.getEdad());
+		estudianteN.setCurso_id(estudiante.getCurso_id());
+		estudianteN.setColegio_id(estudiante.getColegio_id());
+		estudianteN.setContrasena(estudiante.getContrasena());
+		estudianteN.setPie(estudiante.getPie());
+		estudianteN.setSep(estudiante.getSep());
 		estudianteN.setDireccion(estudiante.getDireccion());
 		estudianteN.setEstado(estudiante.getEstado());
 		estudianteN.setFecha_nacimiento(estudiante.getFecha_nacimiento());
 		estudianteN.setNombre(estudiante.getNombre());
 		estudianteN.setRut(estudiante.getRut());
 		estudianteN.setTelefono(estudiante.getTelefono());
-		estudianteRepository.save(estudianteN);
-		
+		estudianteRepository.save(estudianteN);		
 	}
-
+	//buscar estudiantes por Colegio y curso
 	@Override
 	@Transactional
-	public List<Estudiante> getEstudianteByIdCurso(Integer id) {
-		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
-		listaEstudiante = listaEstudiante.stream().filter(p -> p.getId_curso() == id).collect(Collectors.toList());
-		return listaEstudiante;
+	public List<Estudiante> estudiantePorColegioYCurso(Integer cursoid, Integer colegioid){
+			List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+			listaEstudiante = listaEstudiante.stream().filter(p -> p.getCurso_id() == cursoid && p.getColegio_id() == colegioid).collect(Collectors.toList());
+			return listaEstudiante;	
 	}
+	//Buscar estudiantes SEP
+	@Override
+	@Transactional
+	public List<Estudiante> estudiantesSep(String sep) {
+		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(p -> p.getSep() == sep).collect(Collectors.toList());
+		return listaEstudiante;	
+	}
+	//Buscar estudiantes PIE
+	@Override
+	@Transactional
+	public List<Estudiante> estudiantesPie(String pie) {
+		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(p -> p.getPie() == pie).collect(Collectors.toList());
+		return listaEstudiante;	
+	}
+
 
 }

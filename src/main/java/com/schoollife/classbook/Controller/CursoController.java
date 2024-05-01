@@ -95,13 +95,12 @@ public class CursoController {
 				e.setAmaterno(estudiantes.get(i).getAmaterno());
 				e.setApaterno(estudiantes.get(i).getApaterno());
 				e.setCorreo(estudiantes.get(i).getCorreo());
-				e.setId_colegio(estudiantes.get(i).getId_colegio());
-				e.setId_curso(estudiantes.get(i).getId_curso());
-				e.setId_login(estudiantes.get(i).getId_login());
+				e.setColegio_id(estudiantes.get(i).getColegio_id());
+				e.setCurso_id(estudiantes.get(i).getCurso_id());
 				e.setFecha_nacimiento(estudiantes.get(i).getFecha_nacimiento());
 				e.setDireccion(estudiantes.get(i).getDireccion());
 				e.setEstado(estudiantes.get(i).getEstado());
-				e.setEdad(estudiantes.get(i).getEdad());
+				e.setContrasena(estudiantes.get(i).getContrasena());//debe ser hasheada
 				e.setNombre(estudiantes.get(i).getNombre());
 				e.setRut(estudiantes.get(i).getRut());
 				e.setTelefono(estudiantes.get(i).getTelefono());
@@ -118,7 +117,7 @@ public class CursoController {
 		
 		Curso cursoProfeJefe = cursoService.getCursoByIdProfesorJefe(profesor_jefe);	
 		Integer cursoId = cursoProfeJefe.getId();
-		List<Estudiante> estudiantes = estudianteService.getEstudianteByIdCurso(cursoId);
+		List<Estudiante> estudiantes = estudianteService.estudiantePorColegioYCurso(cursoId,1);
 		
 		model.addAttribute("estudiantes",estudiantes);
 		model.addAttribute("cursoProfeJefe",cursoProfeJefe);

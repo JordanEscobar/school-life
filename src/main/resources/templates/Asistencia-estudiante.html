@@ -56,7 +56,7 @@
 				<td th:text="${as.id}"></td>
 				<td th:text="${as.estado}"></td>
 				<td th:text="${#calendars.format(as.fecha,'dd-MMMM-yyyy')}"></td>
-				<td th:text="${as.id_asignatura}"></td>
+				<td th:text="${as.asignatura_id}"></td>
 				<td><a th:href="@{/asistenciaModificar/} + ${as.id}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a></td>
 			</tr>
 		</tbody>

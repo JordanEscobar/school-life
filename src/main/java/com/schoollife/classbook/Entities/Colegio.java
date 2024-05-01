@@ -21,20 +21,30 @@ public class Colegio {
 	private String direccion;
 	@Column(name = "telefono")
 	private String telefono;
-	@Column(name = "descripcion")
-	private String descripcion;
 	@Column(name = "correo")
 	private String correo;
-	public Colegio(Integer id, String nombre, Integer rbd, String direccion, String telefono, String descripcion,
-			String correo) {
+	@Column(name = "total_estudiantes")
+	private Integer total_estudiantes;
+	private String comuna;
+	private String provincia;
+	private String region;
+	private String director;
+	private float ive;
+	public Colegio(Integer id, String nombre, Integer rbd, String direccion, String telefono, String correo,
+			Integer total_estudiantes, String comuna, String provincia, String region, String director, float ive) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.rbd = rbd;
 		this.direccion = direccion;
 		this.telefono = telefono;
-		this.descripcion = descripcion;
 		this.correo = correo;
+		this.total_estudiantes = total_estudiantes;
+		this.comuna = comuna;
+		this.provincia = provincia;
+		this.region = region;
+		this.director = director;
+		this.ive = ive;
 	}
 	public Colegio() {
 		super();
@@ -69,23 +79,58 @@ public class Colegio {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
 	public String getCorreo() {
 		return correo;
 	}
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+	public Integer getTotal_estudiantes() {
+		return total_estudiantes;
+	}
+	public void setTotal_estudiantes(Integer total_estudiantes) {
+		this.total_estudiantes = total_estudiantes;
+	}
+	public String getComuna() {
+		return comuna;
+	}
+	public void setComuna(String comuna) {
+		this.comuna = comuna;
+	}
+	public String getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public String getDirector() {
+		return director;
+	}
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	public float getIve() {
+		return ive;
+	}
+	public void setIve(float ive) {
+		this.ive = ive;
+	}
 	@Override
 	public String toString() {
 		return "Colegio [id=" + id + ", nombre=" + nombre + ", rbd=" + rbd + ", direccion=" + direccion + ", telefono="
-				+ telefono + ", descripcion=" + descripcion + ", correo=" + correo + "]";
+				+ telefono + ", correo=" + correo + ", total_estudiantes=" + total_estudiantes + ", comuna=" + comuna
+				+ ", provincia=" + provincia + ", region=" + region + ", director=" + director + ", ive=" + ive + "]";
 	}
+	
+	
+	
+	
 	
 	
 	

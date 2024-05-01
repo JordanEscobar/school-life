@@ -26,13 +26,13 @@ public class CursoServiceImpl implements CursoService{
 		this.cursoRepository = cursoRepository;
 		this.estudianteRepository = estudianteRepository;
 	}
-
+	//listar todos los cursos
 	@Override
 	@Transactional
 	public List<Curso> getAll() {
 		return cursoRepository.findAll();
 	}
-
+	//actualizar
 	@Override
 	@Transactional
 	public void updateCurso(Curso curso, Integer id) {
@@ -43,39 +43,47 @@ public class CursoServiceImpl implements CursoService{
 		cursoN.setSeccion(curso.getSeccion());
 		cursoRepository.save(cursoN);
 	}
-
+	//buscar curso por curso
 	@Override
 	@Transactional
 	public Curso findCurso(Curso curso) {
 		return cursoRepository.findById(curso.getId()).orElse(null);
 	}
 
+	//curso por profesor jefe
 	@Override
-	public List<Estudiante> getEstudianteByIdCurso(Integer id) {
-		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
-		listaEstudiante = listaEstudiante.stream().filter(e -> e.getId_curso() == id).collect(Collectors.toList());
-		return listaEstudiante;
-	}
-
-	@Override
+	@Transactional
 	public Curso getCursoByIdProfesorJefe(Integer id) {
 		List<Curso> listaCurso = (List<Curso>) cursoRepository.findAll();
-		listaCurso = listaCurso.stream().filter(c -> c.getId_profesor_jefe() == id).collect(Collectors.toList());
+		listaCurso = listaCurso.stream().filter(c -> c.getProfesor_id() == id).collect(Collectors.toList());
 		Curso c = new Curso();
 		for (Curso curso : listaCurso) {
-			if(curso.getId_profesor_jefe() == id) {
+			if(curso.getProfesor_id() == id) {
 				c.setId(curso.getId());
-				c.setCantidad(curso.getCantidad());
 				c.setEstado(curso.getEstado());
 				c.setGrado(curso.getGrado());
-				c.setCantidad_max(curso.getCantidad_max());
-				c.setCantidad_min(curso.getCantidad_min());
-				c.setId_colegio(curso.getId_colegio());
-				c.setId_profesor_jefe(curso.getId_profesor_jefe());
+				c.setColegio_id(curso.getColegio_id());
+				c.setProfesor_id(curso.getProfesor_id());
 				c.setSeccion(curso.getSeccion());
 			}
 		}
 		return c;
+	}
+	//lista Cursos por colegio y estado
+	@Override
+	@Transactional
+	public List<Curso> cursoPorColegio(Integer colegioid) {
+		List<Curso> listaCurso = (List<Curso>) cursoRepository.findAll();
+		listaCurso = listaCurso.stream().filter(c -> c.getColegio_id() == colegioid).collect(Collectors.toList());
+		return listaCurso;
+	}
+	//estudiantes de un curso
+	@Override
+	@Transactional
+	public List<Estudiante> getEstudianteByIdCurso(Integer id) {
+		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(e -> e.getCurso_id() == id).collect(Collectors.toList());
+		return listaEstudiante;
 	}
 
 }

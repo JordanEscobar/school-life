@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Libro de clases virtual School Life</title>
+<title>school life</title>
 <link href="/css/Style.css" rel="stylesheet" type="text/css"
 	crossorigin="anonymous" />
 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
@@ -18,16 +18,16 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<div class="row">
+
+<div class="row">
 		<div class="col-2">
 			<header>
 				<nav id="sidebarMenu" class="d-lg-block sidebar bg-white">
 					<div class="position-sticky">
 						<div class="list-group list-group-flush mx-3 mt-4">
-							<a class="list-group-item list-group-item-action py-2 ripple bg-primary text-light"><span><i
+							<a th:href="@{/inicio}" class="list-group-item list-group-item-action py-2 ripple"><span><i
 									class="fa-solid fa-house"></i> Inicio</span></a> 
-							<a th:href="@{/matricula}"  class="list-group-item list-group-item-action py-2 ripple"><span>Matrículas</span></a>
-							<a th:href="@{/curso}"  class="list-group-item list-group-item-action py-2 ripple"><span>Cursos</span></a>
+							<a class="list-group-item list-group-item-action py-2 ripple bg-primary text-light"><span>Cursos</span></a>
 							<a th:href="@{/inicio/perfil}" class="btn btn-outline-danger "><span>Salir</span></a>
 						</div>
 					</div>
@@ -35,28 +35,35 @@
 			</header>
 		</div>
 		<div class="col-10">
-		
-			<div class="container-fluid text-center">
-			<br><br>
-				<h2>Colegios Asociados</h2>
+			<div class="container">
 				<br><br>
-				<div th:each="c : ${colegios}" class="container">
-					<br><br>
-					<h4 th:text="${c.nombre}"></h4>
-					<h6 th:text="' Dirección: ' +  ${c.direccion}"></h6>
-					<p th:text="' Correo: ' + ${c.correo} + '  Teléfono: ' + ${c.telefono}">
-					<br><br>
-				</div>
+				<h2 class="text-center">Alumnos con asistencia baja</h2>
 				<br><br>
-				
-			
-			
-			
+				<a th:href="@{/misCursos}" class="btn btn-outline-primary">Atrás</a>
+				<br><br>
+				<table class="table table-hover text-center">	
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nombre Alumno</th>
+							<th>Número de Clases</th>
+							<th>Porcentaje Asistencia</th>
+							<th>OPCIONES</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		
-			
 			
 		</div>
 	</div>
+
+
 </body>
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de clases Online School Life</title>
+<link href="/css/Style.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<script type="text/javascript" src="/js/Script.js"></script>
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container text-center">
+	<div class="container m-0 vh-100 row justify-content-center align-items-center">
+		<div class="container row text-center row justify-content-center align-items-center">
+			<div class="col-sm-4 ">
+				<h1>School Life</h1>
+				<h5>Libro de Clases Online</h5>
+				<br><br>
+				<div class="card">
+					<div class="card-body">
+						<a th:href="@{/inicio/perfil}" class="btn">Matrícula</a>
+					</div>
+				</div>
+				<br>
+				<div class="card">
+					<div class="card-body">
+						<a th:href="@{/inicio/perfil}" class="btn">Asistencia</a>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+</div>
+	
+</body>
+</html>

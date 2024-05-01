@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.schoollife.classbook.Service.ColegioService;
 
@@ -55,6 +54,21 @@ public class HomeController {
 		var colegios = colegioService.getAll();
 		model.addAttribute("colegios", colegios);
 		return "Index-administrador";
+	}
+	
+	@GetMapping("/home")
+	public String home(Model model) {
+		return "Home";
+	}
+	
+	@GetMapping("/matricula")
+	public String Matricula(Model model) {
+		return "Matricula";
+	}
+	
+	@GetMapping("/matricula/estudiante")
+	public String MatriculaRegistro(Model model) {
+		return "Matricula-registro";
 	}
 
 }

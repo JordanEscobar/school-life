@@ -12,12 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "asistencia")
+@Table(name = "asistencias")
 public class Asistencia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,24 +27,21 @@ public class Asistencia {
 	@NotEmpty
 	@Column(name = "estado")
 	private String estado;
-	@NotNull
-	@NotEmpty
-	@NotBlank
 	@Column(name = "descripcion")
 	private String descripcion;
-	@JoinColumn(name = "id_estudiante", nullable = false)
-	private Integer id_estudiante;
-	@JoinColumn(name = "id_asignatura", nullable = false)
-	private Integer id_asignatura;
-	public Asistencia(Integer id, Date fecha, String estado, String descripcion, Integer id_estudiante,
-			Integer id_asignatura) {
+	@JoinColumn(name = "estudiante_id", nullable = false)
+	private Integer estudiante_id;
+	@JoinColumn(name = "asignatura_id", nullable = false)
+	private Integer asignatura_id;
+	public Asistencia(Integer id, Date fecha, @NotNull @NotEmpty String estado, String descripcion,
+			Integer estudiante_id, Integer asignatura_id) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.estado = estado;
 		this.descripcion = descripcion;
-		this.id_estudiante = id_estudiante;
-		this.id_asignatura = id_asignatura;
+		this.estudiante_id = estudiante_id;
+		this.asignatura_id = asignatura_id;
 	}
 	public Asistencia() {
 		super();
@@ -74,27 +70,28 @@ public class Asistencia {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Integer getId_estudiante() {
-		return id_estudiante;
+	public Integer getEstudiante_id() {
+		return estudiante_id;
 	}
-	public void setId_estudiante(Integer id_estudiante) {
-		this.id_estudiante = id_estudiante;
+	public void setEstudiante_id(Integer estudiante_id) {
+		this.estudiante_id = estudiante_id;
 	}
-	public Integer getId_asignatura() {
-		return id_asignatura;
+	public Integer getAsignatura_id() {
+		return asignatura_id;
 	}
-	public void setId_asignatura(Integer id_asignatura) {
-		this.id_asignatura = id_asignatura;
+	public void setAsignatura_id(Integer asignatura_id) {
+		this.asignatura_id = asignatura_id;
 	}
 	@Override
 	public String toString() {
 		return "Asistencia [id=" + id + ", fecha=" + fecha + ", estado=" + estado + ", descripcion=" + descripcion
-				+ ", id_estudiante=" + id_estudiante + ", id_asignatura=" + id_asignatura + "]";
+				+ ", estudiante_id=" + estudiante_id + ", asignatura_id=" + asignatura_id + "]";
 	}
 	
 	
 	
-
+	
+	
 	
 
 	

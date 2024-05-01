@@ -1,9 +1,9 @@
 package com.schoollife.classbook.Repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.schoollife.classbook.Entities.Matricula;
 
-public interface MatriculaRepository extends CrudRepository<Matricula, Integer>{
+public interface MatriculaRepository extends JpaRepository<Matricula, Integer>{
 
 }

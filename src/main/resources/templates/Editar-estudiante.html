@@ -41,10 +41,6 @@
 	    <label for="grado" class="form-label">Apellido Materno</label>
 	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text">
 	  </div>
-	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Genero</label>
-	    <input type="number" class="form-control" id="genero" th:field="*{edad}">
-	  </div>
 	  	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Dirección</label>
 	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}">
@@ -63,19 +59,23 @@
 	  </div>
 	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Curso</label>
-	    <input type="number" class="form-control" id="curso_id" th:field="*{id_curso}">
+	    <input type="number" class="form-control" id="curso_id" th:field="*{curso_id}">
 	  </div>
 	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Curso</label>
-	    <input type="number" class="form-control" id="curso_id" th:field="*{id_colegio}">
+	    <label for="seccion" class="form-label">Colegio</label>
+	    <input type="number" class="form-control" id="curso_id" th:field="*{colegio_id}">
 	  </div>
 	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Curso</label>
-	    <input type="number" class="form-control" id="curso_id" th:field="*{id_login}">
-	  </div>
-	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Curso</label>
+	    <label for="seccion" class="form-label">Fecha nacimiento</label>
 	    <input type="date" class="form-control" id="curso_id" th:field="*{fecha_nacimiento}">
+	  </div>
+	  	  <div class="mb-3">
+	    <label for="seccion" class="form-label">PIE</label>
+	    <input type="text" class="form-control" id="curso_id" th:field="*{pie}">
+	  </div>
+	  	  <div class="mb-3">
+	    <label for="seccion" class="form-label">SEP</label>
+	    <input type="text" class="form-control" id="curso_id" th:field="*{sep}">
 	  </div>
 	  <br>
 	  <a class="btn btn-secondary" th:href="@{/cursoAtras}">Cancelar</a>

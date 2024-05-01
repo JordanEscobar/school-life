@@ -1,5 +1,8 @@
 package com.schoollife.classbook.Entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,27 +25,29 @@ public class Estudiante {
 	private String apaterno;
 	@Column(name = "amaterno")
 	private String amaterno;
-	@Column(name = "fecha_nacimiento")
+	@DateTimeFormat(iso=ISO.DATE)
 	private String fecha_nacimiento;
-	@ Column(name = "edad")
-	private Integer edad;
 	@Column(name = "direccion")
 	private String direccion;
 	@Column(name = "telefono")
 	private String telefono;
 	@Column(name = "correo")
 	private String correo;
+	@Column(name = "contrasena")
+	private String contrasena;
+	@Column(name = "sep")
+	private String sep;
+	@Column(name = "pie")
+	private String pie;
 	@Column(name = "estado")
 	private String estado;
-	@JoinColumn(name = "id_colegio", nullable = false)
-	private Integer id_colegio;
-	@JoinColumn(name = "id_login", nullable = false)
-	private Integer id_login;
-	@JoinColumn(name = "id_curso", nullable = false)
-	private Integer id_curso;
+	@JoinColumn(name = "colegio_id", nullable = false)
+	private Integer colegio_id;
+	@JoinColumn(name = "curso_id", nullable = false)
+	private Integer curso_id;
 	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, String fecha_nacimiento,
-			Integer edad, String direccion, String telefono, String correo, String estado, Integer id_colegio,
-			Integer id_login, Integer id_curso) {
+			String direccion, String telefono, String correo, String contrasena, String sep, String pie, String estado,
+			Integer colegio_id, Integer curso_id) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -50,14 +55,15 @@ public class Estudiante {
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
 		this.fecha_nacimiento = fecha_nacimiento;
-		this.edad = edad;
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.correo = correo;
+		this.contrasena = contrasena;
+		this.sep = sep;
+		this.pie = pie;
 		this.estado = estado;
-		this.id_colegio = id_colegio;
-		this.id_login = id_login;
-		this.id_curso = id_curso;
+		this.colegio_id = colegio_id;
+		this.curso_id = curso_id;
 	}
 	public Estudiante() {
 		super();
@@ -98,12 +104,6 @@ public class Estudiante {
 	public void setFecha_nacimiento(String fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
-	public Integer getEdad() {
-		return edad;
-	}
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
 	public String getDireccion() {
 		return direccion;
 	}
@@ -122,36 +122,48 @@ public class Estudiante {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+	public String getContrasena() {
+		return contrasena;
+	}
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+	public String getSep() {
+		return sep;
+	}
+	public void setSep(String sep) {
+		this.sep = sep;
+	}
+	public String getPie() {
+		return pie;
+	}
+	public void setPie(String pie) {
+		this.pie = pie;
+	}
 	public String getEstado() {
 		return estado;
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getId_colegio() {
-		return id_colegio;
+	public Integer getColegio_id() {
+		return colegio_id;
 	}
-	public void setId_colegio(Integer id_colegio) {
-		this.id_colegio = id_colegio;
+	public void setColegio_id(Integer colegio_id) {
+		this.colegio_id = colegio_id;
 	}
-	public Integer getId_login() {
-		return id_login;
+	public Integer getCurso_id() {
+		return curso_id;
 	}
-	public void setId_login(Integer id_login) {
-		this.id_login = id_login;
-	}
-	public Integer getId_curso() {
-		return id_curso;
-	}
-	public void setId_curso(Integer id_curso) {
-		this.id_curso = id_curso;
+	public void setCurso_id(Integer curso_id) {
+		this.curso_id = curso_id;
 	}
 	@Override
 	public String toString() {
 		return "Estudiante [id=" + id + ", rut=" + rut + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno="
-				+ amaterno + ", fecha_nacimiento=" + fecha_nacimiento + ", edad=" + edad + ", direccion=" + direccion
-				+ ", telefono=" + telefono + ", correo=" + correo + ", estado=" + estado + ", id_colegio=" + id_colegio
-				+ ", id_login=" + id_login + ", id_curso=" + id_curso + "]";
+				+ amaterno + ", fecha_nacimiento=" + fecha_nacimiento + ", direccion=" + direccion + ", telefono="
+				+ telefono + ", correo=" + correo + ", contrasena=" + contrasena + ", sep=" + sep + ", pie=" + pie
+				+ ", estado=" + estado + ", colegio_id=" + colegio_id + ", curso_id=" + curso_id + "]";
 	}
 	
 	

@@ -1,21 +1,20 @@
 package com.schoollife.classbook.Controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.classbook.Entities.Asistencia;
 import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Entities.Estudiante;
 import com.schoollife.classbook.Service.AsistenciaService;
+import com.schoollife.classbook.Service.CursoService;
+import com.schoollife.classbook.Service.EstudianteService;
 
 import jakarta.validation.Valid;
 
@@ -24,10 +23,16 @@ public class AsistenciaController {
 	
 	@Autowired
 	private final AsistenciaService asistenciaService;
-
-	public AsistenciaController(AsistenciaService asistenciaService) {
+	@Autowired
+	private final EstudianteService estudianteService;
+	@Autowired
+	private final CursoService cursoService;
+	
+	public AsistenciaController(AsistenciaService asistenciaService, EstudianteService estudianteService,CursoService cursoService) {
 		super();
 		this.asistenciaService = asistenciaService;
+		this.estudianteService = estudianteService;
+		this.cursoService = cursoService;
 	}
 	
 	/*@GetMapping("/asistencia/{id}")
@@ -46,6 +51,14 @@ public class AsistenciaController {
 		return "Index-asistencia";
 	}*/
 	
+	@GetMapping("/asistenciaCurso")
+	public String asistenciaCurso( Model model) {
+		var asistencia = asistenciaService.asistenciaCurso(1, 1, 1, 4);
+		
+		model.addAttribute("asistencia", asistencia);
+		return "Asistencia";
+	}
+	
 	@GetMapping("/asistenciaCurso/{id}")
 	public String asistenciaCurso(Curso curso,Model model) {
 		
@@ -54,7 +67,7 @@ public class AsistenciaController {
 	
 	@GetMapping("/asistencia/estudiante/{id}")
 	public String estudianteAsistencia(Estudiante estudiante, Model model) {
-		var asistencias = asistenciaService.obtenerAsistenciaEstudiante(estudiante.getId());
+		var asistencias = asistenciaService.asistenciaPorEstudiante(estudiante.getId());
 		model.addAttribute("asistencias",asistencias);
 		return "Asistencia-estudiante";
 	}
@@ -87,6 +100,33 @@ public class AsistenciaController {
 		model.addAttribute("asistencia",asistencia);
 		return "redirect:/curso";
 	}
+	
+	@GetMapping("/asistencia/baja")
+	public String asistenciaBaja( Model model) {
+		return "Asistencia-baja-curso";
+	}
+	
+	@GetMapping("/asistencia")
+	public String asistencia( Model model, @Param("curso") Integer curso) {
+		//var estudiantes = estudianteService.getAllEstudiante();
+		var estudiantes = estudianteService.estudiantePorColegioYCurso(curso,1);
+		var asistencias = asistenciaService.getAllAsistencias();
+		var cursos = cursoService.cursoPorColegio(1);
+		String[] diaSemana = new String[5];
+		diaSemana[0] = "Lunes";
+		diaSemana[1] = "Martes";
+		diaSemana[2]= "Miércoles";
+		diaSemana[3]= "Jueves";
+		diaSemana[4]= "Viernes";
+		model.addAttribute("cursos",cursos);
+		System.out.println("Los cursos del colegio 1 son: " + cursos.toString());
+		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("asistencias", asistencias);
+		model.addAttribute("diaSemana", diaSemana);
+		return "Asistencia";
+	}
+	
+
 	
 	
 }
