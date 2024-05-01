@@ -35,31 +35,12 @@ public class HomeController {
 		return "Funcionalidades";
 	}
 	
-	@GetMapping("/inicio/perfil")
+	@GetMapping("/home")
 	public String funcionalidadesIndex(Model model) {
 		var colegios = colegioService.getAll();
 		model.addAttribute("colegios", colegios);
-		return "Funcionalidades-index";
-	}
-	
-	@GetMapping("/profesor")
-	public String indexProfesor(Model model) {
-		var colegios = colegioService.getAll();
-		model.addAttribute("colegios", colegios);
-		return "Index-profesor";
-	}
-	
-	@GetMapping("/administrador")
-	public String indexAdministrador(Model model) {
-		var colegios = colegioService.getAll();
-		model.addAttribute("colegios", colegios);
-		return "Index-administrador";
-	}
-	
-	@GetMapping("/home")
-	public String home(Model model) {
 		return "Home";
-	}
+	}	
 	
 	@GetMapping("/matricula")
 	public String Matricula(Model model) {

@@ -22,8 +22,5 @@ public interface AsistenciaService {
   //Metodo para buscar la asistencia por estudiantes
     List<Asistencia> asistenciaPorEstudiante(Integer estudianteId);
     
-    
-    
-    
 
 }

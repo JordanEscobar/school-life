@@ -108,6 +108,10 @@ public class AsistenciaController {
 	
 	@GetMapping("/asistencia")
 	public String asistencia( Model model, @Param("curso") Integer curso) {
+		
+		
+		
+		
 		//var estudiantes = estudianteService.getAllEstudiante();
 		var estudiantes = estudianteService.estudiantePorColegioYCurso(curso,1);
 		var asistencias = asistenciaService.getAllAsistencias();
