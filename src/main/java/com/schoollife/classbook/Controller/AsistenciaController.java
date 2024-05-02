@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -106,6 +107,7 @@ public class AsistenciaController {
 		return "Asistencia-baja-curso";
 	}
 	
+
 	@GetMapping("/asistencia")
 	public String asistencia( Model model, @Param("curso") Integer curso) {
 		
