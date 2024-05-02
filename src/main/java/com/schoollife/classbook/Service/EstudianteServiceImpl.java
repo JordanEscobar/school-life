@@ -72,7 +72,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public List<Estudiante> estudiantePorColegioYCurso(Integer cursoid, Integer colegioid){
-			List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
+			List<Estudiante> listaEstudiante = estudianteRepository.findAll();
 			listaEstudiante = listaEstudiante.stream().filter(p -> p.getCurso_id() == cursoid && p.getColegio_id() == colegioid).collect(Collectors.toList());
 			return listaEstudiante;	
 	}
@@ -80,16 +80,46 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public List<Estudiante> estudiantesSep(String sep) {
-		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
-		listaEstudiante = listaEstudiante.stream().filter(p -> p.getSep() == sep).collect(Collectors.toList());
-		return listaEstudiante;	
+		List<Estudiante> listaEstudiante = estudianteRepository.findAll();
+		if(sep == "si") {
+			listaEstudiante = listaEstudiante.stream().filter(p -> p.getSep().equalsIgnoreCase(sep)).collect(Collectors.toList());
+			return listaEstudiante;	
+		}
+		return estudianteRepository.findAll();
+		
 	}
 	//Buscar estudiantes PIE
 	@Override
 	@Transactional
 	public List<Estudiante> estudiantesPie(String pie) {
-		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
-		listaEstudiante = listaEstudiante.stream().filter(p -> p.getPie() == pie).collect(Collectors.toList());
+		if(pie == null) {	
+			return estudianteRepository.findAll();
+		}	
+		if(pie != null) {
+			if(pie.length() > 0) {
+				if(pie.equalsIgnoreCase("si") || pie.equalsIgnoreCase("no")) {
+					List<Estudiante> listaEstudiante = estudianteRepository.findAll();
+					listaEstudiante = listaEstudiante.stream().filter(p -> p.getPie().equalsIgnoreCase(pie)).collect(Collectors.toList());
+					return listaEstudiante;	
+				}
+			}
+		}
+		
+		return estudianteRepository.findAll();
+	}
+	//filtrar a los alumnos matriculados PIE a través de un botón
+	@Override
+	@Transactional
+	public List<Estudiante> estudiantePie() {
+		List<Estudiante> listaEstudiante = estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(p -> p.getPie().equalsIgnoreCase("si")).collect(Collectors.toList());
+		return listaEstudiante;	
+	}
+	@Override
+	@Transactional
+	public List<Estudiante> estudianteSep() {
+		List<Estudiante> listaEstudiante = estudianteRepository.findAll();
+		listaEstudiante = listaEstudiante.stream().filter(p -> p.getSep().equalsIgnoreCase("si")).collect(Collectors.toList());
 		return listaEstudiante;	
 	}
 

@@ -26,7 +26,16 @@
 					<div class="card-body">
 						<h5 class="card-title">School Life</h5>
 						<p class="card-text">Libro de Clases Online</p>
-						<a th:href="@{/home}" class="btn btn-primary">Ingresar</a>
+						    <div class="row">
+						     	 <div class="col-md-6 form-group">
+							        <input type="email" class="form-control" placeholder="Correo Electrónico" />
+							      </div>
+							      <div class="col-md-6 form-group">
+							        <input type="password" class="form-control" placeholder="Contraseña" />
+							      </div>
+						    </div>
+						    <br>
+						<a th:href="@{/home}" class="btn btn-primary form-control">Iniciar Sesión</a>
 					</div>
 				</div>
 			</div>

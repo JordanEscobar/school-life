@@ -23,5 +23,10 @@ public interface EstudianteService {
   	
   //Buscar estudiantes PIE
   	List<Estudiante> estudiantesPie(String pie);
+  	
+    //Buscar estudiantes PIE Botton
+  	List<Estudiante> estudiantePie();
+  //Buscar estudiantes SEP Botton
+  	List<Estudiante> estudianteSep();
 
 }

@@ -46,50 +46,31 @@
 	<div class="container">
 		<div class="row g-3 align-items-center">
 		  <div class="col-auto">
-		    <label for="inputPassword6" class="col-form-label">PIE</label>
+		    <label for="inputPassword6" class="col-form-label"></label>
 		  </div>
 		  <div class="col-auto">
-		    <select class="form-select" aria-label="Default select example">
-			  <option value="1">Todos</option>
-			  <option value="2">Alumnos PIE</option>
-			  <option value="3">Alumnos NO PIE</option>
-			</select>
+		  <a th:href="@{/matriculaPie}" class="btn btn-warning">Filtrar Alumnos PIE</a>
+		  <a th:href="@{/matriculaSep}" class="btn btn-primary">Filtrar Alumnos SEP</a>
+		  <a th:href="@{/matricula}" class="btn btn-danger">Limpiar</a>	
 		  </div>
 		  <div class="col-auto">
-		    <span id="passwordHelpInline" class="form-text">
-		      
-		    </span>
 		  </div>
 		  <div class="col-auto">
-		    <span id="passwordHelpInline" class="form-text">
-
-		    </span>
 		  </div>
 		  <div class="col-auto">
-		    <label for="inputPassword6" class="col-form-label">SEP</label>
 		  </div>
 		  <div class="col-auto">
-		    <select class="form-select" aria-label="Default select example">
-			  <option value="1">Todos</option>
-			  <option value="2">Alumnos SEP</option>
-			  <option value="3">Alumnos NO SEP</option>
-			</select>
 		  </div>
 		  <div class="col-auto">
-		    <span id="passwordHelpInline" class="form-text">
-		      
-		    </span>
 		  </div>
 		  
 		  	<div class="col-auto">
-		    	<a class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Buscar alumnos PIE o SEP">Filtrar</a>
-		    </span>
 		  </div>
 		</div>
 	</div>
 	<br><br><br>
 	<div class="container">
-		<table class="table table-hover">
+		<table class="table table-hover text-center">
 			<thead>
 				<tr>
 					<th>N° Matrícula</th>
@@ -97,20 +78,16 @@
 					<th>Rut</th>
 					<th>SEP</th>
 					<th>PIE</th>
-					<th>Curso</th>
-					<th>Estado</th>
 					<th>Opciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+				<tr th:each="m : ${matriculas}">
+					<td th:text="${m.id}"></td>
+					<td th:text="${m.nombre} + ' ' + ${m.apaterno} + ' ' + ${m.amaterno} "></td>
+					<td th:text="${m.rut}"></td>
+					<td th:text="${m.sep}"></td>
+					<td th:text="${m.pie}"></td>
 					<td><a  class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a></td>
 				</tr>
 			</tbody>
