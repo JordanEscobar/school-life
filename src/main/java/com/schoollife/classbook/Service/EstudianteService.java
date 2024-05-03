@@ -28,5 +28,7 @@ public interface EstudianteService {
   	List<Estudiante> estudiantePie();
   //Buscar estudiantes SEP Botton
   	List<Estudiante> estudianteSep();
+  	//estudiante login
+  	Estudiante estudianteLogin(String mail);
 
 }

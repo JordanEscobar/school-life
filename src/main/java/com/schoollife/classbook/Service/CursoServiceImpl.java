@@ -26,6 +26,8 @@ public class CursoServiceImpl implements CursoService{
 		this.cursoRepository = cursoRepository;
 		this.estudianteRepository = estudianteRepository;
 	}
+	
+	
 	//listar todos los cursos
 	@Override
 	@Transactional
@@ -69,14 +71,7 @@ public class CursoServiceImpl implements CursoService{
 		}
 		return c;
 	}
-	//lista Cursos por colegio y estado
-	@Override
-	@Transactional
-	public List<Curso> cursoPorColegio(Integer colegioid) {
-		List<Curso> listaCurso = (List<Curso>) cursoRepository.findAll();
-		listaCurso = listaCurso.stream().filter(c -> c.getColegio_id() == colegioid).collect(Collectors.toList());
-		return listaCurso;
-	}
+
 	//estudiantes de un curso
 	@Override
 	@Transactional
@@ -84,6 +79,22 @@ public class CursoServiceImpl implements CursoService{
 		List<Estudiante> listaEstudiante = (List<Estudiante>) estudianteRepository.findAll();
 		listaEstudiante = listaEstudiante.stream().filter(e -> e.getCurso_id() == id).collect(Collectors.toList());
 		return listaEstudiante;
+	}
+	
+	
+	//Cursos por colegio !!!no borrar!!!!
+	@Override
+	@Transactional
+	public List<Object[]> cursoPorColegio(Integer colegioId) {
+		List<Object[]> cursos = cursoRepository.cursoPorColegio(colegioId);
+		return cursos;
+	}
+
+	//Crear cursos administrador !!!!!!No borrar!!!!!
+	@Override
+	@Transactional
+	public Curso CreateCurso(Curso curso) {
+		return cursoRepository.save(curso);
 	}
 
 }

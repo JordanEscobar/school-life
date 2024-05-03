@@ -11,11 +11,13 @@ public interface ProfesorService {
 	Profesor CreateProfesor(Profesor profesor);
 
 	Profesor getProfesorById(Integer id);
-
-	void deleteProfesor(Integer id);
 	
 	void updateProfesor(Profesor profesor, Integer id);
 	
     Profesor findProfesor(Profesor profesor);
+    
+    Profesor profesorLogin(String mail);
+    
+    List<Profesor> profesorPorColegio(Integer colegioid);
 
 }

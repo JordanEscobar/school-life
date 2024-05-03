@@ -65,7 +65,7 @@ public class AsignaturaServiceImpl implements AsignaturaService{
 	@Transactional
 	public List<Asignatura> asignaturaPorEstado(String estado) {
 		List<Asignatura> listaAsignatura = asignaturaRepository.findAll();
-		listaAsignatura = listaAsignatura.stream().filter(p -> p.getEstado() == estado).collect(Collectors.toList());
+		listaAsignatura = listaAsignatura.stream().filter(p -> p.getEstado().equalsIgnoreCase(estado)).collect(Collectors.toList());
 		return listaAsignatura;
 	}
 	//Buscar por dia
@@ -73,7 +73,7 @@ public class AsignaturaServiceImpl implements AsignaturaService{
 	@Transactional
 	public List<Asignatura> asignaturaPorDia(String dia) {
 		List<Asignatura> listaAsignatura = asignaturaRepository.findAll();
-		listaAsignatura = listaAsignatura.stream().filter(p -> p.getDia() == dia).collect(Collectors.toList());
+		listaAsignatura = listaAsignatura.stream().filter(p -> p.getDia().equalsIgnoreCase(dia)).collect(Collectors.toList());
 		return listaAsignatura;
 	}
 

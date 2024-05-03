@@ -38,6 +38,7 @@
 		
 			<div class="container-fluid text-center">
 			<br><br>
+			<a th:if="!${usuario}" th:href="@{/}" class="btn btn-outline-danger">Iniciar Sesion usuario</a>
 				<h2>Colegios Asociados</h2>
 				<br><br>
 				<div th:each="c : ${colegios}" class="container">

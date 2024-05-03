@@ -59,7 +59,7 @@
 				<td th:text="${as.estado}"></td>
 				<td th:text="${#calendars.format(as.fecha,'dd-MMMM-yyyy')}"></td>
 				<td th:text="${as.asignatura_id}"></td>
-				<td><a th:href="@{/estudianteModificar/} + ${e.id}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a></td>
+				<td><a th:href="@{/asistenciaModificar/} + ${as.estudiante_id}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a></td>
 			</tr>
 		</tbody>
 	</table>

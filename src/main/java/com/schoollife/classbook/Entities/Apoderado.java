@@ -23,14 +23,14 @@ public class Apoderado {
 	@Column(name = "rut")
 	private String rut;
 	@Column(name = "direccion")
-	private Integer direccion;
+	private String direccion;
 	@Column(name = "telefono")
 	private String telefono;
 	@Column(name = "estado")
 	private String estado;
 	@JoinColumn(name = "estudiante_id", nullable = false)
 	private Integer estudiante_id;
-	public Apoderado(Integer id, String nombre, String apaterno, String amaterno, String rut, Integer direccion,
+	public Apoderado(Integer id, String nombre, String apaterno, String amaterno, String rut, String direccion,
 			String telefono, String estado, Integer estudiante_id) {
 		super();
 		this.id = id;
@@ -76,10 +76,10 @@ public class Apoderado {
 	public void setRut(String rut) {
 		this.rut = rut;
 	}
-	public Integer getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
-	public void setDireccion(Integer direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 	public String getTelefono() {
@@ -106,6 +106,8 @@ public class Apoderado {
 				+ ", rut=" + rut + ", direccion=" + direccion + ", telefono=" + telefono + ", estado=" + estado
 				+ ", estudiante_id=" + estudiante_id + "]";
 	}
+	
+	
 	
 	
 	

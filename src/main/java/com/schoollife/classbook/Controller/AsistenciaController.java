@@ -1,11 +1,12 @@
 package com.schoollife.classbook.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,6 +18,7 @@ import com.schoollife.classbook.Service.AsistenciaService;
 import com.schoollife.classbook.Service.CursoService;
 import com.schoollife.classbook.Service.EstudianteService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -53,35 +55,33 @@ public class AsistenciaController {
 	}*/
 	
 	@GetMapping("/asistenciaCurso")
-	public String asistenciaCurso( Model model) {
-		var asistencia = asistenciaService.asistenciaCurso(1, 1, 1, 4);
-		
+	public String asistenciaCurso( Model model, HttpSession sesion) {
+		var asistencia = asistenciaService.asistenciaCurso(1, 1, 1, 4);		
 		model.addAttribute("asistencia", asistencia);
 		return "Asistencia";
 	}
 	
 	@GetMapping("/asistenciaCurso/{id}")
-	public String asistenciaCurso(Curso curso,Model model) {
-		
+	public String asistenciaCurso(Curso curso,Model model, HttpSession sesion) {
 		return"Asistencia-curso";
 	}
 	
 	@GetMapping("/asistencia/estudiante/{id}")
-	public String estudianteAsistencia(Estudiante estudiante, Model model) {
+	public String estudianteAsistencia(Estudiante estudiante, Model model, HttpSession sesion) {
 		var asistencias = asistenciaService.asistenciaPorEstudiante(estudiante.getId());
 		model.addAttribute("asistencias",asistencias);
 		return "Asistencia-estudiante";
 	}
 	
 	@GetMapping("/asistenciaModificar/{id}")
-	public String editEstudiante(Asistencia asistencia, Model model) {
+	public String editEstudiante(Asistencia asistencia, Model model, HttpSession sesion) {
 		var asistencias = asistenciaService.findAsistencia(asistencia);
 		model.addAttribute("asistencias", asistencias);
 		return "Editar-asistencia";
 	}
 	
 	@PostMapping(path = "/asistenciaModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String modificarAsistencia(@Valid Asistencia asistencia,Errors errores, RedirectAttributes flash, Model model) {
+	public String modificarAsistencia(@Valid Asistencia asistencia,Errors errores, RedirectAttributes flash, Model model, HttpSession sesion) {
 		if (errores.hasErrors()) {
 			flash.addFlashAttribute("warning","Valores Inválidos");
 			return "redirect:/curso";
@@ -108,14 +108,10 @@ public class AsistenciaController {
 	}
 	
 
-	@GetMapping("/asistencia")
-	public String asistencia( Model model, @Param("curso") Integer curso) {
-		
-		
-		
-		
+	/*@GetMapping("/asistencia")
+	public String asistencia( Model model, @Param("curso") Integer curso, HttpSession sesion) {		
 		//var estudiantes = estudianteService.getAllEstudiante();
-		var estudiantes = estudianteService.estudiantePorColegioYCurso(curso,1);
+		var estudiantes = estudianteService.estudiantePorColegioYCurso(1,1);
 		var asistencias = asistenciaService.getAllAsistencias();
 		var cursos = cursoService.cursoPorColegio(1);
 		String[] diaSemana = new String[5];
@@ -130,6 +126,13 @@ public class AsistenciaController {
 		model.addAttribute("asistencias", asistencias);
 		model.addAttribute("diaSemana", diaSemana);
 		return "Asistencia";
+	}*/
+	
+	@GetMapping("/asistencia/tomar")
+	public String asistenciaTomar(Model model) {
+		List<Estudiante> estudiantesAsistencia = estudianteService.estudiantePorColegioYCurso(1, 1);
+		model.addAttribute("estudiantesAsistencia",estudiantesAsistencia);
+		return "Asistencia-tomar";
 	}
 	
 

@@ -15,6 +15,8 @@ import com.schoollife.classbook.Entities.Estudiante;
 import com.schoollife.classbook.Service.CursoService;
 import com.schoollife.classbook.Service.EstudianteService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class CursoController {
 	@Autowired
@@ -29,28 +31,28 @@ public class CursoController {
 	}
 
 	@GetMapping("/curso")
-	public String indexCurso(Model model) {
+	public String indexCurso(Model model, HttpSession sesion) {
 		var cursos = cursoService.getAll();
 		model.addAttribute("cursos",cursos);
 		return "Index-curso";
 	}
 	
 	@GetMapping("/misCursos")
-	public String indexMisCursos(Model model) {
+	public String indexMisCursos(Model model, HttpSession sesion) {
 		var cursos = cursoService.getAll();
 		model.addAttribute("cursos",cursos);
 		return "Index-misCursos";
 	}
 	
 	@GetMapping("/cursosModificar/{id}")
-	public String editCurso(Curso curso, Model model) {
+	public String editCurso(Curso curso, Model model, HttpSession sesion) {
 		curso = cursoService.findCurso(curso);
 		model.addAttribute("curso", curso);
 		return "Editar-curso";
 	}
 	
 	@PostMapping(path = "/cursoModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String modificarCurso(Curso curso,RedirectAttributes flash, Model model) {
+	public String modificarCurso(Curso curso,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var cursos = cursoService.getAll();
 		Curso c = new Curso();
 		for (int i = 0; i < cursos.size(); i++) {
@@ -67,26 +69,26 @@ public class CursoController {
 	}
 	
 	@GetMapping("/cursoAtras")
-	public String cursoAtras(Curso curso, Model model) {
+	public String cursoAtras(Curso curso, Model model, HttpSession sesion) {
 		return "redirect:/curso";
 	}
 	
 	@GetMapping("/curso/estudiante/{id}")
-	public String estudianteCurso(Curso curso,Model model) {
+	public String estudianteCurso(Curso curso,Model model, HttpSession sesion) {
 		var estudiantesCurso = cursoService.getEstudianteByIdCurso(curso.getId());
 		model.addAttribute("estudiantesCurso",estudiantesCurso);
 		return "Curso-estudiante";
 	}
 	
 	@GetMapping("/estudianteModificar/{id}")
-	public String editEstudiante(Estudiante estudiante, Model model) {
+	public String editEstudiante(Estudiante estudiante, Model model, HttpSession sesion) {
 		estudiante = estudianteService.findEstudiante(estudiante);
 		model.addAttribute("estudiante", estudiante);
 		return "Editar-estudiante";
 	}
 	
 	@PostMapping(path = "/estudianteModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String modificarCurso(Estudiante estudiante,RedirectAttributes flash, Model model) {
+	public String modificarCurso(Estudiante estudiante,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var estudiantes = estudianteService.getAllEstudiante();
 		Estudiante e = new Estudiante();
 		for (int i = 0; i < estudiantes.size(); i++) {
@@ -113,12 +115,10 @@ public class CursoController {
 	}
 	
 	@GetMapping("/curso/profesorJefe/{profesor_jefe}")
-	public String listCursoByProfesorJefe(Curso curso, @PathVariable Integer profesor_jefe, Model model) {
-		
+	public String listCursoByProfesorJefe(Curso curso, @PathVariable Integer profesor_jefe, Model model, HttpSession sesion) {
 		Curso cursoProfeJefe = cursoService.getCursoByIdProfesorJefe(profesor_jefe);	
 		Integer cursoId = cursoProfeJefe.getId();
 		List<Estudiante> estudiantes = estudianteService.estudiantePorColegioYCurso(cursoId,1);
-		
 		model.addAttribute("estudiantes",estudiantes);
 		model.addAttribute("cursoProfeJefe",cursoProfeJefe);
 		return "CursoProfesorJefe";

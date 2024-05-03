@@ -1,6 +1,7 @@
 package com.schoollife.classbook.Service;
 
 import java.util.List;
+
 import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Entities.Estudiante;
 
@@ -15,8 +16,11 @@ public interface CursoService {
 	List<Estudiante> getEstudianteByIdCurso(Integer id);
 	//Curso por profesor jefe
 	Curso getCursoByIdProfesorJefe(Integer id);
-	//Cursos de un colegio y estado
-	List<Curso> cursoPorColegio(Integer colegioid);
+	//Servicio cursos por colegio
+	List<Object[]> cursoPorColegio(Integer colegioId);
+	//Crear
+	Curso CreateCurso(Curso curso);
+
 	
 	
 

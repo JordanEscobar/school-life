@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.schoollife.classbook.Service.AsignaturaService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class AsignaturaController {
 	
@@ -18,7 +20,7 @@ public class AsignaturaController {
 	}
 
 	@GetMapping("/asignatura/listar/")
-	public String asignaturaLista(Model model) {
+	public String asignaturaLista(Model model, HttpSession sesion) {
 		var listaAsignatura = asignaturaService.getAllAsignaturas();
 		model.addAttribute("listaAsignatura",listaAsignatura);
 		return "Index";

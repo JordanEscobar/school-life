@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Libro de clases Online School Life</title>
+<title>Libro de clases virtual School Life</title>
 <link href="/css/Style.css" rel="stylesheet" type="text/css"
 	crossorigin="anonymous" />
 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
@@ -18,30 +18,48 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<div class="container text-center">
-	<div class="container m-0 vh-100 row justify-content-center align-items-center">
-		<div class="container row text-center row justify-content-center align-items-center">
-			<div class="col-sm-6 ">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title">School Life</h5>
-						<p class="card-text">Libro de Clases Online</p>
-						    <div class="row">
-						     	 <div class="col-md-6 form-group">
-							        <input type="email" class="form-control" placeholder="Correo Electrónico" />
-							      </div>
-							      <div class="col-md-6 form-group">
-							        <input type="password" class="form-control" placeholder="Contraseña" />
-							      </div>
-						    </div>
-						    <br>
-						<a th:href="@{/home}" class="btn btn-primary form-control">Iniciar Sesión</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+<div class="container">
+	<ul class="nav justify-content-center">
+	  <li class="nav-item">
+	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: PROFESOR</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/profesor/asistencia}">Ver Asistencia</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/profesor/asistencia/registrar}">Tomar Asistencia</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/profesor/asistencia/justificar}">Justificar Asistencia</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/profesor/curso/encargado/} + 1">Ver Jefatura</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/profesor/curso}">Ver mis Cursos</a>
+	  </li>
+	</ul>
 </div>
-	
+
+<div class="container">
+	<ul class="nav justify-content-center">
+	  <li class="nav-item">
+	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: ADMINISTRADOR</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/administrador/curso}">Ver Cursos</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/administrador/matricula}">Ver Matriculas</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/administrador/matricula/crear}">Ingresar Matriculas</a>
+	  </li>
+	</ul>
+</div>
+
+
+
 </body>
 </html>

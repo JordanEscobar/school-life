@@ -70,6 +70,9 @@ public class AsistenciaServiceImpl implements AsistenciaService{
 	public List<Asistencia> asistenciaPorEstudiante(Integer estudianteId) {
 		List<Asistencia> listaAsistencia = asistenciaRepository.findAll();
 		listaAsistencia = listaAsistencia.stream().filter(a -> a.getEstudiante_id() == estudianteId).collect(Collectors.toList());
+		if(listaAsistencia.size()<=0) {
+			System.out.println("No tiene datos: "+listaAsistencia);
+		}
 		return listaAsistencia;
 	}
 	//Es una Query que se encuentra en Repository

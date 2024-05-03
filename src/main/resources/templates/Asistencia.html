@@ -41,6 +41,8 @@
 	
 		<h1 class="display-4">Asistencia Diaria</h1>
 		<br>
+		<a th:href="@{/asistencia/tomar}" class="btn btn-outline-danger">Tomar Asistencia</a>
+		<br>
 		<p>La asistencia diaria solo contempla presente o ausente, estos son los únicos estados que percibe el SIGE</p>
 		<div class="container">
 			<form th:action="@{/asistencia}" method="get">
@@ -83,14 +85,13 @@
 						 <tr>
 						 	<th>#</th>
 						 	<th>Estudiante</th>
-							<th th:each="a : ${asistencias}" th:text="${#dates.day(a.fecha)} + ' ' + ${#dates.monthName(a.fecha)}"></th>	 		 	
+							<th>Asistencia</th>	 		 	
 						</tr>
 
 						<tr th:each="e : ${estudiantes}">
 							<td th:text="${e.id}"></td>
 							<td th:text="${e.nombre}"></td>
-							<!--  <td style="background-color: red;" th:each="a : ${asistencias}" th:text="${a.estado}" th:if="${a.estado} == 'ausente' "></td>-->
-							<td th:each="a : ${asistencias}" th:text="${a.estado}"></td>
+							<td th:each="a : ${asistencias}" th:text="${a.estado}" ></td>
 						</tr>					
 
 				</table>

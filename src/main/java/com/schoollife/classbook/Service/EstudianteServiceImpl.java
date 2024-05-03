@@ -74,6 +74,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public List<Estudiante> estudiantePorColegioYCurso(Integer cursoid, Integer colegioid){
 			List<Estudiante> listaEstudiante = estudianteRepository.findAll();
 			listaEstudiante = listaEstudiante.stream().filter(p -> p.getCurso_id() == cursoid && p.getColegio_id() == colegioid).collect(Collectors.toList());
+			System.out.println(listaEstudiante);
 			return listaEstudiante;	
 	}
 	//Buscar estudiantes SEP
@@ -121,6 +122,33 @@ public class EstudianteServiceImpl implements EstudianteService{
 		List<Estudiante> listaEstudiante = estudianteRepository.findAll();
 		listaEstudiante = listaEstudiante.stream().filter(p -> p.getSep().equalsIgnoreCase("si")).collect(Collectors.toList());
 		return listaEstudiante;	
+	}
+	//Login estudiante
+	@Override
+	@Transactional
+	public Estudiante estudianteLogin(String mail) {
+		List<Estudiante> estudiantes = estudianteRepository.findAll();
+		Estudiante e = new Estudiante();
+		for (int i = 0; i < estudiantes.size(); i++) {
+			if (e.getCorreo().equalsIgnoreCase(estudiantes.get(i).getCorreo())) {
+				e.setAmaterno(estudiantes.get(i).getAmaterno());
+				e.setApaterno(estudiantes.get(i).getApaterno());
+				e.setColegio_id(estudiantes.get(i).getColegio_id());
+				e.setContrasena(estudiantes.get(i).getContrasena());
+				e.setCorreo(estudiantes.get(i).getCorreo());
+				e.setCurso_id(estudiantes.get(i).getCurso_id());
+				e.setDireccion(estudiantes.get(i).getDireccion());
+				e.setEstado(estudiantes.get(i).getEstado());
+				e.setFecha_nacimiento(estudiantes.get(i).getFecha_nacimiento());
+				e.setId(estudiantes.get(i).getId());
+				e.setNombre(estudiantes.get(i).getNombre());
+				e.setPie(estudiantes.get(i).getPie());
+				e.setRut(estudiantes.get(i).getRut());
+				e.setSep(estudiantes.get(i).getSep());
+				e.setTelefono(estudiantes.get(i).getTelefono());
+			}
+		}
+		return e;
 	}
 
 

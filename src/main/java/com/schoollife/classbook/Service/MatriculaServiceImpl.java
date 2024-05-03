@@ -30,6 +30,12 @@ public class MatriculaServiceImpl implements MatriculaService{
 		listaMatricula = listaMatricula.stream().filter(m -> m.getColegio_id() == colegioid).collect(Collectors.toList());
 		return listaMatricula;
 	}
+
+	@Override
+	@Transactional
+	public Matricula CreateMatricula(Matricula matricula) {
+		return matriculaRepository.save(matricula);
+	}
 	
 	
 
