@@ -19,31 +19,60 @@
 </head>
 <body>
 
-<div class="container">
-	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: Profesor</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:href="@{/iniciobase}">Volver</a>
-	  </li>
-	</ul>
-</div>
+	<div class="container">
+		<ul class="nav justify-content-center">
+			<li class="nav-item"><a class="nav-link disabled"
+				aria-disabled="true">Bienvenido: Profesor</a></li>
+			<li class="nav-item"><a class="nav-link"
+				th:href="@{/iniciobase}">Volver</a></li>
+		</ul>
+	</div>
 
-<div class="container">
-	<table class="table text-center">
-		<thead>
-			<tr>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+	<div class="container">
+		<br>
+		<br>
+		<h1>Asistencia por Asignatura</h1>
+		<h5>Filtra la asistencia por las asginaturas correspondientes al profesor</h5>
+		<br>
+		<br>
+		<div class="row g-3">
+			<form action="#" th:action="@{/filtrar}" th:object="${filtro}"
+				method="post">
+				<div class="col-form-label">
+					<select class="form-control" name="filtroAsignatura">
+						<option th:each="as : ${asignaturaSelect}" th:value="${as.id}"
+							th:text="${as.nombre}"></option>
+					</select>
+				</div>
+				<div class="col-auto">
+					<input class="btn btn-success" type="submit" value="Filtrar">&nbsp <a th:href="@{/profesor/asistencia}" class="btn btn-dark">Limpiar</a>
+				</div>
+			</form>
+		</div>
+		<br>
+		<br>
+
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Fecha</th>
+					<th>Estado</th>
+					<th>Estudiante</th>
+					<th>Rut</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="a : ${asistencias}">
+					<td th:text="${a.id}"></td>
+					<td th:text="${#calendars.format(a.fecha,'dd-MMMM-yyyy')}"></td>
+					<td th:text="${a.estado}"></td>
+					<td th:each="e : ${estudiantes}" th:if="${a.estudiante_id} == ${e.id}" th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
+					<td th:each="e : ${estudiantes}" th:if="${a.estudiante_id} == ${e.id}" th:text="${e.rut}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 </body>
 </html>

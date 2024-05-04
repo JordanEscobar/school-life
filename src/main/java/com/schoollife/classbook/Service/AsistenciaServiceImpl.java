@@ -82,6 +82,14 @@ public class AsistenciaServiceImpl implements AsistenciaService{
 		List<Object[]> asistenciaCurso = asistenciaRepository.asistenciaCurso(profesorId, asignaturaid, cursoid, mes);
 		return asistenciaCurso;
 	}
+	//buscar asistencias por asignatura
+	@Override
+	@Transactional
+	public List<Asistencia> asistenciaPorAsignatura(Integer asignaturaid) {
+		List<Asistencia> asistencias = asistenciaRepository.findAll();
+		asistencias = asistencias.stream().filter(a -> a.getAsignatura_id() == asignaturaid).collect(Collectors.toList());
+		return asistencias;
+	}
 
 	
 	

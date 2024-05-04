@@ -30,5 +30,7 @@ public interface EstudianteService {
   	List<Estudiante> estudianteSep();
   	//estudiante login
   	Estudiante estudianteLogin(String mail);
+  	//Estudiantes por asistencias a través del ID estudiantes de asistencia
+  	List<Estudiante> estudiantesPorAsistencias(Integer asistenciaid);
 
 }

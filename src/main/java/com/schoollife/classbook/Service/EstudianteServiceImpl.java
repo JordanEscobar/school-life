@@ -150,6 +150,14 @@ public class EstudianteServiceImpl implements EstudianteService{
 		}
 		return e;
 	}
+	//estudiantes por asistencia a traves del ID estudiantes de la tabla asistencia
+	@Override
+	@Transactional
+	public List<Estudiante> estudiantesPorAsistencias(Integer asistenciaid) {
+		List<Estudiante> estudiantes = estudianteRepository.findAll();
+		estudiantes = estudiantes.stream().filter(e-> e.getId() == asistenciaid).collect(Collectors.toList());
+		return estudiantes;
+	}
 
 
 }

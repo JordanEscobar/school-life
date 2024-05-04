@@ -40,22 +40,36 @@
 			<table class="table text-center">
 						<thead>
 							<tr>
+								<th>N° Matricula</th>
 								<th>RUT</th>
 								<th>NOMBRE</th>
+								<th>FECHA NACIMIENTO</th>
 								<th>CORREO</th>
 								<th>TELEFONO</th>
+								<th>SEP</th>
+								<th>PIE</th>
 								<th>DIRECCION</th>
+								<th>OPCIONES</th>
 							</tr>
 						</thead>
 				<tbody>
 						<tr th:each="e : ${estudiantes}">
+						<td th:text="${e.id}"></td>
 						<td th:text="${e.rut}"></td>
 						<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno} "></td>
+						<td th:text="${e.fecha_nacimiento}"></td>
 						<td th:text="${e.correo}"></td>
 						<td th:text="${e.telefono}"></td>
 						<td th:text="${e.direccion}"></td>
+						<td th:text="${e.sep}"></td>
+						<td th:text="${e.pie}"></td>
+						<td>
+							<a class="btn btn-primary" th:href="@{/profesor/asistencia/justificar/} + ${e.id}" data-toggle="tooltip" data-placement="bottom" title="Justificar Asistencia"><i class="fa-solid fa-clipboard-user"></i></a>
+							<a class="btn btn-secondary" th:href="@{/profesor/asistencia/justificar/} + ${e.id}" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>		
 		</div>
+</body>

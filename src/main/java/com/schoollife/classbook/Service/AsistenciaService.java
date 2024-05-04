@@ -21,6 +21,8 @@ public interface AsistenciaService {
     List<Object[]> asistenciaCurso(Integer profesorId,Integer asignaturaid, Integer cursoid, Integer mes);
   //Metodo para buscar la asistencia por estudiantes
     List<Asistencia> asistenciaPorEstudiante(Integer estudianteId);
+    //Buscar asistencias por asignatura
+    List<Asistencia> asistenciaPorAsignatura(Integer asignaturaid);
     
 
 }

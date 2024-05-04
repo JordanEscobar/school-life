@@ -31,19 +31,21 @@
 </div>
 
 <div class="container">
+<br><br>
+<h1>Cursos y sus Asignaturas</h1>
+<h5>Asignaturas que el profesor imparte a los cursos</h5>
+<br><br>
 	<table class="table text-center">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Nombre</th>
-				<th>Rut</th>
+				<th>CURSO</th>
+				<th>ASIGNATURA</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
+			<tr th:each="c : ${cursos}">
+				<td th:text="${c[0]}"></td>
+				<td th:text="${c[1]}"></td>
 			</tr>
 		</tbody>
 	</table>

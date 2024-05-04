@@ -2,6 +2,8 @@ package com.schoollife.classbook.Entities;
 
 import java.sql.Time;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,9 @@ public class Asignatura {
 	@JoinColumn(name = "profesor_id", nullable = false)
 	private Integer profesor_id;
 	private String dia;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private Time hora_inicio;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private Time hora_final;
 	public Asignatura(Integer id, String nombre, String estado, Integer profesor_id, String dia, Time hora_inicio,
 			Time hora_final) {

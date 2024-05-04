@@ -2,6 +2,8 @@ package com.schoollife.classbook.Service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.schoollife.classbook.Entities.Curso;
 import com.schoollife.classbook.Entities.Estudiante;
 
@@ -20,6 +22,8 @@ public interface CursoService {
 	List<Object[]> cursoPorColegio(Integer colegioId);
 	//Crear
 	Curso CreateCurso(Curso curso);
+	//
+	List<Object[]> cursosPorProfesor(Integer profesorId);
 
 	
 	

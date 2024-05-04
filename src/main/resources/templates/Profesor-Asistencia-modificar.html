@@ -30,5 +30,38 @@
 	</ul>
 </div>
 
+<div class="container">
+	<form th:action="@{/profesor/asistencia/modificado}" method="post" th:object="${asistencias}">
+	<br><br>
+	<h3>Modificar Asistencia</h3>
+	<br><br>
+	<input type="hidden" name="id" th:field="*{id}"> 
+	  <div class="mb-3">
+			<input class="form-control" type="hidden" name="id_estudiante" th:field="*{estudiante_id}"> 
+	  </div>
+	  <div class="mb-3">
+	  <label for="estado" class="form-label">Estado</label>
+	  	<select class="form-control" th:field="*{estado}">
+		    <option th:value="'presente'" th:text="presente"></option>
+		    <option th:value="'ausente'" th:text="ausente"></option>
+		</select>
+	  </div>
+	  <div class="mb-3">
+	  	<input class="form-control" type="hidden" name="id_asignatura" th:field="*{asignatura_id}"> 
+	  </div>
+	  <div class="mb-3">
+	  	<input class="form-control" type="hidden" name="fecha" th:field="*{fecha}"> 
+	  </div>
+	  <div class="mb-3">
+	  <label for="descripcion" class="form-label">Descripción</label>
+	  	<input class="form-control" type="text" name="descripcion" th:field="*{descripcion}"> 
+	  	<span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error Descripción</span>
+	  </div>
+	  <br>
+	  <a class="btn btn-secondary" th:href="@{/profesor/asistencia/justificar/} + *{estudiante_id}">Cancelar</a>
+	  <button type="submit" class="btn btn-primary">Modificar Asistencia</button>
+	</form>
+</div>
+
 </body>
 </html>

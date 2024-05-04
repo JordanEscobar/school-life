@@ -74,11 +74,17 @@
 	  </div>
 	  	  <div class="mb-3">
 	    <label for="seccion" class="form-label">PIE</label>
-	    <input type="text" class="form-control" id="curso_id" th:field="*{pie}">
+	  	<select class="form-control" id="curso_id" th:field="*{pie}">
+	  		<option class="form-control" th:value="si" th:text="si"></option>
+	  		<option class="form-control" th:value="si" th:text="no"></option>
+	  	</select> 
 	  </div>
 	  	  <div class="mb-3">
 	    <label for="seccion" class="form-label">SEP</label>
-	    <input type="text" class="form-control" id="curso_id" th:field="*{sep}">
+	  	<select class="form-control" id="curso_id" th:field="*{sep}">
+	  		<option class="form-control" th:value="si" th:text="si"></option>
+	  		<option class="form-control" th:value="si" th:text="no"></option>
+	  	</select> 
 	  </div>
 	  <br>
 	  <a class="btn btn-secondary" th:href="@{/administrador/curso/} + *{curso_id}">Cancelar</a>

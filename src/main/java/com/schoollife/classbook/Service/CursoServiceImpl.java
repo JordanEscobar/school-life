@@ -97,4 +97,12 @@ public class CursoServiceImpl implements CursoService{
 		return cursoRepository.save(curso);
 	}
 
+	//curso por profesor
+	@Override
+	@Transactional
+	public List<Object[]> cursosPorProfesor(Integer profesorId) {
+		List<Object[]> cursos = cursoRepository.cursosPorProfesor(profesorId);
+		return cursos;
+	}
+
 }
