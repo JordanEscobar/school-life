@@ -58,12 +58,7 @@ public class CursoController {
 		cursoService.updateCurso(curso, curso.getId());
 		model.addAttribute("curso",curso);
 		flash.addFlashAttribute("success","Modificado Correctamente");
-		return "redirect:/administrador/curso";
-	}
-	
-	@GetMapping("/cursoAtras")
-	public String cursoAtras(Curso curso, Model model, HttpSession sesion) {
-		return "redirect:/curso";
+		return "redirect:/Editar";
 	}
 	
 	@GetMapping("/curso/estudiante/{id}")
