@@ -108,7 +108,7 @@ public class ProfesorController {
 		asistenciaS.updateAsistencia(asistencia, asistencia.getId());
 		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("asistencia",asistencia);
-		return "redirect:/iniciobase";
+		return "redirect:/profesor/asistencia/justificar/" + asistencia.getEstudiante_id();
 	}
 	
 	//ver curso Jefatura

@@ -48,7 +48,7 @@
 	<br><br>
 
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Rut</label>
+	    <label for="rut" class="form-label">Rut</label>
 	    <input class="form-control" id="rut" th:field="*{rut}" type="text"  placeholder="Ingrese rut sin puntos y con guion">
 	    <span th:if="${#fields.hasErrors('rut')}" th:errors="*{rut}">Error Rut</span>
 	  </div>
@@ -58,52 +58,52 @@
 	    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Apellido Paterno</label>
+	    <label for="apaterno" class="form-label">Apellido Paterno</label>
 	    <input class="form-control" id="apaterno" th:field="*{apaterno}" type="text" >
 	    <span th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error Apellido Paterno</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Apellido Materno</label>
+	    <label for="amaterno" class="form-label">Apellido Materno</label>
 	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text" >
 	    <span th:if="${#fields.hasErrors('amaterno')}" th:errors="*{amaterno}">Error Apellido Materno</span>
 	  </div>
 	  	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Dirección</label>
+	    <label for="direccion" class="form-label">Dirección</label>
 	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" >
 	    <span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Error Dirección</span>
 	  </div>
 	  	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Teléfono</label>
+	    <label for="telefono" class="form-label">Teléfono</label>
 	    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" placeholder="Ingrese sin código verificador">
 	    <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error Teléfono</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Correo Electrónico</label>
+	    <label for="correo" class="form-label">Correo Electrónico</label>
 	    <input type="email" class="form-control" id="correo" th:field="*{correo}" >
 	    <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Error Correo Electrónico</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Contraseña</label>
+	    <label for="contrasena" class="form-label">Contraseña</label>
 	    <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" >
 	    <span th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}">Error Contraseña</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Fecha nacimiento</label>
+	    <label for="fecha" class="form-label">Fecha nacimiento</label>
 	    <input type="date" class="form-control" id="fecha_nacimiento" th:field="*{fecha_nacimiento}" >
 	    <span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha Nacimiento</span>
 	  </div>
 	  <div class="mb-3">
-	  	<label for="seccion" class="form-label">PIE</label>
+	  	<label for="pie" class="form-label">PIE</label>
 	  	<select class="form-control" id="curso_id" th:field="*{pie}">
 	  		<option class="form-control" th:value="si" th:text="si"></option>
-	  		<option class="form-control" th:value="si" th:text="no"></option>
+	  		<option class="form-control" th:value="no" th:text="no"></option>
 	  	</select>  
 	  </div>
 	  <div class="mb-3">
-	  	<label for="seccion" class="form-label">SEP</label>
+	  	<label for="sep" class="form-label">SEP</label>
 	  	<select class="form-control" id="curso_id" th:field="*{sep}">
 	  		<option class="form-control" th:value="si" th:text="si"></option>
-	  		<option class="form-control" th:value="si" th:text="no"></option>
+	  		<option class="form-control" th:value="no" th:text="no"></option>
 	  	</select>  
 	  </div>
 	  <br>

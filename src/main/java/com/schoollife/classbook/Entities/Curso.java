@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "cursos")
@@ -18,10 +20,13 @@ public class Curso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@NotNull
-	@NotEmpty
+	@NotBlank
+	@Size(min = 4, max = 10)
 	@Column(name = "grado")
 	private String grado;
 	@NotNull
+	@NotBlank
+	@Size(min = 1,max = 1)
 	@Column(name = "seccion")
 	private String seccion;
 	@Column(name = "estado")

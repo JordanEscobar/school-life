@@ -31,7 +31,10 @@
 </div>
 
 <div class="container">
-
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
+	<br>
 	<h1>Cursos</h1>
 	<br><br>
 	<a th:href="@{/administrador/curso/crear}" class="btn btn-outline-primary">Ingresar Curso</a>

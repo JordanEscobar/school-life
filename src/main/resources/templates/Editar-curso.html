@@ -20,7 +20,7 @@
 <body>
 
 <div class="container">
-	<form th:action="@{/cursoModificado}" method="post" th:object="${curso}">
+	<form th:action="@{/administrador/curso/actualizado}" method="post" th:object="${curso}">
 	<br><br>
 	<h3>Modificar datos del curso</h3>
 	<br><br>
@@ -34,6 +34,13 @@
 	    <label for="seccion" class="form-label">Sección</label>
 	    <input type="text" class="form-control" id="seccion" th:field="*{seccion}">
 	   	<span th:if="${#fields.hasErrors('seccion')}" th:errors="*{seccion}">Error Sección</span>
+	  </div>
+	  	  <div class="mb-3">
+	    <label for="profesor" class="form-label">Profesor</label>
+	    <select class="form-control" th:field="*{profesor_id}" id="profesor_id">
+	    	<option th:each="p : ${profesores}" th:value="${p.id}" th:text="${p.nombre} + ' ' + ${p.apaterno} + ' ' +${p.amaterno}"></option>
+	    </select>
+	    <span th:if="${#fields.hasErrors('profesor_id')}" th:errors="*{profesor_id}">Error Profesor</span>
 	  </div>
 	  <br>
 	  <a class="btn btn-secondary" th:href="@{/administrador/curso}">Cancelar</a>

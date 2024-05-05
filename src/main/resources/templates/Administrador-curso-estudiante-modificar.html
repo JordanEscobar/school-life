@@ -20,7 +20,7 @@
 <body>
 
 <div class="container">
-	<form th:action="@{/administrador/curso/modificado}" method="post" th:object="${estudiante}">
+	<form th:action="@{/administrador/estudiante/modificado}" th:method="POST" th:object="${estudiante}">
 	<br><br>
 	<div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
@@ -60,12 +60,12 @@
 	  </div>
 	  <div class="mb-3">
 	    <label for="correo" class="form-label">Correo Electrónico</label>
-	    <input type="text" class="form-control" id="correo" th:field="*{correo}">
+	    <input type="email" class="form-control" id="correo" th:field="*{correo}">
 	    <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Error Correo</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="estado" class="form-label">Estado</label>
-	    <input type="text" class="form-control" id="correo" th:field="*{estado}">
+	    <input type="text" class="form-control" id="estado" th:field="*{estado}">
 	    <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Error Estado</span>
 	  </div>
 	  <div class="mb-3">
@@ -74,7 +74,7 @@
 	    <span th:if="${#fields.hasErrors('curso_id')}" th:errors="*{curso_id}">Error Curso</span>
 	  </div>
 	  <div class="mb-3">
-	    <input type="hidden" class="form-control" id="curso_id" th:field="*{colegio_id}">
+	    <input type="hidden" class="form-control" id="colegio_id" th:field="*{colegio_id}">
 	  </div>
 	  <div class="mb-3">
 	    <label for="fecha_nacimiento" class="form-label">Fecha nacimiento</label>
@@ -82,17 +82,17 @@
 	    <span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha Nacimiento</span>
 	  </div>
 	  <div class="mb-3">
-	  	<label for="seccion" class="form-label">PIE</label>
-	  	<select class="form-control" id="curso_id" th:field="*{pie}">
+	  	<label for="pie" class="form-label">PIE</label>
+	  	<select class="form-control" id="pie" th:field="*{pie}">
 	  		<option class="form-control" th:value="si" th:text="si"></option>
-	  		<option class="form-control" th:value="si" th:text="no"></option>
+	  		<option class="form-control" th:value="no" th:text="no"></option>
 	  	</select>  
 	  </div>
 	  <div class="mb-3">
-	  	<label for="seccion" class="form-label">SEP</label>
-	  	<select class="form-control" id="curso_id" th:field="*{sep}">
+	  	<label for="sep" class="form-label">SEP</label>
+	  	<select class="form-control" id="sep" th:field="*{sep}">
 	  		<option class="form-control" th:value="si" th:text="si"></option>
-	  		<option class="form-control" th:value="si" th:text="no"></option>
+	  		<option class="form-control" th:value="no" th:text="no"></option>
 	  	</select>  
 	  </div>
 	  <br>

@@ -81,16 +81,11 @@ public class AdministradorController {
 		return "Administrador-curso-estudiante-modificar";
 	}
 	
-	@PostMapping(path = "/administrador/curso/modificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
+	@PostMapping(path = "/administrador/estudiante/modificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
 	public String administradorCursoEstudianteModificado(@Valid Estudiante estudiante, Errors errores,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var estudiantes = estudianteS.getAllEstudiante();
 		Estudiante e = new Estudiante();
-		
-		if (errores.hasErrors()) {
-			return "Administrador-curso-estudiante-modificar";
-		}
-		
-		
+
 		for (int i = 0; i < estudiantes.size(); i++) {
 			if (estudiantes.get(i).getId() == estudiante.getId()) {
 				e.setId(estudiantes.get(i).getId());
@@ -109,10 +104,14 @@ public class AdministradorController {
 			}
 		}
 		
+		if (errores.hasErrors()) {
+			return "Administrador-curso-estudiante-modificar";
+		}
+		
 		estudianteS.updateEstudiante(estudiante, estudiante.getId());
 		model.addAttribute("estudiante",estudiante);
 		flash.addFlashAttribute("success","Modificado Correctamente");
-		return "redirect:/administrador/curso/" + estudiante.getCurso_id();
+		return "redirect:/administrador/curso";
 	}
 	
 	@PostMapping(path = "/administrador/curso/guardado", consumes = "application/x-www-form-urlencoded")

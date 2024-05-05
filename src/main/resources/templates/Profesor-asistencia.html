@@ -41,7 +41,7 @@
 				<div class="col-form-label">
 					<select class="form-control" name="filtroAsignatura">
 						<option th:each="as : ${asignaturaSelect}" th:value="${as.id}"
-							th:text="${as.nombre}"></option>
+							th:text="${as.nombre}" ></option>
 					</select>
 				</div>
 				<div class="col-auto">
@@ -66,7 +66,8 @@
 				<tr th:each="a : ${asistencias}">
 					<td th:text="${a.id}"></td>
 					<td th:text="${#calendars.format(a.fecha,'dd-MMMM-yyyy')}"></td>
-					<td th:text="${a.estado}"></td>
+					<td th:if="${a.estado} == True" th:text="PRESENTE"></td>
+					<td th:if="${a.estado} == False" th:text="AUSENTE"></td>
 					<td th:each="e : ${estudiantes}" th:if="${a.estudiante_id} == ${e.id}" th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
 					<td th:each="e : ${estudiantes}" th:if="${a.estudiante_id} == ${e.id}" th:text="${e.rut}"></td>
 				</tr>

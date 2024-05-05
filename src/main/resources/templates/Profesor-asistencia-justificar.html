@@ -49,7 +49,8 @@
 				<tbody>
 					<tr th:each="as : ${asistencias}">
 						<td th:text="${as.id}"></td>
-						<td th:text="${as.estado}"></td>
+						<td th:text="AUSENTE" th:if="${as.estado} == False "></td>
+						<td th:text="PRESENTE" th:if="${as.estado} == True "></td>
 						<td th:text="${#calendars.format(as.fecha,'dd-MMMM-yyyy')}"></td>
 						<td th:each="a : ${asignaturas}" th:if="${as.asignatura_id} == ${a.id}" th:text="${a.nombre}"></td>
 						<td><a

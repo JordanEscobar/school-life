@@ -42,8 +42,8 @@
 	  <div class="mb-3">
 	  <label for="estado" class="form-label">Estado</label>
 	  	<select class="form-control" th:field="*{estado}">
-		    <option th:value="'presente'" th:text="presente"></option>
-		    <option th:value="'ausente'" th:text="ausente"></option>
+		    <option th:value="True" th:text="presente"></option>
+		    <option th:value="False" th:text="ausente"></option>
 		</select>
 	  </div>
 	  <div class="mb-3">

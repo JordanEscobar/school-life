@@ -25,8 +25,6 @@ public class Asistencia {
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha;
 	@NotNull
-	@NotEmpty
-	@NotBlank
 	@Column(name = "estado")
 	private Boolean estado;
 	@Column(name = "descripcion")
