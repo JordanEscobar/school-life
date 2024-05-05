@@ -54,25 +54,6 @@ public class AsistenciaController {
 		return "Index-asistencia";
 	}*/
 	
-	@GetMapping("/asistenciaCurso")
-	public String asistenciaCurso( Model model, HttpSession sesion) {
-		var asistencia = asistenciaService.asistenciaCurso(1, 1, 1, 4);		
-		model.addAttribute("asistencia", asistencia);
-		return "Asistencia";
-	}
-	
-	@GetMapping("/asistenciaCurso/{id}")
-	public String asistenciaCurso(Curso curso,Model model, HttpSession sesion) {
-		return"Asistencia-curso";
-	}
-	
-	@GetMapping("/asistencia/estudiante/{id}")
-	public String estudianteAsistencia(Estudiante estudiante, Model model, HttpSession sesion) {
-		var asistencias = asistenciaService.asistenciaPorEstudiante(estudiante.getId());
-		model.addAttribute("asistencias",asistencias);
-		return "Asistencia-estudiante";
-	}
-	
 	@GetMapping("/asistenciaModificar/{id}")
 	public String editEstudiante(Asistencia asistencia, Model model, HttpSession sesion) {
 		var asistencias = asistenciaService.findAsistencia(asistencia);
@@ -84,7 +65,7 @@ public class AsistenciaController {
 	public String modificarAsistencia(@Valid Asistencia asistencia,Errors errores, RedirectAttributes flash, Model model, HttpSession sesion) {
 		if (errores.hasErrors()) {
 			flash.addFlashAttribute("warning","Valores Inválidos");
-			return "redirect:/curso";
+			return "P";
 		}
 		
 		var asistencias = asistenciaService.getAllAsistencias();
@@ -102,10 +83,6 @@ public class AsistenciaController {
 		return "redirect:/curso";
 	}
 	
-	@GetMapping("/asistencia/baja")
-	public String asistenciaBaja( Model model) {
-		return "Asistencia-baja-curso";
-	}
 	
 
 	/*@GetMapping("/asistencia")
@@ -127,16 +104,6 @@ public class AsistenciaController {
 		model.addAttribute("diaSemana", diaSemana);
 		return "Asistencia";
 	}*/
-	
-	@GetMapping("/asistencia/tomar")
-	public String asistenciaTomar(Model model) {
-		List<Estudiante> estudiantesAsistencia = estudianteService.estudiantePorColegioYCurso(1, 1);
-		model.addAttribute("estudiantesAsistencia",estudiantesAsistencia);
-		return "Asistencia-tomar";
-	}
-	
-
-	
 	
 }
 

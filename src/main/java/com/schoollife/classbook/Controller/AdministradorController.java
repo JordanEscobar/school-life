@@ -86,9 +86,9 @@ public class AdministradorController {
 		var estudiantes = estudianteS.getAllEstudiante();
 		Estudiante e = new Estudiante();
 		
-		/*if (errores.hasErrors()) {
-			return "Editar-curso";
-		}*/
+		if (errores.hasErrors()) {
+			return "Administrador-curso-estudiante-modificar";
+		}
 		
 		
 		for (int i = 0; i < estudiantes.size(); i++) {
@@ -109,12 +109,10 @@ public class AdministradorController {
 			}
 		}
 		
-
-		
 		estudianteS.updateEstudiante(estudiante, estudiante.getId());
-		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("estudiante",estudiante);
-		return "redirect:/administrador/curso/modificar/" + estudiante.getId();
+		flash.addFlashAttribute("success","Modificado Correctamente");
+		return "redirect:/administrador/curso/" + estudiante.getCurso_id();
 	}
 	
 	@PostMapping(path = "/administrador/curso/guardado", consumes = "application/x-www-form-urlencoded")
@@ -135,8 +133,6 @@ public class AdministradorController {
 		flash.addFlashAttribute("success","Curso ingresado correctamente");
 		return "redirect:/administrador/curso";
 	}
-	
-	
 	
 	@GetMapping("/administrador/curso/crear")
 	public String administradorCursoCrear(Curso curso,Model model) {
@@ -259,8 +255,6 @@ public class AdministradorController {
 		//se crea la matricula
 		matriculaS.CreateMatricula(m);
 		
-
- 		
 		model.addAttribute("apoderado", a);
 		//Se crea un registro cada vez que se ingresa una matricula
 		Registro_conexion registro = new Registro_conexion();

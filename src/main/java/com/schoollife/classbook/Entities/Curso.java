@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,14 +23,14 @@ public class Curso {
 	private String grado;
 	@NotNull
 	@Column(name = "seccion")
-	private char seccion;
+	private String seccion;
 	@Column(name = "estado")
 	private String estado;
 	@JoinColumn(name = "colegio_id", nullable = false)
 	private Integer colegio_id;
 	@JoinColumn(name = "profesor_id", nullable = false)
 	private Integer profesor_id;
-	public Curso(Integer id, @NotNull String grado, @NotNull char seccion, @NotNull String estado, Integer colegio_id,
+	public Curso(Integer id, @NotNull String grado, @NotNull String seccion, @NotNull String estado, Integer colegio_id,
 			Integer profesor_id) {
 		super();
 		this.id = id;
@@ -56,10 +55,10 @@ public class Curso {
 	public void setGrado(String grado) {
 		this.grado = grado;
 	}
-	public char getSeccion() {
+	public String getSeccion() {
 		return seccion;
 	}
-	public void setSeccion(char seccion) {
+	public void setSeccion(String seccion) {
 		this.seccion = seccion;
 	}
 	public String getEstado() {
