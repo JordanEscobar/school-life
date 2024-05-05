@@ -126,11 +126,19 @@ public class ProfesorController {
 	public String profesorAsignaturas(@PathVariable("profesor_id") Integer profesor_id,Model model) {
 		var asignaturas = asignaturaS.asignaturaPorProfesor(profesor_id);
 		var cursos = cursoS.cursosPorProfesor(profesor_id);
-		System.out.println("mis asignaturas: " + asignaturas);
 		model.addAttribute("asignaturas",asignaturas);
 		model.addAttribute("cursos", cursos);
 		return"Profesor-curso";
 	}
+	@GetMapping("/profesor/curso/asignatura/estudiantes/{curso_id}")
+	public String profesorAsignaturasPorCurso(@PathVariable("curso_id") Integer curso_id, Model model) {
+		model.addAttribute("curso_id",curso_id);
+		var estudiantes = cursoS.getEstudianteByIdCurso(curso_id);
+		model.addAttribute("estudiantes",estudiantes);
+		return "Profesor-curso-estudiante";
+	}
+	
+	
 	
 	@GetMapping("/profesor/asistencia/registrar/{profesor_id}")
 	public String profesorAsistenciaRegistrar(@PathVariable("profesor_id") Integer profesor_id, Model model, HttpSession sesion) {
