@@ -6,6 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "colegios")
@@ -13,21 +16,48 @@ public class Colegio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "nombre")
 	private String nombre;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "rbd")
 	private Integer rbd;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "direccion")
 	private String direccion;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "telefono")
 	private String telefono;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "correo")
 	private String correo;
 	@Column(name = "total_estudiantes")
 	private Integer total_estudiantes;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String comuna;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String provincia;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String region;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String director;
 	private float ive;
 	public Colegio(Integer id, String nombre, Integer rbd, String direccion, String telefono, String correo,

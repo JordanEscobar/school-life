@@ -40,6 +40,10 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 	public Apoderado createApoderado(Apoderado apoderado) {
 		return apoderadoRepository.save(apoderado);
 	}
+	@Override
+	public void deleteApoderado(Integer id) {
+		apoderadoRepository.deleteById(id);
+	}
 	
 	
 

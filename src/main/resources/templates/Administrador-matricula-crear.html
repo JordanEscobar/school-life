@@ -25,12 +25,16 @@
 	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: Administrador</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" th:href="@{/iniciobase}">Volver</a>
+	    <a class="nav-link" th:href="@{/administrador/login}">Volver</a>
 	  </li>
 	</ul>
 </div>
 
 <div class="container">
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-warning" th:if="${warning} != null" th:text="${warning}"></div>	
+	</div>
+
 	<br><br>
 	<h1>Ingresar Matrícula</h1>
 	<h3>Datos Estudiante</h3>
@@ -45,35 +49,48 @@
 
 	  <div class="mb-3">
 	    <label for="grado" class="form-label">Rut</label>
-	    <input class="form-control" id="rut" th:field="*{rut}" type="text" required>
+	    <input class="form-control" id="rut" th:field="*{rut}" type="text"  placeholder="Ingrese rut sin puntos y con guion">
+	    <span th:if="${#fields.hasErrors('rut')}" th:errors="*{rut}">Error Rut</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Nombre</label>
-	    <input class="form-control" id="nombre" th:field="*{nombre}" type="text" required>
+	    <label for="nombre" class="form-label">Nombre</label>
+	    <input  id="nombre" class="form-control" th:field="*{nombre}" type="text" >
+	    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="grado" class="form-label">Apellido Paterno</label>
-	    <input class="form-control" id="apaterno" th:field="*{apaterno}" type="text" required>
+	    <input class="form-control" id="apaterno" th:field="*{apaterno}" type="text" >
+	    <span th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error Apellido Paterno</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="grado" class="form-label">Apellido Materno</label>
-	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text" required>
+	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text" >
+	    <span th:if="${#fields.hasErrors('amaterno')}" th:errors="*{amaterno}">Error Apellido Materno</span>
 	  </div>
 	  	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Dirección</label>
-	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
+	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" >
+	    <span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Error Dirección</span>
 	  </div>
 	  	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Teléfono</label>
-	    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+	    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" placeholder="Ingrese sin código verificador">
+	    <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error Teléfono</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Correo Electrónico</label>
-	    <input type="email" class="form-control" id="correo" th:field="*{correo}" required>
+	    <input type="email" class="form-control" id="correo" th:field="*{correo}" >
+	    <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Error Correo Electrónico</span>
+	  </div>
+	  <div class="mb-3">
+	    <label for="seccion" class="form-label">Contraseña</label>
+	    <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" >
+	    <span th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}">Error Contraseña</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Fecha nacimiento</label>
-	    <input type="date" class="form-control" id="curso_id" th:field="*{fecha_nacimiento}" required>
+	    <input type="date" class="form-control" id="fecha_nacimiento" th:field="*{fecha_nacimiento}" >
+	    <span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha Nacimiento</span>
 	  </div>
 	  <div class="mb-3">
 	  	<label for="seccion" class="form-label">PIE</label>

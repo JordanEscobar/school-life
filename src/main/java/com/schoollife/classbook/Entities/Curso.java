@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -16,13 +18,19 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotBlank
 	@NotNull
+	@NotEmpty
 	@Column(name = "grado")
 	private String grado;
+	@NotBlank
 	@NotNull
+	@NotEmpty
 	@Column(name = "seccion")
 	private char seccion;
+	@NotBlank
 	@NotNull
+	@NotEmpty
 	@Column(name = "estado")
 	private String estado;
 	@JoinColumn(name = "colegio_id", nullable = false)

@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,15 +26,16 @@ public class Asistencia {
 	private Date fecha;
 	@NotNull
 	@NotEmpty
+	@NotBlank
 	@Column(name = "estado")
-	private String estado;
+	private Boolean estado;
 	@Column(name = "descripcion")
 	private String descripcion;
 	@JoinColumn(name = "estudiante_id", nullable = false)
 	private Integer estudiante_id;
 	@JoinColumn(name = "asignatura_id", nullable = false)
 	private Integer asignatura_id;
-	public Asistencia(Integer id, Date fecha, @NotNull @NotEmpty String estado, String descripcion,
+	public Asistencia(Integer id, Date fecha, @NotNull @NotEmpty @NotBlank Boolean estado, String descripcion,
 			Integer estudiante_id, Integer asignatura_id) {
 		super();
 		this.id = id;
@@ -58,10 +60,10 @@ public class Asistencia {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getEstado() {
+	public Boolean getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
 	public String getDescripcion() {
@@ -88,8 +90,6 @@ public class Asistencia {
 				+ ", estudiante_id=" + estudiante_id + ", asignatura_id=" + asignatura_id + "]";
 	}
 	
-	
-
 	
 	
 

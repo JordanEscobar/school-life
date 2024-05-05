@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +25,7 @@ import com.schoollife.classbook.Service.ProfesorService;
 import com.schoollife.classbook.Service.Registro_conexionService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class AdministradorController {
@@ -80,7 +82,7 @@ public class AdministradorController {
 	}
 	
 	@PostMapping(path = "/administrador/curso/modificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String administradorCursoEstudianteModificado(Estudiante estudiante,RedirectAttributes flash, Model model, HttpSession sesion) {
+	public String administradorCursoEstudianteModificado(@Valid Estudiante estudiante, Errors errores,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var estudiantes = estudianteS.getAllEstudiante();
 		Estudiante e = new Estudiante();
 		for (int i = 0; i < estudiantes.size(); i++) {
@@ -107,7 +109,7 @@ public class AdministradorController {
 	}
 	
 	@PostMapping(path = "/administrador/curso/guardado", consumes = "application/x-www-form-urlencoded")
-	public String administradorCursoGuardado(Curso curso,RedirectAttributes flash, Model model,HttpSession sesion) {			
+	public String administradorCursoGuardado(@Valid Curso curso,Errors errores,RedirectAttributes flash, Model model,HttpSession sesion) {			
 		Integer colegioid = 1;
 		Curso c = new Curso();
 		c.setColegio_id(colegioid);
@@ -159,7 +161,7 @@ public class AdministradorController {
 	}
 	
 	@PostMapping(path = "/administrador/matricula/creada", consumes = "application/x-www-form-urlencoded")
-	public String administradorMatriculaCreada(Estudiante estudiante,Apoderado apoderado,Model model,HttpSession sesion) {			
+	public String administradorMatriculaCreada(@Valid Estudiante estudiante,Errors errores,RedirectAttributes flash, Apoderado apoderado,Model model,HttpSession sesion) {			
 		Integer colegioid = 1;
 		Estudiante e = new Estudiante();
 		e.setColegio_id(colegioid);
@@ -177,10 +179,17 @@ public class AdministradorController {
 		e.setRut(estudiante.getRut());
 		e.setSep(estudiante.getSep());
 		e.setTelefono(estudiante.getTelefono());
+		
+		if (errores.hasErrors()) {
+			//flash.addFlashAttribute("warning","Valores Inválidos, intente nuevamente");
+			return "Administrador-matricula-crear";
+		}
+		
 		//se crea el estudiante
 		estudianteS.CreateEstudiante(e);         
 		model.addAttribute("estudianteid",e.getId());
 		model.addAttribute("estudiante", e);
+		
 		//Se crea un registro cada vez que se ingresa una matricula
 		Registro_conexion registro = new Registro_conexion();
 		registro.setFecha(new Date());
@@ -190,34 +199,56 @@ public class AdministradorController {
 
 		return "Administrador-matricula-crear2";
 	}
+	@GetMapping("/administrador/matricula/cancelar")
+	public String administradorMatriculaCancelar(RedirectAttributes flash,Model model) {
+		Integer colegioid = 1;
+		var estudiantes = estudianteS.estudiantePorColegio(colegioid);
+		Integer cantidadEstudiantes = estudiantes.size();
+		Integer ultimoestudiante = estudiantes.get(cantidadEstudiantes - 1).getId(); 
+
+		estudianteS.deleteEstudiante(ultimoestudiante);
+		flash.addFlashAttribute("warning","Matrícula cancelada");
+		
+		return "redirect:/administrador/matricula";
+	}
 	
 	@PostMapping(path = "/administrador/matricula/creada/ingresado", consumes = "application/x-www-form-urlencoded")
-	public String administradorMatriculaCreadaFinal(Estudiante estudiante,Apoderado apoderado, Model model,@Param("estudianteid") Integer estudianteid,@Param("pie") String pie,HttpSession sesion) {			
+	public String administradorMatriculaCreadaFinal(@Valid Apoderado apoderado,Errors errores,RedirectAttributes flash,Estudiante estudiante, Model model,HttpSession sesion) {			
 		Integer colegioid = 1;
+		var estudiantes = estudianteS.estudiantePorColegio(colegioid);
+		Integer cantidadEstudiantes = estudiantes.size();
+		Integer ultimoestudiante = estudiantes.get(cantidadEstudiantes - 1).getId(); 
+		
 		Apoderado a = new Apoderado();
-		a.setEstado("activo");
-		a.setApaterno(apoderado.getApaterno());
-		a.setAmaterno(apoderado.getAmaterno());
-		a.setId(apoderado.getId());
-		a.setDireccion(apoderado.getDireccion());
-		a.setNombre(apoderado.getNombre());
-		a.setRut(apoderado.getRut());
-		a.setTelefono(apoderado.getTelefono());
-		a.setEstudiante_id(estudianteid);
-		//se crea el apodearo
-		apoderadoS.createApoderado(a);   
+		a.setEstado_apoderado("activo");
+		a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
+		a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
+		a.setId_apoderado(apoderado.getId_apoderado());
+		a.setDireccion_apoderado(apoderado.getDireccion_apoderado());
+		a.setNombre_apoderado(apoderado.getNombre_apoderado());
+		a.setRut_apoderado(apoderado.getRut_apoderado());
+		a.setTelefono_apoderado(apoderado.getTelefono_apoderado());
+		a.setEstudiante_id(ultimoestudiante);
+		
+		if (errores.hasErrors()) {
+			//flash.addFlashAttribute("warning","Valores Inválidos, intente nuevamente");
+			//estudianteS.deleteEstudiante(ultimoestudiante);
+			return "Administrador-matricula-crear2";
+		}
+		//se crea el apoderado
+		apoderadoS.createApoderado(a);  
 		
 		//se ingresa matricula
 		Matricula m = new Matricula();
 		m.setColegio_id(colegioid);
 		m.setEstado("matriculado");
-		m.setEstudiante_id(estudiante.getId());
+		m.setEstudiante_id(ultimoestudiante);
 		m.setFecha(new Date());
 		//se crea la matricula
 		matriculaS.CreateMatricula(m);
+		
+
  		
-		
-		
 		model.addAttribute("apoderado", a);
 		//Se crea un registro cada vez que se ingresa una matricula
 		Registro_conexion registro = new Registro_conexion();
@@ -230,6 +261,7 @@ public class AdministradorController {
 		System.out.println("estudiantes pie: " + matriculas);
 		model.addAttribute("matriculas",matriculas);*/
 
+		flash.addFlashAttribute("success","Matrícula ingresada exitosamente");
 		return "redirect:/administrador/matricula";
 	}
 

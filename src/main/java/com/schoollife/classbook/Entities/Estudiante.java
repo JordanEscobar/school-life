@@ -1,5 +1,8 @@
 package com.schoollife.classbook.Entities;
 
+import java.util.Date;
+
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -10,6 +13,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "estudiantes")
@@ -17,26 +26,54 @@ public class Estudiante {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotEmpty
+	@NotNull
+	@Length(min = 6, max = 11)
+	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	@Column(name = "rut")
 	private String rut;
+	@NotEmpty
+	@NotNull
 	@Column(name = "nombre")
 	private String nombre;
+	@NotEmpty
+	@NotNull
 	@Column(name = "apaterno")
 	private String apaterno;
+	@NotEmpty
+	@NotNull
 	@Column(name = "amaterno")
 	private String amaterno;
+	@NotNull
+	@Past
 	@DateTimeFormat(iso=ISO.DATE)
-	private String fecha_nacimiento;
+	private Date fecha_nacimiento;
+	@NotEmpty
+	@NotNull
+	@NotBlank
+	@Length(min = 3, max = 255)
 	@Column(name = "direccion")
 	private String direccion;
+	@NotEmpty
+	@NotNull
+	@Length(min = 5, max = 15)
 	@Column(name = "telefono")
 	private String telefono;
+	@NotEmpty
+	@NotNull
+	@Email
 	@Column(name = "correo")
 	private String correo;
+	@NotEmpty
+	@NotNull
 	@Column(name = "contrasena")
 	private String contrasena;
+	@NotEmpty
+	@NotNull
 	@Column(name = "sep")
 	private String sep;
+	@NotEmpty
+	@NotNull
 	@Column(name = "pie")
 	private String pie;
 	@Column(name = "estado")
@@ -45,8 +82,14 @@ public class Estudiante {
 	private Integer colegio_id;
 	@JoinColumn(name = "curso_id", nullable = false)
 	private Integer curso_id;
-	public Estudiante(Integer id, String rut, String nombre, String apaterno, String amaterno, String fecha_nacimiento,
-			String direccion, String telefono, String correo, String contrasena, String sep, String pie, String estado,
+	public Estudiante(Integer id,
+			@NotEmpty @NotNull @NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String rut,
+			@NotEmpty @NotNull @NotBlank String nombre, @NotEmpty @NotNull @NotBlank String apaterno,
+			@NotEmpty @NotNull @NotBlank String amaterno, @NotNull @Past Date fecha_nacimiento,
+			@NotEmpty @NotNull @NotBlank @Length(min = 3, max = 255) String direccion,
+			@NotEmpty @NotNull @NotBlank @Length(min = 5, max = 15) String telefono,
+			@NotEmpty @NotNull @NotBlank @Email String correo, @NotEmpty @NotNull @NotBlank String contrasena,
+			@NotEmpty @NotNull @NotBlank String sep, @NotEmpty @NotNull @NotBlank String pie, String estado,
 			Integer colegio_id, Integer curso_id) {
 		super();
 		this.id = id;
@@ -98,10 +141,10 @@ public class Estudiante {
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
 	}
-	public String getFecha_nacimiento() {
+	public Date getFecha_nacimiento() {
 		return fecha_nacimiento;
 	}
-	public void setFecha_nacimiento(String fecha_nacimiento) {
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
 	public String getDireccion() {
@@ -165,9 +208,6 @@ public class Estudiante {
 				+ telefono + ", correo=" + correo + ", contrasena=" + contrasena + ", sep=" + sep + ", pie=" + pie
 				+ ", estado=" + estado + ", colegio_id=" + colegio_id + ", curso_id=" + curso_id + "]";
 	}
-	
-	
-	
 	
 	
 	

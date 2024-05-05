@@ -16,6 +16,7 @@ import com.schoollife.classbook.Service.CursoService;
 import com.schoollife.classbook.Service.EstudianteService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class CursoController {
@@ -52,7 +53,7 @@ public class CursoController {
 	}
 	
 	@PostMapping(path = "/cursoModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String modificarCurso(Curso curso,RedirectAttributes flash, Model model, HttpSession sesion) {
+	public String modificarCurso(@Valid Curso curso,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var cursos = cursoService.getAll();
 		Curso c = new Curso();
 		for (int i = 0; i < cursos.size(); i++) {
@@ -88,7 +89,7 @@ public class CursoController {
 	}
 	
 	@PostMapping(path = "/estudianteModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String modificarCurso(Estudiante estudiante,RedirectAttributes flash, Model model, HttpSession sesion) {
+	public String modificarCurso(@Valid Estudiante estudiante,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var estudiantes = estudianteService.getAllEstudiante();
 		Estudiante e = new Estudiante();
 		for (int i = 0; i < estudiantes.size(); i++) {

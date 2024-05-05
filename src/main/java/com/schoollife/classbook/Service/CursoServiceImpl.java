@@ -105,4 +105,15 @@ public class CursoServiceImpl implements CursoService{
 		return cursos;
 	}
 
+
+	@Override
+	@Transactional
+	public List<Curso> cursosPorProfesorNoQuery(Integer profesor_id) {
+		List<Curso> cursos = cursoRepository.findAll();
+		cursos = cursos.stream().filter(c -> c.getProfesor_id() == profesor_id).collect(Collectors.toList());
+		return cursos;
+	}
+	
+	
+
 }

@@ -2,6 +2,7 @@ package com.schoollife.classbook.Entities;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -11,6 +12,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "administradores")
@@ -19,17 +25,50 @@ public class Administrador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String nombre;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String apaterno;
 	private String amaterno;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 6, max = 11)
+	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String rut;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 3, max = 255)
 	private String direccion;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 3, max = 255)
+	@Email
 	private String correo;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 15)
 	private String telefono;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String cargo;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String contrasena;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String estado;
 	@JoinColumn(name = "colegio_id", nullable = false)
 	private Integer colegio_id;

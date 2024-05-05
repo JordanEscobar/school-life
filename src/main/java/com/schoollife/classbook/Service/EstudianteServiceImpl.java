@@ -158,6 +158,18 @@ public class EstudianteServiceImpl implements EstudianteService{
 		estudiantes = estudiantes.stream().filter(e-> e.getId() == asistenciaid).collect(Collectors.toList());
 		return estudiantes;
 	}
+	@Override
+	public void deleteEstudiante(Integer id) {
+		estudianteRepository.deleteById(id);
+		
+	}
+	@Override
+	@Transactional
+	public List<Estudiante> estudiantePorColegio(Integer colegioid) {
+		List<Estudiante> estudiantes = estudianteRepository.findAll();
+		estudiantes = estudiantes.stream().filter(e-> e.getColegio_id() == colegioid).collect(Collectors.toList());
+		return estudiantes;
+	}
 
 
 }

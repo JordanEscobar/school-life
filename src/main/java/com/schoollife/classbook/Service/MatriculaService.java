@@ -9,5 +9,7 @@ public interface MatriculaService {
 	List<Matricula> matriculasPorColegio(Integer colegioid);
 	
 	Matricula CreateMatricula(Matricula matricula);
+	
+	void deleteMatricula(Integer id);
 
 }

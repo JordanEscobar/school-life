@@ -20,6 +20,7 @@ import com.schoollife.classbook.Service.CursoService;
 import com.schoollife.classbook.Service.EstudianteService;
 import com.schoollife.classbook.Service.ProfesorService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class ProfesorController {
@@ -89,14 +90,12 @@ public class ProfesorController {
 	public String profesorAsistenciaModificar(Asistencia asistencia, Model model, HttpSession sesion) {
 		var asistencias = asistenciaS.findAsistencia(asistencia);
 		
-		
-		
 		model.addAttribute("asistencias", asistencias);
 		return "Profesor-asistencia-modificar";
 	}
 	
 	@PostMapping(path = "/profesor/asistencia/modificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String profesorAsistenciaModificado(Asistencia asistencia, RedirectAttributes flash, Model model, HttpSession sesion) {
+	public String profesorAsistenciaModificado(@Valid Asistencia asistencia, RedirectAttributes flash, Model model, HttpSession sesion) {
 		var asistencias = asistenciaS.getAllAsistencias();
 		Asistencia a = new Asistencia();
 		for (int i = 0; i < asistencias.size(); i++) {
@@ -110,11 +109,6 @@ public class ProfesorController {
 		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("asistencia",asistencia);
 		return "redirect:/iniciobase";
-	}
-	
-	@GetMapping("/profesor/asistencia/registrar")
-	public String profesorAsistenciaRegistrar() {
-		return "Profesor-asistencia-registrar";
 	}
 	
 	//ver curso Jefatura
@@ -136,6 +130,23 @@ public class ProfesorController {
 		model.addAttribute("asignaturas",asignaturas);
 		model.addAttribute("cursos", cursos);
 		return"Profesor-curso";
+	}
+	
+	@GetMapping("/profesor/asistencia/registrar/{profesor_id}")
+	public String profesorAsistenciaRegistrar(@PathVariable("profesor_id") Integer profesor_id, Model model, HttpSession sesion) {
+		var cursos = cursoS.cursosPorProfesorNoQuery(profesor_id);
+		var asignaturas = asignaturaS.getAllAsignaturas();
+		model.addAttribute("asignaturas",asignaturas);
+		model.addAttribute("cursos",cursos);
+		return "Profesor-asistencia-registrar";
+	}
+	@PostMapping("/filtrar/asignatura")
+	public String profesorAsistenciaRegistrarFiltro(@RequestParam("filtroAsignatura") int filtroAsignatura,Model model) {
+		//var cursos = cursoS.cursosPorProfesorNoQuery(profesor_id);
+		var asignaturas = asignaturaS.asignaturaPorProfesor(filtroAsignatura);
+		model.addAttribute("asignaturas",asignaturas);
+		//model.addAttribute("cursos",cursos);
+		return "redirect:/profesor/asistencia/registrar/1";
 	}
 	
 

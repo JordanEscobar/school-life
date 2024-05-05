@@ -12,6 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "matriculas")
@@ -21,6 +24,9 @@ public class Matricula {
 	private Integer id;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "estado")
 	private String estado;
 	@JoinColumn(name = "estudiante_id", nullable = false)

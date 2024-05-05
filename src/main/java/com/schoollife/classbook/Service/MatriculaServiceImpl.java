@@ -36,6 +36,12 @@ public class MatriculaServiceImpl implements MatriculaService{
 	public Matricula CreateMatricula(Matricula matricula) {
 		return matriculaRepository.save(matricula);
 	}
+
+	@Override
+	public void deleteMatricula(Integer id) {
+		matriculaRepository.deleteById(id);
+		
+	}
 	
 	
 

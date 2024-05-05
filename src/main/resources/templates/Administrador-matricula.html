@@ -25,13 +25,21 @@
 	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: Administrador</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" th:href="@{/iniciobase}">Volver</a>
+	    <a class="nav-link" th:href="@{/administrador/login}">Volver</a>
 	  </li>
 	</ul>
 </div>
 
 		<div class="container">
 	<br>
+		<div class="col-md-4 mt-5">
+		<div class="alert alert-warning" th:if="${warning} != null" th:text="${warning}"></div>	
+	</div>
+	<div class="col-md-4 mt-5">
+	<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+</div>
+	<br>
+	
 	<h1 class="fs-2">Matrículas</h1>
 	<br>
 	<a class="btn btn-danger" th:href="@{/administrador/matricula/crear}"><span>+</span> Matricular estudiante</a>
@@ -71,7 +79,6 @@
 					<th>Rut</th>
 					<th>SEP</th>
 					<th>PIE</th>
-					<th>Opciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -81,7 +88,6 @@
 					<td th:text="${m.rut}"></td>
 					<td th:text="${m.sep}"></td>
 					<td th:text="${m.pie}"></td>
-					<td><a  class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar información"><i class="fa-regular fa-pen-to-square" ></i></a></td>
 				</tr>
 			</tbody>
 		</table>

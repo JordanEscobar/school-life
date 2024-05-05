@@ -22,8 +22,10 @@ public interface CursoService {
 	List<Object[]> cursoPorColegio(Integer colegioId);
 	//Crear
 	Curso CreateCurso(Curso curso);
-	//
+	//curso por profesor query
 	List<Object[]> cursosPorProfesor(Integer profesorId);
+	//curso por profesor no query
+	List<Curso> cursosPorProfesorNoQuery(Integer profesor_id);
 
 	
 	

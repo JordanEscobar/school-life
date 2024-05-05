@@ -25,9 +25,42 @@
 	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: Profesor</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" th:href="@{/iniciobase}">Volver</a>
+	    <a class="nav-link" th:href="@{/profesor/login}">Volver</a>
 	  </li>
 	</ul>
+</div>
+
+<div class="container">
+
+	<h1>Pasar Asistencia</h1>
+	
+	<h5>Seleccione el Curso y elije la Asignatura a tomar lista</h5>
+	<form action="#" th:action="@{/filtrar/asignatura}" th:object="${filtro}" method="post">
+		<select name="filtroAsignatura">
+			<option th:each="c :${cursos}" th:value="${c.profesor_id}" th:text="${c.grado} + ' '  + ${c.seccion}"></option>
+		</select>
+		<input type="submit" class="btn btn-primary" value="Buscar">
+	</form>
+	<br>
+	<table class="table">
+	
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Asignatura</th>
+				<th>Seleccionar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="a : ${asignaturas}">
+				<td th:text="${a.id}"></td>
+				<td th:text="${a.nombre}"></td>
+				<td><a class="btn btn-danger">seleccionar</a></td>
+			</tr>
+		</tbody>
+	
+	</table>
+
 </div>
 
 </body>

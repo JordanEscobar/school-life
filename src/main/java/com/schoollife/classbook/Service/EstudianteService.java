@@ -32,5 +32,10 @@ public interface EstudianteService {
   	Estudiante estudianteLogin(String mail);
   	//Estudiantes por asistencias a través del ID estudiantes de asistencia
   	List<Estudiante> estudiantesPorAsistencias(Integer asistenciaid);
+  	//eliminar
+  	void deleteEstudiante(Integer id);
+  //Buscar estudiante por colegio
+  	List<Estudiante> estudiantePorColegio(Integer colegioid);
+
 
 }

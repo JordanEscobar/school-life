@@ -2,6 +2,7 @@ package com.schoollife.classbook.Entities;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -12,6 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "profesores")
@@ -19,24 +25,56 @@ public class Profesor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 6, max = 11)
+	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	@Column(name = "rut")
 	private String rut;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "nombre")
 	private String nombre;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "apaterno")
 	private String apaterno;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "amaterno")
 	private String amaterno;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 15)
 	@Column(name = "telefono")
 	private String telefono;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 3, max = 255)
 	@Column(name = "direccion")
 	private String direccion;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Email
 	@Column(name = "correo")
 	private String correo;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "contrasena")
 	private String contrasena;
+	@NotBlank
+	@NotNull
+	@NotEmpty
 	@Column(name = "estado")
 	private String estado;
 	@JoinColumn(name = "colegio_id", nullable = false)

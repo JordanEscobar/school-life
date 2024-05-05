@@ -10,4 +10,6 @@ public interface ApoderadoService {
 	List<Apoderado> apoderadoPorEstudiante(Integer estudianteid);
 	//Crear
 	Apoderado createApoderado(Apoderado apoderado);
+	
+	void deleteApoderado(Integer id);
 }

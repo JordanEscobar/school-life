@@ -1,5 +1,7 @@
 package com.schoollife.classbook.Entities;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,92 +9,118 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "apoderados")
 public class Apoderado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@Column(name = "nombre")
-	private String nombre;
-	@Column(name = "apaterno")
-	private String apaterno;
-	@Column(name = "amaterno")
-	private String amaterno;
-	@Column(name = "rut")
-	private String rut;
-	@Column(name = "direccion")
-	private String direccion;
-	@Column(name = "telefono")
-	private String telefono;
-	@Column(name = "estado")
-	private String estado;
+	private Integer id_apoderado;
+	@NotNull
+	@NotEmpty
+	@Column(name = "nombre_apoderado")
+	private String nombre_apoderado;
+	@NotNull
+	@NotEmpty
+	@Column(name = "apaterno_apoderado")
+	private String apaterno_apoderado;
+	@NotNull
+	@NotEmpty
+	@Column(name = "amaterno_apoderado")
+	private String amaterno_apoderado;
+	@NotNull
+	@NotEmpty
+	@Length(min = 6, max = 11)
+	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
+	@Column(name = "rut_apoderado")
+	private String rut_apoderado;
+	@NotNull
+	@NotEmpty
+	@Length(min = 6, max = 250)
+	@Column(name = "direccion_apoderado")
+	private String direccion_apoderado;
+	@NotBlank
+	@NotNull
+	@NotEmpty
+	@Length(min = 5, max = 15)
+	@Column(name = "telefono_apoderado")
+	private String telefono_apoderado;
+	@Column(name = "estado_apoderado")
+	private String estado_apoderado;
 	@JoinColumn(name = "estudiante_id", nullable = false)
 	private Integer estudiante_id;
-	public Apoderado(Integer id, String nombre, String apaterno, String amaterno, String rut, String direccion,
-			String telefono, String estado, Integer estudiante_id) {
+	public Apoderado(Integer id_apoderado, @NotBlank @NotNull @NotEmpty String nombre_apoderado,
+			@NotBlank @NotNull @NotEmpty String apaterno_apoderado,
+			@NotBlank @NotNull @NotEmpty String amaterno_apoderado,
+			@NotBlank @NotNull @NotEmpty @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String rut_apoderado,
+			@NotBlank @NotNull @NotEmpty @Length(min = 6, max = 250) String direccion_apoderado,
+			@NotBlank @NotNull @NotEmpty @Length(min = 5, max = 15) String telefono_apoderado,
+			@NotBlank @NotNull @NotEmpty String estado_apoderado, Integer estudiante_id) {
 		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apaterno = apaterno;
-		this.amaterno = amaterno;
-		this.rut = rut;
-		this.direccion = direccion;
-		this.telefono = telefono;
-		this.estado = estado;
+		this.id_apoderado = id_apoderado;
+		this.nombre_apoderado = nombre_apoderado;
+		this.apaterno_apoderado = apaterno_apoderado;
+		this.amaterno_apoderado = amaterno_apoderado;
+		this.rut_apoderado = rut_apoderado;
+		this.direccion_apoderado = direccion_apoderado;
+		this.telefono_apoderado = telefono_apoderado;
+		this.estado_apoderado = estado_apoderado;
 		this.estudiante_id = estudiante_id;
 	}
 	public Apoderado() {
 		super();
 	}
-	public Integer getId() {
-		return id;
+	public Integer getId_apoderado() {
+		return id_apoderado;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId_apoderado(Integer id_apoderado) {
+		this.id_apoderado = id_apoderado;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getNombre_apoderado() {
+		return nombre_apoderado;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre_apoderado(String nombre_apoderado) {
+		this.nombre_apoderado = nombre_apoderado;
 	}
-	public String getApaterno() {
-		return apaterno;
+	public String getApaterno_apoderado() {
+		return apaterno_apoderado;
 	}
-	public void setApaterno(String apaterno) {
-		this.apaterno = apaterno;
+	public void setApaterno_apoderado(String apaterno_apoderado) {
+		this.apaterno_apoderado = apaterno_apoderado;
 	}
-	public String getAmaterno() {
-		return amaterno;
+	public String getAmaterno_apoderado() {
+		return amaterno_apoderado;
 	}
-	public void setAmaterno(String amaterno) {
-		this.amaterno = amaterno;
+	public void setAmaterno_apoderado(String amaterno_apoderado) {
+		this.amaterno_apoderado = amaterno_apoderado;
 	}
-	public String getRut() {
-		return rut;
+	public String getRut_apoderado() {
+		return rut_apoderado;
 	}
-	public void setRut(String rut) {
-		this.rut = rut;
+	public void setRut_apoderado(String rut_apoderado) {
+		this.rut_apoderado = rut_apoderado;
 	}
-	public String getDireccion() {
-		return direccion;
+	public String getDireccion_apoderado() {
+		return direccion_apoderado;
 	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setDireccion_apoderado(String direccion_apoderado) {
+		this.direccion_apoderado = direccion_apoderado;
 	}
-	public String getTelefono() {
-		return telefono;
+	public String getTelefono_apoderado() {
+		return telefono_apoderado;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setTelefono_apoderado(String telefono_apoderado) {
+		this.telefono_apoderado = telefono_apoderado;
 	}
-	public String getEstado() {
-		return estado;
+	public String getEstado_apoderado() {
+		return estado_apoderado;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado_apoderado(String estado_apoderado) {
+		this.estado_apoderado = estado_apoderado;
 	}
 	public Integer getEstudiante_id() {
 		return estudiante_id;
@@ -102,8 +130,10 @@ public class Apoderado {
 	}
 	@Override
 	public String toString() {
-		return "Apoderado [id=" + id + ", nombre=" + nombre + ", apaterno=" + apaterno + ", amaterno=" + amaterno
-				+ ", rut=" + rut + ", direccion=" + direccion + ", telefono=" + telefono + ", estado=" + estado
+		return "Apoderado [id_apoderado=" + id_apoderado + ", nombre_apoderado=" + nombre_apoderado
+				+ ", apaterno_apoderado=" + apaterno_apoderado + ", amaterno_apoderado=" + amaterno_apoderado
+				+ ", rut_apoderado=" + rut_apoderado + ", direccion_apoderado=" + direccion_apoderado
+				+ ", telefono_apoderado=" + telefono_apoderado + ", estado_apoderado=" + estado_apoderado
 				+ ", estudiante_id=" + estudiante_id + "]";
 	}
 	

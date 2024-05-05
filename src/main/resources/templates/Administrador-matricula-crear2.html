@@ -31,36 +31,46 @@
 <div class="container">
 	<form th:action="@{/administrador/matricula/creada/ingresado}" method="post" th:object="${apoderado}">
 	<br><br>
-	<input type="number" th:value="${estudianteid}">
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Rut</label>
-	    <input class="form-control" id="rut" th:field="*{rut}" type="text" required>
+	    <label for="rut_apoderado" class="form-label">Rut</label>
+	    <input class="form-control" id="rut_apoderado" th:field="*{rut_apoderado}" type="text" >
+	    <span th:if="${#fields.hasErrors('rut_apoderado')}" th:errors="*{rut_apoderado}">Error Rut</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Nombre</label>
-	    <input class="form-control" id="nombre" th:field="*{nombre}" type="text" required>
+	    <label for="nombre_apoderado" class="form-label">Nombre</label>
+	    <input class="form-control" id="nombre_apoderado" th:field="*{nombre_apoderado}" type="text" >
+	    <span th:if="${#fields.hasErrors('nombre_apoderado')}" th:errors="*{nombre_apoderado}">Error Nombre</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Apellido Paterno</label>
-	    <input class="form-control" id="apaterno" th:field="*{apaterno}" type="text" required>
+	    <label for="apaterno_apoderado" class="form-label">Apellido Paterno</label>
+	    <input class="form-control" id="apaterno_apoderado" th:field="*{apaterno_apoderado}" type="text" >
+	    <span th:if="${#fields.hasErrors('apaterno_apoderado')}" th:errors="*{apaterno_apoderado}">Error Aapellido Paterno</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="grado" class="form-label">Apellido Materno</label>
-	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text" required>
+	    <label for="amaterno_apoderado" class="form-label">Apellido Materno</label>
+	    <input class="form-control" id="amaterno_apoderado" th:field="*{amaterno_apoderado}" type="text">
+	    <span th:if="${#fields.hasErrors('amaterno_apoderado')}" th:errors="*{amaterno_apoderado}">Error Apellido Materno</span>
 	  </div>
 	  	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Dirección</label>
-	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" required>
+	    <label for="direccion_apoderado" class="form-label">Dirección</label>
+	    <input type="text" class="form-control" id="direccion_apoderado" th:field="*{direccion_apoderado}" >
+	    <span th:if="${#fields.hasErrors('direccion_apoderado')}" th:errors="*{direccion_apoderado}">Error Dirección</span>
 	  </div>
 	  	  <div class="mb-3">
-	    <label for="seccion" class="form-label">Teléfono</label>
-	    <input type="text" class="form-control" id="telefono" th:field="*{telefono}" required>
+	    <label for="telefono_apoderado" class="form-label">Teléfono</label>
+	    <input type="text" class="form-control" id="telefono_apoderado" th:field="*{telefono_apoderado}" >
+	    <span th:if="${#fields.hasErrors('telefono_apoderado')}" th:errors="*{telefono_apoderado}">Error Teléfono</span>
 	  </div>
 	  <br>
 	  <a class="btn btn-secondary" th:href="@{/administrador/matricula}">Atrás</a>
-	  <button type="submit" class="btn btn-success">Matricular Estudiante</button>
+	  <a class="btn btn-danger" th:href="@{/administrador/matricula/cancelar}">Cancelar Matrícula</a>
+	  <button type="submit" class="btn btn-success">Términar Matrícula</button>
 	</form>
 	<br><br>
+</div>
+
+<div class="col-md-4 mt-5">
+	<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 </div>
 	
 </div>
