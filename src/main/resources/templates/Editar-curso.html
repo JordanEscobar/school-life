@@ -22,22 +22,28 @@
 <div class="container">
 	<form th:action="@{/cursoModificado}" method="post" th:object="${curso}">
 	<br><br>
-	<h3>Modificar datos del curso <span style="text-transform:uppercase;color:red;" th:text=" *{grado} + ' ' + *{seccion}"></span></h3>
+	<h3>Modificar datos del curso</h3>
 	<br><br>
 	<input type="hidden" name="id" th:field="*{id}"> 
 	  <div class="mb-3">
 	    <label for="grado" class="form-label">Grado</label>
 	    <input class="form-control" id="grado" th:field="*{grado}" type="text">
+	    <span th:if="${#fields.hasErrors('grado')}" th:errors="*{grado}">Error Grado</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Sección</label>
 	    <input type="text" class="form-control" id="seccion" th:field="*{seccion}">
+	   	<span th:if="${#fields.hasErrors('seccion')}" th:errors="*{seccion}">Error Sección</span>
 	  </div>
 	  <br>
 	  <a class="btn btn-secondary" th:href="@{/administrador/curso}">Cancelar</a>
 	  <button type="submit" class="btn btn-primary">Modificar Curso</button>
 	</form>
 </div>
-<br><br>
+	<br><br>
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
+	<br><br>
 </body>
 </html>

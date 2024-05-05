@@ -38,20 +38,28 @@
 	  <div class="mb-3">
 	    <label for="grado" class="form-label">Grado</label>
 	    <input class="form-control" id="grado" th:field="*{grado}" type="text">
+	    <span th:if="${#fields.hasErrors('grado')}" th:errors="*{grado}">Error Grado</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="seccion" class="form-label">Sección</label>
 			<input class="form-control" id="seccion" th:field="*{seccion}" type="text">
+			<span th:if="${#fields.hasErrors('seccion')}" th:errors="*{seccion}">Error Sección</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="profesor" class="form-label">Profesor</label>
-	    <input type="number" class="form-control" id="profesor_id" th:field="*{profesor_id}">
+	    <select class="form-control" th:field="*{profesor_id}" id="profesor_id">
+	    	<option th:each="p : ${profesores}" th:value="${p.id}" th:text="${p.nombre} + ' ' + ${p.apaterno} + ' ' +${p.amaterno}"></option>
+	    </select>
+	    <span th:if="${#fields.hasErrors('profesor_id')}" th:errors="*{profesor_id}">Error Profesor</span>
 	  </div>
 	  <br>
 	  <a th:href="@{/administrador/curso}" class="btn btn-secondary" >Cancelar</a>
 	  <button type="submit" class="btn btn-primary">Ingresar Curso</button>
 	</form>
 </div>
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
 <br><br>
 
 </body>

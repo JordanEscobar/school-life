@@ -159,6 +159,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		return estudiantes;
 	}
 	@Override
+	@Transactional
 	public void deleteEstudiante(Integer id) {
 		estudianteRepository.deleteById(id);
 		

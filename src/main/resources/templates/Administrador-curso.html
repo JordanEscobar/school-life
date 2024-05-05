@@ -52,8 +52,10 @@
 				<td th:text="${c[1]}"></td>
 				<td th:text="${c[2]}"></td>
 				<td th:text="${c[3]}"></td>
-				<td ><a th:href="@{/administrador/curso/} + ${c[0]}" class="btn btn-success">ver lista</a></td>
-				<td ><a th:href="@{/cursosModificar/} + ${c[0]}" class="btn btn-secondary">Editar Curso</a></td>
+				<td >
+					<a th:href="@{/administrador/curso/} + ${c[0]}" class="btn btn-success">ver lista</a>
+					<a th:href="@{/cursosModificar/} + ${c[0]}" class="btn btn-secondary">Editar Curso</a>
+				</td>
 
 			</tr>
 		</tbody>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,20 +31,6 @@ public class CursoController {
 		this.cursoService = cursoService;
 		this.estudianteService = estudianteService;
 	}
-
-	@GetMapping("/curso")
-	public String indexCurso(Model model, HttpSession sesion) {
-		var cursos = cursoService.getAll();
-		model.addAttribute("cursos",cursos);
-		return "Index-curso";
-	}
-	
-	@GetMapping("/misCursos")
-	public String indexMisCursos(Model model, HttpSession sesion) {
-		var cursos = cursoService.getAll();
-		model.addAttribute("cursos",cursos);
-		return "Index-misCursos";
-	}
 	
 	@GetMapping("/cursosModificar/{id}")
 	public String editCurso(Curso curso, Model model, HttpSession sesion) {
@@ -51,9 +38,9 @@ public class CursoController {
 		model.addAttribute("curso", curso);
 		return "Editar-curso";
 	}
-	
+	//editar curso
 	@PostMapping(path = "/cursoModificado" /*, consumes = "application/x-ww-form-urlencoded"*/)
-	public String modificarCurso(@Valid Curso curso,RedirectAttributes flash, Model model, HttpSession sesion) {
+	public String modificarCurso(@Valid Curso curso,Errors errores, RedirectAttributes flash, Model model, HttpSession sesion) {
 		var cursos = cursoService.getAll();
 		Curso c = new Curso();
 		for (int i = 0; i < cursos.size(); i++) {
@@ -63,10 +50,15 @@ public class CursoController {
 				c.setSeccion(cursos.get(i).getSeccion());
 			}
 		}
+		
+		if (errores.hasErrors()) {
+			return "Editar-curso";
+		}
+		
 		cursoService.updateCurso(curso, curso.getId());
-		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("curso",curso);
-		return "redirect:/curso";
+		flash.addFlashAttribute("success","Modificado Correctamente");
+		return "redirect:/administrador/curso";
 	}
 	
 	@GetMapping("/cursoAtras")

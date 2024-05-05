@@ -18,19 +18,13 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NotBlank
 	@NotNull
 	@NotEmpty
 	@Column(name = "grado")
 	private String grado;
-	@NotBlank
 	@NotNull
-	@NotEmpty
 	@Column(name = "seccion")
 	private char seccion;
-	@NotBlank
-	@NotNull
-	@NotEmpty
 	@Column(name = "estado")
 	private String estado;
 	@JoinColumn(name = "colegio_id", nullable = false)

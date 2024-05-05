@@ -85,6 +85,12 @@ public class AdministradorController {
 	public String administradorCursoEstudianteModificado(@Valid Estudiante estudiante, Errors errores,RedirectAttributes flash, Model model, HttpSession sesion) {
 		var estudiantes = estudianteS.getAllEstudiante();
 		Estudiante e = new Estudiante();
+		
+		/*if (errores.hasErrors()) {
+			return "Editar-curso";
+		}*/
+		
+		
 		for (int i = 0; i < estudiantes.size(); i++) {
 			if (estudiantes.get(i).getId() == estudiante.getId()) {
 				e.setId(estudiantes.get(i).getId());
@@ -102,6 +108,9 @@ public class AdministradorController {
 				e.setTelefono(estudiantes.get(i).getTelefono());
 			}
 		}
+		
+
+		
 		estudianteS.updateEstudiante(estudiante, estudiante.getId());
 		flash.addFlashAttribute("success","Modificado Correctamente");
 		model.addAttribute("estudiante",estudiante);
@@ -118,8 +127,11 @@ public class AdministradorController {
 		c.setId(curso.getId());
 		c.setProfesor_id(curso.getProfesor_id());
 		c.setSeccion(curso.getSeccion());
+		
+		if (errores.hasErrors()) {
+			return "Administrador-curso-crear";
+		}
 		cursoS.CreateCurso(c);              
-		System.out.println("CURSO CREADO: " + c);
 		flash.addFlashAttribute("success","Curso ingresado correctamente");
 		return "redirect:/administrador/curso";
 	}
@@ -128,6 +140,8 @@ public class AdministradorController {
 	
 	@GetMapping("/administrador/curso/crear")
 	public String administradorCursoCrear(Curso curso,Model model) {
+		var profesores = profeS.profesorPorColegio(1);
+		model.addAttribute("profesores", profesores);
 		return "Administrador-curso-crear";
 	}
 	
@@ -231,8 +245,6 @@ public class AdministradorController {
 		a.setEstudiante_id(ultimoestudiante);
 		
 		if (errores.hasErrors()) {
-			//flash.addFlashAttribute("warning","Valores Inválidos, intente nuevamente");
-			//estudianteS.deleteEstudiante(ultimoestudiante);
 			return "Administrador-matricula-crear2";
 		}
 		//se crea el apoderado
