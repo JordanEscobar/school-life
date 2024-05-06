@@ -54,22 +54,22 @@
 	  </div>
 	  <div class="mb-3">
 	    <label for="nombre" class="form-label">Nombre</label>
-	    <input  id="nombre" class="form-control" th:field="*{nombre}" type="text" >
+	    <input  id="nombre" class="form-control" th:field="*{nombre}" type="text" placeholder="Ingrese un nombre válido">
 	    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="apaterno" class="form-label">Apellido Paterno</label>
-	    <input class="form-control" id="apaterno" th:field="*{apaterno}" type="text" >
+	    <input class="form-control" id="apaterno" th:field="*{apaterno}" type="text" placeholder="Ingrese un apellido válido">
 	    <span th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error Apellido Paterno</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="amaterno" class="form-label">Apellido Materno</label>
-	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text" >
+	    <input class="form-control" id="amaterno" th:field="*{amaterno}" type="text" placeholder="Ingrese un apellido válido">
 	    <span th:if="${#fields.hasErrors('amaterno')}" th:errors="*{amaterno}">Error Apellido Materno</span>
 	  </div>
 	  	  <div class="mb-3">
 	    <label for="direccion" class="form-label">Dirección</label>
-	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" >
+	    <input type="text" class="form-control" id="direccion" th:field="*{direccion}" placeholder="Ingrese una dirección válida">
 	    <span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Error Dirección</span>
 	  </div>
 	  	  <div class="mb-3">
@@ -79,17 +79,17 @@
 	  </div>
 	  <div class="mb-3">
 	    <label for="correo" class="form-label">Correo Electrónico</label>
-	    <input type="email" class="form-control" id="correo" th:field="*{correo}" >
+	    <input type="email" class="form-control" id="correo" th:field="*{correo}" placeholder="Ingrese un correo con el formato correcto">
 	    <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Error Correo Electrónico</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="contrasena" class="form-label">Contraseña</label>
-	    <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" >
+	    <input type="password" class="form-control" id="contrasena" th:field="*{contrasena}" placeholder="Ingrese una contraseña de mínimo 8 caracteres">
 	    <span th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}">Error Contraseña</span>
 	  </div>
 	  <div class="mb-3">
 	    <label for="fecha" class="form-label">Fecha nacimiento</label>
-	    <input type="date" class="form-control" id="fecha_nacimiento" th:field="*{fecha_nacimiento}" >
+	    <input type="date" class="form-control" id="fecha_nacimiento" th:field="*{fecha_nacimiento}" placeholder="Ingrese su fecha de nacimiento">
 	    <span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha Nacimiento</span>
 	  </div>
 	  <div class="mb-3">

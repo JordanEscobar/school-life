@@ -83,14 +83,13 @@ public class Estudiante {
 	@JoinColumn(name = "curso_id", nullable = false)
 	private Integer curso_id;
 	public Estudiante(Integer id,
-			@NotEmpty @NotNull @NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String rut,
-			@NotEmpty @NotNull @NotBlank String nombre, @NotEmpty @NotNull @NotBlank String apaterno,
-			@NotEmpty @NotNull @NotBlank String amaterno, @NotNull @Past Date fecha_nacimiento,
+			@NotEmpty @NotNull @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String rut,
+			@NotEmpty @NotNull String nombre, @NotEmpty @NotNull String apaterno, @NotEmpty @NotNull String amaterno,
+			@NotNull @Past Date fecha_nacimiento,
 			@NotEmpty @NotNull @NotBlank @Length(min = 3, max = 255) String direccion,
-			@NotEmpty @NotNull @NotBlank @Length(min = 5, max = 15) String telefono,
-			@NotEmpty @NotNull @NotBlank @Email String correo, @NotEmpty @NotNull @NotBlank String contrasena,
-			@NotEmpty @NotNull @NotBlank String sep, @NotEmpty @NotNull @NotBlank String pie, String estado,
-			Integer colegio_id, Integer curso_id) {
+			@NotEmpty @NotNull @Length(min = 5, max = 15) String telefono, @NotEmpty @NotNull @Email String correo,
+			@NotEmpty @NotNull String contrasena, @NotEmpty @NotNull String sep, @NotEmpty @NotNull String pie,
+			String estado, Integer colegio_id, Integer curso_id) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -208,6 +207,7 @@ public class Estudiante {
 				+ telefono + ", correo=" + correo + ", contrasena=" + contrasena + ", sep=" + sep + ", pie=" + pie
 				+ ", estado=" + estado + ", colegio_id=" + colegio_id + ", curso_id=" + curso_id + "]";
 	}
+	
 	
 	
 	

@@ -37,10 +37,10 @@
 	<br>
 	<h1>Cursos</h1>
 	<br><br>
-	<a th:href="@{/administrador/curso/crear}" class="btn btn-outline-primary">Ingresar Curso</a>
+	<!--  <a th:href="@{/administrador/curso/crear}" class="btn btn-outline-primary">Ingresar Curso</a>-->
 	<br><br>
-	<table class="table text-center">
-		<thead>
+	<table class="table table-hover text-center">
+		<thead class="table table-danger">
 			<tr>
 				<th>#</th>
 				<th>Curso</th>
@@ -56,8 +56,8 @@
 				<td th:text="${c[2]}"></td>
 				<td th:text="${c[3]}"></td>
 				<td >
-					<a th:href="@{/administrador/curso/} + ${c[0]}" class="btn btn-success">ver lista</a>
-					<a th:href="@{/cursosModificar/} + ${c[0]}" class="btn btn-secondary">Editar Curso</a>
+					<a th:href="@{/administrador/curso/} + ${c[0]}" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Ver lista de clases"><i class="fa-solid fa-list"></i></a>
+					<!--  <a th:href="@{/cursosModificar/} + ${c[0]}" class="btn btn-secondary">Editar Curso</a>-->
 				</td>
 
 			</tr>

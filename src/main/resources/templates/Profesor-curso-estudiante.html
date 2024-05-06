@@ -41,13 +41,17 @@
 	<div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
-	<table class="table text-center">
-		<thead>
+	<table class="table table-hover text-center">
+		<thead class="table table-primary">
 			<tr>
 				<th>#</th>
 				<th>Estudiante</th>
 				<th>Rut</th>
-				<th>Opción</th>
+				<th>Correo</th>
+				<th>Teléfono</th>
+				<th>Dirección</th>
+				<th>Estudiante PIE</th>
+				<th>Estudiante SEP</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -55,9 +59,11 @@
 				<td th:text="${e.id}"></td>
 				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno} "></td>
 				<td th:text="${e.rut}"></td>
-				<td>
-					<a class="btn btn-secondary">Ver Asistencia</a>
-				</td>
+				<td th:text="${e.correo}"></td>
+				<td th:text="${e.telefono}"></td>
+				<td th:text="${e.direccion}"></td>
+				<td th:text="${e.pie}"></td>
+				<td th:text="${e.sep}"></td>
 			</tr>
 		</tbody>
 	</table>

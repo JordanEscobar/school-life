@@ -26,7 +26,9 @@
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
 	<h3>Modificar datos del Estudiante</h3>
+	
 	<br><br>
+	<a class="btn btn-outline-secondary" th:href="@{/administrador/curso/} + *{curso_id}">Volver</a>
 	<input type="hidden" name="id" th:field="*{id}"> 
 	  <div class="mb-3">
 	    <label for="rut" class="form-label">Rut</label>
@@ -64,14 +66,10 @@
 	    <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Error Correo</span>
 	  </div>
 	  <div class="mb-3">
-	    <label for="estado" class="form-label">Estado</label>
-	    <input type="text" class="form-control" id="estado" th:field="*{estado}">
-	    <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Error Estado</span>
+	    <input type="hidden" class="form-control" id="estado" th:field="*{estado}">
 	  </div>
 	  <div class="mb-3">
-	    <label for="curso_id" class="form-label">Curso</label>
-	    <input type="number" class="form-control" id="curso_id" th:field="*{curso_id}">
-	    <span th:if="${#fields.hasErrors('curso_id')}" th:errors="*{curso_id}">Error Curso</span>
+	    <input type="hidden" class="form-control" id="curso_id" th:field="*{curso_id}">
 	  </div>
 	  <div class="mb-3">
 	    <input type="hidden" class="form-control" id="colegio_id" th:field="*{colegio_id}">
