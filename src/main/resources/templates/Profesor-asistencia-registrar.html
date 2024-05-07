@@ -19,16 +19,13 @@
 </head>
 <body>
 
-<div class="container">
-	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link disabled" aria-disabled="true">Bienvenido: Profesor</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:href="@{/profesor/login}">Volver</a>
-	  </li>
-	</ul>
-</div>
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<a class="nav-link link-light" aria-disabled="true">Bienvenido: Profesor</a>
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-dark link-light" th:href="@{/profesor/login}">Volver</a>&nbsp;
+		<a class="btn btn-outline-danger"  th:href="@{/}"><i class="fa-solid fa-power-off"></i>&nbsp; Cerrar Sesión</a>
+	</div>
+</nav>
 
 <div class="container">
 

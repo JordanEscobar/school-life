@@ -20,7 +20,7 @@ Que cosas necesitas para instalar el software y como instalarlas
 
 Instalación 🔧
 Primero Habilitar el usuario SA y darle un password propio en el SQL Server Management Studio 20. Para luego iniciar el cliente con la autenticación "SQL SERVER AUTHENTICATION",
-Crear la base de datos school_lifeBD y luego ejecutar el script "R1.1_School_lifeDB" para crear las tablas e insertar los datos que se encuentran en este.
+Crear la base de datos school_life vacía y luego ejecutar el script "R1.7_School_lifeDB" para crear las tablas e insertar los datos que se encuentran en este.
 
 Luego importar como proyecto maven el proyecto con ECLIPSE IDE y esperar que se instalen todas las dependencias.
 Verificar los datos de configuración en el archivo "application.properties" encontrado en el paquete "src/main/resources/". Y cambiar la password del usuario SA por la creada respectivamente.

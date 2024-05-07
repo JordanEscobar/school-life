@@ -18,39 +18,50 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+<nav th:if="${usuario} == 'profesor' " class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<div>
+		<a class="nav-link link-light" aria-disabled="true">Bienvenido: Profesor</a>
+	</div>
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-danger"  th:href="@{/}"><i class="fa-solid fa-power-off"></i>&nbsp; Cerrar Sesión</a>
+	</div>
+</nav>
+	
+	<div th:if="${usuario} == 'profesor' " class="container" >
+		<ul class="nav justify-content-center">
+			  <li class="nav-item">
+			    <a class="nav-link " th:href="@{/profesor/asistencia}">Ver Asistencia</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link"  th:href="@{/profesor/asistencia/registrar/} + 1">Tomar Asistencia</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link"  th:href="@{/profesor/curso/encargado/} + 1">Ver Jefatura</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" th:href="@{/profesor/curso/asignatura/} + 1">Ver mis Cursos</a>
+			  </li>
+		</ul>
+	</div>
+	
+<nav th:if="${usuario} == 'admin' " class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<div>
+		<a class="nav-link link-light" aria-disabled="true">Bienvenido: Administrador</a>
+	</div>
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-danger"  th:href="@{/}"><i class="fa-solid fa-power-off"></i>&nbsp; Cerrar Sesión</a>
+	</div>
+</nav>
+
+
+	
+
+
+
 
 <div class="container">
 	<br>
 	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link disabled" th:if="${usuario} == 'profesor' " aria-disabled="true">Bienvenido: PROFESOR</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'profesor' " th:href="@{/profesor/asistencia}">Ver Asistencia</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'profesor' " th:href="@{/profesor/asistencia/registrar/} + 1">Tomar Asistencia</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'profesor' " th:href="@{/profesor/curso/encargado/} + 1">Ver Jefatura</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'profesor' " th:href="@{/profesor/curso/asignatura/} + 1">Ver mis Cursos</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="btn btn-primary" th:if="${usuario} == 'profesor' " th:href="@{/}">Cerrar Sesión</a>
-	  </li>
-	</ul>
-</div>
-
-
-
-<div class="container">
-	<br>
-	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link disabled" th:if="${usuario} == 'admin' " aria-disabled="true">Bienvenido: ADMINISTRADOR</a>
-	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" th:if="${usuario} == 'admin' " th:href="@{/administrador/curso}">Ver Cursos</a>
 	  </li>
@@ -60,12 +71,8 @@
 	  <li class="nav-item">
 	    <a class="nav-link" th:if="${usuario} == 'admin' " th:href="@{/administrador/matricula/crear}">Ingresar Matriculas</a>
 	  </li>
-	  <li class="nav-item">
-	    <a class="btn btn-danger" th:if="${usuario} == 'admin' " th:href="@{/}">Cerrar Sesión</a>
-	  </li>
 	</ul>
 </div>
-
 
 
 </body>

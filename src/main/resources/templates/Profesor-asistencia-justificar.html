@@ -19,14 +19,13 @@
 </head>
 <body>
 
-	<div class="container">
-		<ul class="nav justify-content-center">
-			<li class="nav-item"><a class="nav-link disabled"
-				aria-disabled="true">Bienvenido: Profesor</a></li>
-			<li class="nav-item"><a class="nav-link"
-				th:href="@{/profesor/login}">Volver</a></li>
-		</ul>
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<a class="nav-link link-light" aria-disabled="true">Bienvenido: Profesor</a>
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-dark link-light" th:href="@{/profesor/login}">Volver</a>&nbsp;
+		<a class="btn btn-outline-danger"  th:href="@{/}"><i class="fa-solid fa-power-off"></i>&nbsp; Cerrar Sesión</a>
 	</div>
+</nav>
 
 	<div class="container">
 		<br>
@@ -54,7 +53,7 @@
 						<td th:text="${#calendars.format(as.fecha,'dd-MMMM-yyyy')}"></td>
 						<td th:each="a : ${asignaturas}" th:if="${as.asignatura_id} == ${a.id}" th:text="${a.nombre}"></td>
 						<td><a
-							th:href="@{/profesor/asistencia/modificar/} + ${as.estudiante_id}"
+							th:href="@{/profesor/asistencia/modificar/} + ${as.id}"
 							class="btn btn-secondary" data-toggle="tooltip"
 							data-placement="bottom" title="Modificar Información"><i
 								class="fa-regular fa-pen-to-square"></i></a></td>
