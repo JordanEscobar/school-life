@@ -21,12 +21,12 @@
 		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
+<br>
+		&nbsp;&nbsp;<a class="btn text-danger" th:href="@{/matricula}"><i class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Matrículas</a>	
 <br><br>
-
 <div class="container">
 	<h1>Ingresar Matrícula</h1>
 	<br><br>
-	
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Antecedentes Personales</button>
@@ -40,13 +40,7 @@
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Antecedentes Familiares</button>
   </li>
-    <li class="nav-item" role="presentation">
-    <button class="nav-link" id="vida-tab" data-bs-toggle="tab" data-bs-target="#vida-tab-pane" type="button" role="tab" aria-controls="vida-tab-pane" aria-selected="false">Hoja de Vida</button>
-  </li>
-    <li class="nav-item" role="presentation">
-    <button class="nav-link" id="accidentes-tab" data-bs-toggle="tab" data-bs-target="#accidentes-tab-pane" type="button" role="tab" aria-controls="accidentes-tab-pane" aria-selected="false">Certificados de Accidentes</button>
-  </li>
-    <li class="nav-item" role="presentation">
+  <li class="nav-item" role="presentation">
     <button class="nav-link" id="pie-tab" data-bs-toggle="tab" data-bs-target="#pie-tab-pane" type="button" role="tab" aria-controls="pie-tab-pane" aria-selected="false">PIE</button>
   </li>
 </ul>
@@ -57,11 +51,11 @@
   <br>
   <div class="row">
   	<div class="col">
-  		<label>RUT<span class="text-danger">&nbsp;(sin puntos y con guion)</span></label>
+  		<label>RUT<span class="text-danger">&nbsp;*(sin puntos y con guion)</span></label>
   		<input class="form-control" type="text" >
   	</div>
   	<div class="col">
-  		<label>Apellido Paterno</label>
+  		<label>Apellido Paterno <span class="text-danger">*</span></label>
   		<input class="form-control" type="text">
   	</div>
   	<div class="col">
@@ -72,30 +66,40 @@
   <br>
     <div class="row">
   	<div class="col">
-  		<label>Nombres</label>
+  		<label>Nombres <span class="text-danger">*</span></label>
   		<input class="form-control" type="text" >
   	</div>
   	<div class="col">
-  		<label>Nombre social</label>
+  		<label>Nombre social <span class="text-danger">*</span></label>
   		<input class="form-control" type="text">
   	</div>
   	<div class="col">
-  		<label>Fecha Nacimiento</label>
+  		<label>Fecha Nacimiento <span class="text-danger">*</span></label>
   		<input class="form-control" type="date">
   	</div>
   </div>
     <br>
     <div class="row">
   	<div class="col">
-  		<label>Genero</label>
+  		<label>Género</label>
   		<select class="form-select">
-  			<option>Otro</option>
+  			<option>OTRO</option>
+  			<option>FEMENINO</option>
+  			<option>MASCULINO</option>
   		</select>
   	</div>
   	<div class="col">
   		<label>Nacionalidad</label>
   		<select class="form-select">
-  			<option>Chile</option>
+  			<option>CHILENA</option>
+  			<option>PERUANA</option>
+  			<option>VENEZOLANA</option>
+  			<option>COLOMBIANA</option>
+  			<option>MEXICANA</option>
+  			<option>HAITIANA</option>
+  			<option>OTRO</option>
+  			<option>BOLIVIANA</option>
+  			<option>ARGENTINA</option>
   		</select>
   	</div>
   	<div class="col">
@@ -109,7 +113,13 @@
   	<div class="col">
   		<label>Vive con</label>
   		<select class="form-select">
-  			<option>Otro</option>
+  			<option>AMBOS PADRES</option>
+  			<option>SÓLO PADRE</option>
+  			<option>SÓLO MADRE</option>
+  			<option>ABUELOS</option>
+  			<option>HERMANOS</option>
+  			<option>TÍOS</option>
+  			<option>OTROS</option>
   		</select>
   	</div>
   	<div class="col">
@@ -129,16 +139,26 @@
   	<div class="col">
   		<label>Etnia</label>
   		<select class="form-select">
-  			<option>Otro</option>
+  			<option>ALACALUFE</option>
+  			<option>ATACAMEÑO</option>
+  			<option>AYMARA</option>
+  			<option>COLLA</option>
+  			<option>MAPUCHE</option>
+  			<option>QUECHUA</option>
+  			<option>RAPANUI</option>
+  			<option>OTRO</option>
+  			<option>YAMANA</option>
+  			<option>NINGUNO</option>
+  			<option>DIAGUITA</option>
   		</select>
   	</div>
   	<div class="col">
   		<label>Teléfono Celular</label>
-  		<input class="form-control" type="text">
+  		<input class="form-control" type="number">
   	</div>
   	<div class="col">
   		<label>Teléfono Fijo</label>
-		<input class="form-control" type="text">
+		<input class="form-control" type="number">
   	</div>
   </div>
   
@@ -146,7 +166,7 @@
     <div class="row">
   	<div class="col">
   		<label>Email</label>
-  		<input class="form-control" type="text">
+  		<input class="form-control" type="email">
   	</div>
   	<div class="col">
   		<label>Nombre contacto Emergencia</label>
@@ -154,7 +174,7 @@
   	</div>
   	<div class="col">
   		<label>Teléfono emergencia</label>
-		<input class="form-control" type="text">
+		<input class="form-control" type="number">
   	</div>
   </div>
   
@@ -162,15 +182,40 @@
     <div class="row">
   	<div class="col">
   		<label>Profesor Religión</label>
-  		<input class="form-control" type="text">
+  		<select class="form-select">
+  			<option>Bahaísmo</option>
+  			<option>Budismo</option>
+  			<option>Candomblé</option>
+  			<option>Cao Đài (Caodaísmo)</option>
+  			<option>Catolicismo</option>
+  			<option>Cheondoísmo</option>
+  			<option>Cristianismo</option>
+  			<option>Evangelismo</option>
+  			<option>Hinduismo</option>
+  			<option>Islam</option>
+  			<option>Jainismo</option>
+  			<option>Johrei</option>
+  			<option>Judaísmo</option>
+  			<option>Religión tradicional china</option>
+  			<option>Santería</option>
+  			<option>Sijismo</option>
+  			<option>Sin religión</option>
+  			<option>Sintoísmo</option>
+  			<option>Tenrikyo</option>
+  			<option>Testigo de Jehová</option>
+  			<option>Vudú</option>
+  			<option>Wicca</option>
+  			<option>Yazidismo</option>
+  		</select>
   	</div>
   	<div class="col">
-  		<label>¿Acepta clases de religión en el colegio?</label>
-  		<input class="form-control" type="text">
+  		<label>¿Acepta clases de religión en el colegio?</label><br>
+  		<input id="acepta_clases_religion" name="acepta_clases_religion" value="True"  type="radio">Si &nbsp;
+  		<input id="acepta_clases_religion" name="acepta_clases_religion" value="False" type="radio">No
   	</div>
   	<div class="col text-end">
   		<br>
-		<a class="btn btn-danger">Guardar</a>
+		<a class="btn btn-primary">Siguiente</a>
   	</div>
   </div>
   
@@ -178,18 +223,224 @@
   </div>
   <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
   	<h2>Antecedentes Escolares</h2>
+  	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Nivel de enseñanza</label>
+	  		<input class="form-control" type="text" >
+	  	</div>
+	  	<div class="col">
+	  		<label>Curso</label>
+	  		<input class="form-control" type="text">
+	  	</div>
+	  	<div class="col">
+	  		<label>Fecha matrícula <span class="text-danger">*</span></label>
+	  		<input class="form-control" type="date">
+	  	</div>
+	  </div>
+	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>N° matrícula </label>
+	  		<input class="form-control" type="number" >
+	  	</div>
+	  	<div class="col">
+	  		<label>Colegio procedencia</label>
+	  		<label class="text-danger">Colegio de donde viene</label>
+	  	</div>
+	  	<div class="col">
+	  		<label>Condición</label>
+	  		<select class="form-select">
+  				<option>Alumno prioritario</option>
+  				<option>Alumno preferente</option>
+  				<option>Sin condición</option>
+  			</select>
+	  	</div>
+	  </div>
+	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Conectividad del estudiante</label>
+			<select class="form-select">
+  				<option>No tiene</option>
+  				<option>Internet del Celular</option>
+  				<option>Wifi</option>
+  				<option>Wifi + Internet del Celular</option>
+  			</select>
+	  	</div>
+	  	<div class="col">
+	  		<label>Estudiante excedente</label>
+	  		<br>
+	  		<input class="form-checkox" type="checkbox">
+	  	</div>
+	  	<div class="col">
+	  		<label>Número de resolución</label>
+	  		<input class="form-control" type="text" disabled>
+	  	</div>
+	  </div>
+	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Fecha de resolución</label>
+	  		<input class="form-control" type="date" disabled>
+	  	</div>
+	  	<div class="col">
+	  		<label>¿Cuántos computadores hay en casa?</label>
+			<input type="number" class="form-control">
+	  	</div>
+	  	<div class="col">
+	  		<label>Tipo de beca</label>
+			<select class="form-select">
+  				<option>Beca indigena</option>
+  				<option>Beca de apoyo a la retención escolar (BARE)</option>
+  				<option>Presidente de la república</option>
+  				<option>SUF (subsidio único familiar)</option>
+  				<option>Programa puente</option>
+  				<option>Chile solidario</option>
+  			</select>
+	  	</div>
+	  </div>
+	  <br>
+	  	  <div class="row">
+	  	<div class="col">
+	  	</div>
+	  	<div class="col">
+	  	</div>
+	  	<div class="col text-end">
+	  		<a class="btn btn-primary">Siguiente</a>
+	  	</div>
+	  </div>
+	  <br>
   </div>
   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
   	<h2>Antecedentes de Salud</h2>
+  	  	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Estatura</label>
+	  		<input class="form-control" type="number" >
+	  	</div>
+	  	<div class="col">
+	  		<label>Peso</label>
+	  		<input class="form-control" type="number">
+	  	</div>
+	  	<div class="col">
+	  		<label>Grupo sanguíneo <span class="text-danger">*</span></label>
+	  		<select class="form-select">
+	  			<option>A -</option>
+	  			<option>A +</option>
+	  			<option>B -</option>
+	  			<option>B +</option>
+	  			<option>AB -</option>
+	  			<option>AB +</option>
+	  			<option>O -</option>
+	  			<option>O +</option>
+	  		</select>
+	  	</div>
+	  </div>
+	  <br>
+	    	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Alergias a alimentos</label>
+	  		<input class="form-control" type="text" >
+	  	</div>
+	  	<div class="col">
+	  		<label>Alergias a medicamentos</label>
+	  		<input class="form-control" type="text">
+	  	</div>
+	  	<div class="col">
+	  		<label>Medicamentos Contraindicados</label>
+	  		<input class="form-control" type="text">
+	  	</div>
+	  </div>
+	  <br>
+	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Enfermedades crónicas</label>
+	  		<select class="form-select">
+	  			<option>VISUAL</option>
+	  			<option>AUDITIVO</option>
+	  			<option>CARDIACO</option>
+	  			<option>LUMBAR</option>
+	  			<option>RESPIRATORIO</option>
+	  			<option>OTROS</option>
+	  			<option>NINGUNA</option>
+	  		</select>
+	  	</div>
+	  	<div class="col">
+	  		<label>¿Cuenta con vacuna COVID 19?</label><br>
+	  		<input class="form-radio" type="radio">&nbsp;Si &nbsp;
+	  		<input class="form-radio" type="radio">No 
+	  	</div>
+	  	<div class="col">
+	  		<label>¿Cantidad de vacunas COVID 19?</label>
+	  		<input class="form-control" type="number" disabled>
+	  	</div>
+	  </div>
+	  <br>
+	    	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>¿Esquema completo de vacunación COVID 19?</label>
+	  			<input class="form-radio" type="radio">&nbsp;Si &nbsp;
+	  			<input class="form-radio" type="radio">No 
+	  	</div>
+	  	<div class="col">
+	  		<label>Fecha última vacuna COVID 19?</label>
+	  		<input class="form-control" type="date">
+	  	</div>
+	  	<div class="col">
+	  		<label>¿Es apto para Educación Física?</label>
+	  		<input class="form-radio" type="radio">&nbsp;Si &nbsp;
+	  		<input class="form-radio" type="radio">No 
+	  	</div>
+	  </div>
+	  <br>
+	    	  <br>
+	  <div class="row">
+	  	<div class="col">
+	  		<label>Sistema previsión</label>
+	  		<select class="form-select">
+	  			<option>Dipreca</option>
+	  			<option>Isapre</option>
+	  			<option>Fonasa</option>
+	  			<option>Otros</option>
+	  			<option>Capredena</option>
+	  			<option>Fonasa A</option>
+	  			<option>Fonasa B</option>
+	  			<option>Fonasa C</option>
+	  			<option>Fonasa D</option>
+	  			<option>Banmedica S.A</option>
+	  			<option>Colmena Golden Cross S.A</option>
+	  			<option>Consalud S.A</option>
+	  			<option>Cruz Blanca S.A</option>
+	  			<option>Nueva MasVida S.A</option>
+	  			<option>Vida Tres S.A</option>
+	  		</select>
+	  	</div>
+	  	<div class="col">
+	  		<label>¿Posee seguro escolar privado?</label>
+	  		<input class="form-radio" type="radio">&nbsp;Si &nbsp;
+	  		<input class="form-radio" type="radio">No 
+	  	</div>
+	  	<div class="col">
+	  		<label>Consultorio o clínica donde se atiende</label>
+	  		<input class="form-control" type="text">
+	  	</div>
+	  </div>
+	  <br>
+	  	  <div class="row">
+	  	  <label>Observaciones</label>
+	  	  <textarea rows="5" class="form-control" cols=""></textarea>
+	  	<div class="col">
+	  	</div>
+	  </div>
+	  <br>
   </div>
   <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
   	<h2>Apoderados del Estudiante</h2>
-  </div>
-  <div class="tab-pane fade" id="vida-tab-pane" role="tabpanel" aria-labelledby="vida-tab" tabindex="0">
-  	<h2>Hoja de Vida</h2>
-  </div>
-  <div class="tab-pane fade" id="accidentes-tab-pane" role="tabpanel" aria-labelledby="accidentes-tab" tabindex="0">
-  	<h2>Certificado de Accidente</h2>
   </div>
   <div class="tab-pane fade" id="pie-tab-pane" role="tabpanel" aria-labelledby="pie-tab" tabindex="0">
   	<h2>PIE</h2>
