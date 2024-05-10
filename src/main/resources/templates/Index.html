@@ -1,79 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Libro de clases virtual School Life</title>
-<link href="/css/Style.css" rel="stylesheet" type="text/css"
-	crossorigin="anonymous" />
-<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
-	crossorigin="anonymous" />
-<link href="/css/sidebars.css" rel="stylesheet" type="text/css"
-	crossorigin="anonymous" />
-<script type="text/javascript" src="/js/Script.js"></script>
+<title>Libro de clases online</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 <script type="text/javascript" src="/js/sidebars.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<nav th:if="${usuario} == 'profesor' " class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a class="nav-link link-light" aria-disabled="true">Bienvenido: Profesor</a>
+		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;NOMBRE ESCUELA</a>
 	</div>
+	
 	<div class="d-flex justify-content-end">
-		<a class="btn btn-outline-danger"  th:href="@{/}"><i class="fa-solid fa-power-off"></i>&nbsp; Cerrar Sesión</a>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
+		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
-	
-	<div th:if="${usuario} == 'profesor' " class="container" >
-		<ul class="nav justify-content-center">
-			  <li class="nav-item">
-			    <a class="nav-link " th:href="@{/profesor/asistencia}">Ver Asistencia</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link"  th:href="@{/profesor/asistencia/registrar/} + 1">Tomar Asistencia</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link"  th:href="@{/profesor/curso/encargado/} + 1">Ver Jefatura</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" th:href="@{/profesor/curso/asignatura/} + 1">Ver mis Cursos</a>
-			  </li>
-		</ul>
-	</div>
-	
-<nav th:if="${usuario} == 'admin' " class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-	<div>
-		<a class="nav-link link-light" aria-disabled="true">Bienvenido: Administradorressssssssssssss</a>
-	</div>
-	<div class="d-flex justify-content-end">
-		<a class="btn btn-outline-danger"  th:href="@{/}"><i class="fa-solid fa-power-off"></i>&nbsp; Cerrar Sesión</a>
-	</div>
-</nav>
-
-
-	
-
-
-
-
+<br><br>
 <div class="container">
-	<br>
-	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'admin' " th:href="@{/administrador/curso}">Ver Cursos</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'admin' " th:href="@{/administrador/matricula}">Ver Matriculas</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" th:if="${usuario} == 'admin' " th:href="@{/administrador/matricula/crear}">Ingresar Matriculas</a>
-	  </li>
-	</ul>
+<div class="row">
+	<div class="col">
+		<h4>Buenas tardes, <span style="color:red;">USUARIO CONECTADO</span></h4>
+	</div>
+	<div class="col"></div>
+	<div class="col">
+		<div class="d-flex justify-content-end">
+			<select class="form-select">
+				<option>Colegio de Prueba</option>
+			</select>&nbsp;&nbsp;
+			<a class="btn btn-outline-danger">Buscar</a>
+		</div>
+	</div>
+</div>
+<br><br>
+<ul class="nav nav-underline">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Módulos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#"></a>
+  </li>
+</ul>
+<br><br>
+
+<h5 class="card-title">Libro de Clases</h5>
+<br><br>
+<div class="card w-50 text-center border-danger btn-danger" style="max-width: 18rem;">
+	<a th:href="@{/matricula}" class="btn "><div class="card-body">Matrícula</div></a>
+</div>
+<br>
+<div th:href="@{/matricula}" class="card w-50 text-center border-danger btn-danger" style="max-width: 18rem;">
+	<a  class="btn "><div class="card-body">Ficha Estudiante</div></a>
 </div>
 
+
+</div>
 
 </body>
 </html>

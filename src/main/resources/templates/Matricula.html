@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de clases online</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<div>
+		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;NOMBRE ESCUELA</a>
+	</div>
+	
+	<div class="d-flex justify-content-end">
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
+		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+	</div>
+</nav>
+<br><br>
+<div class="container">
+	<h1 class=""><span><a class="btn"  th:href="@{/}"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
+	<br>
+	<div class="d-flex justify-content-end">
+			<a th:href="@{/matricula/ingresar}" class="btn btn-danger">+ Matricular Estudiante</a>
+	</div>
+</div>
+<br><br>
+<div class="container">
+	<div class="row g-3 align-items-center">
+		<div class="col-auto">
+		    <select class="form-select">
+				<option>Año</option>
+			</select>
+		</div>
+		<div class="col-auto">
+			<select class="form-select">
+				<option>Nivel Enseñanza Media</option>
+			</select>
+		</div>
+		<div class="col-auto">
+			<select class="form-select">
+				<option>Curso</option>
+			</select>
+		</div>
+		<div class="col-auto">
+			<select class="form-select">
+				<option>Estado</option>
+			</select>
+		</div>
+		<div class="col-auto">
+			<select class="form-select">
+				<option>PIE</option>
+			</select>
+		</div>
+		<div class="col-auto">
+			<div class="row g-2">
+				<div class="col-auto">
+					<form action="#" th:action="@{/filtrarnombre}" method="post">
+				    	<input class="form-control" name="filtronombre"   id="filtronombre" th:value="${filtronombre}" placeholder="Buscar Estudiante">
+				 </div>
+				 <div class="col-auto">
+				    	<input class="btn btn-primary" type="submit" value="Buscar Estudiante" data-toggle="tooltip" data-placement="bottom" title="Buscar Estudiante">
+				    </form>
+				    <a class="btn btn-warning" th:href="@{/matricula}" data-toggle="tooltip" data-placement="bottom" title="Refrescar"><i class="fa-solid fa-arrows-rotate"></i></a>
+				 </div>	
+
+			</div>
+		</div>
+
+	</div>
+</div>
+<br><br><br>
+<div class="container text-center">
+	<label class="h6">Total Matriculados: <span class="fw-bold">638</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total Hombres: <span class="fw-bold">423</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total Mujeres: <span class="fw-bold">215</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total sin definir: <span class="fw-bold">0</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+<br><br><br><br>
+
+<div class="container">
+	<div class="d-flex justify-content-end">
+		<a th:href="@{/matricula/ingresar}" class="btn btn-info">Carga N° Matrículas</a>
+	</div>
+	<br>
+	<table class="table text-center">
+		<thead>
+			<tr>
+				<th class="fw-bold">N° matrícula</th>
+				<th class="fw-bold">RUN</th>
+				<th class="fw-bold">Nombre</th>
+				<th class="fw-bold">PIE</th>
+				<th class="fw-bold">Curso</th>
+				<th class="fw-bold">Nivel de enseñanza</th>
+				<th class="fw-bold">Acepta Religion</th>
+				<th class="fw-bold">Estado</th>
+				<th class="fw-bold">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="e : ${estudiantes}">
+				<td th:text="${e.run_estudiante}"></td>
+				<td th:text="${e.nombre} + ' ' + ${e.apaterno}"></td>
+
+
+
+				<td>
+					<a class="btn btn-light"><i class="fa-solid fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar"></i></a>
+					<a class="btn btn-light"><i class="fa-solid fa-ellipsis"></i></a>
+				</td>
+			</tr>
+			
+			
+			<!--  <tr th:each="e : ${estudiantes}">
+				<td th:text="${e[0]}"></td>
+				<td th:text="${e[1]}"></td>
+				<td th:text="${e[2]}"></td>
+				<td th:text="${e[3]}"></td>
+				<td th:text="${e[4]}"></td>
+				<td th:text="${e[5]}"></td>
+				<td th:if="${e[8] == True }" th:text="'Opta A clases'"></td>
+				<td th:if="${e[8] == False }" th:text="'No Opta A clases'"></td>
+				<td >
+				<a class="btn btn-primary" th:text="Matriculado" th:if="${e[6] == True}"></a>
+				<a class="btn btn-danger" th:text="Retirado" th:if="${e[6] == False}"></a>
+				</td>
+				<td>
+					<a class="btn btn-light"><i class="fa-solid fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar"></i></a>
+					<a class="btn btn-light"><i class="fa-solid fa-ellipsis"></i></a>
+				</td>
+			</tr>-->
+
+
+		</tbody>
+	</table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+package com.schoollife.web.Service;
+
+import java.util.List;
+
+import com.schoollife.web.Entities.Establecimiento;
+
+public interface EstablecimientoService {
+	
+	List<Establecimiento> getAll();
+	void updateEstablecimiento(Establecimiento establecimiento, Integer rbd);
+	Establecimiento findEstablecimiento(Establecimiento establecimiento);
+	Establecimiento createEstablecimiento(Establecimiento establecimiento);
+}
