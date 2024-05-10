@@ -15,7 +15,7 @@
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;NOMBRE ESCUELA</a>
+		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;<i class="fa-solid fa-school"></i>&nbsp;NOMBRE ESCUELA</a>
 	</div>
 	
 	<div class="d-flex justify-content-end">
@@ -106,11 +106,17 @@
 		</thead>
 		<tbody>
 			<tr th:each="e : ${estudiantes}">
+				<td th:text="${e.numero_matricula}"></td>
 				<td th:text="${e.run_estudiante}"></td>
-				<td th:text="${e.nombre} + ' ' + ${e.apaterno}"></td>
-
-
-
+				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
+				<td th:each="p : ${programas}" th:if="${ p.estudiante_id} == NULL"  th:text="'NO APLICA'"></td>
+				<td th:each="p : ${programas}" th:if="${p.estudiante_id == e.run_estudiante}"  th:text="${p.tipo_permanencia}"></td>
+				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel} + ' ' + ${c.letra}"></td>
+				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel_ensenanza}"></td>
+				<td th:if="${e.acepta_clases_religion} == True" th:text="Si"></td>
+				<td th:if="${e.acepta_clases_religion} == False" th:text="No"></td>
+				<td th:if="${e.estado} == True" th:text="Matriculado"></td>
+				<td th:if="${e.estado} == False" th:text="Retirado"></td>
 				<td>
 					<a class="btn btn-light"><i class="fa-solid fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar"></i></a>
 					<a class="btn btn-light"><i class="fa-solid fa-ellipsis"></i></a>

@@ -55,6 +55,10 @@ public class HomeController {
 	public String matricula(Model model) {
 		var estudiantes = estudianteS.getAll();
 		//var estudiantes = estudianteS.findMatriculas();
+		var cursos = cursoS.getAll();		
+		var programas = programaS.getAll();
+		model.addAttribute("cursos",cursos);
+		model.addAttribute("programas",programas);
 		model.addAttribute("estudiantes", estudiantes);
 		return "Matricula";
 	}
@@ -63,7 +67,11 @@ public class HomeController {
 	public String filtroNombre(Model model,@RequestParam("filtronombre") String filtronombre) {
 		//var estudiantes = estudianteS.findPorEstudiante(filtronombre);
 		var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre);
+		var cursos = cursoS.getAll();
+		var programas = programaS.getAll();
+		model.addAttribute("programas",programas);
 		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("cursos",cursos);
 		return "Matricula";
 	}
 	

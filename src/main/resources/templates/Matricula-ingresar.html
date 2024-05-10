@@ -11,5 +11,194 @@
 </head>
 <body>
 
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<div>
+		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;<i class="fa-solid fa-school"></i>&nbsp;NOMBRE ESCUELA</a>
+	</div>
+	
+	<div class="d-flex justify-content-end">
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
+		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+	</div>
+</nav>
+<br><br>
+
+<div class="container">
+	<h1>Ingresar Matrícula</h1>
+	<br><br>
+	
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Antecedentes Personales</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Antecedentes Escolares</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Antecedentes de Salud</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Antecedentes Familiares</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" id="vida-tab" data-bs-toggle="tab" data-bs-target="#vida-tab-pane" type="button" role="tab" aria-controls="vida-tab-pane" aria-selected="false">Hoja de Vida</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" id="accidentes-tab" data-bs-toggle="tab" data-bs-target="#accidentes-tab-pane" type="button" role="tab" aria-controls="accidentes-tab-pane" aria-selected="false">Certificados de Accidentes</button>
+  </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pie-tab" data-bs-toggle="tab" data-bs-target="#pie-tab-pane" type="button" role="tab" aria-controls="pie-tab-pane" aria-selected="false">PIE</button>
+  </li>
+</ul>
+<br>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+  <h2>Antecedentes personales</h2>
+  <br>
+  <div class="row">
+  	<div class="col">
+  		<label>RUT<span class="text-danger">&nbsp;(sin puntos y con guion)</span></label>
+  		<input class="form-control" type="text" >
+  	</div>
+  	<div class="col">
+  		<label>Apellido Paterno</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>Apellido Materno</label>
+  		<input class="form-control" type="text">
+  	</div>
+  </div>
+  <br>
+    <div class="row">
+  	<div class="col">
+  		<label>Nombres</label>
+  		<input class="form-control" type="text" >
+  	</div>
+  	<div class="col">
+  		<label>Nombre social</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>Fecha Nacimiento</label>
+  		<input class="form-control" type="date">
+  	</div>
+  </div>
+    <br>
+    <div class="row">
+  	<div class="col">
+  		<label>Genero</label>
+  		<select class="form-select">
+  			<option>Otro</option>
+  		</select>
+  	</div>
+  	<div class="col">
+  		<label>Nacionalidad</label>
+  		<select class="form-select">
+  			<option>Chile</option>
+  		</select>
+  	</div>
+  	<div class="col">
+  		<label>Ciudad de Nacimiento</label>
+  		<input class="form-control" type="text">
+  	</div>
+  </div>
+  
+    <br>
+    <div class="row">
+  	<div class="col">
+  		<label>Vive con</label>
+  		<select class="form-select">
+  			<option>Otro</option>
+  		</select>
+  	</div>
+  	<div class="col">
+  		<label>Dirección</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>Comuna</label>
+  		  <select class="form-select">
+  			<option>Otro</option>
+  		</select>
+  	</div>
+  </div>
+  
+    <br>
+    <div class="row">
+  	<div class="col">
+  		<label>Etnia</label>
+  		<select class="form-select">
+  			<option>Otro</option>
+  		</select>
+  	</div>
+  	<div class="col">
+  		<label>Teléfono Celular</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>Teléfono Fijo</label>
+		<input class="form-control" type="text">
+  	</div>
+  </div>
+  
+    <br>
+    <div class="row">
+  	<div class="col">
+  		<label>Email</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>Nombre contacto Emergencia</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>Teléfono emergencia</label>
+		<input class="form-control" type="text">
+  	</div>
+  </div>
+  
+      <br>
+    <div class="row">
+  	<div class="col">
+  		<label>Profesor Religión</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col">
+  		<label>¿Acepta clases de religión en el colegio?</label>
+  		<input class="form-control" type="text">
+  	</div>
+  	<div class="col text-end">
+  		<br>
+		<a class="btn btn-danger">Guardar</a>
+  	</div>
+  </div>
+  
+  
+  </div>
+  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+  	<h2>Antecedentes Escolares</h2>
+  </div>
+  <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+  	<h2>Antecedentes de Salud</h2>
+  </div>
+  <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+  	<h2>Apoderados del Estudiante</h2>
+  </div>
+  <div class="tab-pane fade" id="vida-tab-pane" role="tabpanel" aria-labelledby="vida-tab" tabindex="0">
+  	<h2>Hoja de Vida</h2>
+  </div>
+  <div class="tab-pane fade" id="accidentes-tab-pane" role="tabpanel" aria-labelledby="accidentes-tab" tabindex="0">
+  	<h2>Certificado de Accidente</h2>
+  </div>
+  <div class="tab-pane fade" id="pie-tab-pane" role="tabpanel" aria-labelledby="pie-tab" tabindex="0">
+  	<h2>PIE</h2>
+  </div>
+</div>
+
+</div>
+
+
+<br><br><br><br><br><br>
 </body>
 </html>

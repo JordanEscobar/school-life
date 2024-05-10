@@ -1,5 +1,6 @@
 package com.schoollife.web.Entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class Programa_Integracion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_Programa;
 	private String estudiante_id;
+	@Column(name = "permanencia_pie")
 	private boolean permanencia_PIE;
 	private String tipo_permanencia;
 	private String indicaciones_generales;
