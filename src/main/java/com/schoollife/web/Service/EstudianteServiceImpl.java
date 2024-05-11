@@ -1,5 +1,6 @@
 package com.schoollife.web.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -123,9 +124,57 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public List<Estudiante> findPorEstudiantePorCurso(Integer curso_id) {
+	public List<Estudiante> findEstudiantePorCurso(Integer curso_id) {
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		estudiantes = estudiantes.stream().filter(e-> e.getCurso_id() == curso_id).collect(Collectors.toList());
 		return estudiantes;
+	}
+
+	@Override
+	@Transactional
+	public Integer totalMatriculados() {
+		List<Estudiante> es = new ArrayList<Estudiante>(); 
+		for (Estudiante e : estudianteR.findAll()) {
+			if(e.isEstado()) {
+				es.add(e);
+			}
+		}
+		return es.size();
+	}
+
+	@Override
+	@Transactional
+	public Integer totalHombres() {
+		List<Estudiante> es = new ArrayList<Estudiante>(); 
+		for (Estudiante e : estudianteR.findAll()) {
+			if(e.getGenero().equalsIgnoreCase("masculino")) {
+				es.add(e);
+			}
+		}
+		return es.size();
+	}
+
+	@Override
+	@Transactional
+	public Integer totalMujeres() {
+		List<Estudiante> es = new ArrayList<Estudiante>(); 
+		for (Estudiante e : estudianteR.findAll()) {
+			if(e.getGenero().equalsIgnoreCase("femenino")) {
+				es.add(e);
+			}
+		}
+		return es.size();
+	}
+
+	@Override
+	@Transactional
+	public Integer totalOtro() {
+		List<Estudiante> es = new ArrayList<Estudiante>(); 
+		for (Estudiante e : estudianteR.findAll()) {
+			if(e.getGenero().equalsIgnoreCase("otro")) {
+				es.add(e);
+			}
+		}
+		return es.size();
 	}
 	}

@@ -40,12 +40,22 @@
 			</select>
 		</div>
 		<div class="col-auto">
-			<form action="#" th:action="@{/filtrarcurso}" th:method="post">
-				<select th:value="${filtrocurso}" class="form-select">
-					<option th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}"></option>
-				</select>
-				<input type="submit" class="btn btn-secondary" value="filtrar">
-			</form>
+			<div class="row">
+			
+				<div class="col">
+				<form action="#" th:action="@{/filtrarcurso}" method="post" th:object="${filtrocurso}">
+					<select class="form-select" name="filtrocurso" >
+						<option th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}"></option>
+					</select>
+				</div>
+				<div class="col">
+					<input type="submit" class="btn btn-secondary" value="filtrar">
+					</form>
+				</div>
+			
+			</div>
+			
+
 
 		</div>
 		<div class="col-auto">
@@ -82,10 +92,10 @@
 </div>
 <br><br><br>
 <div class="container text-center">
-	<label class="h6">Total Matriculados: <span class="fw-bold">638</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="h6">Total Hombres: <span class="fw-bold">423</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="h6">Total Mujeres: <span class="fw-bold">215</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="h6">Total sin definir: <span class="fw-bold">0</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total Matriculados: <span class="fw-bold" th:text="${matriculados}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total Hombres: <span class="fw-bold" th:text="${hombres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total Mujeres: <span class="fw-bold" th:text="${mujeres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total sin definir: <span class="fw-bold" th:text="${otros}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <br><br><br><br>
 
