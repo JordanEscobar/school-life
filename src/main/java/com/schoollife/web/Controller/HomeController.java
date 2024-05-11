@@ -54,7 +54,6 @@ public class HomeController {
 	@GetMapping("/matricula")
 	public String matricula(Model model) {
 		var estudiantes = estudianteS.getAll();
-		//var estudiantes = estudianteS.findMatriculas();
 		var cursos = cursoS.getAll();		
 		var programas = programaS.getAll();
 		model.addAttribute("cursos",cursos);
@@ -62,10 +61,9 @@ public class HomeController {
 		model.addAttribute("estudiantes", estudiantes);
 		return "Matricula";
 	}
-	
+	//filtrar por nombre y apellidos
 	@PostMapping(path = "/filtrarnombre", consumes = "application/x-www-form-urlencoded")
 	public String filtroNombre(Model model,@RequestParam("filtronombre") String filtronombre) {
-		//var estudiantes = estudianteS.findPorEstudiante(filtronombre);
 		var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre);
 		var cursos = cursoS.getAll();
 		var programas = programaS.getAll();
@@ -73,6 +71,17 @@ public class HomeController {
 		model.addAttribute("estudiantes", estudiantes);
 		model.addAttribute("cursos",cursos);
 		return "Matricula";
+	}
+	@PostMapping(path = "/filtrarcurso", consumes = "application/x-www-form-urlencoded") 
+	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso) {
+		var estudiantes = estudianteS.findPorEstudiantePorCurso(filtrocurso);
+		var cursos = cursoS.getAll();
+		var programas = programaS.getAll();
+		model.addAttribute("programas",programas);
+		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("cursos",cursos);
+		model.addAttribute("filtrocurso",filtrocurso);
+		return "redirect:/matricula";
 	}
 	
 	//Ingreso de una matricula

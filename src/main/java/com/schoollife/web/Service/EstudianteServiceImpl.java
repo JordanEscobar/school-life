@@ -94,12 +94,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public List<Estudiante> findPorEstudiante(String nombre) {
-		return estudianteR.findAllByNombre(nombre);
-	}
-
-	@Override
-	@Transactional
 	public List<Object[]> findMatriculas() {
 		return estudianteR.findMatriculas();
 	}
@@ -126,4 +120,12 @@ public class EstudianteServiceImpl implements EstudianteService{
 	                            })
 	                            .collect(Collectors.toList());
 	    }
+
+	@Override
+	@Transactional
+	public List<Estudiante> findPorEstudiantePorCurso(Integer curso_id) {
+		List<Estudiante> estudiantes = estudianteR.findAll();
+		estudiantes = estudiantes.stream().filter(e-> e.getCurso_id() == curso_id).collect(Collectors.toList());
+		return estudiantes;
+	}
 	}

@@ -40,9 +40,13 @@
 			</select>
 		</div>
 		<div class="col-auto">
-			<select class="form-select">
-				<option>Nivel Enseñanza Media</option>
-			</select>
+			<form action="#" th:action="@{/filtrarcurso}" th:method="post">
+				<select th:value="${filtrocurso}" class="form-select">
+					<option th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}"></option>
+				</select>
+				<input type="submit" class="btn btn-secondary" value="filtrar">
+			</form>
+
 		</div>
 		<div class="col-auto">
 			<select class="form-select">

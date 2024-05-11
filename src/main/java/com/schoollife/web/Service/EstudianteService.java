@@ -14,10 +14,10 @@ public interface EstudianteService {
 	
 	Estudiante createEstudiante(Estudiante estudiante);
 	
-	//buscar por nombre o apellidos
-	List<Estudiante> findPorEstudiante(String nombre);
-	
+	//filtrar estudiantes por nombre y apellidos y funciona
 	List<Estudiante> findPorEstudiantePorCodigo(String nombre);
+	//filtrar estudiantes por curso
+	List<Estudiante> findPorEstudiantePorCurso(Integer curso_id);
 	
 	List<Object[]> findMatriculas();
 
