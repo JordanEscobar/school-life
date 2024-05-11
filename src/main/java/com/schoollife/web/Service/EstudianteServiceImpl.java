@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.schoollife.web.Entities.Estudiante;
+import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Repository.EstudianteRepository;
+import com.schoollife.web.Repository.Programa_IntegracionRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -18,10 +20,13 @@ import jakarta.transaction.Transactional;
 public class EstudianteServiceImpl implements EstudianteService{
 	@Autowired
 	private final EstudianteRepository estudianteR;
+	@Autowired
+	private final Programa_IntegracionRepository programaR;
 
-	public EstudianteServiceImpl(EstudianteRepository estudianteR) {
+	public EstudianteServiceImpl(EstudianteRepository estudianteR, Programa_IntegracionRepository programaR) {
 		super();
 		this.estudianteR = estudianteR;
+		this.programaR = programaR;
 	}
 
 	@Override
@@ -177,4 +182,26 @@ public class EstudianteServiceImpl implements EstudianteService{
 		}
 		return es.size();
 	}
+
+	//Filtrar estudiantes por estado matriculado(true) o retirado(false)
+	@Override
+	@Transactional
+	public List<Estudiante> findEstudiantePorEstado(String estado) {
+		List<Estudiante> estudiantes = estudianteR.findAll();
+		if(estado.equalsIgnoreCase("matriculado")) {
+			estudiantes = estudiantes.stream().filter(e-> e.isEstado()).collect(Collectors.toList());
+		}else {
+			estudiantes = estudiantes.stream().filter(e-> !e.isEstado()).collect(Collectors.toList());
+		}
+			return estudiantes;
 	}
+
+	@Override
+	public List<Estudiante> findEstudiantePorPie(String pie) {
+		List<Estudiante> estudiantes = estudianteR.findAll();
+		List<Programa_Integracion> programa = programaR.findAll();
+		
+
+			return estudiantes;
+	}
+}

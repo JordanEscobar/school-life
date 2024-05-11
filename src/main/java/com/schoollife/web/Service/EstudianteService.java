@@ -19,11 +19,16 @@ public interface EstudianteService {
 	//filtrar estudiantes por curso
 	List<Estudiante> findEstudiantePorCurso(Integer curso_id);
 	
+	
+	
 	List<Object[]> findMatriculas();
 	
 	Integer totalMatriculados();
 	Integer totalHombres();
 	Integer totalMujeres();
 	Integer totalOtro();
+	
+	List<Estudiante> findEstudiantePorEstado(String estado);
+	List<Estudiante> findEstudiantePorPie(String pie);
 
 }

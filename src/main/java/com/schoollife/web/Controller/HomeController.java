@@ -48,8 +48,6 @@ public class HomeController {
 		return "Index";
 	}
 	
-
-	
 	@GetMapping("/login")
 	public String login() {
 		return "Login";
@@ -110,6 +108,26 @@ public class HomeController {
 		model.addAttribute("estudiantes", estudiantes);
 		model.addAttribute("cursos",cursos);
 		model.addAttribute("filtrocurso",filtrocurso);
+		return "Matricula";
+	}
+	
+	@PostMapping(path = "/filtrarestado", consumes = "application/x-www-form-urlencoded") 
+	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado) {
+		var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado);
+		var cursos = cursoS.getAll();
+		var programas = programaS.getAll();
+		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+		Integer mujeres = estudianteS.totalMujeres();
+		Integer hombres = estudianteS.totalHombres();
+		Integer otros = estudianteS.totalOtro();
+		model.addAttribute("otros",otros);
+		model.addAttribute("mujeres",mujeres);
+		model.addAttribute("hombres",hombres);
+		model.addAttribute("matriculados",estudiantesMatriculados);
+		model.addAttribute("programas",programas);
+		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("cursos",cursos);
+		model.addAttribute("filtrocurso",filtroestado);
 		return "Matricula";
 	}
 	
