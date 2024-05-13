@@ -2,6 +2,10 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,12 +15,18 @@ import jakarta.persistence.Table;
 @Table(name ="estudiantes")
 public class Estudiante {
 	@Id
+	@Nonnull
 	private String run_estudiante;
+	@Nonnull
 	private String nombre;
+	@Nonnull
 	private String apaterno;
 	private String amaterno;
 	private String numero_matricula;
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;
+	@Nonnull
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
 	private String pais_nacimiento;
 	private String genero;
@@ -43,6 +53,7 @@ public class Estudiante {
 	private boolean vacuna_covid;
 	private Integer cantidad_vacunas_covid;
 	private boolean esquema_completo_vacunacion_covid;
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_ultima_vacuna_COVID;
 	private boolean apto_educacion_fisica;
 	private String sistema_prevision;

@@ -2,6 +2,9 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -16,6 +19,7 @@ public class Establecimiento {
 	private String direccion;
 	private String region;
 	private String comuna;
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_aniversario;
 	private String correo_electronico;
 	private String pagina_web;

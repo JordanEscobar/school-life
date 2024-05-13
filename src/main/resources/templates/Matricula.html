@@ -34,12 +34,12 @@
 <br><br>
 <div class="container">
 	<div class="row g-3 align-items-center">
-		<div class="col-auto">
+		<!--  <div class="col-auto">
 			<label class="fw-bold">Año</label>
 		    <select class="form-select">
 				<option>Año</option>
 			</select>
-		</div>
+		</div>-->
 		<div class="col-auto">
 			<div class="row">
 				<div class="col">
@@ -47,7 +47,7 @@
 					<label class="fw-bold">Curso</label>
 					<select id="filtroSelect" class="form-select" name="filtrocurso" >
 						<option  >Seleccione...</option>
-						<option th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}"></option>
+						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}"></option>
 					</select>
 					</form>
 				</div>
@@ -63,7 +63,7 @@
 				</select>
 			</form>
 		</div>
-		<div class="col-auto">
+		<!--  <div class="col-auto">
 		<label class="fw-bold">PIE</label>
 			<select class="form-select">
 				<option  >Seleccione...</option>
@@ -71,7 +71,7 @@
 				<option>Permanente</option>
 				<option>Transitorio</option>
 			</select>
-		</div>
+		</div>-->
 		<div class="col-auto">
 			<div class="row g-2">
 				<div class="col-auto">
@@ -104,13 +104,13 @@
 		<a th:href="@{/matricula/ingresar}" class="btn btn-info">Carga N° Matrículas</a>
 	</div>
 	<br>
-	<table id="tablacontenido" class="table text-center">
-		<thead>
+	<table id="tablacontenido" class="table table-hover text-center">
+		<thead class="table table-primary">
 			<tr>
 				<th class="fw-bold">N° matrícula</th>
 				<th class="fw-bold">RUN</th>
 				<th class="fw-bold">Nombre</th>
-				<th class="fw-bold">PIE</th>
+				<!--  <th class="fw-bold">PIE</th>-->
 				<th class="fw-bold">Curso</th>
 				<th class="fw-bold">Nivel de enseñanza</th>
 				<th class="fw-bold">Acepta Religion</th>
@@ -123,8 +123,7 @@
 				<td th:text="${e.numero_matricula}"></td>
 				<td th:text="${e.run_estudiante}"></td>
 				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
-				<td th:each="p : ${programas}" th:if="${ p.estudiante_id} == NULL"  th:text="'NO APLICA'"></td>
-				<td th:each="p : ${programas}" th:if="${p.estudiante_id == e.run_estudiante}"  th:text="${p.tipo_permanencia}"></td>
+				<!--  <td></td>-->
 				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel} + ' ' + ${c.letra}"></td>
 				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel_ensenanza}"></td>
 				<td th:if="${e.acepta_clases_religion} == True" th:text="Si"></td>

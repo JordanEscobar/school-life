@@ -2,6 +2,9 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,6 +23,8 @@ public class Apoderado {
 	private String pasaporte;
 	private String parentesco;
 	private String tipo_apoderado;
+	
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
 	private String domicilio;
 	private String comuna;

@@ -24,6 +24,9 @@
 <br>
 		&nbsp;&nbsp;<a class="btn text-danger" th:href="@{/matricula}"><i class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Matrículas</a>	
 <br><br>
+
+
+<form th:action="@{/matricula/ingresar/creada}" method="POST" th:object="${estudiante}" >
 <div class="container">
 	<h1>Ingresar Matrícula</h1>
 	<br><br>
@@ -37,12 +40,6 @@
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Antecedentes de Salud</button>
   </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Antecedentes Familiares</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pie-tab" data-bs-toggle="tab" data-bs-target="#pie-tab-pane" type="button" role="tab" aria-controls="pie-tab-pane" aria-selected="false">PIE</button>
-  </li>
 </ul>
 <br>
 <div class="tab-content" id="myTabContent">
@@ -52,84 +49,100 @@
   <div class="row">
   	<div class="col">
   		<label>RUT<span class="text-danger">&nbsp;*(sin puntos y con guion)</span></label>
-  		<input class="form-control" type="text" >
+  		<input class="form-control" type="text" id="rut" th:field="*{run_estudiante}" placeholder="Ingrese sin puntos y con guion">
+  		<span th:if="${#fields.hasErrors('run_estudiante')}" th:errors="*{run_estudiante}">Error Rut</span>
   	</div>
   	<div class="col">
   		<label>Apellido Paterno <span class="text-danger">*</span></label>
-  		<input class="form-control" type="text">
+  		<input id="apaterno" th:field="*{apaterno}" class="form-control" type="text">
+  		 <span th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error Apellido Paterno</span>
   	</div>
   	<div class="col">
   		<label>Apellido Materno</label>
-  		<input class="form-control" type="text">
+  		<input id="amaterno" th:field="*{amaterno}" class="form-control" type="text">
+  		<span th:if="${#fields.hasErrors('amaterno')}" th:errors="*{amaterno}">Error Apellido Materno</span>
   	</div>
   </div>
   <br>
     <div class="row">
   	<div class="col">
   		<label>Nombres <span class="text-danger">*</span></label>
-  		<input class="form-control" type="text" >
+  		<input id="nombre" th:field="*{nombre}" class="form-control" type="text" >
+  		<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
   	</div>
   	<div class="col">
-  		<label>Nombre social <span class="text-danger">*</span></label>
-  		<input class="form-control" type="text">
+  		<label>Email</label>
+  		<input id="correo_electronico" th:field="*{correo_electronico}"  class="form-control" type="email">
+  		<span th:if="${#fields.hasErrors('correo_electronico')}" th:errors="*{correo_electronico}">Error Correo Electrónico</span>
   	</div>
   	<div class="col">
   		<label>Fecha Nacimiento <span class="text-danger">*</span></label>
-  		<input class="form-control" type="date">
+  		<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}" class="form-control" type="date">
+  		<span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha Nacimiento</span>
   	</div>
   </div>
     <br>
     <div class="row">
   	<div class="col">
   		<label>Género</label>
-  		<select class="form-select">
-  			<option>OTRO</option>
-  			<option>FEMENINO</option>
-  			<option>MASCULINO</option>
+  		<select class="form-select" id="genero" th:field="*{genero}">
+  			<option th:value="otro">OTRO</option>
+  			<option th:value="femenino">FEMENINO</option>
+  			<option th:value="masculino">MASCULINO</option>
   		</select>
   	</div>
   	<div class="col">
   		<label>Nacionalidad</label>
-  		<select class="form-select">
-  			<option>CHILENA</option>
-  			<option>PERUANA</option>
-  			<option>VENEZOLANA</option>
-  			<option>COLOMBIANA</option>
-  			<option>MEXICANA</option>
-  			<option>HAITIANA</option>
-  			<option>OTRO</option>
-  			<option>BOLIVIANA</option>
-  			<option>ARGENTINA</option>
+  		<select class="form-select" id="nacionalidad" th:field="*{nacionalidad}">
+  			<option th:value="CHILENA">CHILENA</option>
+  			<option th:value="PERUANA">PERUANA</option>
+  			<option th:value="VENEZOLANA">VENEZOLANA</option>
+  			<option th:value="COLOMBIANA">COLOMBIANA</option>
+  			<option th:value="MEXICANA">MEXICANA</option>
+  			<option th:value="HAITIANA">HAITIANA</option>
+  			<option th:value="OTRO">OTRO</option>
+  			<option th:value="BOLIVIANA">BOLIVIANA</option>
+  			<option th:value="ARGENTINA">ARGENTINA</option>
   		</select>
   	</div>
   	<div class="col">
-  		<label>Ciudad de Nacimiento</label>
-  		<input class="form-control" type="text">
+  		<label>País de Nacimiento</label>
+  		  		<select class="form-select" id="pais_nacimiento" th:field="*{pais_nacimiento}">
+  			<option th:value="CHILENA">CHILENA</option>
+  			<option th:value="PERUANA">PERUANA</option>
+  			<option th:value="VENEZOLANA">VENEZOLANA</option>
+  			<option th:value="COLOMBIANA">COLOMBIANA</option>
+  			<option th:value="MEXICANA">MEXICANA</option>
+  			<option th:value="HAITIANA">HAITIANA</option>
+  			<option th:value="OTRO">OTRO</option>
+  			<option th:value="BOLIVIANA">BOLIVIANA</option>
+  			<option th:value="ARGENTINA">ARGENTINA</option>
+  		</select>
   	</div>
   </div>
-  
     <br>
     <div class="row">
   	<div class="col">
   		<label>Vive con</label>
-  		<select class="form-select">
-  			<option>AMBOS PADRES</option>
-  			<option>SÓLO PADRE</option>
-  			<option>SÓLO MADRE</option>
-  			<option>ABUELOS</option>
-  			<option>HERMANOS</option>
-  			<option>TÍOS</option>
-  			<option>OTROS</option>
+  		<select class="form-select" id="vive_con" th:field="*{vive_con}">
+  			<option th:value="'AMBOS PADRES'">AMBOS PADRES</option>
+  			<option th:value="'SÓLO PADRE'">SÓLO PADRE</option>
+  			<option th:value="'SÓLO MADRE'">SÓLO MADRE</option>
+  			<option th:value="'ABUELOS'">ABUELOS</option>
+  			<option th:value="'HERMANOS'">HERMANOS</option>
+  			<option th:value="'TÍOS'">TÍOS</option>
+  			<option th:value="'OTROS'">OTROS</option>
   		</select>
   	</div>
   	<div class="col">
   		<label>Dirección</label>
-  		<input class="form-control" type="text">
+  		<input id="direccion" th:field="*{direccion}" class="form-control" type="text">
+  		<span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Error Dirección</span>
   	</div>
   	<div class="col">
   		<label>Comuna</label>
-  		  <select class="form-select">
-  			<option>Otro</option>
+  		  <select class="form-select" id="comuna" th:field="*{comuna}">
+  			<option th:value="hualpén">Hualpén</option>
   		</select>
   	</div>
   </div>
@@ -138,178 +151,128 @@
     <div class="row">
   	<div class="col">
   		<label>Etnia</label>
-  		<select class="form-select">
-  			<option>ALACALUFE</option>
-  			<option>ATACAMEÑO</option>
-  			<option>AYMARA</option>
-  			<option>COLLA</option>
-  			<option>MAPUCHE</option>
-  			<option>QUECHUA</option>
-  			<option>RAPANUI</option>
-  			<option>OTRO</option>
-  			<option>YAMANA</option>
-  			<option>NINGUNO</option>
-  			<option>DIAGUITA</option>
+  		<select id="etnia" th:field="*{etnia}" class="form-select">
+  			<option th:value="ALACALUFE">ALACALUFE</option>
+  			<option th:value="ATACAMEÑO">ATACAMEÑO</option>
+  			<option th:value="AYMARA">AYMARA</option>
+  			<option th:value="COLLA">COLLA</option>
+  			<option th:value="MAPUCHE">MAPUCHE</option>
+  			<option th:value="QUECHUA">QUECHUA</option>
+  			<option th:value="RAPANUI">RAPANUI</option>
+  			<option th:value="OTRO">OTRO</option>
+  			<option th:value="YAMANA">YAMANA</option>
+  			<option th:value="NINGUNO">NINGUNO</option>
+  			<option th:value="DIAGUITA">DIAGUITA</option>
   		</select>
   	</div>
   	<div class="col">
   		<label>Teléfono Celular</label>
-  		<input class="form-control" type="number">
+  		<input id="celular" th:field="*{celular}" class="form-control" type="number">
+  		<span th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}">Error Celular</span>
   	</div>
   	<div class="col">
   		<label>Teléfono Fijo</label>
-		<input class="form-control" type="number">
+		<input id="telefono" th:field="*{telefono}" class="form-control" type="number">
+		<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error Celular</span>
   	</div>
   </div>
   
     <br>
     <div class="row">
   	<div class="col">
-  		<label>Email</label>
-  		<input class="form-control" type="email">
-  	</div>
-  	<div class="col">
   		<label>Nombre contacto Emergencia</label>
-  		<input class="form-control" type="text">
+  		<input id="nombre_contacto_emergencia" th:field="*{nombre_contacto_emergencia}"  class="form-control" type="text">
+  		<span th:if="${#fields.hasErrors('nombre_contacto_emergencia')}" th:errors="*{nombre_contacto_emergencia}">Error Nombre contacto emergencia</span>
   	</div>
   	<div class="col">
   		<label>Teléfono emergencia</label>
-		<input class="form-control" type="number">
+		<input id="telefono_emergencia" th:field="*{telefono_emergencia}" class="form-control" type="number">
+		<span th:if="${#fields.hasErrors('telefono_emergencia')}" th:errors="*{telefono_emergencia}">Error Telefono Emergencia</span>
+  	</div>
+  	<div class="col">
+
   	</div>
   </div>
-  
       <br>
     <div class="row">
   	<div class="col">
-  		<label>Profesor Religión</label>
-  		<select class="form-select">
-  			<option>Bahaísmo</option>
-  			<option>Budismo</option>
-  			<option>Candomblé</option>
-  			<option>Cao Đài (Caodaísmo)</option>
-  			<option>Catolicismo</option>
-  			<option>Cheondoísmo</option>
-  			<option>Cristianismo</option>
-  			<option>Evangelismo</option>
-  			<option>Hinduismo</option>
-  			<option>Islam</option>
-  			<option>Jainismo</option>
-  			<option>Johrei</option>
-  			<option>Judaísmo</option>
-  			<option>Religión tradicional china</option>
-  			<option>Santería</option>
-  			<option>Sijismo</option>
-  			<option>Sin religión</option>
-  			<option>Sintoísmo</option>
-  			<option>Tenrikyo</option>
-  			<option>Testigo de Jehová</option>
-  			<option>Vudú</option>
-  			<option>Wicca</option>
-  			<option>Yazidismo</option>
+  		<label>Religión</label>
+  		<select id="religion" th:field="*{religion}" class="form-select">
+  			<option th:value="'Bahaísmo'">Bahaísmo</option>
+  			<option th:value="'Budismo'">Budismo</option>
+  			<option th:value="'Candomblé'">Candomblé</option>
+  			<option th:value="'Cao Đài (Caodaísmo)'">Cao Đài (Caodaísmo)</option>
+  			<option th:value="'Catolicismo'">Catolicismo</option>
+  			<option th:value="'Cheondoísmo'">Cheondoísmo</option>
+  			<option th:value="'Cristianismo'">Cristianismo</option>
+  			<option th:value="'Evangelismo'">Evangelismo</option>
+  			<option th:value="'Hinduismo'">Hinduismo</option>
+  			<option th:value="'Islam'">Islam</option>
+  			<option th:value="'Jainismo'">Jainismo</option>
+  			<option th:value="'Johrei'">Johrei</option>
+  			<option th:value="'Judaísmo'">Judaísmo</option>
+  			<option th:value="'Religión tradicional china'">Religión tradicional china</option>
+  			<option th:value="'Santería'">Santería</option>
+  			<option th:value="'Sijismo'">Sijismo</option>
+  			<option th:value="'Sin religión'">Sin religión</option>
+  			<option th:value="'Sintoísmo'">Sintoísmo</option>
+  			<option th:value="'Tenrikyo'">Tenrikyo</option>
+  			<option th:value="'Testigo de Jehová'">Testigo de Jehová</option>
+  			<option th:value="'Vudú'">Vudú</option>
+  			<option th:value="'Wicca'">Wicca</option>
+  			<option th:value="'Yazidismo'">Yazidismo</option>
   		</select>
   	</div>
   	<div class="col">
   		<label>¿Acepta clases de religión en el colegio?</label><br>
-  		<input id="acepta_clases_religion" name="acepta_clases_religion" value="True"  type="radio">Si &nbsp;
-  		<input id="acepta_clases_religion" name="acepta_clases_religion" value="False" type="radio">No
+  		<input id="acepta_clases_religion" th:field="*{acepta_clases_religion}" name="acepta_clases_religion" value="True"  type="radio">Si &nbsp;
+  		<input id="acepta_clases_religion" th:field="*{acepta_clases_religion}" name="acepta_clases_religion" value="False" type="radio">No
+  		<span th:if="${#fields.hasErrors('acepta_clases_religion')}" th:errors="*{acepta_clases_religion}">Error Acepta Clases Religion</span>
   	</div>
   	<div class="col text-end">
   		<br>
-		<a class="btn btn-primary">Siguiente</a>
   	</div>
   </div>
-  
-  
   </div>
   <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
   	<h2>Antecedentes Escolares</h2>
   	  <br>
 	  <div class="row">
-	  	<div class="col">
-	  		<label>Nivel de enseñanza</label>
-	  		<input class="form-control" type="text" >
-	  	</div>
-	  	<div class="col">
-	  		<label>Curso</label>
-	  		<input class="form-control" type="text">
-	  	</div>
-	  	<div class="col">
-	  		<label>Fecha matrícula <span class="text-danger">*</span></label>
-	  		<input class="form-control" type="date">
-	  	</div>
-	  </div>
-	  <br>
-	  <div class="row">
-	  	<div class="col">
-	  		<label>N° matrícula </label>
-	  		<input class="form-control" type="number" >
-	  	</div>
+
 	  	<div class="col">
 	  		<label>Colegio procedencia</label>
 	  		<label class="text-danger">Colegio de donde viene</label>
+	  		<input type="text" class="form-control" id="colegio_procedencia" th:field="*{colegio_procedencia}">
 	  	</div>
 	  	<div class="col">
-	  		<label>Condición</label>
-	  		<select class="form-select">
-  				<option>Alumno prioritario</option>
-  				<option>Alumno preferente</option>
-  				<option>Sin condición</option>
-  			</select>
+	  		<label>Fecha matrícula <span class="text-danger">*</span></label>
+	  		<input id="fecha_matricula" th:field="*{fecha_matricula}" class="form-control" type="date">
+	  	</div>
+	  	<div class="col">
+	  		
 	  	</div>
 	  </div>
 	  <br>
 	  <div class="row">
 	  	<div class="col">
-	  		<label>Conectividad del estudiante</label>
-			<select class="form-select">
-  				<option>No tiene</option>
-  				<option>Internet del Celular</option>
-  				<option>Wifi</option>
-  				<option>Wifi + Internet del Celular</option>
+			<label>Tipo de beca</label>
+			<select id="beca" th:field="*{beca}"  class="form-select">
+  				<option th:value="'Beca indigena'">Beca indigena</option>
+  				<option th:value="'Beca de apoyo a la retención escolar (BARE)'">Beca de apoyo a la retención escolar (BARE)</option>
+  				<option th:value="'Presidente de la república'">Presidente de la república</option>
+  				<option th:value="'SUF (subsidio único familiar)'">SUF (subsidio único familiar)</option>
+  				<option th:value="'Programa puente'">Programa puente</option>
+  				<option th:value="'Chile solidario'">Chile solidario</option>
   			</select>
 	  	</div>
 	  	<div class="col">
-	  		<label>Estudiante excedente</label>
-	  		<br>
-	  		<input class="form-checkox" type="checkbox">
+			<label>¿Cuántos computadores hay en casa?</label>
+			<input id="cantidad_computadores_casa" th:field="*{cantidad_computadores_casa}"  type="number" class="form-control">
 	  	</div>
 	  	<div class="col">
-	  		<label>Número de resolución</label>
-	  		<input class="form-control" type="text" disabled>
 	  	</div>
 	  </div>
 	  <br>
-	  <div class="row">
-	  	<div class="col">
-	  		<label>Fecha de resolución</label>
-	  		<input class="form-control" type="date" disabled>
-	  	</div>
-	  	<div class="col">
-	  		<label>¿Cuántos computadores hay en casa?</label>
-			<input type="number" class="form-control">
-	  	</div>
-	  	<div class="col">
-	  		<label>Tipo de beca</label>
-			<select class="form-select">
-  				<option>Beca indigena</option>
-  				<option>Beca de apoyo a la retención escolar (BARE)</option>
-  				<option>Presidente de la república</option>
-  				<option>SUF (subsidio único familiar)</option>
-  				<option>Programa puente</option>
-  				<option>Chile solidario</option>
-  			</select>
-	  	</div>
-	  </div>
-	  <br>
-	  	  <div class="row">
-	  	<div class="col">
-	  	</div>
-	  	<div class="col">
-	  	</div>
-	  	<div class="col text-end">
-	  		<a class="btn btn-primary">Siguiente</a>
-	  	</div>
-	  </div>
 	  <br>
   </div>
   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
@@ -318,23 +281,23 @@
 	  <div class="row">
 	  	<div class="col">
 	  		<label>Estatura</label>
-	  		<input class="form-control" type="number" >
+	  		<input id="estatura" th:field="*{estatura}"  class="form-control" type="number" >
 	  	</div>
 	  	<div class="col">
 	  		<label>Peso</label>
-	  		<input class="form-control" type="number">
+	  		<input id="peso" th:field="*{peso}"  class="form-control" type="number">
 	  	</div>
 	  	<div class="col">
 	  		<label>Grupo sanguíneo <span class="text-danger">*</span></label>
-	  		<select class="form-select">
-	  			<option>A -</option>
-	  			<option>A +</option>
-	  			<option>B -</option>
-	  			<option>B +</option>
-	  			<option>AB -</option>
-	  			<option>AB +</option>
-	  			<option>O -</option>
-	  			<option>O +</option>
+	  		<select id="grupo_sanguineo" th:field="*{grupo_sanguineo}"  class="form-select">
+	  			<option th:value="'A -'">A -</option>
+	  			<option th:value="'A +'">A +</option>
+	  			<option th:value="'B -'">B -</option>
+	  			<option th:value="'B +'">B +</option>
+	  			<option th:value="'AB -'">AB -</option>
+	  			<option th:value="'AB +'">AB +</option>
+	  			<option th:value="'O -'">O -</option>
+	  			<option th:value="'O +'">O +</option>
 	  		</select>
 	  	</div>
 	  </div>
@@ -343,15 +306,15 @@
 	  <div class="row">
 	  	<div class="col">
 	  		<label>Alergias a alimentos</label>
-	  		<input class="form-control" type="text" >
+	  		<input id="alergias_alimentos" th:field="*{alergias_alimentos}"  class="form-control" type="text" >
 	  	</div>
 	  	<div class="col">
 	  		<label>Alergias a medicamentos</label>
-	  		<input class="form-control" type="text">
+	  		<input id="alergias_medicamentos" th:field="*{alergias_medicamentos}"  class="form-control" type="text">
 	  	</div>
 	  	<div class="col">
 	  		<label>Medicamentos Contraindicados</label>
-	  		<input class="form-control" type="text">
+	  		<input id="medicamentos_contraindicados" th:field="*{medicamentos_contraindicados}"  class="form-control" type="text">
 	  	</div>
 	  </div>
 	  <br>
@@ -359,97 +322,124 @@
 	  <div class="row">
 	  	<div class="col">
 	  		<label>Enfermedades crónicas</label>
-	  		<select class="form-select">
-	  			<option>VISUAL</option>
-	  			<option>AUDITIVO</option>
-	  			<option>CARDIACO</option>
-	  			<option>LUMBAR</option>
-	  			<option>RESPIRATORIO</option>
-	  			<option>OTROS</option>
-	  			<option>NINGUNA</option>
+	  		<select id="enfermedades_cronicas" th:field="*{enfermedades_cronicas}"  class="form-select">
+	  			<option th:value="VISUAL">VISUAL</option>
+	  			<option th:value="AUDITIVO">AUDITIVO</option>
+	  			<option th:value="CARDIACO">CARDIACO</option>
+	  			<option th:value="LUMBAR">LUMBAR</option>
+	  			<option th:value="RESPIRATORIO">RESPIRATORIO</option>
+	  			<option th:value="OTROS">OTROS</option>
+	  			<option th:value="NINGUNA">NINGUNA</option>
 	  		</select>
 	  	</div>
 	  	<div class="col">
 	  		<label>¿Cuenta con vacuna COVID 19?</label><br>
-	  		<input class="form-radio" type="radio">&nbsp;Si &nbsp;
-	  		<input class="form-radio" type="radio">No 
-	  	</div>
+	  		<input id="vacuna_covid" th:field="*{vacuna_covid}" value="True" class="form-radio" type="radio">&nbsp;Si &nbsp;
+	  		<!--  <input id="vacuna_covid" th:field="*{vacuna_covid}" value="False" class="form-radio" type="radio">No 
+	  	--></div>
 	  	<div class="col">
 	  		<label>¿Cantidad de vacunas COVID 19?</label>
-	  		<input class="form-control" type="number" disabled>
+	  		<input id="cantidad_vacunas_covid" th:field="*{cantidad_vacunas_covid}"  class="form-control" type="number" >
 	  	</div>
 	  </div>
 	  <br>
 	    	  <br>
 	  <div class="row">
 	  	<div class="col">
-	  		<label>¿Esquema completo de vacunación COVID 19?</label>
-	  			<input class="form-radio" type="radio">&nbsp;Si &nbsp;
-	  			<input class="form-radio" type="radio">No 
-	  	</div>
+	  		<label>¿Esquema completo de vacunación COVID 19?</label><br>
+	  			<input class="form-radio" id="esquema_completo_vacunacion_covid" value="True" th:field="*{esquema_completo_vacunacion_covid}" type="radio">&nbsp;Si &nbsp;
+	  			<!--<input class="form-radio" id="esquema_completo_vacunacion_covid" value="False" th:field="*{esquema_completo_vacunacion_covid}" type="radio">No 
+	  	--></div>
 	  	<div class="col">
 	  		<label>Fecha última vacuna COVID 19?</label>
-	  		<input class="form-control" type="date">
+	  		<input id="fecha_ultima_vacuna_COVID" th:field="*{fecha_ultima_vacuna_COVID}"  class="form-control" type="date">
 	  	</div>
 	  	<div class="col">
-	  		<label>¿Es apto para Educación Física?</label>
-	  		<input class="form-radio" type="radio">&nbsp;Si &nbsp;
-	  		<input class="form-radio" type="radio">No 
-	  	</div>
+	  		<label>¿Es apto para Educación Física?</label><br>
+	  		<input id="apto_educacion_fisica" value="True" th:field="*{apto_educacion_fisica}" class="form-radio" type="radio">&nbsp;Si &nbsp;
+	  		<!--<input id="apto_educacion_fisica" value="" th:field="*{apto_educacion_fisica}" class="form-radio" type="radio">No 
+	  	--></div>
 	  </div>
 	  <br>
 	    	  <br>
 	  <div class="row">
 	  	<div class="col">
 	  		<label>Sistema previsión</label>
-	  		<select class="form-select">
-	  			<option>Dipreca</option>
-	  			<option>Isapre</option>
-	  			<option>Fonasa</option>
-	  			<option>Otros</option>
-	  			<option>Capredena</option>
-	  			<option>Fonasa A</option>
-	  			<option>Fonasa B</option>
-	  			<option>Fonasa C</option>
-	  			<option>Fonasa D</option>
-	  			<option>Banmedica S.A</option>
-	  			<option>Colmena Golden Cross S.A</option>
-	  			<option>Consalud S.A</option>
-	  			<option>Cruz Blanca S.A</option>
-	  			<option>Nueva MasVida S.A</option>
-	  			<option>Vida Tres S.A</option>
+	  		<select id="sistema_prevision" th:field="*{sistema_prevision}"  class="form-select">
+	  			<option th:value="'Dipreca'">Dipreca</option>
+	  			<option th:value="'Isapre'">Isapre</option>
+	  			<option th:value="'Fonasa'">Fonasa</option>
+	  			<option th:value="'Otros'">Otros</option>
+	  			<option th:value="'Capredena'">Capredena</option>
+	  			<option th:value="'Fonasa A'">Fonasa A</option>
+	  			<option th:value="'Fonasa B'">Fonasa B</option>
+	  			<option th:value="'Fonasa C'">Fonasa C</option>
+	  			<option th:value="'Fonasa D'">Fonasa D</option>
+	  			<option th:value="'Banmedica S.A'">Banmedica S.A</option>
+	  			<option th:value="'Colmena Golden Cross S.A'">Colmena Golden Cross S.A</option>
+	  			<option th:value="'Consalud S.A'">Consalud S.A</option>
+	  			<option th:value="'Cruz Blanca S.A'">Cruz Blanca S.A</option>
+	  			<option th:value="'Nueva MasVida S.A'">Nueva MasVida S.A</option>
+	  			<option th:value="'Vida Tres S.A'">Vida Tres S.A</option>
 	  		</select>
 	  	</div>
 	  	<div class="col">
 	  		<label>¿Posee seguro escolar privado?</label>
-	  		<input class="form-radio" type="radio">&nbsp;Si &nbsp;
-	  		<input class="form-radio" type="radio">No 
-	  	</div>
+	  		<input class="form-radio" value="True" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}"  type="radio">&nbsp;Si &nbsp;
+	  		<!--  <input class="form-radio" value="False" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}" type="radio">No 
+	  	--></div>
 	  	<div class="col">
 	  		<label>Consultorio o clínica donde se atiende</label>
-	  		<input class="form-control" type="text">
+	  		<input id="consultorio_clinica" th:field="*{consultorio_clinica}"  class="form-control" type="text">
 	  	</div>
 	  </div>
 	  <br>
 	  	  <div class="row">
-	  	  <label>Observaciones</label>
-	  	  <textarea rows="5" class="form-control" cols=""></textarea>
 	  	<div class="col">
+	  		<label>Observaciones Médicas</label>
+	  		<textarea id="observaciones" th:field="*{observaciones}"  rows="5" class="form-control" cols=""></textarea>
 	  	</div>
+	  </div>
+	  <div class="row">
+	  	<div class="col"></div>
+	  	<div class="col"></div>
+	  	<div class="col text-end">
+  			<br>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avanzarapoderadosModal">
+			  Avanzar ha ingreso de apoderados
+			</button>
+  		</div>
 	  </div>
 	  <br>
   </div>
-  <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
-  	<h2>Apoderados del Estudiante</h2>
-  </div>
-  <div class="tab-pane fade" id="pie-tab-pane" role="tabpanel" aria-labelledby="pie-tab" tabindex="0">
-  	<h2>PIE</h2>
-  </div>
 </div>
 
 </div>
 
-
+        <input type="hidden" th:field="*{estado}">
+        <input type="hidden" th:field="*{establecimiento_id}">
+        <input  type="hidden" th:field="*{numero_matricula}">
 <br><br><br><br><br><br>
+
+<!-- Modal -->
+<div class="modal fade" id="avanzarapoderadosModal" tabindex="-1" aria-labelledby="avanzarapoderadosModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro que quieres avanzar al proceso de ingreso de los apoderados?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <!--  <a th:href="@{/matricula/ingresar/apoderado}" class="btn btn-primary">Ingresar Apoderados</a>-->
+        <input type="submit" class="btn btn-primary" value="Pasar a Ingreso de apoderados">
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
 </body>
 </html>
