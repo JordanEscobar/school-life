@@ -39,8 +39,8 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public void updateEstudiante(Estudiante estudiante) {
-		Optional<Estudiante> estudianteId = estudianteR.findById(estudiante.getRun_estudiante());
+	public void updateEstudiante(Estudiante estudiante, String run_estudiante) {
+		Optional<Estudiante> estudianteId = estudianteR.findById(run_estudiante);
 		Estudiante e = estudianteId.get();
 		e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
 		e.setAlergias_alimentos(estudiante.getAlergias_alimentos());

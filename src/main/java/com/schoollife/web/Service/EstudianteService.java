@@ -8,7 +8,7 @@ import com.schoollife.web.Entities.Estudiante;
 public interface EstudianteService {
 	List<Estudiante> getAll();
 	
-	void updateEstudiante(Estudiante estudiante);
+	void updateEstudiante(Estudiante estudiante, String run_estudiante);
 	void updateEstudiantePie(String estudianteId);
 	
 	Estudiante findEstudiante(Estudiante estudiante);

@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -18,8 +19,10 @@ public class Apoderado {
 	private String estudiante_id;
 	private Integer numero_documento;
 	private String nombres;
-	private String apaterno;
-	private String amaterno;
+	@Column(name = "apaterno")
+	private String apaterno_apoderado;
+	@Column(name = "amaterno")
+	private String amaterno_apoderado;
 	private String pasaporte;
 	private String parentesco;
 	private String tipo_apoderado;
@@ -38,18 +41,18 @@ public class Apoderado {
 	private boolean autorizacion_fotografia_grabacion;
 	private boolean autorizado_retirar_establecimiento;
 	public Apoderado(String run_apoderado, String estudiante_id, Integer numero_documento, String nombres,
-			String apaterno, String amaterno, String pasaporte, String parentesco, String tipo_apoderado,
-			String estado_civil, Date fecha_nacimiento, String domicilio, String comuna, String nivel_educacion,
-			String ocupacion, String telefono, String celular, String correo_electronico, boolean es_tutor,
-			boolean acepta_manual_convivencia_escolar, boolean autorizacion_fotografia_grabacion,
+			String apaterno_apoderado, String amaterno_apoderado, String pasaporte, String parentesco,
+			String tipo_apoderado, String estado_civil, Date fecha_nacimiento, String domicilio, String comuna,
+			String nivel_educacion, String ocupacion, String telefono, String celular, String correo_electronico,
+			boolean es_tutor, boolean acepta_manual_convivencia_escolar, boolean autorizacion_fotografia_grabacion,
 			boolean autorizado_retirar_establecimiento) {
 		super();
 		this.run_apoderado = run_apoderado;
 		this.estudiante_id = estudiante_id;
 		this.numero_documento = numero_documento;
 		this.nombres = nombres;
-		this.apaterno = apaterno;
-		this.amaterno = amaterno;
+		this.apaterno_apoderado = apaterno_apoderado;
+		this.amaterno_apoderado = amaterno_apoderado;
 		this.pasaporte = pasaporte;
 		this.parentesco = parentesco;
 		this.tipo_apoderado = tipo_apoderado;
@@ -94,17 +97,17 @@ public class Apoderado {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-	public String getApaterno() {
-		return apaterno;
+	public String getApaterno_apoderado() {
+		return apaterno_apoderado;
 	}
-	public void setApaterno(String apaterno) {
-		this.apaterno = apaterno;
+	public void setApaterno_apoderado(String apaterno_apoderado) {
+		this.apaterno_apoderado = apaterno_apoderado;
 	}
-	public String getAmaterno() {
-		return amaterno;
+	public String getAmaterno_apoderado() {
+		return amaterno_apoderado;
 	}
-	public void setAmaterno(String amaterno) {
-		this.amaterno = amaterno;
+	public void setAmaterno_apoderado(String amaterno_apoderado) {
+		this.amaterno_apoderado = amaterno_apoderado;
 	}
 	public String getPasaporte() {
 		return pasaporte;
@@ -205,16 +208,16 @@ public class Apoderado {
 	@Override
 	public String toString() {
 		return "Apoderado [run_apoderado=" + run_apoderado + ", estudiante_id=" + estudiante_id + ", numero_documento="
-				+ numero_documento + ", nombres=" + nombres + ", apaterno=" + apaterno + ", amaterno=" + amaterno
-				+ ", pasaporte=" + pasaporte + ", parentesco=" + parentesco + ", tipo_apoderado=" + tipo_apoderado
-				+ ", estado_civil=" + estado_civil + ", fecha_nacimiento=" + fecha_nacimiento + ", domicilio="
-				+ domicilio + ", comuna=" + comuna + ", nivel_educacion=" + nivel_educacion + ", ocupacion=" + ocupacion
-				+ ", telefono=" + telefono + ", celular=" + celular + ", correo_electronico=" + correo_electronico
-				+ ", es_tutor=" + es_tutor + ", acepta_manual_convivencia_escolar=" + acepta_manual_convivencia_escolar
+				+ numero_documento + ", nombres=" + nombres + ", apaterno_apoderado=" + apaterno_apoderado
+				+ ", amaterno_apoderado=" + amaterno_apoderado + ", pasaporte=" + pasaporte + ", parentesco="
+				+ parentesco + ", tipo_apoderado=" + tipo_apoderado + ", estado_civil=" + estado_civil
+				+ ", fecha_nacimiento=" + fecha_nacimiento + ", domicilio=" + domicilio + ", comuna=" + comuna
+				+ ", nivel_educacion=" + nivel_educacion + ", ocupacion=" + ocupacion + ", telefono=" + telefono
+				+ ", celular=" + celular + ", correo_electronico=" + correo_electronico + ", es_tutor=" + es_tutor
+				+ ", acepta_manual_convivencia_escolar=" + acepta_manual_convivencia_escolar
 				+ ", autorizacion_fotografia_grabacion=" + autorizacion_fotografia_grabacion
 				+ ", autorizado_retirar_establecimiento=" + autorizado_retirar_establecimiento + "]";
 	}
-	
 	
 	
 	

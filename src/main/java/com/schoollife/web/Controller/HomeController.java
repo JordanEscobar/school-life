@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Estudiante;
@@ -230,8 +231,8 @@ public class HomeController {
 		
 		Apoderado a = new Apoderado();
 		a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
-		a.setAmaterno(apoderado.getAmaterno());
-		a.setApaterno(apoderado.getApaterno());
+		a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
+		a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
 		a.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
 		a.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
 		a.setCelular(apoderado.getCelular());
@@ -316,5 +317,72 @@ public class HomeController {
 		return "redirect:/matricula";
 	}
 	
-
+	@GetMapping("/matricula/modificar/{run_estudiante}")
+	public String matriculaModificar(Estudiante estudiante,Model model) {
+		estudiante = estudianteS.findEstudiante(estudiante);
+		var cursos = cursoS.getAll();
+		model.addAttribute("cursos", cursos);
+		model.addAttribute("estudiante",estudiante);
+		return "Matricula-modificar";
+	}
+	
+	@PostMapping(path = "/matricula/modificada", consumes = "application/x-www-form-urlencoded")
+	public String matriculaModificada(Estudiante estudiante,RedirectAttributes flash,Model model) {
+		var estudiantes = estudianteS.getAll();
+		Estudiante e = new Estudiante();
+		for (Estudiante es : estudiantes) {
+			if(es.getRun_estudiante().equalsIgnoreCase(estudiante.getRun_estudiante())) {
+				e.setNumero_matricula(es.getNumero_matricula());
+				e.setColegio_procedencia("Colegio Concepción");
+				e.setEstado(true);
+				e.setEstablecimiento_id(es.getEstablecimiento_id());
+				e.setAcepta_clases_religion(es.isAcepta_clases_religion());
+				e.setAlergias_alimentos(es.getAlergias_alimentos());
+				e.setAlergias_medicamentos(es.getAlergias_medicamentos());
+				e.setAmaterno(es.getAmaterno());
+				e.setApaterno(es.getApaterno());
+				e.setApto_educacion_fisica(es.isApto_educacion_fisica());
+				e.setBeca(es.getBeca());
+				e.setCantidad_computadores_casa(es.getCantidad_computadores_casa());
+				e.setCantidad_vacunas_covid(es.getCantidad_vacunas_covid());
+				e.setCelular(es.getCelular());		
+				e.setComuna(es.getComuna());
+				e.setConsultorio_clinica(es.getConsultorio_clinica());
+				e.setCorreo_electronico(es.getCorreo_electronico());
+				e.setCurso_id(1);
+				e.setDireccion(es.getDireccion());
+				e.setEnfermedades_cronicas(es.getEnfermedades_cronicas());
+				e.setEsquema_completo_vacunacion_covid(es.isEsquema_completo_vacunacion_covid());		
+				e.setEstatura(es.getEstatura());
+				e.setEtnia(es.getEtnia());
+				e.setFecha_matricula(es.getFecha_matricula());
+				e.setFecha_nacimiento(es.getFecha_nacimiento());
+				e.setFecha_ultima_vacuna_COVID(es.getFecha_ultima_vacuna_COVID());
+				e.setGenero(es.getGenero());
+				e.setGrupo_sanguineo(es.getGrupo_sanguineo());
+				e.setMedicamentos_contraindicados(es.getMedicamentos_contraindicados());
+				e.setNacionalidad(es.getNacionalidad());
+				e.setNombre(es.getNombre());
+				e.setNombre_contacto_emergencia(es.getNombre_contacto_emergencia());		
+				e.setObservaciones(es.getObservaciones());
+				e.setPais_nacimiento(es.getPais_nacimiento());
+				e.setPeso(es.getPeso());
+				e.setReligion(es.getReligion());
+				e.setRun_estudiante(es.getRun_estudiante());
+				e.setSeguro_escolar_privado(es.getSeguro_escolar_privado());
+				e.setSistema_prevision(es.getSistema_prevision());
+				e.setTelefono(es.getTelefono());
+				e.setTelefono_emergencia(es.getTelefono_emergencia());
+				e.setVacuna_covid(es.isVacuna_covid());
+				e.setVive_con(es.getVive_con());
+				e.setEs_pie(es.isEs_pie());
+			}
+		}
+		
+		estudianteS.updateEstudiante(estudiante, estudiante.getRun_estudiante());
+		flash.addFlashAttribute("success","Matrícula modificada correctamente");
+		model.addAttribute("estudiante",estudiante);		
+		return "redirect:/matricula";
+	}
+	
 }

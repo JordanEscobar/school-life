@@ -45,7 +45,7 @@
 	<br>
 
 
-	<form th:action="@{/matricula/ingresar/creada}" method="POST"
+	<form th:action="@{/matricula/modificada}" method="POST"
 		th:object="${estudiante}">
 
 		<div class="container">
@@ -57,19 +57,19 @@
 					<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
 						data-bs-target="#home-tab-pane" type="button" role="tab"
 						aria-controls="home-tab-pane" aria-selected="true">Antecedentes
-						Personales</button>
+						Personales (1)</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link " id="profile-tab" data-bs-toggle="tab"
 						data-bs-target="#profile-tab-pane" type="button" role="tab"
 						aria-controls="profile-tab-pane" aria-selected="false">Antecedentes
-						Escolares</button>
+						Escolares (2)</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link " id="contact-tab" data-bs-toggle="tab"
 						data-bs-target="#contact-tab-pane" type="button" role="tab"
 						aria-controls="contact-tab-pane" aria-selected="false">Antecedentes
-						Salud</button>
+						Salud (3)</button>
 				</li>
 			</ul>
 			<br>
@@ -293,15 +293,15 @@
 								th:errors="*{acepta_clases_religion}">Error Acepta Clases
 								Religion</span>
 						</div>
-						<div class="col text-end">
-
+						<div class="col">
+							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
+								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
+							</select>
 							<br>
 						</div>
 						<br>
 						<div class="row">
 							<div class="col text-end">
-								<button class="btn btn-danger" id="siguiente-btn-1"
-									onclick="irSiguiente(1)">Siguiente</button>
 							</div>
 						</div>
 					</div>
@@ -353,10 +353,6 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<button class="btn btn-secondary" id="atras-btn-2"
-								onclick="irArtras(1)">Atrás</button>
-							<button class="btn btn-primary" id="siguiente-btn-1"
-								onclick="irSiguiente(1)">Siguiente</button>
 						</div>
 					</div>
 					<br> <br>
@@ -527,11 +523,9 @@
 						<div class="col"></div>
 						<div class="col text-end">
 							<br>
-							<button class="btn btn-secondary" id="atras-btn-2"
-								onclick="irArtras(1)">Atrás</button>
 							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#avanzarapoderadosModal">
-								Avanzar al ingreso de apoderados</button>
+								Modificar matrícula</button>
 						</div>
 					</div>
 					<br>
@@ -558,13 +552,12 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">¿Estás seguro de que quieres avanzar
-						al proceso de ingreso de los apoderados?</div>
+					<div class="modal-body">¿Estás seguro de que quieres modificar la matrícula?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Cerrar</button>
 						<input type="submit" class="btn btn-primary"
-							value="Pasar al Ingreso de apoderados">
+							value="Modificar matrícula">
 					</div>
 				</div>
 			</div>

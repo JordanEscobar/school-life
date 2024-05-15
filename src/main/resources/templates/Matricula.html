@@ -25,6 +25,9 @@
 </nav>
 <br><br>
 <div class="container">
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-warning" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
 	<h1 class=""><span><a class="btn"  th:href="@{/}"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
 	<br>
 	<div class="d-flex justify-content-end">
@@ -102,7 +105,7 @@
 
 <div class="container">
 	<div class="d-flex justify-content-end">
-		<a th:href="@{/matricula/ingresar}" class="btn btn-info">Carga N° Matrículas</a>
+		<a href="#" class="btn btn-info">Carga N° Matrículas</a>
 	</div>
 	<br>
 	<table id="tablacontenido" class="table table-hover text-center">
@@ -133,8 +136,8 @@
 				<td th:if="${e.estado} == True" th:text="Matriculado"></td>
 				<td th:if="${e.estado} == False" class="bg-danger">Retirado</td>
 				<td>
-					<a class="btn btn-light"><i class="fa-solid fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar"></i></a>
-					<a class="btn btn-light"><i class="fa-solid fa-ellipsis"></i></a>
+					<a th:href="@{/matricula/modificar/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+					<a class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Opciones"><i class="fa-solid fa-ellipsis"></i></a>
 				</td>
 			</tr>		
 		</tbody>

@@ -3,220 +3,272 @@
 <head>
 <meta charset="UTF-8">
 <title>Libro de clases online</title>
-<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
-<link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css"
+	crossorigin="anonymous" />
 <script type="text/javascript" src="/js/sidebars.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!--  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
---></head>
+-->
+</head>
 <body>
 
-<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-	<div>
-		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;<i class="fa-solid fa-school"></i>&nbsp;NOMBRE ESCUELA</a>
-	</div>
-	
-	<div class="d-flex justify-content-end">
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
-		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
-	</div>
-</nav>
-	
-<br><br>
-<form method="POST" th:action="@{/matricula/ingresar/apoderados}" th:object="${apoderado}">
-<div class="container">
-
-<h2>Apoderados del Estudiante</h2>
-<br><br>		  	
-
-<ul class="nav nav-tabs" id="myTab2" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="apoderados-tab" data-bs-toggle="tab" data-bs-target="#apoderados-tab-pane" type="button" role="tab" aria-controls="apoderados-tab-pane" aria-selected="false">Antecedentes Familiares</button>
-  </li>
-</ul>
-<br><br>
-	<div class="tab-content" id="myTab2Content">
-	  <div class="tab-pane fade show active" id="apoderados-tab-pane" role="tabpanel" aria-labelledby="apoderados-tab" tabindex="0">
-		  	<br>
-		  	<div class="row">
-		  		<div class="col">
-		  			<label class="text-danger">Número de Documento *</label>
-		  			<input class="form-control" id="numero_documento" th:field="*{numero_documento}"  type="text">
-		  		</div>
-		  		<div class="col">
-		  			<label>Pasaporte</label>
-		  			<input class="form-control" id="pasaporte" th:field="*{pasaporte}"  type="text">
-		  		</div>
-				<div class="col">
-		  			<label class="text-danger">Nombres *</label>
-		  			<input class="form-control" id="nombres" th:field="*{nombres}"  type="text">
-		  		</div>
-		  	</div>
-		  	<br>
-		  	<div class="row">
-		  		<div class="col">
-		  			<label class="text-danger">Apellido Paterno *</label>
-		  			<input class="form-control" id="apaterno" th:field="*{apaterno}"  type="text">
-		  		</div>
-		  		<div class="col">
-		  			<label >Apellido Materno</label>
-		  			<input class="form-control" id="amaterno" th:field="*{amaterno}"  type="text">
-		  		</div>
-		  		<div class="col">
-		  			<label>Nivel educacional</label>
-					<select class="form-select" id="nivel_educacion" th:field="*{nivel_educacion}">
-		  				<option th:value="'BÁSICA INCOMPLETA'">BÁSICA INCOMPLETA</option>
-		  				<option th:value="'BÁSICA COMPLETA'">BÁSICA COMPLETA</option>
-		  				<option th:value="'MEDIA INCOMPLETA'">MEDIA INCOMPLETA</option>
-		  				<option th:value="'MEDIA COMPLETA'">MEDIA COMPLETA</option>
-		  				<option th:value="'TÉCNICA NIVEL SUPERIOR INCOMPLETA'">TÉCNICA NIVEL SUPERIOR INCOMPLETA</option>
-		  				<option th:value="'TÉCNICA NIVEL SUPERIOR COMPLETA'">TÉCNICA NIVEL SUPERIOR COMPLETA</option>
-		  				<option th:value="'PROFESIONAL INCOMPLETA'">PROFESIONAL INCOMPLETA</option>
-		  				<option th:value="'PROFESIONAL COMPLETA'">PROFESIONAL COMPLETA</option>
-		  				<option th:value="'POSGRADO/POSTÍTULOS'">POSGRADO/POSTÍTULOS</option>
-		  			</select>
-		  		</div>
-
-		  	</div>
-		  	<br>
-		  	<div class="row">
-		  		<div class="col">
-		  			<label>Estado Civil</label>
-		  			<select id="estado_civil" th:field="*{estado_civil}"  class="form-select">
-		  				<option th:value="SOLTERO">SOLTERO</option>
-		  				<option th:value="CASADO">CASADO</option>
-		  				<option th:value="VIUDO">VIUDO</option>
-		  				<option th:value="SEPARADO">SEPARADO</option>
-		  				<option th:value="OTROS">OTROS</option>
-		  			</select>
-		  		</div>
-		  		<div class="col">
-		  			<label class="text-danger">Vínculo Familiar *</label>
-		  			<select class="form-select" id="parentesco" th:field="*{parentesco}">
-		  				<option th:value="'MADRE'">MADRE </option>
-		  				<option th:value="'PADRE'">PADRE</option>
-		  				<option th:value="'HERMANO'">HERMANO</option>
-		  				<option th:value="'TÍO'">TÍO</option>
-		  				<option th:value="'ABUELO'">ABUELO</option>
-		  				<option th:value="'OTROS'">OTROS</option>
-		  			</select>
-		  		</div>
-		  		<div class="col">
-		  			<label class="text-danger">Tipo apoderado *</label>
-		  			<select class="form-select" id="tipo_apoderado" th:field="*{tipo_apoderado}">
-		  				<option th:value="'APODERADO TITULAR'">APODERADO TITULAR</option>
-		  				<option th:value="'APODERADO SUPLENTE'">APODERADO SUPLENTE</option>
-		  			</select>
-		  		</div>
-		  	</div>
-		  	<br>
-		  	<div class="row">
-		  		<div class="col">
-		  			<label>Fecha de Nacimiento</label>
-					<input type="date" id="fecha_nacimiento" th:field="*{fecha_nacimiento}" class="form-control">
-		  		</div>
-		  		<div class="col">
-		  			<label>Dirección</label>
-					<input type="text" id="domicilio" th:field="*{domicilio}"  class="form-control">
-		  		</div>
-		  		<div class="col">
-		  			<label class="text-danger">Comuna</label>
-		  			<select class="form-select" id="comuna" th:field="*{comuna}">
-		  				<option th:value="Algarrobo">Algarrobo</option>
-		  				<option th:value="Alhúe">Alhúe</option>
-		  			</select>
-		  		</div>
-		  	</div>
-		  	<br>
-		  	<div class="row">
-		  		<div class="col">
-		  			<label>Email</label>
-					<input type="email" id="correo_electronico" th:field="*{correo_electronico}" class="form-control">
-		  		</div>
-		  		<div class="col">
-		  			<label>Teléfono fijo</label>
-					<input type="number" id="telefono" th:field="*{telefono}" class="form-control">
-		  		</div>
-		  		<div class="col">
-		  			<label>Teléfono celular</label>
-					<input type="text" id="celular" th:field="*{celular}" class="form-control"><br>
-					<p>El formato debe comenzar con el código del país (+569), seguido de 8 dígitos.</p>
-		  		</div>
-		  	</div>
-		  	<br>
-		  	<div class="row">
-
-		  		<div class="col">
-		  			<label>Ocupación</label>
-					<input type="text" class="form-control" id="ocupacion" th:field="*{ocupacion}">
-		  		</div>
-		  		<div class="col">
-		  			<label>¿Es Tutor?</label><br>
-					<input type="radio" value="True" id="es_tutor" th:field="*{es_tutor}" name="estutor" class="form-radio">&nbsp;Si &nbsp;
-					<input type="radio" value="False" name="estutor" id="es_tutor" th:field="*{es_tutor}" class="form-radio">&nbsp;No
-		  		</div>
-		  		<div class="col">
-		  			<label>¿Acepta el manual de convivencia escolar?</label><br>
-		  			<input type="checkbox" id="acepta_manual_convivencia_escolar" th:field="*{acepta_manual_convivencia_escolar}"  class="form-checkbox">
-		  		</div>
-		  	</div>
-		  	<br>
-		  	<div class="row">
-		  		<div class="col">
-		  			<label>¿Autoriza fotografía y grabación?</label><br>
-		  			<input type="checkbox" id="autorizacion_fotografia_grabacion" th:field="*{autorizacion_fotografia_grabacion}"  class="form-checkbox">
-		  		</div>
-		  		<div class="col">
-		  			<label>¿Autorizado para retirar del establecimiento al estudiante?</label><br>
-		  			<input type="checkbox" id="autorizado_retirar_establecimiento" th:field="*{autorizado_retirar_establecimiento}"  class="form-checkbox">
-		  		</div>
-		  		<div class="col">
-		  		</div>
-		  	</div>
-		  	<br><br><br>
-		  	 	<div class="row">
-			  		<div class="col text-end">
-			  			<a class="btn btn-danger" th:href="@{/matricula}">Cancelar proceso</a>
-			  			<a class="btn btn-secondary" th:href="@{/matricula/ingresar/apoderado}">Ingresar otro Apoderado</a>
-			  			<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#avanzarpieModal">
-						  Avanzar ha Programa PIE
-						</button>
-			  		</div>
-		  		</div>
-		  		<br><br><br><br><br>
+	<nav class="navbar bg-dark border-bottom border-body"
+		data-bs-theme="dark">
+		<div>
+			<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;<i
+				class="fa-solid fa-school"></i>&nbsp;NOMBRE ESCUELA
+			</a>
 		</div>
-	</div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="avanzarpieModal" tabindex="-1" aria-labelledby="avanzarpieModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ¿Estas seguro que quieres avanzar al proceso de Programa Pie?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <input class="btn btn-warning" type="submit" value="Pasar al Programa PIE"/>
-      </div>
-    </div>
-  </div>
-</div>
+		<div class="d-flex justify-content-end">
+			<a th:href="@{/}" class="btn btn-outline-light  border-dark"
+				aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
+			<a class="btn btn-outline-danger" th:href="@{/login}"><i
+				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		</div>
+	</nav>
 
-<div class="d-none">
-	<select id="estudiante_id" th:field="*{estudiante_id}">
-	<option class="form-select" th:value="${estudianteid}"  th:text="${estudianteid}"></option>
-</select>
-</div>
+	<br>
+	<br>
+	<form method="POST" th:action="@{/matricula/ingresar/apoderados}"
+		th:object="${apoderado}">
+		<div class="container">
+
+			<h2>Apoderados del Estudiante</h2>
+			<br>
+			<br>
+
+			<ul class="nav nav-tabs" id="myTab2" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="apoderados-tab" data-bs-toggle="tab"
+						data-bs-target="#apoderados-tab-pane" type="button" role="tab"
+						aria-controls="apoderados-tab-pane" aria-selected="false">Antecedentes
+						Familiares</button>
+				</li>
+			</ul>
+			<br>
+			<br>
+			<div class="tab-content" id="myTabContent2">
+				<div class="tab-pane fade show active" id="apoderados-tab-pane"
+					role="tabpanel" aria-labelledby="apoderados-tab" tabindex="4">
+					<br>
+					<div class="row">
+						<div class="col">
+							<label class="text-danger">Número de Documento *</label> <input
+								class="form-control" id="numero_documento"
+								th:field="*{numero_documento}" type="text">
+						</div>
+						<div class="col">
+							<label>Pasaporte</label> <input class="form-control"
+								id="pasaporte" th:field="*{pasaporte}" type="text">
+						</div>
+						<div class="col">
+							<label class="text-danger">Nombres *</label> <input
+								class="form-control" id="nombres" th:field="*{nombres}"
+								type="text">
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col">
+							<label class="text-danger">Apellido Paterno *</label> <input
+								class="form-control" id="apaterno" th:field="*{apaterno_apoderado}"
+								type="text">
+						</div>
+						<div class="col">
+							<label>Apellido Materno</label> <input class="form-control"
+								id="amaterno" th:field="*{amaterno_apoderado}" type="text">
+						</div>
+						<div class="col">
+							<label>Nivel educacional</label> <select class="form-select"
+								id="nivel_educacion" th:field="*{nivel_educacion}">
+								<option th:value="'BÁSICA INCOMPLETA'">BÁSICA
+									INCOMPLETA</option>
+								<option th:value="'BÁSICA COMPLETA'">BÁSICA COMPLETA</option>
+								<option th:value="'MEDIA INCOMPLETA'">MEDIA INCOMPLETA</option>
+								<option th:value="'MEDIA COMPLETA'">MEDIA COMPLETA</option>
+								<option th:value="'TÉCNICA NIVEL SUPERIOR INCOMPLETA'">TÉCNICA
+									NIVEL SUPERIOR INCOMPLETA</option>
+								<option th:value="'TÉCNICA NIVEL SUPERIOR COMPLETA'">TÉCNICA
+									NIVEL SUPERIOR COMPLETA</option>
+								<option th:value="'PROFESIONAL INCOMPLETA'">PROFESIONAL
+									INCOMPLETA</option>
+								<option th:value="'PROFESIONAL COMPLETA'">PROFESIONAL
+									COMPLETA</option>
+								<option th:value="'POSGRADO/POSTÍTULOS'">POSGRADO/POSTÍTULOS</option>
+							</select>
+						</div>
+
+					</div>
+					<br>
+					<div class="row">
+						<div class="col">
+							<label>Estado Civil</label> <select id="estado_civil"
+								th:field="*{estado_civil}" class="form-select">
+								<option th:value="SOLTERO">SOLTERO</option>
+								<option th:value="CASADO">CASADO</option>
+								<option th:value="VIUDO">VIUDO</option>
+								<option th:value="SEPARADO">SEPARADO</option>
+								<option th:value="OTROS">OTROS</option>
+							</select>
+						</div>
+						<div class="col">
+							<label class="text-danger">Vínculo Familiar *</label> <select
+								class="form-select" id="parentesco" th:field="*{parentesco}">
+								<option th:value="'MADRE'">MADRE</option>
+								<option th:value="'PADRE'">PADRE</option>
+								<option th:value="'HERMANO'">HERMANO</option>
+								<option th:value="'TÍO'">TÍO</option>
+								<option th:value="'ABUELO'">ABUELO</option>
+								<option th:value="'OTROS'">OTROS</option>
+							</select>
+						</div>
+						<div class="col">
+							<label class="text-danger">Tipo apoderado *</label> <select
+								class="form-select" id="tipo_apoderado"
+								th:field="*{tipo_apoderado}">
+								<option th:value="'APODERADO TITULAR'">APODERADO
+									TITULAR</option>
+								<option th:value="'APODERADO SUPLENTE'">APODERADO
+									SUPLENTE</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col">
+							<label>Fecha de Nacimiento</label> <input type="date"
+								id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
+								class="form-control">
+						</div>
+						<div class="col">
+							<label>Dirección</label> <input type="text" id="domicilio"
+								th:field="*{domicilio}" class="form-control">
+						</div>
+						<div class="col">
+							<label class="text-danger">Comuna</label> <select
+								class="form-select" id="comuna" th:field="*{comuna}">
+								<option th:value="Algarrobo">Algarrobo</option>
+								<option th:value="Alhúe">Alhúe</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col">
+							<label>Email</label> <input type="email" id="correo_electronico"
+								th:field="*{correo_electronico}" class="form-control">
+						</div>
+						<div class="col">
+							<label>Teléfono fijo</label> <input type="number" id="telefono"
+								th:field="*{telefono}" class="form-control">
+						</div>
+						<div class="col">
+							<label>Teléfono celular</label> <input type="text" id="celular"
+								th:field="*{celular}" class="form-control"><br>
+							<p>El formato debe comenzar con el código del país (+569),
+								seguido de 8 dígitos.</p>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+
+						<div class="col">
+							<label>Ocupación</label> <input type="text" class="form-control"
+								id="ocupacion" th:field="*{ocupacion}">
+						</div>
+						<div class="col">
+							<label>¿Es Tutor?</label><br> <input type="radio"
+								value="True" id="es_tutor" th:field="*{es_tutor}" name="estutor"
+								class="form-radio">&nbsp;Si &nbsp; <input type="radio"
+								value="False" name="estutor" id="es_tutor"
+								th:field="*{es_tutor}" class="form-radio">&nbsp;No
+						</div>
+						<div class="col">
+							<label>¿Acepta el manual de convivencia escolar?</label><br>
+							<input type="checkbox" id="acepta_manual_convivencia_escolar"
+								th:field="*{acepta_manual_convivencia_escolar}"
+								class="form-checkbox">
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col">
+							<label>¿Autoriza fotografía y grabación?</label><br> <input
+								type="checkbox" id="autorizacion_fotografia_grabacion"
+								th:field="*{autorizacion_fotografia_grabacion}"
+								class="form-checkbox">
+						</div>
+						<div class="col">
+							<label>¿Autorizado para retirar del establecimiento al
+								estudiante?</label><br> <input type="checkbox"
+								id="autorizado_retirar_establecimiento"
+								th:field="*{autorizado_retirar_establecimiento}"
+								class="form-checkbox">
+						</div>
+						<div class="col"></div>
+					</div>
+					<br>
+					<br>
+					<br>
+					<div class="row">
+						<div class="col text-end">
+							<a class="btn btn-danger" th:href="@{/matricula}">Cancelar
+								proceso</a> <a class="btn btn-secondary"
+								th:href="@{/matricula/ingresar/apoderado}">Ingresar otro
+								Apoderado</a>
+							<button type="button" class="btn btn-warning"
+								data-bs-toggle="modal" data-bs-target="#avanzarpieModal">
+								Avanzar ha Programa PIE</button>
+						</div>
+					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="avanzarpieModal" tabindex="-1"
+			aria-labelledby="avanzarpieModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">¿Estas seguro que quieres avanzar al
+						proceso de Programa Pie?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Cerrar</button>
+						<input class="btn btn-warning" type="submit"
+							value="Pasar al Programa PIE" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="d-none">
+			<select id="estudiante_id" th:field="*{estudiante_id}">
+				<option class="form-select" th:value="${estudianteid}"
+					th:text="${estudianteid}"></option>
+			</select>
+		</div>
 
 
-	
-</form>
+
+	</form>
 
 
 </body>

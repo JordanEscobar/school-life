@@ -17,13 +17,11 @@ public class Estudiante {
 	@Id
 	private String run_estudiante;
 	private String nombre;
-	@Nonnull
 	private String apaterno;
 	private String amaterno;
 	private String numero_matricula;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;
-	@Nonnull
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
 	private String pais_nacimiento;

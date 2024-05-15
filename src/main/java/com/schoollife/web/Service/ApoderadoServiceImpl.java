@@ -32,9 +32,9 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 	public void updateApoderado(Apoderado apoderado) {
 		Optional<Apoderado> apoderadoId = apoderadoR.findById(apoderado.getRun_apoderado());
 		Apoderado aA = apoderadoId.get();
-		aA.setAmaterno(apoderado.getAmaterno());
+		aA.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
 		aA.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
-		aA.setApaterno(apoderado.getApaterno());
+		aA.setApaterno_apoderado(apoderado.getApaterno_apoderado());
 		aA.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
 		aA.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
 		aA.setCelular(apoderado.getCelular());
