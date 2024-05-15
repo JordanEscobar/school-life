@@ -9,6 +9,7 @@ public interface EstudianteService {
 	List<Estudiante> getAll();
 	
 	void updateEstudiante(Estudiante estudiante);
+	void updateEstudiantePie(String estudianteId);
 	
 	Estudiante findEstudiante(Estudiante estudiante);
 	
@@ -30,5 +31,7 @@ public interface EstudianteService {
 	
 	List<Estudiante> findEstudiantePorEstado(String estado);
 	List<Estudiante> findEstudiantePorPie(String pie);
+	
+	
 
 }

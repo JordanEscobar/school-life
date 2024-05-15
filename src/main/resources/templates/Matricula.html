@@ -28,6 +28,7 @@
 	<h1 class=""><span><a class="btn"  th:href="@{/}"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
 	<br>
 	<div class="d-flex justify-content-end">
+	<a th:href="@{/programa/pie}" class="btn btn-warning text_light">+ Programa Pie</a> &nbsp;&nbsp;
 			<a th:href="@{/matricula/ingresar}" class="btn btn-danger">+ Matricular Estudiante</a>
 	</div>
 </div>
@@ -92,9 +93,9 @@
 </div>
 <br><br><br>
 <div class="container text-center">
-	<label class="h6">Total Matriculados: <span class="fw-bold" th:text="${matriculados}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="h6">Total Hombres: <span class="fw-bold" th:text="${hombres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="h6">Total Mujeres: <span class="fw-bold" th:text="${mujeres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total matrículados: <span class="fw-bold" th:text="${matriculados}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total hombres: <span class="fw-bold" th:text="${hombres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="h6">Total mujeres: <span class="fw-bold" th:text="${mujeres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label class="h6">Total sin definir: <span class="fw-bold" th:text="${otros}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 <br><br><br><br>
@@ -110,7 +111,7 @@
 				<th class="fw-bold">N° matrícula</th>
 				<th class="fw-bold">RUN</th>
 				<th class="fw-bold">Nombre</th>
-				<!--  <th class="fw-bold">PIE</th>-->
+				<th class="fw-bold">PIE</th>
 				<th class="fw-bold">Curso</th>
 				<th class="fw-bold">Nivel de enseñanza</th>
 				<th class="fw-bold">Acepta Religion</th>
@@ -123,13 +124,14 @@
 				<td th:text="${e.numero_matricula}"></td>
 				<td th:text="${e.run_estudiante}"></td>
 				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
-				<!--  <td></td>-->
+				<td  th:if="${e.es_pie} == True" class="bg-warning">SI</td>
+				<td  th:if="${e.es_pie} == False" class="bg-primary" >NO</td>
 				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel} + ' ' + ${c.letra}"></td>
 				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel_ensenanza}"></td>
 				<td th:if="${e.acepta_clases_religion} == True" th:text="Si"></td>
 				<td th:if="${e.acepta_clases_religion} == False" th:text="No"></td>
 				<td th:if="${e.estado} == True" th:text="Matriculado"></td>
-				<td th:if="${e.estado} == False" th:text="Retirado"></td>
+				<td th:if="${e.estado} == False" class="bg-danger">Retirado</td>
 				<td>
 					<a class="btn btn-light"><i class="fa-solid fa-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar"></i></a>
 					<a class="btn btn-light"><i class="fa-solid fa-ellipsis"></i></a>

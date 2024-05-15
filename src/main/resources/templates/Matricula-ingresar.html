@@ -32,13 +32,13 @@
 	<br><br>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Antecedentes Personales</button>
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Antecedentes Personales (1)</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Antecedentes Escolares</button>
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Antecedentes Escolares (2)</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Antecedentes de Salud</button>
+    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Antecedentes de Salud (3)</button>
   </li>
 </ul>
 <br>
@@ -78,7 +78,7 @@
   	<div class="col">
   		<label>Fecha Nacimiento <span class="text-danger">*</span></label>
   		<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}" class="form-control" type="date">
-  		<span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha Nacimiento</span>
+  		<span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error Fecha de nacimiento</span>
   	</div>
   </div>
     <br>
@@ -241,7 +241,7 @@
 
 	  	<div class="col">
 	  		<label>Colegio procedencia</label>
-	  		<label class="text-danger">Colegio de donde viene</label>
+	  		<label class="text-danger">Colegio de dónde viene</label>
 	  		<input type="text" class="form-control" id="colegio_procedencia" th:field="*{colegio_procedencia}">
 	  	</div>
 	  	<div class="col">
@@ -335,8 +335,8 @@
 	  	<div class="col">
 	  		<label>¿Cuenta con vacuna COVID 19?</label><br>
 	  		<input id="vacuna_covid" th:field="*{vacuna_covid}" value="True" class="form-radio" type="radio">&nbsp;Si &nbsp;
-	  		<!--  <input id="vacuna_covid" th:field="*{vacuna_covid}" value="False" class="form-radio" type="radio">No 
-	  	--></div>
+	  		<input id="vacuna_covid" th:field="*{vacuna_covid}" value="False" class="form-radio" type="radio">No 
+	  	</div>
 	  	<div class="col">
 	  		<label>¿Cantidad de vacunas COVID 19?</label>
 	  		<input id="cantidad_vacunas_covid" th:field="*{cantidad_vacunas_covid}"  class="form-control" type="number" >
@@ -348,20 +348,20 @@
 	  	<div class="col">
 	  		<label>¿Esquema completo de vacunación COVID 19?</label><br>
 	  			<input class="form-radio" id="esquema_completo_vacunacion_covid" value="True" th:field="*{esquema_completo_vacunacion_covid}" type="radio">&nbsp;Si &nbsp;
-	  			<!--<input class="form-radio" id="esquema_completo_vacunacion_covid" value="False" th:field="*{esquema_completo_vacunacion_covid}" type="radio">No 
-	  	--></div>
+	  			<input class="form-radio" id="esquema_completo_vacunacion_covid" value="False" th:field="*{esquema_completo_vacunacion_covid}" type="radio">No 
+	  	</div>
 	  	<div class="col">
-	  		<label>Fecha última vacuna COVID 19?</label>
+	  		<label>¿Fecha última vacuna COVID 19?</label>
 	  		<input id="fecha_ultima_vacuna_COVID" th:field="*{fecha_ultima_vacuna_COVID}"  class="form-control" type="date">
 	  	</div>
 	  	<div class="col">
 	  		<label>¿Es apto para Educación Física?</label><br>
 	  		<input id="apto_educacion_fisica" value="True" th:field="*{apto_educacion_fisica}" class="form-radio" type="radio">&nbsp;Si &nbsp;
-	  		<!--<input id="apto_educacion_fisica" value="" th:field="*{apto_educacion_fisica}" class="form-radio" type="radio">No 
-	  	--></div>
+	  		<input id="apto_educacion_fisica" value="False" th:field="*{apto_educacion_fisica}" class="form-radio" type="radio">No 
+	  	</div>
 	  </div>
 	  <br>
-	    	  <br>
+	  <br>
 	  <div class="row">
 	  	<div class="col">
 	  		<label>Sistema previsión</label>
@@ -384,17 +384,27 @@
 	  		</select>
 	  	</div>
 	  	<div class="col">
-	  		<label>¿Posee seguro escolar privado?</label>
+	  		<label>¿Posee seguro escolar privado?</label><br>
 	  		<input class="form-radio" value="True" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}"  type="radio">&nbsp;Si &nbsp;
-	  		<!--  <input class="form-radio" value="False" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}" type="radio">No 
-	  	--></div>
+	  		<input class="form-radio" value="False" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}" type="radio">No 
+	  	</div>
 	  	<div class="col">
 	  		<label>Consultorio o clínica donde se atiende</label>
 	  		<input id="consultorio_clinica" th:field="*{consultorio_clinica}"  class="form-control" type="text">
 	  	</div>
 	  </div>
 	  <br>
-	  	  <div class="row">
+	  <div class="row">
+	  	<div class="col">
+	  		<label>¿Pertenece al programa PIE?</label><br>
+	  		<input id="es_pie" th:field="*{es_pie}" value="True"  type="radio" class="form-radio" /> Si &nbsp;
+	  		<input id="es_pie" th:field="*{es_pie}" value="False"  type="radio" class="form-radio" /> NO 
+	  	</div>
+	  	<div class="col"></div>
+	  	<div class="col"></div>
+	  </div>
+	  <br>
+	  <div class="row">
 	  	<div class="col">
 	  		<label>Observaciones Médicas</label>
 	  		<textarea id="observaciones" th:field="*{observaciones}"  rows="5" class="form-control" cols=""></textarea>
@@ -406,7 +416,7 @@
 	  	<div class="col text-end">
   			<br>
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avanzarapoderadosModal">
-			  Avanzar ha ingreso de apoderados
+			  Avanzar al ingreso de apoderados
 			</button>
   		</div>
 	  </div>
@@ -429,17 +439,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ¿Estas seguro que quieres avanzar al proceso de ingreso de los apoderados?
+        ¿Estás seguro de que quieres avanzar al proceso de ingreso de los apoderados?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <!--  <a th:href="@{/matricula/ingresar/apoderado}" class="btn btn-primary">Ingresar Apoderados</a>-->
-        <input type="submit" class="btn btn-primary" value="Pasar a Ingreso de apoderados">
+        <input type="submit" class="btn btn-primary" value="Pasar al Ingreso de apoderados">
       </div>
     </div>
   </div>
 </div>
 </form>
-
+<br><br><br><br><br><br>
 </body>
 </html>

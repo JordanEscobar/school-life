@@ -35,7 +35,7 @@ public class Programa_IntegracionServiceImpl implements Programa_IntegracionServ
 		p.setEstudiante_id(programa.getEstudiante_id());
 		p.setId_Programa(programa.getId_Programa());
 		p.setIndicaciones_generales(programa.getIndicaciones_generales());
-		p.setPermanencia_PIE(programa.isPermanencia_PIE());
+		p.setPermanencia_pie(programa.isPermanencia_pie());
 		p.setTipo_permanencia(programa.getTipo_permanencia());
 		programaR.save(p);
 		

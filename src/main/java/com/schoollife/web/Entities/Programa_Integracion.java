@@ -1,6 +1,6 @@
 package com.schoollife.web.Entities;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,16 +15,15 @@ public class Programa_Integracion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_Programa;
 	private String estudiante_id;
-	@Column(name = "permanencia_pie")
-	private boolean permanencia_PIE;
+	private boolean permanencia_pie;
 	private String tipo_permanencia;
 	private String indicaciones_generales;
-	public Programa_Integracion(Integer id_Programa, String estudiante_id, boolean permanencia_PIE,
+	public Programa_Integracion(Integer id_Programa, String estudiante_id, boolean permanencia_pie,
 			String tipo_permanencia, String indicaciones_generales) {
 		super();
 		this.id_Programa = id_Programa;
 		this.estudiante_id = estudiante_id;
-		this.permanencia_PIE = permanencia_PIE;
+		this.permanencia_pie = permanencia_pie;
 		this.tipo_permanencia = tipo_permanencia;
 		this.indicaciones_generales = indicaciones_generales;
 	}
@@ -43,11 +42,11 @@ public class Programa_Integracion {
 	public void setEstudiante_id(String estudiante_id) {
 		this.estudiante_id = estudiante_id;
 	}
-	public boolean isPermanencia_PIE() {
-		return permanencia_PIE;
+	public boolean isPermanencia_pie() {
+		return permanencia_pie;
 	}
-	public void setPermanencia_PIE(boolean permanencia_PIE) {
-		this.permanencia_PIE = permanencia_PIE;
+	public void setPermanencia_pie(boolean permanencia_pie) {
+		this.permanencia_pie = permanencia_pie;
 	}
 	public String getTipo_permanencia() {
 		return tipo_permanencia;
@@ -64,7 +63,7 @@ public class Programa_Integracion {
 	@Override
 	public String toString() {
 		return "Programa_Integracion [id_Programa=" + id_Programa + ", estudiante_id=" + estudiante_id
-				+ ", permanencia_PIE=" + permanencia_PIE + ", tipo_permanencia=" + tipo_permanencia
+				+ ", permanencia_pie=" + permanencia_pie + ", tipo_permanencia=" + tipo_permanencia
 				+ ", indicaciones_generales=" + indicaciones_generales + "]";
 	}
 	

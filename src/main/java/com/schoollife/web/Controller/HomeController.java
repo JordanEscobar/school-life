@@ -1,6 +1,8 @@
 package com.schoollife.web.Controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Estudiante;
+import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Service.ApoderadoService;
 import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
@@ -62,17 +65,23 @@ public class HomeController {
 		Integer mujeres = estudianteS.totalMujeres();
 		Integer hombres = estudianteS.totalHombres();
 		Integer otros = estudianteS.totalOtro();
+		var programas = programaS.getAll();
+		/*Collections.reverse(estudiantes);
+		Collections.reverse(cursos);
+		Collections.reverse(programas);*/
 		model.addAttribute("otros", otros);
 		model.addAttribute("mujeres", mujeres);
 		model.addAttribute("hombres", hombres);
 		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
 		model.addAttribute("matriculados", estudiantesMatriculados);
-		var programas = programaS.getAll();
+		
 		model.addAttribute("cursos", cursos);
 		model.addAttribute("programas", programas);
 		model.addAttribute("estudiantes", estudiantes);
 		return "Matricula";
 	}
+	
+	
 
 	// filtrar por nombre y apellidos
 	@PostMapping(path = "/filtrarnombre", consumes = "application/x-www-form-urlencoded")
@@ -191,6 +200,8 @@ public class HomeController {
 		e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
 		e.setVacuna_covid(estudiante.isVacuna_covid());
 		e.setVive_con(estudiante.getVive_con());
+		e.setEs_pie(estudiante.isEs_pie());
+		
 		
 		if (errores.hasErrors()) {
 			return "Matricula-ingresar";
@@ -204,7 +215,7 @@ public class HomeController {
 		return "Matricula-ingresar-apoderado";
 	}
 	
-	@GetMapping("/matricula/ingresar/pie")
+	/*@GetMapping("/matricula/ingresar/pie")
 	public String matriculaIngresarPie(Model model) {
 		return "Matricula-ingresar-pie";
 	}
@@ -212,6 +223,98 @@ public class HomeController {
 	@GetMapping("/matricula/ingresar/apoderado")
 	public String matriculaIngresarApoderado(Model model) {
 		return "Matricula-ingresar-apoderado";
+	}*/
+	
+	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
+	public String matriculaIngresarApoderado(@Validated Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion) {
+		
+		Apoderado a = new Apoderado();
+		a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
+		a.setAmaterno(apoderado.getAmaterno());
+		a.setApaterno(apoderado.getApaterno());
+		a.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
+		a.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
+		a.setCelular(apoderado.getCelular());
+		a.setComuna(apoderado.getComuna());
+		a.setCorreo_electronico(apoderado.getCorreo_electronico());
+		a.setDomicilio(apoderado.getDomicilio());
+		a.setEs_tutor(apoderado.isEs_tutor());
+		a.setEstudiante_id(apoderado.getEstudiante_id());
+		a.setRun_apoderado("123212321");
+		a.setFecha_nacimiento(apoderado.getFecha_nacimiento());
+		a.setNivel_educacion(apoderado.getNivel_educacion());
+		a.setNombres(apoderado.getNombres());
+		a.setNumero_documento(apoderado.getNumero_documento());
+		a.setOcupacion(apoderado.getOcupacion());
+		a.setParentesco(apoderado.getParentesco());
+		a.setPasaporte(apoderado.getPasaporte());
+		a.setTelefono(apoderado.getTelefono());
+		a.setTipo_apoderado(apoderado.getTipo_apoderado());
+		a.setEstado_civil(apoderado.getEstado_civil());	
+		
+		if (errores.hasErrors()) {
+			return "Matricula-ingresar-apoderado";
+		}		
+		
+		//se crea el apoderado
+		apoderadoS.createApoderado(a);
+		model.addAttribute("estudianteid",a.getEstudiante_id());
+		model.addAttribute("programa_integracion", programa_integracion);
+		
+		
+		return "Matricula-ingresar-pie";
 	}
+	
+	@PostMapping(path = "/matricula/ingresar/programa_integracion", consumes = "application/x-www-form-urlencoded")
+	public String matriculaIngresarPie(@Validated Programa_Integracion programa_integracion, Errors errores, Model model) {
+		
+		Programa_Integracion p = new Programa_Integracion();
+		p.setEstudiante_id("");
+		p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
+		p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
+		p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
+		
+		/*if (errores.hasErrors()) {
+			return "Matricula-ingresar-pie";
+		}*/		
+		//se crea el Programa para el estudiante
+		programaS.CreatePrograma(p);
+		model.addAttribute("programa_integracion",p);
+		model.addAttribute("programa_integracionId",p.getId_Programa());
+
+		return "redirect:/matricula";
+	}
+	
+	@GetMapping("/programa/pie")
+	public String ingresarProgramaPie(Programa_Integracion programa_integracion,Model model) {
+		var estudiantes = estudianteS.getAll();
+		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("programa_integracion",programa_integracion);
+		return "Ingresar-programa-pie";
+	}
+	
+	@PostMapping(path = "/programa/pie/ingreso")
+	public String programaPieIngresado(Programa_Integracion programa_integracion,Model model) {
+		var estudiantes = estudianteS.getAll();
+		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("programa_integracion",programa_integracion);
+		
+		Programa_Integracion p = new Programa_Integracion();
+		p.setEstudiante_id(programa_integracion.getEstudiante_id());
+		p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
+		p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
+		p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
+		
+		/*if (errores.hasErrors()) {
+			return "Matricula-ingresar-pie";
+		}*/		
+		//se crea el Programa para el estudiante
+		estudianteS.updateEstudiantePie(programa_integracion.getEstudiante_id());
+		programaS.CreatePrograma(p);		
+		
+				
+		return "redirect:/matricula";
+	}
+	
 
 }

@@ -25,24 +25,18 @@
 </nav>
 	
 <br><br>
-<form method="POST" th:action="@{/matricula/ingresar/programa_integracion}" th:object="${programa_integracion}">	
+<form  th:method="POST" th:action="@{/programa/pie/ingreso}" th:object="${programa_integracion}">	
 <div class="container">
-	<h1 class="">Ingresar Datos PIE</h1>
-	<br>
-	
-<br><br>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pie-tab" data-bs-toggle="tab" data-bs-target="#pie-tab-pane" type="button" role="tab" aria-controls="pie-tab-pane" aria-selected="false">PIE</button>
-  </li>
-</ul>
-<br><br>
-
-	<div class="tab-content" id="myTabContent">
-		<div class="tab-pane fade show active" id="pie-tab-pane" role="tabpanel" aria-labelledby="pie-tab" tabindex="0">
-			<br>
-
+	<h1 class="">Ingreso estudiante a programa PIE</h1>
+	<p>Complete todos los datos solicitados en el presente formulario.</p>
+	<br><br><br><br><br><br>
 			<div class="row">
+				<div class="col">
+					<label>Selecciona un estudiante</label>
+					<select class="form-select" th:field="*{estudiante_id}" >
+						<option th:each="e : ${estudiantes}" th:value="${e.run_estudiante}"   th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></option>
+					</select>
+				</div>
 				<div class="col">
 					<label class="">Pertenece al programa PIE</label><br>
 					<input type="radio"  name="permanencia_pie" th:field="*{permanencia_pie}" value="True" class="form-radio">Si &nbsp;
@@ -55,8 +49,7 @@
 						<option th:value="Permanente">Permanente</option>
 					</select>
 				</div>
-				<div class="col">
-				</div>
+
 			</div>
 			<br>
 			<div class="row">
@@ -71,23 +64,19 @@
 				</div>
 				<div class="col text-end">
 					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					  Cancelar Proceso
+					  Volver
 					</button>
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#guardarModal">
-					  Ingresar Matrícula
+					  Ingresar estudiante
 					</button>
 				</div>
 			</div>
 			<br>
 			
 		</div>
-	</div>
-</div>
-			<div class="d-none">
-				<select name="estudiante_id" th:field="*{estudiante_id}">
-					<option th:value="${estudianteid}" th:text="${estudianteid}"></option>
-				</select>			
-			</div>
+			
+			<input type="hidden" name="id_Programa" th:field="*{id_Programa}">
+
 <!-- Modales -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -96,11 +85,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      ¿Estás seguro de que deseas cancelar el proceso de matrícula?
+      ¿Estás seguro de que deseas cancelar el proceso?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <a th:href="@{/matricula}" type="button" class="btn btn-danger">Cancelar proceso matrícula</a>
+        <a th:href="@{/matricula}" type="button" class="btn btn-danger">Volver</a>
       </div>
     </div>
   </div>
@@ -114,11 +103,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      ¿Estás seguro que deseas ingresar la matrícula?
+      ¿Estás seguro que deseas ingresar el siguiente estudiante al programa pie?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <input type="submit" value="Generar Matrícula" class="btn btn-success"/>
+        <input type="submit" value="Ingresar Estudiante" class="btn btn-success"/>
       </div>
     </div>
   </div>

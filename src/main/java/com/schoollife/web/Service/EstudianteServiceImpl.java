@@ -1,9 +1,11 @@
 package com.schoollife.web.Service;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +85,70 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
 		e.setVacuna_covid(estudiante.isVacuna_covid());
 		e.setVive_con(estudiante.getVive_con());
+		e.setEs_pie(estudiante.isEs_pie());
 		estudianteR.save(e);
+	}
+	
+	
+	@Override
+	@Transactional
+	public void updateEstudiantePie(String estudianteId) {
+		// TODO Auto-generated method stub
+		List<Estudiante> estudiantes = estudianteR.findAll();
+		estudiantes = estudiantes.stream().filter(e -> e.getRun_estudiante().equalsIgnoreCase(estudianteId)).collect(Collectors.toList());
+		Estudiante e = new Estudiante();
+		
+		e.setAcepta_clases_religion(estudiantes.get(0).isAcepta_clases_religion());
+		e.setAlergias_alimentos(estudiantes.get(0).getAlergias_alimentos());
+		e.setAlergias_medicamentos(estudiantes.get(0).getAlergias_medicamentos());
+		e.setAmaterno(estudiantes.get(0).getAmaterno());
+		e.setApaterno(estudiantes.get(0).getApaterno());
+		e.setApto_educacion_fisica(estudiantes.get(0).isApto_educacion_fisica());
+		e.setBeca(estudiantes.get(0).getBeca());
+		e.setCantidad_computadores_casa(estudiantes.get(0).getCantidad_computadores_casa());
+		e.setCantidad_vacunas_covid(estudiantes.get(0).getCantidad_vacunas_covid());
+		e.setCelular(estudiantes.get(0).getCelular());
+		e.setColegio_procedencia(estudiantes.get(0).getColegio_procedencia());
+		e.setComuna(estudiantes.get(0).getComuna());
+		e.setConsultorio_clinica(estudiantes.get(0).getConsultorio_clinica());
+		e.setCorreo_electronico(estudiantes.get(0).getCorreo_electronico());
+		e.setCurso_id(estudiantes.get(0).getCurso_id());
+		e.setDireccion(estudiantes.get(0).getDireccion());
+		e.setEnfermedades_cronicas(estudiantes.get(0).getEnfermedades_cronicas());
+		e.setEsquema_completo_vacunacion_covid(estudiantes.get(0).isEsquema_completo_vacunacion_covid());
+		e.setEstablecimiento_id(estudiantes.get(0).getEstablecimiento_id());
+		e.setEstado(estudiantes.get(0).isEstado());
+		e.setEstatura(estudiantes.get(0).getEstatura());
+		e.setEtnia(estudiantes.get(0).getEtnia());
+		e.setFecha_matricula(estudiantes.get(0).getFecha_matricula());
+		e.setFecha_nacimiento(estudiantes.get(0).getFecha_nacimiento());
+		e.setFecha_ultima_vacuna_COVID(estudiantes.get(0).getFecha_ultima_vacuna_COVID());
+		e.setGenero(estudiantes.get(0).getGenero());
+		e.setGrupo_sanguineo(estudiantes.get(0).getGrupo_sanguineo());
+		e.setMedicamentos_contraindicados(estudiantes.get(0).getMedicamentos_contraindicados());
+		e.setNacionalidad(estudiantes.get(0).getNacionalidad());
+		e.setNombre(estudiantes.get(0).getNombre());
+		e.setNombre_contacto_emergencia(estudiantes.get(0).getNombre_contacto_emergencia());
+		e.setNumero_matricula(estudiantes.get(0).getNumero_matricula());
+		e.setObservaciones(estudiantes.get(0).getObservaciones());
+		e.setPais_nacimiento(estudiantes.get(0).getPais_nacimiento());
+		e.setPeso(estudiantes.get(0).getPeso());
+		e.setReligion(estudiantes.get(0).getReligion());
+		e.setRun_estudiante(estudiantes.get(0).getRun_estudiante());
+		e.setSeguro_escolar_privado(estudiantes.get(0).getSeguro_escolar_privado());
+		e.setSistema_prevision(estudiantes.get(0).getSistema_prevision());
+		e.setTelefono(estudiantes.get(0).getTelefono());
+		e.setTelefono_emergencia(estudiantes.get(0).getTelefono_emergencia());
+		e.setVacuna_covid(estudiantes.get(0).isVacuna_covid());
+		e.setVive_con(estudiantes.get(0).getVive_con());
+		e.setEs_pie(estudiantes.get(0).isEs_pie());
+		
+		Optional<Estudiante> estudiantesId = estudianteR.findById(e.getRun_estudiante());
+		Estudiante es = estudiantesId.get();
+		es.setEs_pie(true);
+		es.setRun_estudiante(e.getRun_estudiante());
+		estudianteR.save(es);
+		
 	}
 
 	@Override
@@ -104,28 +169,35 @@ public class EstudianteServiceImpl implements EstudianteService{
 		return estudianteR.findMatriculas();
 	}
 
-	@Override
-	@Transactional
-	public List<Estudiante> findPorEstudiantePorCodigo(String query) {
-		 if (query.isEmpty()) {
-	            return estudianteR.findAll();
-	        }
-	        // Si hay una consulta proporcionada, realiza la búsqueda filtrando por nombre, apellido paterno o materno
-	        String[] palabras = query.split("\s+"); // Divide la consulta en palabras separadas por espacio
-	        return estudianteR.findAll().stream()
-	                            .filter(estudiante -> {
-	                                String nombreCompleto = estudiante.getNombre().toLowerCase() + " " +
-	                                        estudiante.getApaterno().toLowerCase() + " " +
-	                                        estudiante.getAmaterno().toLowerCase();
-	                                for (String palabra : palabras) {
-	                                    if (!nombreCompleto.contains(palabra.toLowerCase())) {
-	                                        return false;
-	                                    }
-	                                }
-	                                return true;
-	                            })
-	                            .collect(Collectors.toList());
-	    }
+    @Override
+    @Transactional
+    public List<Estudiante> findPorEstudiantePorCodigo(String query) {
+        if (query.isEmpty()) {
+            return estudianteR.findAll();
+        }
+        // Si hay una consulta proporcionada, realiza la búsqueda filtrando por nombre, apellido paterno o materno
+        String[] palabras = query.split("\\s+"); // Divide la consulta en palabras separadas por espacio
+        return estudianteR.findAll().stream()
+                .filter(estudiante -> {
+                    String nombreCompleto = (estudiante.getNombre() + " " +
+                                            estudiante.getApaterno() + " " +
+                                            estudiante.getAmaterno()).toLowerCase();
+                    nombreCompleto = quitarAcentos(nombreCompleto); // Quitar tildes
+                    for (String palabra : palabras) {
+                        if (!nombreCompleto.contains(palabra.toLowerCase())) {
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .collect(Collectors.toList());
+    }
+
+    private String quitarAcentos(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(normalized).replaceAll("");
+    }
 
 	@Override
 	@Transactional
@@ -203,4 +275,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 		return estudiantes;
 	}
+
+
 }

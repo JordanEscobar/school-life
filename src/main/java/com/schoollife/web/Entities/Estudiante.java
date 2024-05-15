@@ -15,9 +15,7 @@ import jakarta.persistence.Table;
 @Table(name ="estudiantes")
 public class Estudiante {
 	@Id
-	@Nonnull
 	private String run_estudiante;
-	@Nonnull
 	private String nombre;
 	@Nonnull
 	private String apaterno;
@@ -66,6 +64,7 @@ public class Estudiante {
 	private boolean estado;
 	private Integer establecimiento_id;
 	private Integer curso_id;
+	private boolean es_pie;
 	public Estudiante(String run_estudiante, String nombre, String apaterno, String amaterno, String numero_matricula,
 			Date fecha_matricula, Date fecha_nacimiento, String pais_nacimiento, String genero, String direccion,
 			String comuna, String correo_electronico, String telefono, String celular, String colegio_procedencia,
@@ -76,7 +75,7 @@ public class Estudiante {
 			boolean vacuna_covid, Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid,
 			Date fecha_ultima_vacuna_COVID, boolean apto_educacion_fisica, String sistema_prevision,
 			String seguro_escolar_privado, String nacionalidad, String etnia, String consultorio_clinica,
-			String observaciones, boolean estado, Integer establecimiento_id, Integer curso_id) {
+			String observaciones, boolean estado, Integer establecimiento_id, Integer curso_id, boolean es_pie) {
 		super();
 		this.run_estudiante = run_estudiante;
 		this.nombre = nombre;
@@ -121,6 +120,7 @@ public class Estudiante {
 		this.estado = estado;
 		this.establecimiento_id = establecimiento_id;
 		this.curso_id = curso_id;
+		this.es_pie = es_pie;
 	}
 	public Estudiante() {
 		super();
@@ -383,6 +383,12 @@ public class Estudiante {
 	public void setCurso_id(Integer curso_id) {
 		this.curso_id = curso_id;
 	}
+	public boolean isEs_pie() {
+		return es_pie;
+	}
+	public void setEs_pie(boolean es_pie) {
+		this.es_pie = es_pie;
+	}
 	@Override
 	public String toString() {
 		return "Estudiante [run_estudiante=" + run_estudiante + ", nombre=" + nombre + ", apaterno=" + apaterno
@@ -403,9 +409,9 @@ public class Estudiante {
 				+ apto_educacion_fisica + ", sistema_prevision=" + sistema_prevision + ", seguro_escolar_privado="
 				+ seguro_escolar_privado + ", nacionalidad=" + nacionalidad + ", etnia=" + etnia
 				+ ", consultorio_clinica=" + consultorio_clinica + ", observaciones=" + observaciones + ", estado="
-				+ estado + ", establecimiento_id=" + establecimiento_id + ", curso_id=" + curso_id + "]";
+				+ estado + ", establecimiento_id=" + establecimiento_id + ", curso_id=" + curso_id + ", es_pie="
+				+ es_pie + "]";
 	}
-	
 	
 	
 	
