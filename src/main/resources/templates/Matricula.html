@@ -19,8 +19,8 @@
 	</div>
 	
 	<div class="d-flex justify-content-end">
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
-		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
+		<a class="btn btn-outline-danger" th:href="@{/login}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
 <br><br>
@@ -28,11 +28,11 @@
 	<div class="col-md-4 mt-5">
 		<div class="alert alert-warning" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
-	<h1 class=""><span><a class="btn"  th:href="@{/}"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
+	<h1 class=""><span><a class="btn"  th:href="@{/}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
 	<br>
 	<div class="d-flex justify-content-end">
-	<a th:href="@{/programa/pie}" class="btn btn-warning text_light">+ Programa Pie</a> &nbsp;&nbsp;
-			<a th:href="@{/matricula/ingresar}" class="btn btn-danger">+ Matricular Estudiante</a>
+		<a th:href="@{/programa/pie}" class="btn btn-warning text-light" data-toggle="tooltip" data-placement="bottom" title="Ingresar estudiante a programa Pie">+ Programa Pie</a> &nbsp;&nbsp;
+		<a th:href="@{/matricula/ingresar}" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Ingresar matrícula">+ Matricular Estudiante</a>
 	</div>
 </div>
 <br><br>
@@ -108,7 +108,7 @@
 		<a href="#" class="btn btn-info">Carga N° Matrículas</a>
 	</div>
 	<br>
-	<table id="tablacontenido" class="table table-hover text-center">
+	<table id="tablacontenido" class="table table-hover text-center border rounded">
 		<thead class="table table-primary">
 			<tr>
 				<th class="fw-bold">N° matrícula</th>

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.web.Entities.Apoderado;
+import com.schoollife.web.Entities.Curso;
+import com.schoollife.web.Entities.Establecimiento;
 import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Service.ApoderadoService;
@@ -383,6 +385,46 @@ public class HomeController {
 		flash.addFlashAttribute("success","Matrícula modificada correctamente");
 		model.addAttribute("estudiante",estudiante);		
 		return "redirect:/matricula";
+	}
+	
+	@GetMapping("/curso/ingresar")
+	public String cursoAgregar(Curso curso,Model model)
+	{
+		model.addAttribute("curso",curso);
+		return "Curso-ingresar"; 
+	}
+	
+	@PostMapping(path = "/curso/ingresado", consumes = "application/x-www-form-urlencoded")
+	public String cursoIngresado(Curso curso,RedirectAttributes flash,Model model)
+	{
+		Curso c = new Curso();
+		c.setApodo(curso.getApodo());
+		c.setCapacidad(curso.getCapacidad());
+		c.setEstablecimiento_id(curso.getEstablecimiento_id());
+		c.setId_curso(curso.getId_curso());
+		c.setJornada(curso.getJornada());
+		c.setLetra(curso.getLetra());
+		c.setLocal(curso.getLocal());
+		c.setNivel(curso.getNivel());
+		c.setNivel_ensenanza(curso.getNivel_ensenanza());
+		c.setNumero_sala(curso.getNumero_sala());
+		cursoS.CreateCurso(c);
+		flash.addFlashAttribute("success","Curso ingresado correctamente");
+		model.addAttribute("curso",c);
+		return "redirect:/"; 
+	}
+	
+	@GetMapping("/establecimiento/ingresar")
+	public String establecimientoIngresar(Establecimiento establecimiento,Model model) {
+		model.addAttribute("establecimiento",establecimiento);
+		return "Establecimiento-ingresar";
+	}
+	
+	@PostMapping(path = "/establecimiento/ingresado", consumes = "application/x-www-form-urlencoded")
+	public String establecimientoIngresado(Establecimiento establecimiento, RedirectAttributes flash,Model model) {
+		
+		
+		return "Establecimiento-ingresar";
 	}
 	
 }

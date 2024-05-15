@@ -23,13 +23,20 @@
 		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
-	
+<br><br>
+<br> &nbsp;&nbsp;
+	<a class="btn text-danger" th:href="@{/matricula}"><i
+		class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Matrículas</a>
 <br><br>
 <form  th:method="POST" th:action="@{/programa/pie/ingreso}" th:object="${programa_integracion}">	
 <div class="container">
+	<br>
 	<h1 class="">Ingreso estudiante a programa PIE</h1>
 	<p>Complete todos los datos solicitados en el presente formulario.</p>
-	<br><br><br><br><br><br>
+</div>
+<br><br>
+<div class="container border rounded">	
+	<br><br>
 			<div class="row">
 				<div class="col">
 					<label>Selecciona un estudiante</label>
@@ -63,37 +70,15 @@
 				<div class="col">
 				</div>
 				<div class="col text-end">
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					  Volver
-					</button>
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#guardarModal">
 					  Ingresar estudiante
 					</button>
 				</div>
 			</div>
-			<br>
-			
+			<br>	
 		</div>
 			
 			<input type="hidden" name="id_Programa" th:field="*{id_Programa}">
-
-<!-- Modales -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      ¿Estás seguro de que deseas cancelar el proceso?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <a th:href="@{/matricula}" type="button" class="btn btn-danger">Volver</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Modales -->
 <div class="modal fade" id="guardarModal" tabindex="-1" aria-labelledby="guardarModalLabel" aria-hidden="true">
@@ -112,7 +97,7 @@
     </div>
   </div>
 </div>
-
+<br><br>
 </form>
 
 </body>

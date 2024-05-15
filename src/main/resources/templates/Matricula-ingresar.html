@@ -48,7 +48,8 @@
 	<form th:action="@{/matricula/ingresar/creada}" method="POST"
 		th:object="${estudiante}">
 
-		<div class="container">
+		<div class="container border rounded">
+			<br>
 			<h1>Ingresar Matrícula</h1>
 			<br>
 			<br>
@@ -300,8 +301,6 @@
 						<br>
 						<div class="row">
 							<div class="col text-end">
-								<button class="btn btn-danger" id="siguiente-btn-1"
-									onclick="irSiguiente(1)">Siguiente</button>
 							</div>
 						</div>
 					</div>
@@ -353,10 +352,6 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<button class="btn btn-secondary" id="atras-btn-2"
-								onclick="irArtras(1)">Atrás</button>
-							<button class="btn btn-primary" id="siguiente-btn-1"
-								onclick="irSiguiente(1)">Siguiente</button>
 						</div>
 					</div>
 					<br> <br>
@@ -522,13 +517,12 @@
 								class="form-control" cols=""></textarea>
 						</div>
 					</div>
+					<br>
 					<div class="row">
 						<div class="col"></div>
 						<div class="col"></div>
 						<div class="col text-end">
 							<br>
-							<button class="btn btn-secondary" id="atras-btn-2"
-								onclick="irArtras(1)">Atrás</button>
 							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#avanzarapoderadosModal">
 								Avanzar al ingreso de apoderados</button>
@@ -537,7 +531,7 @@
 					<br>
 				</div>
 			</div>
-
+		<br><br>
 		</div>
 
 		<input type="hidden" th:field="*{estado}"> <input
