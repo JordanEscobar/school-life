@@ -35,11 +35,12 @@
 	<br>
 	<div class="container border rounded">
 		<br><br>
-		<form method="POST" th:action="@{curso/ingresado}" th:object="${curso}">
+		<form method="POST" th:action="@{/curso/ingresado}" th:object="${curso}">
 			<div class="row">
 				<div class="col">
 					<label>IDENTIFICADOR CURSO</label>
 					<input id="id_curso" th:field="*{id_curso}" class="form-control" type="number">
+					<span th:if="${#fields.hasErrors('id_curso')}" th:errors="*{id_curso}">Error Curso</span>
 				</div>
 				<div class="col">
 					<label>Nivel de enseñanza</label>
@@ -71,6 +72,7 @@
 				<div class="col">
 					<label>Capacidad</label>
 					<input type="number" id="capacidad" th:field="*{capacidad}" class="form-control">
+					<span th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}">Error Capacidad</span>
 				</div>
 				<div class="col">
 					<label>Local</label>
@@ -90,11 +92,12 @@
 				<div class="col">
 					<label>Apodo</label>
 					<input th:field="*{apodo}" class="form-control" type="text" id="apodo">
+					<span th:if="${#fields.hasErrors('apodo')}" th:errors="*{apodo}">Error Apodo</span>
 				</div>
 				<div class="col">
 					<label>Establecimiento</label>
 					<select id="establecimiento_id" th:field="*{establecimiento_id}" class="form-select">
-						<option th:value="123" th:text="123"></option>
+						<option th:each="e : ${establecimientos}" th:value="${e.rbd}" th:text="${e.nombre}"></option>
 					</select>
 				</div>
 				<div class="col">

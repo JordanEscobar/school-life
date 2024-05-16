@@ -64,6 +64,7 @@
 							<label class="text-danger">Número de Documento *</label> <input
 								class="form-control" id="numero_documento"
 								th:field="*{numero_documento}" type="text">
+								<span th:if="${#fields.hasErrors('numero_documento')}" th:errors="*{numero_documento}">Error Número de documento</span>
 						</div>
 						<div class="col">
 							<label>Pasaporte</label> <input class="form-control"
@@ -73,6 +74,7 @@
 							<label class="text-danger">Nombres *</label> <input
 								class="form-control" id="nombres" th:field="*{nombres}"
 								type="text">
+								<span th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}">Error Apoderado</span>
 						</div>
 					</div>
 					<br>
@@ -81,10 +83,12 @@
 							<label class="text-danger">Apellido Paterno *</label> <input
 								class="form-control" id="apaterno" th:field="*{apaterno_apoderado}"
 								type="text">
+								<span th:if="${#fields.hasErrors('apaterno_apoderado')}" th:errors="*{apaterno_apoderado}">Error apellido paterno</span>
 						</div>
 						<div class="col">
 							<label>Apellido Materno</label> <input class="form-control"
 								id="amaterno" th:field="*{amaterno_apoderado}" type="text">
+								<span th:if="${#fields.hasErrors('amaterno_apoderado')}" th:errors="*{amaterno_apoderado}">Error apellido materno</span>
 						</div>
 						<div class="col">
 							<label>Nivel educacional</label> <select class="form-select"
@@ -147,10 +151,12 @@
 							<label>Fecha de Nacimiento</label> <input type="date"
 								id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
 								class="form-control">
+								<span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error fecha nacimiento</span>
 						</div>
 						<div class="col">
 							<label>Dirección</label> <input type="text" id="domicilio"
 								th:field="*{domicilio}" class="form-control">
+								<span th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}">Error domicilio</span>
 						</div>
 						<div class="col">
 							<label class="text-danger">Comuna</label> <select
@@ -169,10 +175,13 @@
 						<div class="col">
 							<label>Teléfono fijo</label> <input type="number" id="telefono"
 								th:field="*{telefono}" class="form-control">
+								<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error teléfono</span>
 						</div>
 						<div class="col">
 							<label>Teléfono celular</label> <input type="text" id="celular"
-								th:field="*{celular}" class="form-control"><br>
+								th:field="*{celular}" class="form-control">
+								<span th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}">Error celular</span>
+								<br>
 							<p>El formato debe comenzar con el código del país (+569),
 								seguido de 8 dígitos.</p>
 						</div>
@@ -183,6 +192,7 @@
 						<div class="col">
 							<label>Ocupación</label> <input type="text" class="form-control"
 								id="ocupacion" th:field="*{ocupacion}">
+								<span th:if="${#fields.hasErrors('ocupacion')}" th:errors="*{ocupacion}">Error ocupación</span>
 						</div>
 						<div class="col">
 							<label>¿Es Tutor?</label><br> <input type="radio"

@@ -2,28 +2,47 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 @Table(name ="establecimientos")
 public class Establecimiento {
 	
 	@Id
+	@NotNull
+	@Min(value = 3)
 	private Integer rbd;
+	@NotBlank
 	private String nombre;
+	@NotBlank
 	private String direccion;
 	private String region;
 	private String comuna;
+	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_aniversario;
+	@NotBlank
+	@Email
 	private String correo_electronico;
+	@NotBlank
 	private String pagina_web;
+	@NotBlank
+	@Length(min = 5, max = 9)
 	private String numero_telefonico;
+	@NotBlank
 	private String zona_horaria;
 	public Establecimiento(Integer rbd, String nombre, String direccion, String region, String comuna,
 			Date fecha_aniversario, String correo_electronico, String pagina_web, String numero_telefonico,

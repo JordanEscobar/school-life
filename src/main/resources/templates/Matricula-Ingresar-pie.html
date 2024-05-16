@@ -66,6 +66,7 @@
 								th:field="*{permanencia_pie}" value="True" class="form-radio">Si
 							&nbsp; <input type="radio" name="permanencia_pie"
 								th:field="*{permanencia_pie}" value="False" class="form-radio">No
+								<span th:if="${#fields.hasErrors('permanencia_pie')}" th:errors="*{permanencia_pie}">Error Permanencia Pie</span>
 						</div>
 						<div class="col">
 							<label class="">Tipo de permanencia</label> <select

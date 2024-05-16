@@ -2,49 +2,81 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name ="estudiantes")
 public class Estudiante {
 	@Id
+	@NotBlank
+	@Length(min = 6, max = 11)
+	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_estudiante;
+	@NotBlank
 	private String nombre;
+	@NotBlank
 	private String apaterno;
+	@NotBlank
 	private String amaterno;
 	private String numero_matricula;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;
+	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
+	@NotBlank
 	private String pais_nacimiento;
 	private String genero;
+	@NotBlank
 	private String direccion;
+	@NotBlank
 	private String comuna;
+	@NotBlank
+	@Email
 	private String correo_electronico;
+	@Length(min = 6, max = 9)
 	private String telefono;
+	@Length(min = 8, max = 9)
 	private String celular;
+	@NotBlank
 	private String colegio_procedencia;
+	@NotBlank
 	private String nombre_contacto_emergencia;
+	@Length(min = 6, max = 9)
 	private String telefono_emergencia;
+	@NotBlank
 	private String vive_con;
 	private Integer cantidad_computadores_casa;
 	private String religion;
 	private boolean acepta_clases_religion;
 	private String beca;
+	@Min(value = 1)
+	@Max(value = 260)
 	private Integer estatura;
+	@NotNull
 	private double peso;
 	private String grupo_sanguineo;
+	@NotBlank
 	private String alergias_alimentos;
+	@NotBlank
 	private String alergias_medicamentos;
+	@NotBlank
 	private String medicamentos_contraindicados;
+	@NotBlank
 	private String enfermedades_cronicas;
 	private boolean vacuna_covid;
 	private Integer cantidad_vacunas_covid;
@@ -52,12 +84,18 @@ public class Estudiante {
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_ultima_vacuna_COVID;
 	private boolean apto_educacion_fisica;
+	@NotBlank
 	private String sistema_prevision;
+	@NotBlank
 	private String seguro_escolar_privado;
 	private String nacionalidad;
 	private String etnia;
+	@NotBlank
 	private String consultorio_clinica;
+	@Length(min = 0, max = 250)
 	@Column(name = "observaciones_medicas")
+	@NotBlank
+	@Length(min = 0, max = 250)
 	private String observaciones;
 	private boolean estado;
 	private Integer establecimiento_id;

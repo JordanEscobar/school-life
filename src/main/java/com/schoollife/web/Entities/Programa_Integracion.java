@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name ="programa_integracion")
@@ -15,6 +16,7 @@ public class Programa_Integracion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_Programa;
 	private String estudiante_id;
+	@NotNull
 	private boolean permanencia_pie;
 	private String tipo_permanencia;
 	private String indicaciones_generales;

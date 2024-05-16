@@ -2,6 +2,7 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -9,36 +10,62 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name ="apoderados")
 public class Apoderado {
 	
 	@Id
+	@NotBlank
+	@Length(min = 6, max = 11)
+	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_apoderado;
 	private String estudiante_id;
+	@Min(value = 6)
 	private Integer numero_documento;
+	@NotBlank
 	private String nombres;
+	@NotBlank
 	@Column(name = "apaterno")
 	private String apaterno_apoderado;
+	@NotBlank
 	@Column(name = "amaterno")
 	private String amaterno_apoderado;
+	@NotBlank
 	private String pasaporte;
 	private String parentesco;
 	private String tipo_apoderado;
 	private String estado_civil;
+	@NotNull
+	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
+	@NotBlank
 	private String domicilio;
 	private String comuna;
 	private String nivel_educacion;
-	private String ocupacion;
+	@NotBlank
+	private String ocupacion;	
+	@Length(min = 6, max = 9)
 	private String telefono;
+	@Length(min = 8, max = 9)
 	private String celular;
+	@NotBlank
+	@Email
 	private String correo_electronico;
+	@NotNull
 	private boolean es_tutor;
+	@NotNull
 	private boolean acepta_manual_convivencia_escolar;
+	@NotNull
 	private boolean autorizacion_fotografia_grabacion;
+	@NotNull
 	private boolean autorizado_retirar_establecimiento;
 	public Apoderado(String run_apoderado, String estudiante_id, Integer numero_documento, String nombres,
 			String apaterno_apoderado, String amaterno_apoderado, String pasaporte, String parentesco,

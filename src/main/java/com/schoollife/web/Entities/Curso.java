@@ -3,20 +3,29 @@ package com.schoollife.web.Entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name ="cursos")
 public class Curso {
 	
 	@Id
+	@NotNull
 	private Integer id_curso;
 	private String nivel_ensenanza;
 	private String nivel;
 	private String letra;
 	private String jornada;
+	@NotNull
+	@Min(value = 10)
 	private Integer capacidad;
+	@NotBlank
 	private String local;
+	@NotBlank
 	private String numero_sala;
+	@NotBlank
 	private String apodo;
 	private Integer establecimiento_id;
 	public Curso(Integer id_curso, String nivel_ensenanza, String nivel, String letra, String jornada,
