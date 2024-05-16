@@ -30,32 +30,51 @@
 	</div>
 <br><br>
 <div class="container">
-<div class="row">
-	<div class="col">
-		<h4>Buenas tardes. <span style="color:red;">USUARIO CONECTADO</span></h4>
+	<div class="row">
+		<div class="col">
+			<h4>Buenas tardes. <span style="color:red;">USUARIO CONECTADO</span></h4>
+		</div>
+		<div class="col"></div>
 	</div>
-	<div class="col"></div>
-</div>
-<br><br>
-<ul class="nav nav-underline">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Módulos</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#"></a>
-  </li>
-</ul>
-<br><br>
+	<br><br>
+	<ul class="nav nav-underline">
+	  <li class="nav-item">
+	    <a class="nav-link active" aria-current="page" href="#">Módulos</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#"></a>
+	  </li>
+	</ul>
+	<br><br>
+	
+	<div class="row">
+	
+		<div class="col">
+			<h5 class="card-title">Libro de Clases</h5>
+			<br><br>
+			<div class="card w-50 text-center border-danger btn-danger" style="max-width: 18rem;">
+				<a th:href="@{/matricula}" class="btn "><div class="card-body">Matrícula</div></a>
+			</div>
+			<br>
+			<div th:href="@{/matricula}" class="card w-50 text-center border-danger btn-danger" style="max-width: 18rem;">
+				<a  class="btn "><div class="card-body">Ficha Estudiante</div></a>
+			</div>
+		</div>
+		<div class="col">
+			<div>
+				<div class="col"></div>
+				<div class="col">
+					<img alt="logo-daem" style="width:300px;" src="/img/logo-daemhualpen.jpg">
+				</div>
+				<div class="col"></div>
+			</div>
+		</div>
+	
+	</div>
+	
+	
 
-<h5 class="card-title">Libro de Clases</h5>
-<br><br>
-<div class="card w-50 text-center border-danger btn-danger" style="max-width: 18rem;">
-	<a th:href="@{/matricula}" class="btn "><div class="card-body">Matrícula</div></a>
-</div>
-<br>
-<div th:href="@{/matricula}" class="card w-50 text-center border-danger btn-danger" style="max-width: 18rem;">
-	<a  class="btn "><div class="card-body">Ficha Estudiante</div></a>
-</div>
+	
 </div>
 <br><br><br>
 </body>
