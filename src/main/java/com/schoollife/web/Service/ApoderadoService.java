@@ -12,7 +12,11 @@ public interface ApoderadoService {
 	
 	Apoderado findApoderado(Apoderado apoderado);
 	
+	List<Apoderado> findApoderadoPorEstudiante(String run_estudiante);
+	
 	Apoderado createApoderado(Apoderado apoderado);
+	
+	
 
 
 }

@@ -2,6 +2,7 @@ package com.schoollife.web.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,14 @@ public class Programa_IntegracionServiceImpl implements Programa_IntegracionServ
 	@Transactional
 	public Programa_Integracion CreatePrograma(Programa_Integracion programa) {
 		return programaR.save(programa);
+	}
+
+	@Override
+	@Transactional
+	public List<Programa_Integracion> findProgramaPorEstudiante(String run_estudiante) {
+		List<Programa_Integracion> programa = programaR.findAll();
+		programa = programa.stream().filter(p -> p.getEstudiante_id().equalsIgnoreCase(run_estudiante)).collect(Collectors.toList());
+		return programa;
 	}
 	
 	

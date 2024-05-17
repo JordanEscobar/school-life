@@ -595,8 +595,12 @@ public class HomeController {
 	@GetMapping("/resumenMatricula/{run_estudiante}")
 	public String resumenMatricula(Estudiante estudiante, Model model) {
 		model.addAttribute("estudiante", estudiante);
-		var listaE = estudianteS.getAll();
-		model.addAttribute("listaE", listaE);
+		var estudiantes = estudianteS.findEstudiante(estudiante);
+		var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRun_estudiante());
+		var programa = programaS.findProgramaPorEstudiante(estudiante.getRun_estudiante());
+		model.addAttribute("listaP",programa);
+		model.addAttribute("listaA",apoderados);
+		model.addAttribute("listaE", estudiantes);
 		return "ResumenMatricula";
 	}
 	

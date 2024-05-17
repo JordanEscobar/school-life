@@ -2,6 +2,7 @@ package com.schoollife.web.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,13 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 	@Transactional
 	public Apoderado createApoderado(Apoderado apoderado) {
 		return apoderadoR.save(apoderado);
+	}
+
+	@Override
+	@Transactional
+	public List<Apoderado> findApoderadoPorEstudiante(String run_estudiante) {
+		List<Apoderado> apoderados = apoderadoR.findAll();		
+		apoderados = apoderados.stream().filter(a -> a.getEstudiante_id().equalsIgnoreCase(run_estudiante)).collect(Collectors.toList());
+		return apoderados;
 	}
 }
