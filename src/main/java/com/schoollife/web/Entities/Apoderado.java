@@ -54,7 +54,7 @@ public class Apoderado {
 	private String ocupacion;	
 	@Length(min = 6, max = 9)
 	private String telefono;
-	@Length(min = 8, max = 9)
+	@Length(min = 7, max = 11)
 	private String celular;
 	@NotBlank
 	@Email

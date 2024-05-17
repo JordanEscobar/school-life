@@ -61,6 +61,12 @@
 					<br>
 					<div class="row">
 						<div class="col">
+							<label class="text-danger">Run Apoderado *</label> <input
+								class="form-control" id="run_apoderado"
+								th:field="*{run_apoderado}" type="text">
+								<span th:if="${#fields.hasErrors('run_apoderado')}" th:errors="*{run_apoderado}">Error Run apoderado</span>
+						</div>
+						<div class="col">
 							<label class="text-danger">Número de Documento *</label> <input
 								class="form-control" id="numero_documento"
 								th:field="*{numero_documento}" type="text">
@@ -173,7 +179,7 @@
 								th:field="*{correo_electronico}" class="form-control">
 						</div>
 						<div class="col">
-							<label>Teléfono fijo</label> <input type="number" id="telefono"
+							<label>Teléfono fijo</label> <input type="text" id="telefono"
 								th:field="*{telefono}" class="form-control">
 								<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error teléfono</span>
 						</div>
@@ -223,7 +229,15 @@
 								th:field="*{autorizado_retirar_establecimiento}"
 								class="form-checkbox">
 						</div>
-						<div class="col"></div>
+						<div class="col">
+						
+							<div >
+							<select id="estudiante_id" th:field="*{estudiante_id}">
+								<option class="form-select" th:value="${estudianteid}"
+									th:text="${estudianteid}"></option>
+							</select>
+		</div>
+						</div>
 					</div>
 					<br>
 					<br>
@@ -269,12 +283,7 @@
 			</div>
 		</div>
 
-		<div class="d-none">
-			<select id="estudiante_id" th:field="*{estudiante_id}">
-				<option class="form-select" th:value="${estudianteid}"
-					th:text="${estudianteid}"></option>
-			</select>
-		</div>
+
 
 
 

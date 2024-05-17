@@ -220,9 +220,9 @@ public class HomeController {
 		
 		Estudiante e = new Estudiante();
 		e.setNumero_matricula("1");
-		e.setColegio_procedencia("Colegio Concepción");
+		e.setColegio_procedencia(estudiante.getColegio_procedencia());
 		e.setEstado(true);
-		e.setEstablecimiento_id(123456);
+		e.setEstablecimiento_id(4717);
 		e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
 		e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
 		e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());
@@ -291,8 +291,8 @@ public class HomeController {
 		a.setCorreo_electronico(apoderado.getCorreo_electronico());
 		a.setDomicilio(apoderado.getDomicilio());
 		a.setEs_tutor(apoderado.isEs_tutor());
-		a.setEstudiante_id(apoderado.getEstudiante_id());
-		a.setRun_apoderado("123212321");
+		a.setEstudiante_id("17861759-1");
+		a.setRun_apoderado(apoderado.getRun_apoderado());
 		a.setFecha_nacimiento(apoderado.getFecha_nacimiento());
 		a.setNivel_educacion(apoderado.getNivel_educacion());
 		a.setNombres(apoderado.getNombres());
@@ -321,7 +321,7 @@ public class HomeController {
 	public String matriculaIngresarPie(@Valid Programa_Integracion programa_integracion, Errors errores,RedirectAttributes flash, Model model) {
 		
 		Programa_Integracion p = new Programa_Integracion();
-		p.setEstudiante_id("");
+		p.setEstudiante_id("17861759-1");
 		p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
 		p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
 		p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
@@ -590,6 +590,14 @@ public class HomeController {
 		flash.addFlashAttribute("success","Establecimiento ingresado correctamente");
 		model.addAttribute("establecimiento",e);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/resumenMatricula/{run_estudiante}")
+	public String resumenMatricula(Estudiante estudiante, Model model) {
+		model.addAttribute("estudiante", estudiante);
+		var listaE = estudianteS.getAll();
+		model.addAttribute("listaE", listaE);
+		return "ResumenMatricula";
 	}
 	
 }
