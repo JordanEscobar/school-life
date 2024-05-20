@@ -136,6 +136,7 @@
 				<td th:if="${e.estado} == True" th:text="Matriculado"></td>
 				<td th:if="${e.estado} == False" class="bg-danger">Retirado</td>
 				<td>
+					<a th:href="@{/resumenMatricula/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Ver matrícula en detalle"><i class="fa-regular fa-user"></i></a>
 					<a th:href="@{/matricula/modificar/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
 					<a th:href="@{/resumenMatricula/} + ${e.run_estudiante} + '?format=pdf'" target="_blank" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Descargar matrícula"><i class="fa-solid fa-file-arrow-down"></i></a>
 				</td>
