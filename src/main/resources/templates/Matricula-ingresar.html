@@ -322,17 +322,16 @@
 								<span th:if="${#fields.hasErrors('colegio_procedencia')}" th:errors="*{colegio_procedencia}">Error colegio procedencia</span>
 						</div>
 						<div class="col">
-							<label>Fecha matrícula <span class="text-danger">*</span></label>
-							<input id="fecha_matricula" th:field="*{fecha_matricula}"
-								class="form-control" type="date">
+							<input id="fecha_matricula" th:field="*{fecha_matricula}" class="form-control" type="hidden">
 						</div>
 						<div class="col"></div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Tipo de beca</label> <select id="beca" th:field="*{beca}"
+							<label>Beca</label> <select id="beca" th:field="*{beca}"
 								class="form-select">
+								<option th:value="'Ninguna'">Ninguna</option>
 								<option th:value="'Beca indigena'">Beca indigena</option>
 								<option th:value="'Beca de apoyo a la retención escolar (BARE)'">Beca
 									de apoyo a la retención escolar (BARE)</option>

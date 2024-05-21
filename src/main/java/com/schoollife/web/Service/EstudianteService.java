@@ -1,8 +1,6 @@
 package com.schoollife.web.Service;
 
-import java.util.Date;
 import java.util.List;
-
 import com.schoollife.web.Entities.Estudiante;
 
 public interface EstudianteService {

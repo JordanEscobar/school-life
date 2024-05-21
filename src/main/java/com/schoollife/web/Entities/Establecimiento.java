@@ -5,10 +5,7 @@ import java.util.Date;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -37,7 +34,6 @@ public class Establecimiento {
 	@NotBlank
 	@Email
 	private String correo_electronico;
-	@NotBlank
 	private String pagina_web;
 	@NotBlank
 	@Length(min = 5, max = 9)

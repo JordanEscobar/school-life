@@ -24,85 +24,75 @@
 	</div>
 </nav>
 <br><br> &nbsp;&nbsp;
-	<a class="btn text-danger" th:href="@{/curso}"><i
+	<a class="btn text-danger" th:href="@{/establecimiento}"><i
 		class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Volver</a>
 	<br><br>
 	<div class="container">
 		<br><br>
-		<h1>Cursos</h1>
-		<p>Complete todos los datos y luego presione el botón para ingresar un curso.</p>
+		<h1>Establecimientos</h1>
+		<p>Modifique los datos y luego presione el botón modificar.</p>
 	</div>
 	<br>
 	<div class="container border rounded">
 		<br><br>
-		<form method="POST" th:action="@{/curso/ingresado}" th:object="${curso}">
+		<form method="POST" th:action="@{/establecimiento/modificado}" th:object="${establecimiento}">
 			<div class="row">
 				<div class="col">
-					<label>IDENTIFICADOR CURSO</label>
-					<input id="id_curso" th:field="*{id_curso}" class="form-control" type="number">
-					<span th:if="${#fields.hasErrors('id_curso')}" th:errors="*{id_curso}">Error Curso</span>
+					<label>IDENTIFICADOR RBD</label>
+					<input id="rbd" th:field="*{rbd}" class="form-control" type="number">
+					<span th:if="${#fields.hasErrors('rbd')}" th:errors="*{rbd}">Error RBD</span>
 				</div>
 				<div class="col">
-					<label>Nivel de enseñanza</label>
-					<select id="nivel_ensenanza" th:field="*{nivel_ensenanza}" class="form-select">
-						<option th:value="BÁSICA" th:text="BÁSICA"></option>
-					</select>
+					<label>Nombre Establecimiento</label>
+					<input id="nombre" th:field="*{nombre}" type="text" class="form-control"/>
+					<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
 				</div>
 				<div class="col">
-					<label>Nivel del Curso</label>
-					<select id="nivel" th:field="*{nivel}" class="form-select">
-						<option th:value="PRIMERO" th:text="PRIMERO"></option>
-					</select>
-				</div>
-				<div class="col">
-					<label>Letra del Curso</label>
-					<select id="letra" th:field="*{letra}" class="form-select">
-						<option th:value="A" th:text="A"></option>
-					</select>
+					<label>Dirección</label>
+					<input type="text" id="direccion" th:field="*{direccion}" class="form-control"/>
+					<span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Error Dirección</span>
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col">
-					<label>Jornada</label>
-					<select id="jornada" th:field="*{jornada}" class="form-select">
-						<option th:value="MAÑANA" th:text="MAÑANA"></option>
+					<label>Región</label>
+					<select id="region" th:field="*{region}" class="form-select">
+						<option th:each="r : ${regiones}" th:value="${r}" th:text="${r}"></option>
 					</select>
 				</div>
 				<div class="col">
-					<label>Capacidad</label>
-					<input type="number" id="capacidad" th:field="*{capacidad}" class="form-control">
-					<span th:if="${#fields.hasErrors('capacidad')}" th:errors="*{capacidad}">Error Capacidad</span>
-				</div>
-				<div class="col">
-					<label>Local</label>
-					<select id="local" th:field="*{local}" class="form-select">
-						<option th:value="LOCAL" th:text="LOCAL"></option>
+					<label>Comuna</label>
+					<select id="comuna" th:field="*{comuna}" class="form-select">
+						<option th:each="c : ${comunas}" th:value="${c}" th:text="${c}"></option>
 					</select>
 				</div>
 				<div class="col">
-					<label>Número Sala</label>
-					<select id="numero_sala" th:field="*{numero_sala}" class="form-select">
-						<option th:value="101" th:text="101"></option>
-					</select>
+					<label>Fecha de aniversario</label>
+					<input type="date" id="fecha_aniversario" th:field="*{fecha_aniversario}" class="form-control">
+					<span th:if="${#fields.hasErrors('fecha_aniversario')}" th:errors="*{fecha_aniversario}">Error Fecha aniversario</span>
 				</div>
 			</div>
 			<br>
 			<div class="row">
 				<div class="col">
-					<label>Apodo</label>
-					<input th:field="*{apodo}" class="form-control" type="text" id="apodo">
-					<span th:if="${#fields.hasErrors('apodo')}" th:errors="*{apodo}">Error Apodo</span>
+					<label>Correo Electrónico</label>
+					<input th:field="*{correo_electronico}" class="form-control" type="email" id="correo_electronico">
+					<span th:if="${#fields.hasErrors('correo_electronico')}" th:errors="*{correo_electronico}">Error Correo</span>
 				</div>
 				<div class="col">
-					<label>Establecimiento</label>
-					<select id="establecimiento_id" th:field="*{establecimiento_id}" class="form-select">
-						<option th:each="e : ${establecimientos}" th:value="${e.rbd}" th:text="${e.nombre}"></option>
-					</select>
+					<label>Pagína Web</label>
+					<input type="text" id="pagina_web" th:field="*{pagina_web}" class="form-control">
 				</div>
 				<div class="col">
+					<label>Número telefónico</label>
+					<input type="number" class="form-control" id="numero_telefonico" th:field="*{numero_telefonico}">
+					<span th:if="${#fields.hasErrors('numero_telefonico')}" th:errors="*{numero_telefonico}">Error Teléfono</span>
 				</div>
 				<div class="col">
+					<label>Zona Horaria</label>
+					<input type="text" class="form-control" id="zona_horaria" th:field="*{zona_horaria}">
+					<span th:if="${#fields.hasErrors('zona_horaria')}" th:errors="*{zona_horaria}">Error zona horaria</span>
 				</div>
 			</div>
 			<br>
@@ -114,7 +104,7 @@
 				<div class="col">
 				</div>
 				<div class="col text-end">
-					<input type="submit" class="btn btn-success" value="Ingresar curso">
+					<input type="submit" class="btn btn-success" value="Modificar Establecimiento">
 				</div>
 			</div>
 			<br>

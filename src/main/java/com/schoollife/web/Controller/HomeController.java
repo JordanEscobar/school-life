@@ -1,6 +1,9 @@
 package com.schoollife.web.Controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +64,7 @@ public class HomeController {
 	@GetMapping("/matricula")
 	public String matricula(Model model) {
 		var estudiantes = estudianteS.getAll();
-		var cursos = cursoS.getAll();
+		var cursos = cursoS.getAll(4717);
 		Integer mujeres = estudianteS.totalMujeres();
 		Integer hombres = estudianteS.totalHombres();
 		Integer otros = estudianteS.totalOtro();
@@ -87,7 +90,7 @@ public class HomeController {
 	@PostMapping(path = "/filtrarnombre", consumes = "application/x-www-form-urlencoded")
 	public String filtroNombre(Model model, @RequestParam("filtronombre") String filtronombre) {
 		var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre);
-		var cursos = cursoS.getAll();
+		var cursos = cursoS.getAll(4717);
 		var programas = programaS.getAll();
 		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
 		Integer mujeres = estudianteS.totalMujeres();
@@ -107,7 +110,7 @@ public class HomeController {
 	@PostMapping(path = "/filtrarcurso", consumes = "application/x-www-form-urlencoded")
 	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso) {
 		var estudiantes = estudianteS.findEstudiantePorCurso(filtrocurso);
-		var cursos = cursoS.getAll();
+		List<Curso> cursos = cursoS.getAll(4717);
 		var programas = programaS.getAll();
 		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
 		Integer mujeres = estudianteS.totalMujeres();
@@ -127,7 +130,8 @@ public class HomeController {
 	@PostMapping(path = "/filtrarestado", consumes = "application/x-www-form-urlencoded")
 	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado) {
 		var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado);
-		var cursos = cursoS.getAll();
+		var cursos = cursoS.getAll(4717);
+		System.out.println("Los cursos del establecimiento 4717 son:" + cursos);
 		var programas = programaS.getAll();
 		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
 		Integer mujeres = estudianteS.totalMujeres();
@@ -148,73 +152,14 @@ public class HomeController {
 	@GetMapping("/matricula/ingresar")
 	public String matriculaIngresar(Estudiante estudiante, Model model) {
 		
-		String[] comunas = { "Arica", "Camarones", "Putre", "General Lagos", "Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica",
-				"Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena",
-			 "Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco",
-			"La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria",
-			"Punitaqui", "Río Hurtado" ,"Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga",
-			"Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena",
-			"El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana","Rancagua", "Codegua",
-			"Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu",
-			"La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz","Talca",
-			"Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco",
-			"Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas","Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Quirihue",
-			"Ránquil", "Treguaco", "Bulnes", "Chillán Viejo", "Chillán", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Coihueco", "Ñiquén", "San Carlos", "San Fabián", "San Nicolás","Concepción", "Coronel", 
-			"Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles",
-			"Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino",
-			"Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli",
-			"Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria","Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", 
-			"Lago Ranco", "Río Bueno", "Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón",
-			"Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena", "Coihaique", "Lago Verde",
-			"Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez", "Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera",
-			"Timaukel", "Natales", "Torres del Paine", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes",
-			"Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "Santiago", "San Joaquín", "San Miguel", "San Ramón",
-			"Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte",
-			"Isla de Maipo", "Padre Hurtado", "Peñaflor" };
-		
-		List<String> comunalist = new ArrayList<String>();
-		for (String string : comunas) {
-			comunalist.add(string);
-		}
-		
-		model.addAttribute("comunas",comunalist);
+		model.addAttribute("comunas",establecimientoS.comunas());
 		model.addAttribute("estudiante", estudiante);
 		return "Matricula-ingresar";
 	}
 	
 	@PostMapping(path = "/matricula/ingresar/creada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado) {
-		
-		String[] comunas = { "Arica", "Camarones", "Putre", "General Lagos", "Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica",
-				"Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena",
-			 "Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco",
-			"La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria",
-			"Punitaqui", "Río Hurtado" ,"Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga",
-			"Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena",
-			"El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana","Rancagua", "Codegua",
-			"Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu",
-			"La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz","Talca",
-			"Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco",
-			"Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas","Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Quirihue",
-			"Ránquil", "Treguaco", "Bulnes", "Chillán Viejo", "Chillán", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Coihueco", "Ñiquén", "San Carlos", "San Fabián", "San Nicolás","Concepción", "Coronel", 
-			"Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles",
-			"Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino",
-			"Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli",
-			"Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria","Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", 
-			"Lago Ranco", "Río Bueno", "Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón",
-			"Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena", "Coihaique", "Lago Verde",
-			"Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez", "Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera",
-			"Timaukel", "Natales", "Torres del Paine", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes",
-			"Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "Santiago", "San Joaquín", "San Miguel", "San Ramón",
-			"Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte",
-			"Isla de Maipo", "Padre Hurtado", "Peñaflor" };
-		
-		List<String> comunalist = new ArrayList<String>();
-		for (String string : comunas) {
-			comunalist.add(string);
-		}
-		
-		model.addAttribute("comunas",comunalist);
+		model.addAttribute("comunas",establecimientoS.comunas());
 		
 		model.addAttribute("apoderado", apoderado);
 		
@@ -242,7 +187,12 @@ public class HomeController {
 		e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());		
 		e.setEstatura(estudiante.getEstatura());
 		e.setEtnia(estudiante.getEtnia());
-		e.setFecha_matricula(estudiante.getFecha_matricula());
+		
+		//fecha actual en local date
+		LocalDate localDate = LocalDate.now();
+		//transformar el local date a date
+		Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		e.setFecha_matricula(date);
 		e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
 		e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
 		e.setGenero(estudiante.getGenero());
@@ -286,21 +236,21 @@ public class HomeController {
 		a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
 		a.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
 		a.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
-		a.setCelular(apoderado.getCelular());
-		a.setComuna(apoderado.getComuna());
-		a.setCorreo_electronico(apoderado.getCorreo_electronico());
-		a.setDomicilio(apoderado.getDomicilio());
+		a.setCelular_apoderado(apoderado.getCelular_apoderado());
+		a.setComuna_apoderado(apoderado.getComuna_apoderado());
+		a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
+		a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
 		a.setEs_tutor(apoderado.isEs_tutor());
 		a.setEstudiante_id("17861759-1");
 		a.setRun_apoderado(apoderado.getRun_apoderado());
-		a.setFecha_nacimiento(apoderado.getFecha_nacimiento());
+		a.setFecha_nacimiento_apoderado(apoderado.getFecha_nacimiento_apoderado());
 		a.setNivel_educacion(apoderado.getNivel_educacion());
 		a.setNombres(apoderado.getNombres());
 		a.setNumero_documento(apoderado.getNumero_documento());
 		a.setOcupacion(apoderado.getOcupacion());
 		a.setParentesco(apoderado.getParentesco());
 		a.setPasaporte(apoderado.getPasaporte());
-		a.setTelefono(apoderado.getTelefono());
+		a.setTelefono_apoderado(apoderado.getTelefono_apoderado());
 		a.setTipo_apoderado(apoderado.getTipo_apoderado());
 		a.setEstado_civil(apoderado.getEstado_civil());	
 		
@@ -370,7 +320,7 @@ public class HomeController {
 	@GetMapping("/matricula/modificar/{run_estudiante}")
 	public String matriculaModificar(Estudiante estudiante,Model model) {
 		estudiante = estudianteS.findEstudiante(estudiante);
-		var cursos = cursoS.getAll();
+		var cursos = cursoS.getAll(4717);
 		model.addAttribute("cursos", cursos);
 		model.addAttribute("estudiante",estudiante);
 		return "Matricula-modificar";
@@ -437,159 +387,6 @@ public class HomeController {
 		flash.addFlashAttribute("success","Matrícula modificada correctamente");
 		model.addAttribute("estudiante",estudiante);		
 		return "redirect:/matricula";
-	}
-	
-	@GetMapping("/curso/ingresar")
-	public String cursoAgregar(Curso curso,Model model)
-	{
-				
-		var establecimientos = establecimientoS.getAll();
-		model.addAttribute("establecimientos", establecimientos);
-		model.addAttribute("curso",curso);
-		
-		return "Curso-ingresar"; 
-	}
-	
-	@PostMapping(path = "/curso/ingresado", consumes = "application/x-www-form-urlencoded")
-	public String cursoIngresado(@Valid Curso curso,Errors errores,RedirectAttributes flash,Model model)
-	{
-		
-		var establecimientos = establecimientoS.getAll();
-		model.addAttribute("establecimientos", establecimientos);
-		
-		Curso c = new Curso();
-		c.setApodo(curso.getApodo());
-		c.setCapacidad(curso.getCapacidad());
-		c.setEstablecimiento_id(curso.getEstablecimiento_id());
-		c.setId_curso(curso.getId_curso());
-		c.setJornada(curso.getJornada());
-		c.setLetra(curso.getLetra());
-		c.setLocal(curso.getLocal());
-		c.setNivel(curso.getNivel());
-		c.setNivel_ensenanza(curso.getNivel_ensenanza());
-		c.setNumero_sala(curso.getNumero_sala());
-		
-		if (errores.hasErrors()) {
-			return "Curso-ingresar";
-		}	
-		
-		cursoS.CreateCurso(c);
-		flash.addFlashAttribute("success","Curso ingresado correctamente");
-		model.addAttribute("curso",c);
-		return "redirect:/"; 
-	}
-	
-	@GetMapping("/establecimiento/ingresar")
-	public String establecimientoIngresar(Establecimiento establecimiento,Model model) {
-		
-		String[] comunas = { "Arica", "Camarones", "Putre", "General Lagos", "Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica",
-				"Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena",
-			 "Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco",
-			"La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria",
-			"Punitaqui", "Río Hurtado" ,"Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga",
-			"Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena",
-			"El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana","Rancagua", "Codegua",
-			"Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu",
-			"La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz","Talca",
-			"Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco",
-			"Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas","Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Quirihue",
-			"Ránquil", "Treguaco", "Bulnes", "Chillán Viejo", "Chillán", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Coihueco", "Ñiquén", "San Carlos", "San Fabián", "San Nicolás","Concepción", "Coronel", 
-			"Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles",
-			"Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino",
-			"Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli",
-			"Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria","Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", 
-			"Lago Ranco", "Río Bueno", "Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón",
-			"Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena", "Coihaique", "Lago Verde",
-			"Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez", "Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera",
-			"Timaukel", "Natales", "Torres del Paine", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes",
-			"Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "Santiago", "San Joaquín", "San Miguel", "San Ramón",
-			"Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte",
-			"Isla de Maipo", "Padre Hurtado", "Peñaflor" };
-		
-		List<String> comunalist = new ArrayList<String>();
-		for (String string : comunas) {
-			comunalist.add(string);
-		}
-		
-		model.addAttribute("comunas",comunalist);
-		
-		String[] regiones = {"Arica y Parinacota","Tarapacá","Antofagasta", "Atacama", "Coquimbo","Valparaíso",
-				"Región del Libertador Gral. Bernardo O’Higgins",
-				"Región del Maule","Región de Ñuble","Región del Biobío","Región de la Araucanía","Región de Los Ríos","Región de Los Lagos",
-				"Región Aisén del Gral. Carlos Ibáñez del Campo",
-				"Región de Magallanes y de la Antártica Chilena","Región Metropolitana de Santiago" };
-		List<String> regionlist = new ArrayList<String>();
-		for (String r : regiones) {
-			regionlist.add(r);
-		}
-		model.addAttribute("regiones",regionlist);
-		model.addAttribute("establecimiento",establecimiento);
-		return "Establecimiento-ingresar";
-	}
-	
-	@PostMapping(path = "/establecimiento/ingresado", consumes = "application/x-www-form-urlencoded")
-	public String establecimientoIngresado(@Valid Establecimiento establecimiento,Errors errores, RedirectAttributes flash,Model model) {
-		
-		String[] comunas = { "Arica", "Camarones", "Putre", "General Lagos", "Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica",
-				"Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena",
-			 "Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco",
-			"La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria",
-			"Punitaqui", "Río Hurtado" ,"Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga",
-			"Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena",
-			"El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana","Rancagua", "Codegua",
-			"Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu",
-			"La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz","Talca",
-			"Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco",
-			"Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas","Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Quirihue",
-			"Ránquil", "Treguaco", "Bulnes", "Chillán Viejo", "Chillán", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Coihueco", "Ñiquén", "San Carlos", "San Fabián", "San Nicolás","Concepción", "Coronel", 
-			"Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles",
-			"Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino",
-			"Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli",
-			"Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria","Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", 
-			"Lago Ranco", "Río Bueno", "Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón",
-			"Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena", "Coihaique", "Lago Verde",
-			"Aisén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez", "Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos (Ex Navarino)", "Antártica", "Porvenir", "Primavera",
-			"Timaukel", "Natales", "Torres del Paine", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes",
-			"Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "Santiago", "San Joaquín", "San Miguel", "San Ramón",
-			"Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte",
-			"Isla de Maipo", "Padre Hurtado", "Peñaflor" };
-		List<String> comunalist = new ArrayList<String>();
-		for (String string : comunas) {
-			comunalist.add(string);
-		}
-		model.addAttribute("comunas",comunalist);
-		String[] regiones = {"Arica y Parinacota","Tarapacá","Antofagasta", "Atacama", "Coquimbo","Valparaíso",
-				"Región del Libertador Gral. Bernardo O’Higgins",
-				"Región del Maule","Región de Ñuble","Región del Biobío","Región de la Araucanía","Región de Los Ríos","Región de Los Lagos",
-				"Región Aisén del Gral. Carlos Ibáñez del Campo",
-				"Región de Magallanes y de la Antártica Chilena","Región Metropolitana de Santiago" };
-		List<String> regionlist = new ArrayList<String>();
-		for (String r : regiones) {
-			regionlist.add(r);
-		}
-		model.addAttribute("regiones",regionlist);
-		
-		
-		Establecimiento e = new Establecimiento();
-		e.setComuna(establecimiento.getComuna());
-		e.setCorreo_electronico(establecimiento.getCorreo_electronico());
-		e.setDireccion(establecimiento.getDireccion());
-		e.setFecha_aniversario(establecimiento.getFecha_aniversario());
-		e.setNombre(establecimiento.getNombre());
-		e.setNumero_telefonico(establecimiento.getNumero_telefonico());
-		e.setPagina_web(establecimiento.getPagina_web());
-		e.setRbd(establecimiento.getRbd());
-		e.setRegion(establecimiento.getRegion());
-		e.setZona_horaria(establecimiento.getZona_horaria());
-		
-		if (errores.hasErrors()) {
-			return "Establecimiento-ingresar";
-		}
-		
-		establecimientoS.createEstablecimiento(e);
-		flash.addFlashAttribute("success","Establecimiento ingresado correctamente");
-		model.addAttribute("establecimiento",e);
-		return "redirect:/";
 	}
 	
 	@GetMapping("/resumenMatricula/{run_estudiante}")

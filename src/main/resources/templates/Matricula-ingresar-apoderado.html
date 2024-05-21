@@ -155,18 +155,18 @@
 					<div class="row">
 						<div class="col">
 							<label>Fecha de Nacimiento</label> <input type="date"
-								id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
+								id="fecha_nacimiento" th:field="*{fecha_nacimiento_apoderado}"
 								class="form-control">
-								<span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}">Error fecha nacimiento</span>
+								<span th:if="${#fields.hasErrors('fecha_nacimiento_apoderado')}" th:errors="*{fecha_nacimiento_apoderado}">Error fecha nacimiento</span>
 						</div>
 						<div class="col">
 							<label>Dirección</label> <input type="text" id="domicilio"
-								th:field="*{domicilio}" class="form-control">
-								<span th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}">Error domicilio</span>
+								th:field="*{domicilio_apoderado}" class="form-control">
+								<span th:if="${#fields.hasErrors('domicilio_apoderado')}" th:errors="*{domicilio_apoderado}">Error domicilio</span>
 						</div>
 						<div class="col">
 							<label class="text-danger">Comuna</label> <select
-								class="form-select" id="comuna" th:field="*{comuna}">
+								class="form-select" id="comuna" th:field="*{comuna_apoderado}">
 								<option th:value="Algarrobo">Algarrobo</option>
 								<option th:value="Alhúe">Alhúe</option>
 							</select>
@@ -176,17 +176,18 @@
 					<div class="row">
 						<div class="col">
 							<label>Email</label> <input type="email" id="correo_electronico"
-								th:field="*{correo_electronico}" class="form-control">
+								th:field="*{correo_electronico_apoderado}" class="form-control">
+								<span th:if="${#fields.hasErrors('correo_electronico_apoderado')}" th:errors="*{correo_electronico_apoderado}">Error Correo electronico</span>
 						</div>
 						<div class="col">
 							<label>Teléfono fijo</label> <input type="text" id="telefono"
-								th:field="*{telefono}" class="form-control">
-								<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error teléfono</span>
+								th:field="*{telefono_apoderado}" class="form-control">
+								<span th:if="${#fields.hasErrors('telefono_apoderado')}" th:errors="*{telefono_apoderado}">Error teléfono</span>
 						</div>
 						<div class="col">
 							<label>Teléfono celular</label> <input type="text" id="celular"
-								th:field="*{celular}" class="form-control">
-								<span th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}">Error celular</span>
+								th:field="*{celular_apoderado}" class="form-control">
+								<span th:if="${#fields.hasErrors('celular_apoderado')}" th:errors="*{celular_apoderado}">Error celular</span>
 								<br>
 							<p>El formato debe comenzar con el código del país (+569),
 								seguido de 8 dígitos.</p>

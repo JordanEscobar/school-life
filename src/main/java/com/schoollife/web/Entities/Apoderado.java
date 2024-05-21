@@ -39,26 +39,36 @@ public class Apoderado {
 	private String amaterno_apoderado;
 	@NotBlank
 	private String pasaporte;
+	@NotBlank
 	private String parentesco;
+	@NotBlank
 	private String tipo_apoderado;
+	@NotBlank
 	private String estado_civil;
 	@NotNull
 	@Past
 	@DateTimeFormat(iso=ISO.DATE)
-	private Date fecha_nacimiento;
+	@Column(name = "fecha_nacimiento")
+	private Date fecha_nacimiento_apoderado;
 	@NotBlank
-	private String domicilio;
-	private String comuna;
+	@Column(name = "domicilio")
+	private String domicilio_apoderado;
+	@Column(name = "comuna")
+	private String comuna_apoderado;
+	@NotBlank
 	private String nivel_educacion;
 	@NotBlank
 	private String ocupacion;	
 	@Length(min = 6, max = 9)
-	private String telefono;
+	@Column(name = "telefono")
+	private String telefono_apoderado;
 	@Length(min = 7, max = 11)
-	private String celular;
+	@Column(name = "celular")
+	private String celular_apoderado;
 	@NotBlank
 	@Email
-	private String correo_electronico;
+	@Column(name = "correo_electronico")
+	private String correo_electronico_apoderado;
 	@NotNull
 	private boolean es_tutor;
 	@NotNull
@@ -67,12 +77,17 @@ public class Apoderado {
 	private boolean autorizacion_fotografia_grabacion;
 	@NotNull
 	private boolean autorizado_retirar_establecimiento;
-	public Apoderado(String run_apoderado, String estudiante_id, Integer numero_documento, String nombres,
-			String apaterno_apoderado, String amaterno_apoderado, String pasaporte, String parentesco,
-			String tipo_apoderado, String estado_civil, Date fecha_nacimiento, String domicilio, String comuna,
-			String nivel_educacion, String ocupacion, String telefono, String celular, String correo_electronico,
-			boolean es_tutor, boolean acepta_manual_convivencia_escolar, boolean autorizacion_fotografia_grabacion,
-			boolean autorizado_retirar_establecimiento) {
+	public Apoderado(
+			@NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String run_apoderado,
+			String estudiante_id, @Min(6) Integer numero_documento, @NotBlank String nombres,
+			@NotBlank String apaterno_apoderado, @NotBlank String amaterno_apoderado, @NotBlank String pasaporte,
+			@NotBlank String parentesco, @NotBlank String tipo_apoderado, @NotBlank String estado_civil,
+			@NotNull @Past Date fecha_nacimiento_apoderado, @NotBlank String domicilio_apoderado,
+			String comuna_apoderado, @NotBlank String nivel_educacion, @NotBlank String ocupacion,
+			@Length(min = 6, max = 9) String telefono_apoderado, @Length(min = 7, max = 11) String celular_apoderado,
+			@NotBlank @Email String correo_electronico_apoderado, @NotNull boolean es_tutor,
+			@NotNull boolean acepta_manual_convivencia_escolar, @NotNull boolean autorizacion_fotografia_grabacion,
+			@NotNull boolean autorizado_retirar_establecimiento) {
 		super();
 		this.run_apoderado = run_apoderado;
 		this.estudiante_id = estudiante_id;
@@ -84,14 +99,14 @@ public class Apoderado {
 		this.parentesco = parentesco;
 		this.tipo_apoderado = tipo_apoderado;
 		this.estado_civil = estado_civil;
-		this.fecha_nacimiento = fecha_nacimiento;
-		this.domicilio = domicilio;
-		this.comuna = comuna;
+		this.fecha_nacimiento_apoderado = fecha_nacimiento_apoderado;
+		this.domicilio_apoderado = domicilio_apoderado;
+		this.comuna_apoderado = comuna_apoderado;
 		this.nivel_educacion = nivel_educacion;
 		this.ocupacion = ocupacion;
-		this.telefono = telefono;
-		this.celular = celular;
-		this.correo_electronico = correo_electronico;
+		this.telefono_apoderado = telefono_apoderado;
+		this.celular_apoderado = celular_apoderado;
+		this.correo_electronico_apoderado = correo_electronico_apoderado;
 		this.es_tutor = es_tutor;
 		this.acepta_manual_convivencia_escolar = acepta_manual_convivencia_escolar;
 		this.autorizacion_fotografia_grabacion = autorizacion_fotografia_grabacion;
@@ -160,23 +175,23 @@ public class Apoderado {
 	public void setEstado_civil(String estado_civil) {
 		this.estado_civil = estado_civil;
 	}
-	public Date getFecha_nacimiento() {
-		return fecha_nacimiento;
+	public Date getFecha_nacimiento_apoderado() {
+		return fecha_nacimiento_apoderado;
 	}
-	public void setFecha_nacimiento(Date fecha_nacimiento) {
-		this.fecha_nacimiento = fecha_nacimiento;
+	public void setFecha_nacimiento_apoderado(Date fecha_nacimiento_apoderado) {
+		this.fecha_nacimiento_apoderado = fecha_nacimiento_apoderado;
 	}
-	public String getDomicilio() {
-		return domicilio;
+	public String getDomicilio_apoderado() {
+		return domicilio_apoderado;
 	}
-	public void setDomicilio(String domicilio) {
-		this.domicilio = domicilio;
+	public void setDomicilio_apoderado(String domicilio_apoderado) {
+		this.domicilio_apoderado = domicilio_apoderado;
 	}
-	public String getComuna() {
-		return comuna;
+	public String getComuna_apoderado() {
+		return comuna_apoderado;
 	}
-	public void setComuna(String comuna) {
-		this.comuna = comuna;
+	public void setComuna_apoderado(String comuna_apoderado) {
+		this.comuna_apoderado = comuna_apoderado;
 	}
 	public String getNivel_educacion() {
 		return nivel_educacion;
@@ -190,23 +205,23 @@ public class Apoderado {
 	public void setOcupacion(String ocupacion) {
 		this.ocupacion = ocupacion;
 	}
-	public String getTelefono() {
-		return telefono;
+	public String getTelefono_apoderado() {
+		return telefono_apoderado;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setTelefono_apoderado(String telefono_apoderado) {
+		this.telefono_apoderado = telefono_apoderado;
 	}
-	public String getCelular() {
-		return celular;
+	public String getCelular_apoderado() {
+		return celular_apoderado;
 	}
-	public void setCelular(String celular) {
-		this.celular = celular;
+	public void setCelular_apoderado(String celular_apoderado) {
+		this.celular_apoderado = celular_apoderado;
 	}
-	public String getCorreo_electronico() {
-		return correo_electronico;
+	public String getCorreo_electronico_apoderado() {
+		return correo_electronico_apoderado;
 	}
-	public void setCorreo_electronico(String correo_electronico) {
-		this.correo_electronico = correo_electronico;
+	public void setCorreo_electronico_apoderado(String correo_electronico_apoderado) {
+		this.correo_electronico_apoderado = correo_electronico_apoderado;
 	}
 	public boolean isEs_tutor() {
 		return es_tutor;
@@ -238,13 +253,16 @@ public class Apoderado {
 				+ numero_documento + ", nombres=" + nombres + ", apaterno_apoderado=" + apaterno_apoderado
 				+ ", amaterno_apoderado=" + amaterno_apoderado + ", pasaporte=" + pasaporte + ", parentesco="
 				+ parentesco + ", tipo_apoderado=" + tipo_apoderado + ", estado_civil=" + estado_civil
-				+ ", fecha_nacimiento=" + fecha_nacimiento + ", domicilio=" + domicilio + ", comuna=" + comuna
-				+ ", nivel_educacion=" + nivel_educacion + ", ocupacion=" + ocupacion + ", telefono=" + telefono
-				+ ", celular=" + celular + ", correo_electronico=" + correo_electronico + ", es_tutor=" + es_tutor
-				+ ", acepta_manual_convivencia_escolar=" + acepta_manual_convivencia_escolar
-				+ ", autorizacion_fotografia_grabacion=" + autorizacion_fotografia_grabacion
-				+ ", autorizado_retirar_establecimiento=" + autorizado_retirar_establecimiento + "]";
+				+ ", fecha_nacimiento_apoderado=" + fecha_nacimiento_apoderado + ", domicilio_apoderado="
+				+ domicilio_apoderado + ", comuna_apoderado=" + comuna_apoderado + ", nivel_educacion="
+				+ nivel_educacion + ", ocupacion=" + ocupacion + ", telefono_apoderado=" + telefono_apoderado
+				+ ", celular_apoderado=" + celular_apoderado + ", correo_electronico_apoderado="
+				+ correo_electronico_apoderado + ", es_tutor=" + es_tutor + ", acepta_manual_convivencia_escolar="
+				+ acepta_manual_convivencia_escolar + ", autorizacion_fotografia_grabacion="
+				+ autorizacion_fotografia_grabacion + ", autorizado_retirar_establecimiento="
+				+ autorizado_retirar_establecimiento + "]";
 	}
+	
 	
 	
 	

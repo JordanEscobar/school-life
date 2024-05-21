@@ -6,8 +6,8 @@ import com.schoollife.web.Entities.Curso;
 
 public interface CursoService {
 	
-		//listar todos los cursos
-		List<Curso> getAll();
+		//listar todos los cursos por establecimientos
+		List<Curso> getAll(Integer rbd);
 		//Actualizar curso
 		void updateCurso(Curso curso, Integer id);
 		//Buscar un curso por curso

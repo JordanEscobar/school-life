@@ -1,7 +1,9 @@
 package com.schoollife.web.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,10 @@ public class CursoServiceImpl implements CursoService{
 
 	@Override
 	@Transactional
-	public List<Curso> getAll() {
-		return cursoR.findAll();
+	public List<Curso> getAll(Integer rbd) {
+		List<Curso> cursos = cursoR.findAll();
+		cursos = cursos.stream().filter(c -> c.getEstablecimiento_id().equals(rbd)).collect(Collectors.toList());	
+		return cursos;
 	}
 
 	@Override

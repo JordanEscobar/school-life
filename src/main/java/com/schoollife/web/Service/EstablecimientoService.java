@@ -10,4 +10,7 @@ public interface EstablecimientoService {
 	void updateEstablecimiento(Establecimiento establecimiento, Integer rbd);
 	Establecimiento findEstablecimiento(Establecimiento establecimiento);
 	Establecimiento createEstablecimiento(Establecimiento establecimiento);
+	
+	List<String> comunas();
+	List<String> regiones();
 }

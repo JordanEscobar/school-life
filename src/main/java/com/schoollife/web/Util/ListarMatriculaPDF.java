@@ -156,10 +156,10 @@ public class ListarMatriculaPDF extends AbstractPdfView{
 			PdfPCell celda26 = new PdfPCell(new Phrase(reserva.getParentesco().toString(),fuenteCeldas));
 			celda24.setPadding(30);
 			tablaReserva.addCell(celda26);
-			PdfPCell celda27 = new PdfPCell(new Phrase(reserva.getDomicilio().toString(),fuenteCeldas));
+			PdfPCell celda27 = new PdfPCell(new Phrase(reserva.getDomicilio_apoderado().toString(),fuenteCeldas));
 			celda24.setPadding(30);
 			tablaReserva.addCell(celda27);
-			PdfPCell celda28 = new PdfPCell(new Phrase(formateadorFechaMedia.format(reserva.getFecha_nacimiento()),fuenteCeldas));
+			PdfPCell celda28 = new PdfPCell(new Phrase(formateadorFechaMedia.format(reserva.getFecha_nacimiento_apoderado()),fuenteCeldas));
 			celda24.setPadding(30);
 			tablaReserva.addCell(celda28);
 		});
