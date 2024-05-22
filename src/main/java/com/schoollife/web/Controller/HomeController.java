@@ -25,6 +25,8 @@ import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.EstudianteService;
 import com.schoollife.web.Service.Programa_IntegracionService;
+import com.schoollife.web.Service.RutValidationService;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -39,15 +41,19 @@ public class HomeController {
 	private final CursoService cursoS;
 	@Autowired
 	private final Programa_IntegracionService programaS;
+	@Autowired
+	private final RutValidationService rutValidationService;
 
 	public HomeController(ApoderadoService apoderadoS, EstudianteService estudianteS,
-			EstablecimientoService establecimientoS, CursoService cursoS, Programa_IntegracionService programaS) {
+			EstablecimientoService establecimientoS, CursoService cursoS, Programa_IntegracionService programaS,
+			RutValidationService rutValidationService) {
 		super();
 		this.apoderadoS = apoderadoS;
 		this.estudianteS = estudianteS;
 		this.establecimientoS = establecimientoS;
 		this.cursoS = cursoS;
 		this.programaS = programaS;
+		this.rutValidationService = rutValidationService;
 	}
 
 	@GetMapping("/")
@@ -205,8 +211,17 @@ public class HomeController {
 		e.setPais_nacimiento(estudiante.getPais_nacimiento());
 		e.setPeso(estudiante.getPeso());
 		e.setReligion(estudiante.getReligion());
-		e.setRun_estudiante(estudiante.getRun_estudiante());
-		e.setSeguro_escolar_privado(estudiante.getSeguro_escolar_privado());
+		
+		
+		if(rutValidationService.isValidRut(estudiante.getRun_estudiante())) {
+			e.setRun_estudiante(estudiante.getRun_estudiante());
+		}else {
+			//Valida los rut pero falta mostrar una alerta en este caso!!!!!
+			System.out.println("El rut es invalido: " + estudiante.getRun_estudiante());
+			return "Matricula-ingresar";
+		}
+				
+		e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
 		e.setSistema_prevision(estudiante.getSistema_prevision());
 		e.setTelefono(estudiante.getTelefono());
 		e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
@@ -322,6 +337,7 @@ public class HomeController {
 		estudiante = estudianteS.findEstudiante(estudiante);
 		var cursos = cursoS.getAll(4717);
 		model.addAttribute("cursos", cursos);
+		model.addAttribute("comunas",establecimientoS.comunas());
 		model.addAttribute("estudiante",estudiante);
 		return "Matricula-modificar";
 	}
@@ -369,7 +385,7 @@ public class HomeController {
 				e.setPeso(es.getPeso());
 				e.setReligion(es.getReligion());
 				e.setRun_estudiante(es.getRun_estudiante());
-				e.setSeguro_escolar_privado(es.getSeguro_escolar_privado());
+				e.setSeguro_escolar_privado(es.isSeguro_escolar_privado());
 				e.setSistema_prevision(es.getSistema_prevision());
 				e.setTelefono(es.getTelefono());
 				e.setTelefono_emergencia(es.getTelefono_emergencia());
@@ -400,5 +416,7 @@ public class HomeController {
 		model.addAttribute("listaE", estudiantes);
 		return "ResumenMatricula";
 	}
+	
+	
 	
 }

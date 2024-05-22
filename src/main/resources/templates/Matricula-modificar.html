@@ -78,11 +78,12 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>RUT<span class="text-danger">&nbsp;*(sin
-									puntos y con guion)</span></label> <input class="form-control" type="hidden"
-								id="rut" th:field="*{run_estudiante}"
-								placeholder="Ingrese sin puntos y con guion" > 
-								<!--  <span th:if="${#fields.hasErrors('run_estudiante')}" th:errors="*{run_estudiante}">Error Rut</span>-->
+							<label>Nombres <span class="text-danger">*</span></label> <input
+								id="nombre" th:field="*{nombre}" class="form-control"
+								type="text"> <span
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
+								Nombre</span>
+									<input class="form-control" type="hidden"id="rut" th:field="*{run_estudiante}"placeholder="Ingrese sin puntos y con guion" > 
 						</div>
 						<div class="col">
 							<label>Apellido Paterno <span class="text-danger">*</span></label>
@@ -101,11 +102,10 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Nombres <span class="text-danger">*</span></label> <input
-								id="nombre" th:field="*{nombre}" class="form-control"
-								type="text"> <span
-								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
-								Nombre</span>
+							<label>Curso</label>
+							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
+								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
+							</select>
 						</div>
 						<div class="col">
 							<label>Email</label> <input id="correo_electronico"
@@ -185,7 +185,7 @@
 						<div class="col">
 							<label>Comuna</label> <select class="form-select" id="comuna"
 								th:field="*{comuna}">
-								<option th:value="hualpén">Hualpén</option>
+								<option th:each="c : ${comunas}" th:value="${c}" th:text="${c}"></option>
 							</select>
 						</div>
 					</div>
@@ -241,12 +241,8 @@
 								th:errors="*{telefono_emergencia}">Error Telefono
 								Emergencia</span>
 						</div>
-						<div class="col"></div>
-					</div>
-					<br>
-					<div class="row">
 						<div class="col">
-							<label>Religión</label> <select id="religion"
+								<label>Religión</label> <select id="religion"
 								th:field="*{religion}" class="form-select">
 								<option th:value="'Bahaísmo'">Bahaísmo</option>
 								<option th:value="'Budismo'">Budismo</option>
@@ -276,6 +272,9 @@
 								<option th:value="'Yazidismo'">Yazidismo</option>
 							</select>
 						</div>
+					</div>
+					<br>
+					<div class="row">
 						<div class="col">
 							<label>¿Acepta clases de religión en el colegio?</label><br>
 							<input id="acepta_clases_religion"
@@ -289,12 +288,10 @@
 								Religion</span>
 						</div>
 						<div class="col">
-							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
-								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
-							</select>
-							<br>
 						</div>
 						<br>
+						<div class="col">
+						</div>
 						<div class="row">
 							<div class="col text-end">
 							</div>
@@ -324,8 +321,9 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Tipo de beca</label> <select id="beca" th:field="*{beca}"
+							<label>Beca</label> <select id="beca" th:field="*{beca}"
 								class="form-select">
+								<option th:value="'No tiene'">No tiene</option>
 								<option th:value="'Beca indigena'">Beca indigena</option>
 								<option th:value="'Beca de apoyo a la retención escolar (BARE)'">Beca
 									de apoyo a la retención escolar (BARE)</option>
@@ -480,12 +478,9 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>¿Posee seguro escolar privado?</label><br> <input
-								class="form-radio" value="True" id="seguro_escolar_privado"
-								th:field="*{seguro_escolar_privado}" type="radio">&nbsp;Si
-							&nbsp; <input class="form-radio" value="False"
-								id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}"
-								type="radio">No
+							<label>¿Posee seguro escolar privado?</label><br>
+							 <input class="form-radio" value="True" id="seguro_escolar_privado"	th:field="*{seguro_escolar_privado}" type="radio">&nbsp;Si
+							&nbsp; <input class="form-radio" value="False" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}" type="radio">No
 						</div>
 						<div class="col">
 							<label>Consultorio o clínica donde se atiende</label> <input

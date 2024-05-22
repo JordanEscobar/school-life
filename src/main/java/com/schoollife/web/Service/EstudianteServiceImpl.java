@@ -78,7 +78,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setPeso(estudiante.getPeso());
 		e.setReligion(estudiante.getReligion());
 		e.setRun_estudiante(estudiante.getRun_estudiante());
-		e.setSeguro_escolar_privado(estudiante.getSeguro_escolar_privado());
+		e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
 		e.setSistema_prevision(estudiante.getSistema_prevision());
 		e.setTelefono(estudiante.getTelefono());
 		e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
@@ -134,7 +134,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setPeso(estudiantes.get(0).getPeso());
 		e.setReligion(estudiantes.get(0).getReligion());
 		e.setRun_estudiante(estudiantes.get(0).getRun_estudiante());
-		e.setSeguro_escolar_privado(estudiantes.get(0).getSeguro_escolar_privado());
+		e.setSeguro_escolar_privado(estudiantes.get(0).isSeguro_escolar_privado());
 		e.setSistema_prevision(estudiantes.get(0).getSistema_prevision());
 		e.setTelefono(estudiantes.get(0).getTelefono());
 		e.setTelefono_emergencia(estudiantes.get(0).getTelefono_emergencia());
@@ -273,6 +273,18 @@ public class EstudianteServiceImpl implements EstudianteService{
 		List<Programa_Integracion> programa = programaR.findAll();
 
 		return estudiantes;
+	}
+
+	//
+	@Override
+	@Transactional
+	public void estadoMatriculaRetirado(Estudiante estudiante, String run_estudiante) {
+		Optional<Estudiante> estudianteId = estudianteR.findById(run_estudiante);
+		Estudiante e = estudianteId.get();
+		e.setRun_estudiante(estudiante.getRun_estudiante());
+		e.setEstado(false);
+
+		estudianteR.save(e);		
 	}
 
 

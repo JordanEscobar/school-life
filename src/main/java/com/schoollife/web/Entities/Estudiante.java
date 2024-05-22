@@ -23,8 +23,8 @@ import jakarta.validation.constraints.Pattern;
 public class Estudiante {
 	@Id
 	@NotBlank
-	@Length(min = 6, max = 11)
-	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
+	//@Length(min = 6, max = 11)
+	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_estudiante;
 	@NotBlank
 	private String nombre;
@@ -86,8 +86,8 @@ public class Estudiante {
 	private boolean apto_educacion_fisica;
 	@NotBlank
 	private String sistema_prevision;
-	@NotBlank
-	private String seguro_escolar_privado;
+	@NotNull
+	private boolean seguro_escolar_privado;
 	private String nacionalidad;
 	private String etnia;
 	@NotBlank
@@ -101,17 +101,23 @@ public class Estudiante {
 	private Integer establecimiento_id;
 	private Integer curso_id;
 	private boolean es_pie;
-	public Estudiante(String run_estudiante, String nombre, String apaterno, String amaterno, String numero_matricula,
-			Date fecha_matricula, Date fecha_nacimiento, String pais_nacimiento, String genero, String direccion,
-			String comuna, String correo_electronico, String telefono, String celular, String colegio_procedencia,
-			String nombre_contacto_emergencia, String telefono_emergencia, String vive_con,
+	public Estudiante(
+			@NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String run_estudiante,
+			@NotBlank String nombre, @NotBlank String apaterno, @NotBlank String amaterno, String numero_matricula,
+			Date fecha_matricula, @Past Date fecha_nacimiento, @NotBlank String pais_nacimiento, String genero,
+			@NotBlank String direccion, @NotBlank String comuna, @NotBlank @Email String correo_electronico,
+			@Length(min = 6, max = 9) String telefono, @Length(min = 8, max = 9) String celular,
+			@NotBlank String colegio_procedencia, @NotBlank String nombre_contacto_emergencia,
+			@Length(min = 6, max = 9) String telefono_emergencia, @NotBlank String vive_con,
 			Integer cantidad_computadores_casa, String religion, boolean acepta_clases_religion, String beca,
-			Integer estatura, double peso, String grupo_sanguineo, String alergias_alimentos,
-			String alergias_medicamentos, String medicamentos_contraindicados, String enfermedades_cronicas,
-			boolean vacuna_covid, Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid,
-			Date fecha_ultima_vacuna_COVID, boolean apto_educacion_fisica, String sistema_prevision,
-			String seguro_escolar_privado, String nacionalidad, String etnia, String consultorio_clinica,
-			String observaciones, boolean estado, Integer establecimiento_id, Integer curso_id, boolean es_pie) {
+			@Min(1) @Max(260) Integer estatura, @NotNull double peso, String grupo_sanguineo,
+			@NotBlank String alergias_alimentos, @NotBlank String alergias_medicamentos,
+			@NotBlank String medicamentos_contraindicados, @NotBlank String enfermedades_cronicas, boolean vacuna_covid,
+			Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid, Date fecha_ultima_vacuna_COVID,
+			boolean apto_educacion_fisica, @NotBlank String sistema_prevision, @NotBlank boolean seguro_escolar_privado,
+			String nacionalidad, String etnia, @NotBlank String consultorio_clinica,
+			@Length(min = 0, max = 250) @NotBlank @Length(min = 0, max = 250) String observaciones, boolean estado,
+			Integer establecimiento_id, Integer curso_id, boolean es_pie) {
 		super();
 		this.run_estudiante = run_estudiante;
 		this.nombre = nombre;
@@ -371,10 +377,10 @@ public class Estudiante {
 	public void setSistema_prevision(String sistema_prevision) {
 		this.sistema_prevision = sistema_prevision;
 	}
-	public String getSeguro_escolar_privado() {
+	public boolean isSeguro_escolar_privado() {
 		return seguro_escolar_privado;
 	}
-	public void setSeguro_escolar_privado(String seguro_escolar_privado) {
+	public void setSeguro_escolar_privado(boolean seguro_escolar_privado) {
 		this.seguro_escolar_privado = seguro_escolar_privado;
 	}
 	public String getNacionalidad() {
@@ -448,6 +454,7 @@ public class Estudiante {
 				+ estado + ", establecimiento_id=" + establecimiento_id + ", curso_id=" + curso_id + ", es_pie="
 				+ es_pie + "]";
 	}
+	
 	
 	
 	
