@@ -27,7 +27,11 @@ public class CursoServiceImpl implements CursoService{
 	@Transactional
 	public List<Curso> getAll(Integer rbd) {
 		List<Curso> cursos = cursoR.findAll();
-		cursos = cursos.stream().filter(c -> c.getEstablecimiento_id().equals(rbd)).collect(Collectors.toList());	
+		if(rbd != null ) {
+			cursos = cursos.stream().filter(c -> c.getEstablecimiento_id().equals(rbd)).collect(Collectors.toList());	
+		}else {
+			return cursos;
+		}
 		return cursos;
 	}
 

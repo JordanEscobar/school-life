@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.web.Entities.Curso;
+import com.schoollife.web.Entities.Establecimiento;
 import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
 
@@ -33,16 +34,16 @@ public class CursoController {
 	
 	@GetMapping("/curso")
 	public String indexCurso(Model model) {
-		var cursos = cursoS.getAll(4717);
-		//var establecimientos = establecimientoS.getAll();
-		
+		var c = cursoS.getAll(4717);
+		var e = establecimientoS.getAll();
+		model.addAttribute("cursos",c);
+		model.addAttribute("establecimientos",e);
 		return "Curso";
 	}
 	
 	@GetMapping("/curso/ingresar")
 	public String cursoAgregar(Curso curso,Model model)
-	{
-				
+	{				
 		var establecimientos = establecimientoS.getAll();
 		model.addAttribute("establecimientos", establecimientos);
 		model.addAttribute("curso",curso);
@@ -74,5 +75,45 @@ public class CursoController {
 		model.addAttribute("curso",c);
 		return "redirect:/"; 
 	}
+	
+	@GetMapping("/curso/modificar/{id_curso}")
+	public String cursoModificar(Curso curso,Model model) {
+		curso = cursoS.findCurso(curso);
+		var e = establecimientoS.getAll();
+		model.addAttribute("curso",curso);
+		model.addAttribute("establecimientos",e);
+		return "Curso-modificar";
+	}
+	
+	@PostMapping(path = "/curso/modificado", consumes = "application/x-www-form-urlencoded")
+	public String cursoModificada(@Valid Curso curso,Errors errores,RedirectAttributes flash,Model model) {
+		var e = establecimientoS.getAll();
+		model.addAttribute("establecimientos",e);
+		var cursos = cursoS.getAll(4717);
+		Curso c = new Curso();
+		for (Curso cu : cursos) {
+			if(cu.getId_curso() == curso.getId_curso()) {
+				c.setApodo(cu.getApodo());
+				c.setCapacidad(cu.getCapacidad());
+				c.setEstablecimiento_id(cu.getEstablecimiento_id());
+				c.setId_curso(cu.getId_curso());
+				c.setJornada(cu.getJornada());
+				c.setLetra(cu.getLetra());
+				c.setLocal(cu.getLocal());
+				c.setNivel(cu.getNivel());
+				c.setNivel_ensenanza(cu.getNivel_ensenanza());
+				c.setNumero_sala(cu.getNumero_sala());
+			}
+		}		
+		if (errores.hasErrors()) {
+			return "Curso-modificar";
+		}			
+		cursoS.updateCurso(curso, curso.getId_curso());
+		flash.addFlashAttribute("success","Curso modificado correctamente");
+		model.addAttribute("curso",curso);	
+		return "redirect:/curso";
+	}
+	
+	
 
 }

@@ -13,14 +13,201 @@
 </head>
 <body>
 
-<div class="container ">
-	<h1 class="h4">Matrícula estudiante</h1>
 
+	<nav class="navbar bg-dark border-bottom border-body"
+		data-bs-theme="dark">
+	<div>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
+	</div>
+
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-outline-danger" th:href="@{/login}"><i
+				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		</div>
+	</nav>
+	<br>
+	 &nbsp;&nbsp;
+	<a class="btn text-danger" th:href="@{/matricula}"><i
+		class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Matrículas</a>
+	<br>
+	<br>
+<div class="container ">
+<h1>Matrícula <span class="text-danger" th:text="'N° ' +${listaE.numero_matricula}"></span></h1>
+<br>
+<div class="text-end">
+	<h5 th:text="${#calendars.format(listaE.fecha_matricula,'dd-MMMM-yyyy')}"></h5>
+</div>
+
+<div class="container">
+<h2>Datos Personales</h2>
+<br>
+<table class="table ">
+	<thead class="table table-secondary">
+		<tr>
+			<th>#</th>
+			<th>Nombre</th>
+			<th>Rut</th>
+			<th>Fecha de nacimiento</th>
+			<th>Género</th>
+			<th>País de nacimiento</th>
+			<th>Dirección</th>
+			<th>Comuna</th>
+			<th>Correo electrónico</th>
+			<th>Teléfono fijo</th>
+			<th>Celular</th>
+			<th>Contacto de emergencia</th>
+			<th>Teléfono Contacto de emergencia</th>
+			<th>Vive con</th>
+			<th>Cantidad computadores en casa</th>
+			<th>Religión</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td th:text="${listaE.numero_matricula}"></td>
+			<td th:text="${listaE.nombre} + ' ' + ${listaE.apaterno} + ' '+ ${listaE.amaterno}"></td>
+			<td th:text="${listaE.run_estudiante}"></td>
+			<td th:text="${#calendars.format(listaE.fecha_nacimiento,'dd-MMMM-yyyy')}"></td>
+			<td th:text="${listaE.genero}"></td>
+			<td th:text="${listaE.pais_nacimiento}"></td>
+			<td th:text="${listaE.direccion}"></td>
+			<td th:text="${listaE.comuna}"></td>
+			<td th:text="${listaE.correo_electronico}"></td>
+			<td th:text="${listaE.telefono}"></td>
+			<td th:text="${listaE.celular}"></td>
+			<td th:text="${listaE.nombre_contacto_emergencia}"></td>
+			<td th:text="${listaE.telefono_emergencia}"></td>
+			<td th:text="${listaE.vive_con}"></td>
+			<td th:text="${listaE.cantidad_computadores_casa}"></td>
+			<td th:text="${listaE.religion}"></td>
+		</tr>
+	</tbody>
+</table>
+
+	<table class="table ">
+	<thead class="table table-secondary">
+		<tr>
+			<th>Seguro escolar</th>
+			<th>Nacionalidad</th>
+			<th>Etnia</th>
+			<th>Consultorio o clínica</th>
+			<th>Es alumno PIE</th>
+			<th>estado matrícula</th>
+			<th>curso</th>
+			<th>establecimiento</th>
+			<th>observaciones</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td th:text="${listaE.seguro_escolar_privado}"></td>
+			<td th:text="${listaE.nacionalidad}"></td>
+			<td th:text="${listaE.etnia}"></td>
+			<td th:text="${listaE.consultorio_clinica}"></td>
+			<td th:text="${listaE.es_pie}"></td>
+			<td th:text="${listaE.estado}"></td>
+			<td th:text="${listaE.curso_id}"></td>
+			<td th:text="${listaE.establecimiento_id}"></td>
+			<td th:text="${listaE.observaciones}"></td>
+		</tr>
+	</tbody>
+</table>
 
 
 </div>
 
 
+<div class="container">
+<h2>Datos educación</h2>
+	<table class="table ">
+		<thead class="table table-secondary">
+			<tr>
+				<th>Colegio de Procedencia</th>
+				<th>Beca</th>
+				<th>Acepta clases de religión</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${listaE.colegio_procedencia}"></td>
+				<td th:text="${listaE.beca}"></td>
+				<td th:if="${listaE.acepta_clases_religion == True}" th:text="Acepta"></td>
+				<td th:if="${listaE.acepta_clases_religion == False}" th:text="Rechaza"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
+<div class="container">
+<h2>Datos Salud</h2>
+	<table class="table ">
+		<thead class="table table-secondary">
+			<tr>
+				<th>Estatura</th>
+				<th>Peso</th>
+				<th>Alergias a alimentos</th>
+				<th>Alergias a medicamentos</th>
+				<th>Medicamentos contraindicados</th>
+				<th>Grupo sanguineo</th>
+				<th>Enfermedades crónicas</th>
+				<th>Vacuna covid</th>
+				<th>Cantidad Vacunas covid</th>
+				<th>Esquema completo vacunas</th>
+				<th>Fecha ultima vacuna</th>
+				<th>Apto educación física</th>
+				<th>Sistema previsión</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${listaE.estatura}"></td>
+				<td th:text="${listaE.peso}"></td>
+				<td th:text="${listaE.alergias_alimentos}"></td>
+				<td th:text="${listaE.alergias_medicamentos}"></td>
+				<td th:text="${listaE.medicamentos_contraindicados}"></td>
+				<td th:text="${listaE.grupo_sanguineo}"></td>
+				<td th:text="${listaE.enfermedades_cronicas}"></td>
+				<td th:text="${listaE.vacuna_covid}"></td>
+				<td th:text="${listaE.cantidad_vacunas_covid}"></td>
+				<td th:text="${listaE.esquema_completo_vacunacion_covid}"></td>
+				<td th:text="${#calendars.format(listaE.fecha_ultima_vacuna_COVID,'dd-MMMM-yyyy')}"></td>
+				<td th:text="${listaE.apto_educacion_fisica}"></td>
+				<td th:text="${listaE.sistema_prevision}"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="container">
+	<h2>Apoderado</h2>
+	
+	<label>Nombre: <span th:text="${listaA[0].nombres} + ' ' + ${listaA[0].apaterno_apoderado}"></span></label><br>
+	<label>Rut: <span th:text="${listaA[0].run_apoderado}"></span></label><br>
+	<label>Parentesco: <span th:text="${listaA[0].parentesco}"></span></label><br>
+	<label>Tipo apoderado: <span th:text="${listaA[0].tipo_apoderado}"></span></label><br>
+	<label>Fecha Nacimiento: <span th:text="${#calendars.format(listaA[0].fecha_nacimiento_apoderado,'dd-MMMM-yyyy')}"></span></label><br>
+	<label>Dirección: <span th:text="${listaA[0].domicilio_apoderado}"></span></label><br>
+	<label>Comuna: <span th:text="${listaA[0].comuna_apoderado}"></span></label><br>
+	<label>Nivel Educación: <span th:text="${listaA[0].nivel_educacion}"></span></label><br>
+	<label>Ocupación: <span th:text="${listaA[0].ocupacion}"></span></label><br>
+	<label>Teléfono: <span th:text="${listaA[0].telefono_apoderado}"></span></label><br>
+	<label>Celular: <span th:text="${listaA[0].celular_apoderado}"></span></label><br>
+	<label>Correo electrónico: <span th:text="${listaA[0].correo_electronico_apoderado}"></span></label><br>
+	<label>Es tutor: <span th:text="${listaA[0].es_tutor}"></span></label><br>
+	<label>Estado Civil: <span th:text="${listaA[0].estado_civil}"></span></label><br>
+	<label th:if="${listaA[0].acepta_manual_convivencia_escolar} == True">Acepta manual de convivencia escolar: <span >Si</span><br></label>
+	<label th:if="${listaA[0].acepta_manual_convivencia_escolar} == False">Acepta manual de convivencia escolar: <span >No</span><br></label>
+	<label th:if="${listaA[0].autorizacion_fotografia_grabacion} == True">Autoriza fotografia y grabación: <span >Si</span><br></label>
+	<label th:if="${listaA[0].autorizacion_fotografia_grabacion} == False">Autoriza fotografia y grabación: <span >No</span><br></label>
+	<label th:if="${listaA[0].autorizado_retirar_establecimiento} == True">Autorizado para retirar al estudiante del establecimiento: <span  th:text="Si"></span><br></label>
+	<label th:if="${listaA[0].autorizado_retirar_establecimiento} == False">Autorizado para retirar al estudiante del establecimiento: <span  th:text="No"></span><br></label>
+</div>
+
+
+
+</div>
 </body>
 </html>

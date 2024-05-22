@@ -25,15 +25,11 @@
 
 	<nav class="navbar bg-dark border-bottom border-body"
 		data-bs-theme="dark">
-		<div>
-			<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;<i
-				class="fa-solid fa-school"></i>&nbsp;NOMBRE ESCUELA
-			</a>
-		</div>
+	<div>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
+	</div>
 
 		<div class="d-flex justify-content-end">
-			<a th:href="@{/}" class="btn btn-outline-light  border-dark"
-				aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
 			<a class="btn btn-outline-danger" th:href="@{/login}"><i
 				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 		</div>
@@ -83,11 +79,10 @@
 					<div class="row">
 						<div class="col">
 							<label>RUT<span class="text-danger">&nbsp;*(sin
-									puntos y con guion)</span></label> <input class="form-control" type="text"
+									puntos y con guion)</span></label> <input class="form-control" type="hidden"
 								id="rut" th:field="*{run_estudiante}"
-								placeholder="Ingrese sin puntos y con guion"> <span
-								th:if="${#fields.hasErrors('run_estudiante')}"
-								th:errors="*{run_estudiante}">Error Rut</span>
+								placeholder="Ingrese sin puntos y con guion" > 
+								<!--  <span th:if="${#fields.hasErrors('run_estudiante')}" th:errors="*{run_estudiante}">Error Rut</span>-->
 						</div>
 						<div class="col">
 							<label>Apellido Paterno <span class="text-danger">*</span></label>

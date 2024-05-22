@@ -8,18 +8,15 @@
 <script type="text/javascript" src="/js/sidebars.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a class="nav-link link-light" aria-disabled="true">&nbsp;&nbsp;<i class="fa-solid fa-school"></i>&nbsp;NOMBRE ESCUELA</a>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
 	</div>
 	
 	<div class="d-flex justify-content-end">
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-solid fa-house-chimney"></i></a>&nbsp;&nbsp;
 		<a class="btn btn-outline-danger" th:href="@{/login}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
@@ -138,6 +135,7 @@
 				<td>
 					<a th:href="@{/resumenMatricula/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Ver matrícula en detalle"><i class="fa-regular fa-user"></i></a>
 					<a th:href="@{/matricula/modificar/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+					<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#guardarModal"><i class="fa-solid fa-ban" data-toggle="tooltip" data-placement="bottom" title="Retirar matrícula"></i></button>
 					<a th:href="@{/resumenMatricula/} + ${e.run_estudiante} + '?format=pdf'" target="_blank" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Descargar matrícula"><i class="fa-solid fa-file-arrow-down"></i></a>
 				</td>
 			</tr>		
@@ -145,6 +143,25 @@
 	</table>
 </div>
 <br><br><br><br>
+
+					
+<!-- Modales -->
+<div class="modal fade" id="guardarModal" tabindex="-1" aria-labelledby="guardarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      ¿Estás seguro que deseas retirar la matrícula seleccionada?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <a class="btn btn-success">Retirar matrícula</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script>
