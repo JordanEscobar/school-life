@@ -32,8 +32,10 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public List<Estudiante> getAll() {
-		return estudianteR.findAll();
+	public List<Estudiante> getAll(Integer establecimiento_id) {
+		List<Estudiante> estudiantes = estudianteR.findAll();
+		estudiantes = estudiantes.stream().filter(e-> e.getEstablecimiento_id().equals(establecimiento_id)).collect(Collectors.toList());
+		return estudiantes;
 	}
 
 	@Override
@@ -141,7 +143,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setVacuna_covid(estudiantes.get(0).isVacuna_covid());
 		e.setVive_con(estudiantes.get(0).getVive_con());
 		e.setEs_pie(estudiantes.get(0).isEs_pie());
-		
 		Optional<Estudiante> estudiantesId = estudianteR.findById(e.getRun_estudiante());
 		Estudiante es = estudiantesId.get();
 		es.setEs_pie(true);
@@ -223,7 +224,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public Integer totalHombres() {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.getGenero().equalsIgnoreCase("masculino")) {
+			if(e.isEstado() && e.getGenero().equalsIgnoreCase("masculino")) {
 				es.add(e);
 			}
 		}
@@ -235,7 +236,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public Integer totalMujeres() {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.getGenero().equalsIgnoreCase("femenino")) {
+			if(e.isEstado() && e.getGenero().equalsIgnoreCase("femenino")) {
 				es.add(e);
 			}
 		}
@@ -247,7 +248,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public Integer totalOtro() {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.getGenero().equalsIgnoreCase("otro")) {
+			if(e.isEstado() && e.getGenero().equalsIgnoreCase("otro")) {
 				es.add(e);
 			}
 		}
@@ -271,7 +272,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public List<Estudiante> findEstudiantePorPie(String pie) {
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		List<Programa_Integracion> programa = programaR.findAll();
-
 		return estudiantes;
 	}
 
@@ -283,7 +283,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 		Estudiante e = estudianteId.get();
 		e.setRun_estudiante(estudiante.getRun_estudiante());
 		e.setEstado(false);
-
 		estudianteR.save(e);		
 	}
 

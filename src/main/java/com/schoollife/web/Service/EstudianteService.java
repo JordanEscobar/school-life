@@ -4,7 +4,7 @@ import java.util.List;
 import com.schoollife.web.Entities.Estudiante;
 
 public interface EstudianteService {
-	List<Estudiante> getAll();
+	List<Estudiante> getAll(Integer establecimiento_id);
 	
 	void updateEstudiante(Estudiante estudiante, String run_estudiante);
 	void estadoMatriculaRetirado(Estudiante estudiante, String run_estudiante);

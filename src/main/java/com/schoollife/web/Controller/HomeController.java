@@ -69,7 +69,7 @@ public class HomeController {
 	// Matricula
 	@GetMapping("/matricula")
 	public String matricula(Model model) {
-		var estudiantes = estudianteS.getAll();
+		var estudiantes = estudianteS.getAll(4717);
 		var cursos = cursoS.getAll(4717);
 		Integer mujeres = estudianteS.totalMujeres();
 		Integer hombres = estudianteS.totalHombres();
@@ -165,10 +165,9 @@ public class HomeController {
 	
 	@PostMapping(path = "/matricula/ingresar/creada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado) {
-		model.addAttribute("comunas",establecimientoS.comunas());
-		
+		model.addAttribute("comunas",establecimientoS.comunas());		
 		model.addAttribute("apoderado", apoderado);
-		
+				
 		Estudiante e = new Estudiante();
 		e.setNumero_matricula("1");
 		e.setColegio_procedencia(estudiante.getColegio_procedencia());
@@ -245,6 +244,10 @@ public class HomeController {
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion) {
 		
+		var estudiantes = estudianteS.getAll(4717);
+		String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRun_estudiante();
+		model.addAttribute("estudianteid", rut_estudiante);
+		
 		Apoderado a = new Apoderado();
 		a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
 		a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
@@ -256,7 +259,7 @@ public class HomeController {
 		a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
 		a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
 		a.setEs_tutor(apoderado.isEs_tutor());
-		a.setEstudiante_id("17861759-1");
+		a.setEstudiante_id(rut_estudiante);
 		a.setRun_apoderado(apoderado.getRun_apoderado());
 		a.setFecha_nacimiento_apoderado(apoderado.getFecha_nacimiento_apoderado());
 		a.setNivel_educacion(apoderado.getNivel_educacion());
@@ -275,7 +278,7 @@ public class HomeController {
 		
 		//se crea el apoderado
 		apoderadoS.createApoderado(a);
-		model.addAttribute("estudianteid",a.getEstudiante_id());
+		//model.addAttribute("estudianteid",a.getEstudiante_id());
 		model.addAttribute("programa_integracion", programa_integracion);
 		
 		
@@ -304,7 +307,7 @@ public class HomeController {
 	
 	@GetMapping("/programa/pie")
 	public String ingresarProgramaPie(Programa_Integracion programa_integracion,Model model) {
-		var estudiantes = estudianteS.getAll();
+		var estudiantes = estudianteS.getAll(4717);
 		model.addAttribute("estudiantes", estudiantes);
 		model.addAttribute("programa_integracion",programa_integracion);
 		return "Ingresar-programa-pie";
@@ -312,7 +315,7 @@ public class HomeController {
 	
 	@PostMapping(path = "/programa/pie/ingreso")
 	public String programaPieIngresado(@Valid Programa_Integracion programa_integracion,Errors errores,RedirectAttributes flash,Model model) {
-		var estudiantes = estudianteS.getAll();
+		var estudiantes = estudianteS.getAll(4717);
 		model.addAttribute("estudiantes", estudiantes);
 		model.addAttribute("programa_integracion",programa_integracion);
 		
@@ -344,7 +347,7 @@ public class HomeController {
 	
 	@PostMapping(path = "/matricula/modificada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaModificada(@Valid Estudiante estudiante,Errors errores,RedirectAttributes flash,Model model) {
-		var estudiantes = estudianteS.getAll();
+		var estudiantes = estudianteS.getAll(4717);
 		Estudiante e = new Estudiante();
 		for (Estudiante es : estudiantes) {
 			if(es.getRun_estudiante().equalsIgnoreCase(estudiante.getRun_estudiante())) {
@@ -411,10 +414,33 @@ public class HomeController {
 		var estudiantes = estudianteS.findEstudiante(estudiante);
 		var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRun_estudiante());
 		var programa = programaS.findProgramaPorEstudiante(estudiante.getRun_estudiante());
-		model.addAttribute("listaP",programa);
-		model.addAttribute("listaA",apoderados);
-		model.addAttribute("listaE", estudiantes);
+		if(!apoderados.isEmpty()) {
+			model.addAttribute("listaA",apoderados);
+			model.addAttribute("listaP",programa);
+			model.addAttribute("listaE", estudiantes);
+		}else {
+			return "redirect:/matricula";
+		}
+
 		return "ResumenMatricula";
+	}
+	
+	@GetMapping(path = "/matricula/retirada/{run_estudiante}")
+	public String matriculaRetirada(Estudiante estudiante,RedirectAttributes flash,Model model) {
+		var e = establecimientoS.getAll();
+		model.addAttribute("establecimientos",e);
+		var estudiantes = estudianteS.getAll(4717);
+		Estudiante estu = new Estudiante();
+		for (Estudiante es : estudiantes) {
+			if(es.getRun_estudiante() == estudiante.getRun_estudiante()) {
+				estu.setRun_estudiante(es.getRun_estudiante());
+				estu.setEstado(false);
+			}
+		}		
+		estudianteS.estadoMatriculaRetirado(estudiante, estudiante.getRun_estudiante());
+		flash.addFlashAttribute("success","Matrícula retirada correctamente");
+		model.addAttribute("estudiante",estudiante);	
+		return "redirect:/matricula";
 	}
 	
 	
