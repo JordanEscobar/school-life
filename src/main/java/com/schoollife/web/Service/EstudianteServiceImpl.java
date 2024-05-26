@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Repository.EstudianteRepository;
@@ -284,6 +285,28 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setRun_estudiante(estudiante.getRun_estudiante());
 		e.setEstado(false);
 		estudianteR.save(e);		
+	}
+	
+	@Override
+	@Transactional
+	public void estadoMatriculaRecuperado(Estudiante estudiante, String run_estudiante) {
+		Optional<Estudiante> estudianteId = estudianteR.findById(run_estudiante);
+		Estudiante e = estudianteId.get();
+		e.setRun_estudiante(estudiante.getRun_estudiante());
+		e.setEstado(true);
+		estudianteR.save(e);		
+	}
+
+	@Override
+	@Transactional
+	public void cancelarMatricula(String estudianteid) {
+		List<Estudiante> estudiantes = estudianteR.findAll();
+		estudiantes = estudiantes.stream().filter( e-> e.getRun_estudiante().equalsIgnoreCase(estudianteid)).collect(Collectors.toList());
+		if(!estudiantes.isEmpty())
+		{
+			estudianteR.deleteById(estudianteid);
+			System.out.println("Se eliminó el estudiante");
+		}
 	}
 
 

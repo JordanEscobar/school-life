@@ -8,6 +8,7 @@ public interface EstudianteService {
 	
 	void updateEstudiante(Estudiante estudiante, String run_estudiante);
 	void estadoMatriculaRetirado(Estudiante estudiante, String run_estudiante);
+	void estadoMatriculaRecuperado(Estudiante estudiante, String run_estudiante);
 	void updateEstudiantePie(String estudianteId);
 	Estudiante findEstudiante(Estudiante estudiante);
 	Estudiante createEstudiante(Estudiante estudiante);
@@ -22,6 +23,7 @@ public interface EstudianteService {
 	Integer totalOtro();
 	List<Estudiante> findEstudiantePorEstado(String estado);
 	List<Estudiante> findEstudiantePorPie(String pie);
+	void cancelarMatricula(String estudianteid);
 	
 	
 

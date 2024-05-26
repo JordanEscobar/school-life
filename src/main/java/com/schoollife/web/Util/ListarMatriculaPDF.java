@@ -79,7 +79,7 @@ public class ListarMatriculaPDF extends AbstractPdfView{
 		
 		PdfPTable tablaTitulo3 = new PdfPTable(5);
 		PdfPCell celda20 = new PdfPCell(new Phrase("Nombre estudiante",fuenteTituloTabla));
-		PdfPCell celda21 = new PdfPCell(new Phrase("Número matrícula",fuenteTituloTabla));
+		PdfPCell celda21 = new PdfPCell(new Phrase("Rut",fuenteTituloTabla));
 		PdfPCell celda22 = new PdfPCell(new Phrase("Fecha nacimiento",fuenteTituloTabla));
 		PdfPCell celda23 = new PdfPCell(new Phrase("Colégio matriculado",fuenteTituloTabla));
 		PdfPCell celda24 = new PdfPCell(new Phrase("Curso",fuenteTituloTabla));
@@ -169,7 +169,7 @@ public class ListarMatriculaPDF extends AbstractPdfView{
 			PdfPCell celda29 = new PdfPCell(new Phrase(listaE.getNombre(),fuenteCeldas));
 			celda24.setPadding(8);
 			tablaEvento.addCell(celda29);
-			PdfPCell celda30 = new PdfPCell(new Phrase(listaE.getNumero_matricula().toString(),fuenteCeldas));
+			PdfPCell celda30 = new PdfPCell(new Phrase(listaE.getRun_estudiante().toString(),fuenteCeldas));
 			celda24.setPadding(8);
 			tablaEvento.addCell(celda30);
 			PdfPCell celda31 = new PdfPCell(new Phrase(formateadorFechaMedia.format(listaE.getFecha_nacimiento()),fuenteCeldas));

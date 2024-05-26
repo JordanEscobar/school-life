@@ -13,16 +13,16 @@
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
 	</div>
 	
 	<div class="d-flex justify-content-end">
-		<a class="btn btn-outline-danger" th:href="@{/login}"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		<a class="btn btn-outline-danger" th:href="@{/login}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
 <nav class="sidebar ">
-	<a th:href="@{/curso}" class="btn shadow">Cursos</a>
-	<a th:href="@{/establecimiento}" class="btn shadow">Establecimientos</a>
+	<a th:href="@{/curso}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los cursos">Cursos</a>
+	<a th:href="@{/establecimiento}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los establecimientos">Establecimientos</a>
 </nav>
 <div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
@@ -51,11 +51,11 @@
 		<div class="col">
 			<h5 class="card-title">Libro de Clases</h5>
 			<br><br>
-			<div class="card w-50 text-center border-danger btn-danger shadow" style="max-width: 18rem;">
+			<div class="card w-50 text-center border-danger btn-danger shadow" style="max-width: 18rem;" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar una matrícula">
 				<a th:href="@{/matricula}" class="btn shadow"><div class="card-body">Matrícula</div></a>
 			</div>
 			<br>
-			<div th:href="@{/matricula}" class="card w-50 text-center border-danger btn-danger shadow" style="max-width: 18rem;">
+			<div th:href="@{/matricula}" class="card w-50 text-center border-danger btn-danger shadow" style="max-width: 18rem;" data-toggle="tooltip" data-placement="bottom" title="Gestión de los datos del estudiante">
 				<a  class="btn shadow"><div class="card-body">Ficha Estudiante</div></a>
 			</div>
 		</div>

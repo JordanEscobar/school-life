@@ -29,7 +29,7 @@
 		data-bs-theme="dark">
 		<div>
 	<div>
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
+		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
 	</div>
 		</div>
 
@@ -89,6 +89,7 @@
 								placeholder="Ingrese sin puntos y con guion"> <span
 								th:if="${#fields.hasErrors('run_estudiante')}"
 								th:errors="*{run_estudiante}">Error Rut</span>
+								<span class="text-danger" th:if="${rutexiste} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 						</div>
 						<div class="col">
 							<label>Apellido Paterno <span class="text-danger">*</span></label>

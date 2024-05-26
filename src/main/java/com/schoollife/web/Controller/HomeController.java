@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -160,6 +161,8 @@ public class HomeController {
 		
 		model.addAttribute("comunas",establecimientoS.comunas());
 		model.addAttribute("estudiante", estudiante);
+		boolean rutex = false;
+		model.addAttribute("rutexiste", rutex);
 		return "Matricula-ingresar";
 	}
 	
@@ -169,10 +172,13 @@ public class HomeController {
 		model.addAttribute("apoderado", apoderado);
 				
 		Estudiante e = new Estudiante();
-		e.setNumero_matricula("1");
+		Integer correlativo = estudianteS.getAll(4717).size() + 1;
+		String correlativoString = (String) correlativo.toString();
+		e.setNumero_matricula(correlativoString);
 		e.setColegio_procedencia(estudiante.getColegio_procedencia());
 		e.setEstado(true);
 		e.setEstablecimiento_id(4717);
+		e.setCurso_id(1);
 		e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
 		e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
 		e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());
@@ -186,7 +192,6 @@ public class HomeController {
 		e.setComuna(estudiante.getComuna());
 		e.setConsultorio_clinica(estudiante.getConsultorio_clinica());
 		e.setCorreo_electronico(estudiante.getCorreo_electronico());
-		e.setCurso_id(1);
 		e.setDireccion(estudiante.getDireccion());
 		e.setEnfermedades_cronicas(estudiante.getEnfermedades_cronicas());
 		e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());		
@@ -211,9 +216,20 @@ public class HomeController {
 		e.setPeso(estudiante.getPeso());
 		e.setReligion(estudiante.getReligion());
 		
-		
 		if(rutValidationService.isValidRut(estudiante.getRun_estudiante())) {
-			e.setRun_estudiante(estudiante.getRun_estudiante());
+			for (Estudiante es : estudianteS.getAll(4717)) {
+				if(estudiante.getRun_estudiante().equalsIgnoreCase(es.getRun_estudiante())) {
+					System.out.println("El rut del estudiante ya existe en el sistema: " + estudiante.getRun_estudiante());
+					boolean rutex =true;
+					model.addAttribute("rutexiste",rutex);
+					return "Matricula-ingresar";
+				}
+				else {
+					boolean rutex =false;
+					model.addAttribute("rutexiste",rutex);
+					e.setRun_estudiante(estudiante.getRun_estudiante());
+				}
+			}
 		}else {
 			//Valida los rut pero falta mostrar una alerta en este caso!!!!!
 			System.out.println("El rut es invalido: " + estudiante.getRun_estudiante());
@@ -414,13 +430,9 @@ public class HomeController {
 		var estudiantes = estudianteS.findEstudiante(estudiante);
 		var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRun_estudiante());
 		var programa = programaS.findProgramaPorEstudiante(estudiante.getRun_estudiante());
-		if(!apoderados.isEmpty()) {
 			model.addAttribute("listaA",apoderados);
 			model.addAttribute("listaP",programa);
 			model.addAttribute("listaE", estudiantes);
-		}else {
-			return "redirect:/matricula";
-		}
 
 		return "ResumenMatricula";
 	}
@@ -439,6 +451,23 @@ public class HomeController {
 		}		
 		estudianteS.estadoMatriculaRetirado(estudiante, estudiante.getRun_estudiante());
 		flash.addFlashAttribute("success","Matrícula retirada correctamente");
+		model.addAttribute("estudiante",estudiante);	
+		return "redirect:/matricula";
+	}
+	@GetMapping(path = "/matricula/recuperada/{run_estudiante}")
+	public String matriculaRecuperada(Estudiante estudiante,RedirectAttributes flash,Model model) {
+		var e = establecimientoS.getAll();
+		model.addAttribute("establecimientos",e);
+		var estudiantes = estudianteS.getAll(4717);
+		Estudiante estu = new Estudiante();
+		for (Estudiante es : estudiantes) {
+			if(es.getRun_estudiante() == estudiante.getRun_estudiante()) {
+				estu.setRun_estudiante(es.getRun_estudiante());
+				estu.setEstado(true);
+			}
+		}		
+		estudianteS.estadoMatriculaRecuperado(estudiante, estudiante.getRun_estudiante());
+		flash.addFlashAttribute("success","Matrícula recuperada correctamente");
 		model.addAttribute("estudiante",estudiante);	
 		return "redirect:/matricula";
 	}

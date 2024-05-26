@@ -17,11 +17,11 @@
 	<nav class="navbar bg-dark border-bottom border-body"
 		data-bs-theme="dark">
 	<div>
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
+		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
 	</div>
 
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-danger" th:href="@{/login}"><i
+			<a class="btn btn-outline-danger"  data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar sesión" th:href="@{/login}"><i
 				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 		</div>
 	</nav>
