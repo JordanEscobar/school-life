@@ -143,14 +143,12 @@
 								<option th:value="'OTROS'">OTROS</option>
 							</select>
 						</div>
-						<div class="col">
+						<div class="col d-none">
 							<label class="text-danger">Tipo apoderado *</label> <select
 								class="form-select" id="tipo_apoderado"
 								th:field="*{tipo_apoderado}">
 								<option th:value="'APODERADO TITULAR'">APODERADO
 									TITULAR</option>
-								<option th:value="'APODERADO SUPLENTE'">APODERADO
-									SUPLENTE</option>
 							</select>
 						</div>
 					</div>
@@ -170,8 +168,7 @@
 						<div class="col">
 							<label class="text-danger">Comuna</label> <select
 								class="form-select" id="comuna" th:field="*{comuna_apoderado}">
-								<option th:value="Algarrobo">Algarrobo</option>
-								<option th:value="Alhúe">Alhúe</option>
+								<option th:each="c : ${comunas}" th:text="${c}" th:value="${c}"></option>
 							</select>
 						</div>
 					</div>
@@ -192,13 +189,10 @@
 								th:field="*{celular_apoderado}" class="form-control">
 								<span th:if="${#fields.hasErrors('celular_apoderado')}" th:errors="*{celular_apoderado}">Error celular</span>
 								<br>
-							<p>El formato debe comenzar con el código del país (+569),
-								seguido de 8 dígitos.</p>
 						</div>
 					</div>
 					<br>
 					<div class="row">
-
 						<div class="col">
 							<label>Ocupación</label> <input type="text" class="form-control"
 								id="ocupacion" th:field="*{ocupacion}">

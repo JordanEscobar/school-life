@@ -56,8 +56,8 @@
 			<form id="filtroForm2" action="#" th:action="@{/filtrarestado}" method="post" th:object="${filtroestado}">
 				<select id="selectestado" name="filtroestado" class="form-select">
 					<option value=""  >Seleccione...</option>
-					<option value="matriculado"  th:value="matriculado" th:selected="'matriculado' == filtroestado">Matriculado</option>
-					<option value="retirado" th:value="retirado" th:selected="'retirado' == filtroestado">Retirado</option>
+					<option value="matriculado"  th:value="matriculado" th:selected=" True == filtroestado">Matriculado</option>
+					<option value="retirado" th:value="retirado" th:selected=" False == filtroestado">Retirado</option>
 				</select>
 			</form>
 		</div>
@@ -70,7 +70,7 @@
 				 	</form>
 				 </div>
 				 <div class="col-auto">
-				 	<label class="fw-bold">Refrescar</label><br>
+				 	<label class="fw-bold">Refresque</label><br>
 					<a class="btn btn-warning shadow" th:href="@{/matricula}" data-toggle="tooltip" data-placement="bottom" title="Refrescar"><i class="fa-solid fa-arrows-rotate"></i></a>
 				 </div>	
 
@@ -90,7 +90,7 @@
 
 <div class="container">
 	<div class="d-flex justify-content-end">
-		<a href="#" class="btn btn-info">Carga N° Matrículas</a>
+		<a href="#" class="btn btn-info disabled" data-toggle="tooltip" data-placement="bottom" title="PRÓXIMAMENTE">Carga N° Matrículas</a>
 	</div>
 	<br>
 	<table id="tablacontenido" class="table table-hover text-center border rounded">
@@ -102,7 +102,7 @@
 				<th class="fw-bold">PIE</th>
 				<th class="fw-bold">Curso</th>
 				<th class="fw-bold">Nivel de enseñanza</th>
-				<th class="fw-bold">Acepta Religion</th>
+				<th class="fw-bold">Acepta Religión</th>
 				<th class="fw-bold">Estado</th>
 				<th class="fw-bold">Acciones</th>
 			</tr>
@@ -134,6 +134,7 @@
 <br><br><br><br>
 
 <script>
+
 	document.getElementById('filtroSelect').addEventListener('change', function() {
 		document.getElementById('filtroForm').submit();
 		
@@ -144,5 +145,7 @@
 	});
 	
 </script>
+
+
 </body>
 </html>

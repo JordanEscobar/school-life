@@ -2,6 +2,7 @@ package com.schoollife.web.Service;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -10,7 +11,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Repository.EstudianteRepository;
@@ -36,7 +36,9 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public List<Estudiante> getAll(Integer establecimiento_id) {
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		estudiantes = estudiantes.stream().filter(e-> e.getEstablecimiento_id().equals(establecimiento_id)).collect(Collectors.toList());
-		return estudiantes;
+		return estudiantes.stream()
+                .sorted(Comparator.comparing(Estudiante::getFecha_matricula).reversed())
+                .collect(Collectors.toList());
 	}
 
 	@Override
@@ -270,6 +272,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	}
 
 	@Override
+	@Transactional
 	public List<Estudiante> findEstudiantePorPie(String pie) {
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		List<Programa_Integracion> programa = programaR.findAll();

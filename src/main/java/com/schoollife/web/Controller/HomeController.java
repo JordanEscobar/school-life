@@ -2,12 +2,10 @@ package com.schoollife.web.Controller;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Curso;
-import com.schoollife.web.Entities.Establecimiento;
 import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Service.ApoderadoService;
@@ -263,7 +260,7 @@ public class HomeController {
 		var estudiantes = estudianteS.getAll(4717);
 		String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRun_estudiante();
 		model.addAttribute("estudianteid", rut_estudiante);
-		
+		model.addAttribute("comunas",establecimientoS.comunas());
 		Apoderado a = new Apoderado();
 		a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
 		a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
