@@ -67,13 +67,15 @@
 							<label class="text-danger">Run Apoderado *</label> <input
 								class="form-control" id="run_apoderado"
 								th:field="*{run_apoderado}" type="text">
-								<span th:if="${#fields.hasErrors('run_apoderado')}" th:errors="*{run_apoderado}">Error Run apoderado</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('run_apoderado')}" th:errors="*{run_apoderado}">Error Run apoderado</span>
+								<span class="text-danger" th:if="${rutexiste2} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
+								<span class="text-danger" th:if="${rutinvalido2} == True" th:text="'Rut Inválido.'"></span>							
 						</div>
 						<div class="col">
 							<label class="text-danger">Número de Documento *</label> <input
 								class="form-control" id="numero_documento"
 								th:field="*{numero_documento}" type="text">
-								<span th:if="${#fields.hasErrors('numero_documento')}" th:errors="*{numero_documento}">Error Número de documento</span>
+								<span th:if="${#fields.hasErrors('numero_documento')}" th:errors="*{numero_documento}" class="text-danger">Error Número de documento</span>
 						</div>
 						<div class="col">
 							<label>Pasaporte</label> <input class="form-control"
@@ -83,7 +85,7 @@
 							<label class="text-danger">Nombres *</label> <input
 								class="form-control" id="nombres" th:field="*{nombres}"
 								type="text">
-								<span th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}">Error Apoderado</span>
+								<span th:if="${#fields.hasErrors('nombres')}" class="text-danger" th:errors="*{nombres}">Error Apoderado</span>
 						</div>
 					</div>
 					<br>
@@ -92,12 +94,12 @@
 							<label class="text-danger">Apellido Paterno *</label> <input
 								class="form-control" id="apaterno" th:field="*{apaterno_apoderado}"
 								type="text">
-								<span th:if="${#fields.hasErrors('apaterno_apoderado')}" th:errors="*{apaterno_apoderado}">Error apellido paterno</span>
+								<span th:if="${#fields.hasErrors('apaterno_apoderado')}" class="text-danger" th:errors="*{apaterno_apoderado}">Error apellido paterno</span>
 						</div>
 						<div class="col">
 							<label>Apellido Materno</label> <input class="form-control"
 								id="amaterno" th:field="*{amaterno_apoderado}" type="text">
-								<span th:if="${#fields.hasErrors('amaterno_apoderado')}" th:errors="*{amaterno_apoderado}">Error apellido materno</span>
+								<span th:if="${#fields.hasErrors('amaterno_apoderado')}" class="text-danger" th:errors="*{amaterno_apoderado}">Error apellido materno</span>
 						</div>
 						<div class="col">
 							<label>Nivel educacional</label> <select class="form-select"
@@ -158,12 +160,12 @@
 							<label>Fecha de Nacimiento</label> <input type="date"
 								id="fecha_nacimiento" th:field="*{fecha_nacimiento_apoderado}"
 								class="form-control">
-								<span th:if="${#fields.hasErrors('fecha_nacimiento_apoderado')}" th:errors="*{fecha_nacimiento_apoderado}">Error fecha nacimiento</span>
+								<span th:if="${#fields.hasErrors('fecha_nacimiento_apoderado')}" class="text-danger" th:errors="*{fecha_nacimiento_apoderado}">Error fecha nacimiento</span>
 						</div>
 						<div class="col">
 							<label>Dirección</label> <input type="text" id="domicilio"
 								th:field="*{domicilio_apoderado}" class="form-control">
-								<span th:if="${#fields.hasErrors('domicilio_apoderado')}" th:errors="*{domicilio_apoderado}">Error domicilio</span>
+								<span th:if="${#fields.hasErrors('domicilio_apoderado')}" class="text-danger" th:errors="*{domicilio_apoderado}">Error domicilio</span>
 						</div>
 						<div class="col">
 							<label class="text-danger">Comuna</label> <select
@@ -177,17 +179,17 @@
 						<div class="col">
 							<label>Email</label> <input type="email" id="correo_electronico"
 								th:field="*{correo_electronico_apoderado}" class="form-control">
-								<span th:if="${#fields.hasErrors('correo_electronico_apoderado')}" th:errors="*{correo_electronico_apoderado}">Error Correo electronico</span>
+								<span th:if="${#fields.hasErrors('correo_electronico_apoderado')}" class="text-danger" th:errors="*{correo_electronico_apoderado}">Error Correo electronico</span>
 						</div>
 						<div class="col">
 							<label>Teléfono fijo</label> <input type="text" id="telefono"
 								th:field="*{telefono_apoderado}" class="form-control">
-								<span th:if="${#fields.hasErrors('telefono_apoderado')}" th:errors="*{telefono_apoderado}">Error teléfono</span>
+								<span th:if="${#fields.hasErrors('telefono_apoderado')}" class="text-danger" th:errors="*{telefono_apoderado}">Error teléfono</span>
 						</div>
 						<div class="col">
 							<label>Teléfono celular</label> <input type="text" id="celular"
 								th:field="*{celular_apoderado}" class="form-control">
-								<span th:if="${#fields.hasErrors('celular_apoderado')}" th:errors="*{celular_apoderado}">Error celular</span>
+								<span th:if="${#fields.hasErrors('celular_apoderado')}" class="text-danger" th:errors="*{celular_apoderado}">Error celular</span>
 								<br>
 						</div>
 					</div>
@@ -196,7 +198,7 @@
 						<div class="col">
 							<label>Ocupación</label> <input type="text" class="form-control"
 								id="ocupacion" th:field="*{ocupacion}">
-								<span th:if="${#fields.hasErrors('ocupacion')}" th:errors="*{ocupacion}">Error ocupación</span>
+								<span th:if="${#fields.hasErrors('ocupacion')}" class="text-danger" th:errors="*{ocupacion}">Error ocupación</span>
 						</div>
 						<div class="col">
 							<label>¿Es Tutor?</label><br> <input type="radio"

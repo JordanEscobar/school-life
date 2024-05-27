@@ -90,11 +90,12 @@
 								th:if="${#fields.hasErrors('run_estudiante')}"
 								th:errors="*{run_estudiante}">Error Rut</span>
 								<span class="text-danger" th:if="${rutexiste} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
+								<span class="text-danger" th:if="${rutinvalido} == True" th:text="'Rut Inválido.'"></span>
 						</div>
 						<div class="col">
 							<label>Apellido Paterno <span class="text-danger">*</span></label>
 							<input id="apaterno" th:field="*{apaterno}" placeholder="Ingrese el apellido paterno acá" class="form-control"
-								type="text"> <span
+								type="text"> <span class="text-danger"
 								th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error
 								Apellido Paterno</span>
 						</div>
@@ -102,7 +103,7 @@
 							<label>Apellido Materno</label> <input id="amaterno" placeholder="ingrese el apellido materno acá"
 								th:field="*{amaterno}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('amaterno')}"
-								th:errors="*{amaterno}">Error Apellido Materno</span>
+								th:errors="*{amaterno}" class="text-danger">Error Apellido Materno</span>
 						</div>
 					</div>
 					<br>
@@ -111,7 +112,7 @@
 							<label>Nombres <span class="text-danger">*</span></label> <input
 								id="nombre" th:field="*{nombre}" placeholder="Ingrese los nombres del estudiante acá" class="form-control"
 								type="text"> <span
-								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">Error
 								Nombre</span>
 						</div>
 						<div class="col">
@@ -119,7 +120,7 @@
 								th:field="*{correo_electronico}" placeholder="Ingrese el email acá" class="form-control"
 								type="email"> <span
 								th:if="${#fields.hasErrors('correo_electronico')}"
-								th:errors="*{correo_electronico}">Error Correo
+								th:errors="*{correo_electronico}" class="text-danger">Error Correo
 								Electrónico</span>
 						</div>
 						<div class="col">
@@ -127,7 +128,7 @@
 							<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
 								class="form-control" type="date"> <span
 								th:if="${#fields.hasErrors('fecha_nacimiento')}"
-								th:errors="*{fecha_nacimiento}">Error Fecha de nacimiento</span>
+								th:errors="*{fecha_nacimiento}" class="text-danger">Error Fecha de nacimiento</span>
 						</div>
 					</div>
 					<br>
@@ -187,7 +188,7 @@
 							<label>Dirección</label> <input id="direccion"
 								th:field="*{direccion}" placeholder="Ingrese la dirección acá" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('direccion')}"
-								th:errors="*{direccion}">Error Dirección</span>
+								th:errors="*{direccion}" class="text-danger">Error Dirección</span>
 						</div>
 						<div class="col">
 							<label>Comuna</label> <select class="form-select" id="comuna"
@@ -219,13 +220,13 @@
 							<label>Teléfono Celular</label> <input id="celular"
 								th:field="*{celular}" placeholder="Número de celular sin el +56 9" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('celular')}"
-								th:errors="*{celular}">Error Celular</span>
+								th:errors="*{celular}" class="text-danger">Error Celular</span>
 						</div>
 						<div class="col">
 							<label>Teléfono Fijo</label> <input id="telefono"
 								th:field="*{telefono}" placeholder="Ingresa solo números" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('telefono')}"
-								th:errors="*{telefono}">Error Celular</span>
+								th:errors="*{telefono}" class="text-danger">Error Celular</span>
 						</div>
 					</div>
 
@@ -237,7 +238,7 @@
 								th:field="*{nombre_contacto_emergencia}" placeholder="Ingrese el nombre de contacto de emergencia acá" class="form-control"
 								type="text"> <span
 								th:if="${#fields.hasErrors('nombre_contacto_emergencia')}"
-								th:errors="*{nombre_contacto_emergencia}">Error Nombre
+								th:errors="*{nombre_contacto_emergencia}" class="text-danger">Error Nombre
 								contacto emergencia</span>
 						</div>
 						<div class="col">
@@ -245,7 +246,7 @@
 								id="telefono_emergencia"  placeholder="Número de celular sin el +56 9" th:field="*{telefono_emergencia}"
 								class="form-control" type="number"> <span
 								th:if="${#fields.hasErrors('telefono_emergencia')}"
-								th:errors="*{telefono_emergencia}">Error Telefono
+								th:errors="*{telefono_emergencia}" class="text-danger">Error Telefono
 								Emergencia</span>
 						</div>
 						<div class="col"></div>
@@ -292,7 +293,7 @@
 								th:field="*{acepta_clases_religion}"
 								name="acepta_clases_religion" value="False" type="radio">No
 							<span th:if="${#fields.hasErrors('acepta_clases_religion')}"
-								th:errors="*{acepta_clases_religion}">Error Acepta Clases
+								th:errors="*{acepta_clases_religion}" class="text-danger">Error Acepta Clases
 								Religion</span>
 						</div>
 						<div class="col text-end">
@@ -318,7 +319,7 @@
 							<label>Colegio procedencia</label> <label class="text-danger">Colegio
 								de dónde viene</label> <input type="text" placeholder="Ingrese el nombre del colégio " class="form-control"
 								id="colegio_procedencia" th:field="*{colegio_procedencia}">
-								<span th:if="${#fields.hasErrors('colegio_procedencia')}" th:errors="*{colegio_procedencia}">Error colegio procedencia</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('colegio_procedencia')}" th:errors="*{colegio_procedencia}">Error colegio procedencia</span>
 						</div>
 						<div class="col">
 							<input id="fecha_matricula" th:field="*{fecha_matricula}" class="form-control" type="hidden">
@@ -347,7 +348,7 @@
 								id="cantidad_computadores_casa"
 								th:field="*{cantidad_computadores_casa}" placeholder="Ingrese la cantidad acá" type="number"
 								class="form-control">
-								<span th:if="${#fields.hasErrors('cantidad_computadores_casa')}" th:errors="*{cantidad_computadores_casa}">Error cuantos computadores en casa</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('cantidad_computadores_casa')}" th:errors="*{cantidad_computadores_casa}">Error cuantos computadores en casa</span>
 						</div>
 						<div class="col text-end"></div>
 					</div>
@@ -368,12 +369,12 @@
 						<div class="col">
 							<label>Estatura</label> <input id="estatura"
 								th:field="*{estatura}" placeholder="Ingrese la estatura en centimetros" class="form-control" type="number">
-								<span th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}">Error estatura</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}">Error estatura</span>
 						</div>
 						<div class="col">
 							<label>Peso</label> <input id="peso" th:field="*{peso}"
 								class="form-control" placeholder="Ingrese el peso en Kilogramos" type="number">
-								<span th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">Error peso</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">Error peso</span>
 						</div>
 						<div class="col">
 							<label>Grupo sanguíneo <span class="text-danger">*</span></label>
@@ -430,7 +431,7 @@
 								class="form-radio" type="radio">&nbsp;Si &nbsp; <input
 								id="vacuna_covid" th:field="*{vacuna_covid}" value="False"
 								class="form-radio" type="radio">No
-								<span th:if="${#fields.hasErrors('vacuna_covid')}" th:errors="*{vacuna_covid}">Error cuenta con vacunas covid</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('vacuna_covid')}" th:errors="*{vacuna_covid}">Error cuenta con vacunas covid</span>
 						</div>
 						<div class="col">
 							<label>¿Cantidad de vacunas COVID 19?</label> <input
@@ -462,7 +463,7 @@
 								id="apto_educacion_fisica" value="False"
 								th:field="*{apto_educacion_fisica}" class="form-radio"
 								type="radio">No
-								<span th:if="${#fields.hasErrors('apto_educacion_fisica')}" th:errors="*{apto_educacion_fisica}">Error apto educación física</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('apto_educacion_fisica')}" th:errors="*{apto_educacion_fisica}">Error apto educación física</span>
 						</div>
 					</div>
 					<br> <br>
@@ -496,13 +497,13 @@
 							&nbsp; <input class="form-radio" value="False"
 								id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}"
 								type="radio">No
-								<span th:if="${#fields.hasErrors('seguro_escolar_privado')}" th:errors="*{seguro_escolar_privado}">Error posee seguro escolar</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('seguro_escolar_privado')}" th:errors="*{seguro_escolar_privado}">Error posee seguro escolar</span>
 						</div>
 						<div class="col">
 							<label>Consultorio o clínica donde se atiende</label> <input
 								id="consultorio_clinica" th:field="*{consultorio_clinica}"
 								class="form-control" placeholder="Ingrese el nombre del consultorio o clínica" type="text">
-								<span th:if="${#fields.hasErrors('consultorio_clinica')}" th:errors="*{consultorio_clinica}">Error consultorio o clinica</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('consultorio_clinica')}" th:errors="*{consultorio_clinica}">Error consultorio o clinica</span>
 						</div>
 					</div>
 					<br>
@@ -513,7 +514,7 @@
 								class="form-radio" /> Si &nbsp; <input id="es_pie"
 								th:field="*{es_pie}" value="False" type="radio"
 								class="form-radio" /> NO
-								<span th:if="${#fields.hasErrors('es_pie')}" th:errors="*{es_pie}">Error pertenece programa pie</span>
+								<span class="text-danger" th:if="${#fields.hasErrors('es_pie')}" th:errors="*{es_pie}">Error pertenece programa pie</span>
 						</div>
 						<div class="col"></div>
 						<div class="col"></div>

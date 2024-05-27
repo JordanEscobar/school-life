@@ -160,6 +160,8 @@ public class HomeController {
 		model.addAttribute("estudiante", estudiante);
 		boolean rutex = false;
 		model.addAttribute("rutexiste", rutex);
+		boolean rutinvalido = false;
+		model.addAttribute("rutinvalido", rutinvalido);
 		return "Matricula-ingresar";
 	}
 	
@@ -167,6 +169,11 @@ public class HomeController {
 	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado) {
 		model.addAttribute("comunas",establecimientoS.comunas());		
 		model.addAttribute("apoderado", apoderado);
+		
+		boolean rutex2 = false;
+		model.addAttribute("rutexiste2", rutex2);
+		boolean rutinvalido2 = false;
+		model.addAttribute("rutinvalido2", rutinvalido2);
 				
 		Estudiante e = new Estudiante();
 		Integer correlativo = estudianteS.getAll(4717).size() + 1;
@@ -256,6 +263,11 @@ public class HomeController {
 	
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion) {
+		
+		boolean rutex2 = false;
+		model.addAttribute("rutexiste2", rutex2);
+		boolean rutinvalido2 = false;
+		model.addAttribute("rutinvalido2", rutinvalido2);
 		
 		var estudiantes = estudianteS.getAll(4717);
 		String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRun_estudiante();
