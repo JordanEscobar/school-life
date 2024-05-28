@@ -25,7 +25,8 @@ public class Estudiante {
 	@NotBlank
 	//@Length(min = 6, max = 11)
 	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
-	private String run_estudiante;
+	@Column(name = "run_estudiante")
+	private String runEstudiante;
 	@NotBlank
 	private String nombre;
 	@NotBlank
@@ -101,25 +102,23 @@ public class Estudiante {
 	private Integer establecimiento_id;
 	private Integer curso_id;
 	private boolean es_pie;
-	public Estudiante(
-			@NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String run_estudiante,
-			@NotBlank String nombre, @NotBlank String apaterno, @NotBlank String amaterno, String numero_matricula,
-			Date fecha_matricula, @Past Date fecha_nacimiento, @NotBlank String pais_nacimiento, String genero,
-			@NotBlank String direccion, @NotBlank String comuna, @NotBlank @Email String correo_electronico,
-			@Length(min = 6, max = 9) String telefono, @Length(min = 8, max = 9) String celular,
-			@NotBlank String colegio_procedencia, @NotBlank String nombre_contacto_emergencia,
-			@Length(min = 6, max = 9) String telefono_emergencia, @NotBlank String vive_con,
-			Integer cantidad_computadores_casa, String religion, boolean acepta_clases_religion, String beca,
-			@Min(1) @Max(260) Integer estatura, @NotNull double peso, String grupo_sanguineo,
-			@NotBlank String alergias_alimentos, @NotBlank String alergias_medicamentos,
+	public Estudiante(@NotBlank String runEstudiante, @NotBlank String nombre, @NotBlank String apaterno,
+			@NotBlank String amaterno, String numero_matricula, Date fecha_matricula, @Past Date fecha_nacimiento,
+			@NotBlank String pais_nacimiento, String genero, @NotBlank String direccion, @NotBlank String comuna,
+			@NotBlank @Email String correo_electronico, @Length(min = 6, max = 9) String telefono,
+			@Length(min = 8, max = 9) String celular, @NotBlank String colegio_procedencia,
+			@NotBlank String nombre_contacto_emergencia, @Length(min = 6, max = 9) String telefono_emergencia,
+			@NotBlank String vive_con, Integer cantidad_computadores_casa, String religion,
+			boolean acepta_clases_religion, String beca, @Min(1) @Max(260) Integer estatura, @NotNull double peso,
+			String grupo_sanguineo, @NotBlank String alergias_alimentos, @NotBlank String alergias_medicamentos,
 			@NotBlank String medicamentos_contraindicados, @NotBlank String enfermedades_cronicas, boolean vacuna_covid,
 			Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid, Date fecha_ultima_vacuna_COVID,
-			boolean apto_educacion_fisica, @NotBlank String sistema_prevision, @NotBlank boolean seguro_escolar_privado,
+			boolean apto_educacion_fisica, @NotBlank String sistema_prevision, @NotNull boolean seguro_escolar_privado,
 			String nacionalidad, String etnia, @NotBlank String consultorio_clinica,
 			@Length(min = 0, max = 250) @NotBlank @Length(min = 0, max = 250) String observaciones, boolean estado,
 			Integer establecimiento_id, Integer curso_id, boolean es_pie) {
 		super();
-		this.run_estudiante = run_estudiante;
+		this.runEstudiante = runEstudiante;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
 		this.amaterno = amaterno;
@@ -167,11 +166,11 @@ public class Estudiante {
 	public Estudiante() {
 		super();
 	}
-	public String getRun_estudiante() {
-		return run_estudiante;
+	public String getRunEstudiante() {
+		return runEstudiante;
 	}
-	public void setRun_estudiante(String run_estudiante) {
-		this.run_estudiante = run_estudiante;
+	public void setRunEstudiante(String runEstudiante) {
+		this.runEstudiante = runEstudiante;
 	}
 	public String getNombre() {
 		return nombre;
@@ -433,7 +432,7 @@ public class Estudiante {
 	}
 	@Override
 	public String toString() {
-		return "Estudiante [run_estudiante=" + run_estudiante + ", nombre=" + nombre + ", apaterno=" + apaterno
+		return "Estudiante [runEstudiante=" + runEstudiante + ", nombre=" + nombre + ", apaterno=" + apaterno
 				+ ", amaterno=" + amaterno + ", numero_matricula=" + numero_matricula + ", fecha_matricula="
 				+ fecha_matricula + ", fecha_nacimiento=" + fecha_nacimiento + ", pais_nacimiento=" + pais_nacimiento
 				+ ", genero=" + genero + ", direccion=" + direccion + ", comuna=" + comuna + ", correo_electronico="
@@ -454,8 +453,6 @@ public class Estudiante {
 				+ estado + ", establecimiento_id=" + establecimiento_id + ", curso_id=" + curso_id + ", es_pie="
 				+ es_pie + "]";
 	}
-	
-	
 	
 	
 	

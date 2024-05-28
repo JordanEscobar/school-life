@@ -82,7 +82,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setPais_nacimiento(estudiante.getPais_nacimiento());
 		e.setPeso(estudiante.getPeso());
 		e.setReligion(estudiante.getReligion());
-		e.setRun_estudiante(estudiante.getRun_estudiante());
+		e.setRunEstudiante(estudiante.getRunEstudiante());
 		e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
 		e.setSistema_prevision(estudiante.getSistema_prevision());
 		e.setTelefono(estudiante.getTelefono());
@@ -99,7 +99,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public void updateEstudiantePie(String estudianteId) {
 		// TODO Auto-generated method stub
 		List<Estudiante> estudiantes = estudianteR.findAll();
-		estudiantes = estudiantes.stream().filter(e -> e.getRun_estudiante().equalsIgnoreCase(estudianteId)).collect(Collectors.toList());
+		estudiantes = estudiantes.stream().filter(e -> e.getRunEstudiante().equalsIgnoreCase(estudianteId)).collect(Collectors.toList());
 		Estudiante e = new Estudiante();
 		
 		e.setAcepta_clases_religion(estudiantes.get(0).isAcepta_clases_religion());
@@ -138,7 +138,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setPais_nacimiento(estudiantes.get(0).getPais_nacimiento());
 		e.setPeso(estudiantes.get(0).getPeso());
 		e.setReligion(estudiantes.get(0).getReligion());
-		e.setRun_estudiante(estudiantes.get(0).getRun_estudiante());
+		e.setRunEstudiante(estudiantes.get(0).getRunEstudiante());
 		e.setSeguro_escolar_privado(estudiantes.get(0).isSeguro_escolar_privado());
 		e.setSistema_prevision(estudiantes.get(0).getSistema_prevision());
 		e.setTelefono(estudiantes.get(0).getTelefono());
@@ -146,10 +146,10 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setVacuna_covid(estudiantes.get(0).isVacuna_covid());
 		e.setVive_con(estudiantes.get(0).getVive_con());
 		e.setEs_pie(estudiantes.get(0).isEs_pie());
-		Optional<Estudiante> estudiantesId = estudianteR.findById(e.getRun_estudiante());
+		Optional<Estudiante> estudiantesId = estudianteR.findById(e.getRunEstudiante());
 		Estudiante es = estudiantesId.get();
 		es.setEs_pie(true);
-		es.setRun_estudiante(e.getRun_estudiante());
+		es.setRunEstudiante(e.getRunEstudiante());
 		estudianteR.save(es);
 		
 	}
@@ -157,7 +157,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public Estudiante findEstudiante(Estudiante estudiante) {
-		return estudianteR.findById(estudiante.getRun_estudiante()).orElse(null);
+		return estudianteR.findById(estudiante.getRunEstudiante()).orElse(null);
 	}
 
 	@Override
@@ -205,6 +205,11 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public List<Estudiante> findEstudiantePorCurso(Integer curso_id) {
+		
+		if(curso_id.equals(0)) {
+			return estudianteR.findAll();
+		}
+		
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		estudiantes = estudiantes.stream().filter(e-> e.getCurso_id() == curso_id).collect(Collectors.toList());
 		return estudiantes;
@@ -262,6 +267,12 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public List<Estudiante> findEstudiantePorEstado(String estado) {
+		
+		if(estado.isEmpty())
+		{
+			return estudianteR.findAll();
+		}
+		
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		if(estado.equalsIgnoreCase("matriculado")) {
 			estudiantes = estudiantes.stream().filter(e-> e.isEstado()).collect(Collectors.toList());
@@ -285,7 +296,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public void estadoMatriculaRetirado(Estudiante estudiante, String run_estudiante) {
 		Optional<Estudiante> estudianteId = estudianteR.findById(run_estudiante);
 		Estudiante e = estudianteId.get();
-		e.setRun_estudiante(estudiante.getRun_estudiante());
+		e.setRunEstudiante(estudiante.getRunEstudiante());
 		e.setEstado(false);
 		estudianteR.save(e);		
 	}
@@ -295,7 +306,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	public void estadoMatriculaRecuperado(Estudiante estudiante, String run_estudiante) {
 		Optional<Estudiante> estudianteId = estudianteR.findById(run_estudiante);
 		Estudiante e = estudianteId.get();
-		e.setRun_estudiante(estudiante.getRun_estudiante());
+		e.setRunEstudiante(estudiante.getRunEstudiante());
 		e.setEstado(true);
 		estudianteR.save(e);		
 	}
@@ -304,12 +315,22 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Transactional
 	public void cancelarMatricula(String estudianteid) {
 		List<Estudiante> estudiantes = estudianteR.findAll();
-		estudiantes = estudiantes.stream().filter( e-> e.getRun_estudiante().equalsIgnoreCase(estudianteid)).collect(Collectors.toList());
+		estudiantes = estudiantes.stream().filter( e-> e.getRunEstudiante().equalsIgnoreCase(estudianteid)).collect(Collectors.toList());
 		if(!estudiantes.isEmpty())
 		{
 			estudianteR.deleteById(estudianteid);
 			System.out.println("Se eliminó el estudiante");
 		}
+	}
+
+	@Override
+	@Transactional
+	public List<Estudiante> findEstudiantePorRut(String rut) {
+		
+        if (rut.isEmpty()) {
+            return estudianteR.findAll();
+        }
+        return estudianteR.findByRunEstudianteContaining(rut);
 	}
 
 

@@ -14,6 +14,7 @@ public interface EstudianteService {
 	Estudiante createEstudiante(Estudiante estudiante);
 	//filtrar estudiantes por nombre y apellidos y funciona
 	List<Estudiante> findPorEstudiantePorCodigo(String nombre);
+	List<Estudiante> findEstudiantePorRut(String rut);
 	//filtrar estudiantes por curso
 	List<Estudiante> findEstudiantePorCurso(Integer curso_id);
 	List<Object[]> findMatriculas();

@@ -40,7 +40,7 @@
 				<div class="col">
 					<label>Selecciona un estudiante</label>
 					<select class="form-select" th:field="*{estudiante_id}" >
-						<option th:each="e : ${estudiantes}" th:value="${e.run_estudiante}"   th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></option>
+						<option th:each="e : ${estudiantes}" th:value="${e.runEstudiante}"   th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></option>
 					</select>
 				</div>
 				<div class="col">

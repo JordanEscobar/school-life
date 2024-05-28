@@ -85,10 +85,10 @@
 						<div class="col">
 							<label>RUT<span class="text-danger">&nbsp;*(sin
 									puntos y con guion)</span></label> <input class="form-control" type="text"
-								id="rut" th:field="*{run_estudiante}"
+								id="rut" th:field="*{runEstudiante}"
 								placeholder="Ingrese sin puntos y con guion"> <span
-								th:if="${#fields.hasErrors('run_estudiante')}"
-								th:errors="*{run_estudiante}">Error Rut</span>
+								th:if="${#fields.hasErrors('runEstudiante')}"
+								th:errors="*{runEstudiante}">Error Rut</span>
 								<span class="text-danger" th:if="${rutexiste} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 								<span class="text-danger" th:if="${rutinvalido} == True" th:text="'Rut Inválido.'"></span>
 						</div>

@@ -65,8 +65,14 @@
 			<div class="row g-2">
 				<div class="col-auto">
 					<form action="#" th:action="@{/filtrarnombre}" method="post">
-					<label class="fw-bold">Búsqueda</label>
+					<label class="fw-bold">Búsqueda por nombre</label>
 				    	<input class="form-control" name="filtronombre"   id="filtronombre" th:value="${filtronombre}" placeholder="Buscar Estudiante">
+				 	</form>
+				 </div>
+				 <div class="col-auto">
+					<form action="#" th:action="@{/filtrarrut}" method="post">
+					<label class="fw-bold">Búsqueda por Rut</label>
+				    	<input class="form-control" name="filtrorut"   id="filtrorut" th:value="${filtrorut}" placeholder="Sin puntos y con guíon">
 				 	</form>
 				 </div>
 				 <div class="col-auto">
@@ -111,7 +117,7 @@
 		<tbody>
 			<tr th:each="e : ${estudiantes}">
 				<td th:text="${e.numero_matricula}"></td>
-				<td th:text="${e.run_estudiante}"></td>
+				<td th:text="${e.runEstudiante}"></td>
 				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
 				<td  th:if="${e.es_pie} == True" ><span class="text-success"><i class="fa-solid fa-check"></i></span></td>
 				<td  th:if="${e.es_pie} == False" ><span class="text-danger"><i class="fa-solid fa-x"></i></span></td>
@@ -123,11 +129,11 @@
 				<td th:if="${e.estado} == True" class="text-success rounded"  th:text="Matriculado"></td>
 				<td th:if="${e.estado} == False" class="text-danger rounded"><del>Retirado</del></td>
 				<td>
-							<a th:href="@{/resumenMatricula/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Ver matrícula en detalle"><i class="fa-regular fa-user"></i></a>
-							<a th:href="@{/matricula/modificar/} + ${e.run_estudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
-							<a th:href="@{/matricula/retirada/} + ${e.run_estudiante}" th:if="${e.estado} == True" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Retirar matrícula" ><i class="fa-solid fa-ban"></i></a>
-							<a th:href="@{/matricula/recuperada/} + ${e.run_estudiante}" th:if="${e.estado} == False" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Recuperar matrícula" ><i class="fa-solid fa-rotate"></i></a>
-							<a th:href="@{/resumenMatricula/} + ${e.run_estudiante} + '?format=pdf'" target="_blank" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Descargar matrícula"><i class="fa-solid fa-file-arrow-down"></i></a>
+							<a th:href="@{/resumenMatricula/} + ${e.runEstudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Ver matrícula en detalle"><i class="fa-regular fa-user"></i></a>
+							<a th:href="@{/matricula/modificar/} + ${e.runEstudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+							<a th:href="@{/matricula/retirada/} + ${e.runEstudiante}" th:if="${e.estado} == True" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Retirar matrícula" ><i class="fa-solid fa-ban"></i></a>
+							<a th:href="@{/matricula/recuperada/} + ${e.runEstudiante}" th:if="${e.estado} == False" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Recuperar matrícula" ><i class="fa-solid fa-rotate"></i></a>
+							<a th:href="@{/resumenMatricula/} + ${e.runEstudiante} + '?format=pdf'" target="_blank" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Descargar matrícula"><i class="fa-solid fa-file-arrow-down"></i></a>
 				</td>
 			</tr>		
 		</tbody>

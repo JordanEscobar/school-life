@@ -63,11 +63,13 @@ public class HomeController {
 	public String login(Model model) {
 		return "Login";
 	}
+	
 
 	// Matricula
 	@GetMapping("/matricula")
 	public String matricula(Model model) {
 		var estudiantes = estudianteS.getAll(4717);
+		
 		var cursos = cursoS.getAll(4717);
 		Integer mujeres = estudianteS.totalMujeres();
 		Integer hombres = estudianteS.totalHombres();
@@ -108,6 +110,27 @@ public class HomeController {
 		model.addAttribute("estudiantes", estudiantes);
 		model.addAttribute("cursos", cursos);
 		model.addAttribute("filtronombre", filtronombre);
+		return "Matricula";
+	}
+	
+	// filtrar por Rut
+	@PostMapping(path = "/filtrarrut", consumes = "application/x-www-form-urlencoded")
+	public String filtroRut(Model model, @RequestParam("filtrorut") String filtrorut) {
+		var estudiantes = estudianteS.findEstudiantePorRut(filtrorut);
+		var cursos = cursoS.getAll(4717);
+		var programas = programaS.getAll();
+		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+		Integer mujeres = estudianteS.totalMujeres();
+		Integer hombres = estudianteS.totalHombres();
+		Integer otros = estudianteS.totalOtro();
+		model.addAttribute("otros", otros);
+		model.addAttribute("mujeres", mujeres);
+		model.addAttribute("hombres", hombres);
+		model.addAttribute("matriculados", estudiantesMatriculados);
+		model.addAttribute("programas", programas);
+		model.addAttribute("estudiantes", estudiantes);
+		model.addAttribute("cursos", cursos);
+		model.addAttribute("filtrorut", filtrorut);
 		return "Matricula";
 	}
 
@@ -220,10 +243,10 @@ public class HomeController {
 		e.setPeso(estudiante.getPeso());
 		e.setReligion(estudiante.getReligion());
 		
-		if(rutValidationService.isValidRut(estudiante.getRun_estudiante())) {
+		if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
 			for (Estudiante es : estudianteS.getAll(4717)) {
-				if(estudiante.getRun_estudiante().equalsIgnoreCase(es.getRun_estudiante())) {
-					System.out.println("El rut del estudiante ya existe en el sistema: " + estudiante.getRun_estudiante());
+				if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
+					System.out.println("El rut del estudiante ya existe en el sistema: " + estudiante.getRunEstudiante());
 					boolean rutex =true;
 					model.addAttribute("rutexiste",rutex);
 					return "Matricula-ingresar";
@@ -231,12 +254,12 @@ public class HomeController {
 				else {
 					boolean rutex =false;
 					model.addAttribute("rutexiste",rutex);
-					e.setRun_estudiante(estudiante.getRun_estudiante());
+					e.setRunEstudiante(estudiante.getRunEstudiante());
 				}
 			}
 		}else {
 			//Valida los rut pero falta mostrar una alerta en este caso!!!!!
-			System.out.println("El rut es invalido: " + estudiante.getRun_estudiante());
+			System.out.println("El rut es invalido: " + estudiante.getRunEstudiante());
 			return "Matricula-ingresar";
 		}
 				
@@ -256,7 +279,7 @@ public class HomeController {
 		//se crea el estudiante
 		estudianteS.createEstudiante(e);
 		model.addAttribute("estudiante", e);
-		model.addAttribute("estudianteid",e.getRun_estudiante());
+		model.addAttribute("estudianteid",e.getRunEstudiante());
 		
 		return "Matricula-ingresar-apoderado";
 	}
@@ -270,7 +293,7 @@ public class HomeController {
 		model.addAttribute("rutinvalido2", rutinvalido2);
 		
 		var estudiantes = estudianteS.getAll(4717);
-		String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRun_estudiante();
+		String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRunEstudiante();
 		model.addAttribute("estudianteid", rut_estudiante);
 		model.addAttribute("comunas",establecimientoS.comunas());
 		Apoderado a = new Apoderado();
@@ -375,7 +398,7 @@ public class HomeController {
 		var estudiantes = estudianteS.getAll(4717);
 		Estudiante e = new Estudiante();
 		for (Estudiante es : estudiantes) {
-			if(es.getRun_estudiante().equalsIgnoreCase(estudiante.getRun_estudiante())) {
+			if(es.getRunEstudiante().equalsIgnoreCase(estudiante.getRunEstudiante())) {
 				e.setNumero_matricula(es.getNumero_matricula());
 				e.setColegio_procedencia("Colegio Concepción");
 				e.setEstado(true);
@@ -412,7 +435,7 @@ public class HomeController {
 				e.setPais_nacimiento(es.getPais_nacimiento());
 				e.setPeso(es.getPeso());
 				e.setReligion(es.getReligion());
-				e.setRun_estudiante(es.getRun_estudiante());
+				e.setRunEstudiante(es.getRunEstudiante());
 				e.setSeguro_escolar_privado(es.isSeguro_escolar_privado());
 				e.setSistema_prevision(es.getSistema_prevision());
 				e.setTelefono(es.getTelefono());
@@ -427,7 +450,7 @@ public class HomeController {
 			return "Matricula-modificar";
 		}	
 		
-		estudianteS.updateEstudiante(estudiante, estudiante.getRun_estudiante());
+		estudianteS.updateEstudiante(estudiante, estudiante.getRunEstudiante());
 		flash.addFlashAttribute("success","Matrícula modificada correctamente");
 		model.addAttribute("estudiante",estudiante);		
 		return "redirect:/matricula";
@@ -437,8 +460,8 @@ public class HomeController {
 	public String resumenMatricula(Estudiante estudiante, Model model) {
 		model.addAttribute("estudiante", estudiante);
 		var estudiantes = estudianteS.findEstudiante(estudiante);
-		var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRun_estudiante());
-		var programa = programaS.findProgramaPorEstudiante(estudiante.getRun_estudiante());
+		var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRunEstudiante());
+		var programa = programaS.findProgramaPorEstudiante(estudiante.getRunEstudiante());
 			model.addAttribute("listaA",apoderados);
 			model.addAttribute("listaP",programa);
 			model.addAttribute("listaE", estudiantes);
@@ -453,12 +476,12 @@ public class HomeController {
 		var estudiantes = estudianteS.getAll(4717);
 		Estudiante estu = new Estudiante();
 		for (Estudiante es : estudiantes) {
-			if(es.getRun_estudiante() == estudiante.getRun_estudiante()) {
-				estu.setRun_estudiante(es.getRun_estudiante());
+			if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
+				estu.setRunEstudiante(es.getRunEstudiante());
 				estu.setEstado(false);
 			}
 		}		
-		estudianteS.estadoMatriculaRetirado(estudiante, estudiante.getRun_estudiante());
+		estudianteS.estadoMatriculaRetirado(estudiante, estudiante.getRunEstudiante());
 		flash.addFlashAttribute("success","Matrícula retirada correctamente");
 		model.addAttribute("estudiante",estudiante);	
 		return "redirect:/matricula";
@@ -470,16 +493,18 @@ public class HomeController {
 		var estudiantes = estudianteS.getAll(4717);
 		Estudiante estu = new Estudiante();
 		for (Estudiante es : estudiantes) {
-			if(es.getRun_estudiante() == estudiante.getRun_estudiante()) {
-				estu.setRun_estudiante(es.getRun_estudiante());
+			if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
+				estu.setRunEstudiante(es.getRunEstudiante());
 				estu.setEstado(true);
 			}
 		}		
-		estudianteS.estadoMatriculaRecuperado(estudiante, estudiante.getRun_estudiante());
+		estudianteS.estadoMatriculaRecuperado(estudiante, estudiante.getRunEstudiante());
 		flash.addFlashAttribute("success","Matrícula recuperada correctamente");
 		model.addAttribute("estudiante",estudiante);	
 		return "redirect:/matricula";
 	}
+	
+	
 	
 	
 	
