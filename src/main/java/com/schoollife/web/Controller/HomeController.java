@@ -383,7 +383,7 @@ public class HomeController {
 		return "redirect:/matricula";
 	}
 	
-	@GetMapping("/matricula/modificar/{run_estudiante}")
+	@GetMapping("/matricula/modificar/{runEstudiante}")
 	public String matriculaModificar(Estudiante estudiante,Model model) {
 		estudiante = estudianteS.findEstudiante(estudiante);
 		var cursos = cursoS.getAll(4717);
@@ -456,7 +456,7 @@ public class HomeController {
 		return "redirect:/matricula";
 	}
 	
-	@GetMapping("/resumenMatricula/{run_estudiante}")
+	@GetMapping("/resumenMatricula/{runEstudiante}")
 	public String resumenMatricula(Estudiante estudiante, Model model) {
 		model.addAttribute("estudiante", estudiante);
 		var estudiantes = estudianteS.findEstudiante(estudiante);
@@ -469,7 +469,7 @@ public class HomeController {
 		return "ResumenMatricula";
 	}
 	
-	@GetMapping(path = "/matricula/retirada/{run_estudiante}")
+	@GetMapping(path = "/matricula/retirada/{runEstudiante}")
 	public String matriculaRetirada(Estudiante estudiante,RedirectAttributes flash,Model model) {
 		var e = establecimientoS.getAll();
 		model.addAttribute("establecimientos",e);
@@ -486,7 +486,7 @@ public class HomeController {
 		model.addAttribute("estudiante",estudiante);	
 		return "redirect:/matricula";
 	}
-	@GetMapping(path = "/matricula/recuperada/{run_estudiante}")
+	@GetMapping(path = "/matricula/recuperada/{runEstudiante}")
 	public String matriculaRecuperada(Estudiante estudiante,RedirectAttributes flash,Model model) {
 		var e = establecimientoS.getAll();
 		model.addAttribute("establecimientos",e);

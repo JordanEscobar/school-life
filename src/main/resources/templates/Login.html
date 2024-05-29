@@ -15,20 +15,24 @@
 
 <div class="container ">
 
-<div class="m-0 vh-100 row justify-content-center align-items-center">
+<div class="m-0 vh-100 row justify-content-center align-items-center ">
 	
-	<div class="col-auto p-5 border rounded text-center">
+	<div class="col-auto p-5 border rounded text-center shadow">
 		<br>
-		<h4>Libro de clases online</h4>
+		<h4 class="fst-italic">Libro de clases online</h4>
 		<br>
 		<img alt="logo-daem" style="width:80px;" src="/img/logo-daemhualpen.jpg">
 		<br>
 		<label>Correo electrónico</label>
-		<input class="form-control disabled" id="correo" type="email" disabled>
+		<input class="form-control" id="correo" type="email" >
 		<label>Contraseña</label>
-		<input class="form-control disabled" id="contrasena" type="password" disabled><br>
-		<a class="btn btn-primary" th:href="@{/}" th:text="'Iniciar sesión'"></a>
+		<input class="form-control" id="contrasena" type="password" ><br>
+		<a class="btn btn-primary shadow" th:href="@{/}" th:text="'Iniciar sesión'"></a>	
+		
+		<br>
+		<a class="text-primary" th:href="@{/registro}">registrate acá</a>
 		<br><br>
+		
 	</div>
 	
 </div>
