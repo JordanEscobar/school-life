@@ -34,7 +34,7 @@
 	<p>Complete todos los datos solicitados en el presente formulario.</p>
 </div>
 <br><br>
-<div class="container border rounded">	
+<div class="container border rounded shadow">	
 	<br><br>
 			<div class="row">
 				<div class="col">
@@ -69,7 +69,7 @@
 				<div class="col">
 				</div>
 				<div class="col text-end">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#guardarModal">
+					<button type="button" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#guardarModal">
 					  Ingresar estudiante
 					</button>
 				</div>
@@ -80,7 +80,7 @@
 			<input type="hidden" name="id_Programa" th:field="*{id_Programa}">
 
 <!-- Modales -->
-<div class="modal fade" id="guardarModal" tabindex="-1" aria-labelledby="guardarModalLabel" aria-hidden="true">
+<div class="modal fade shadow" id="guardarModal" tabindex="-1" aria-labelledby="guardarModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -90,8 +90,8 @@
       ¿Estás seguro que deseas ingresar el siguiente estudiante al programa pie?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <input type="submit" value="Ingresar Estudiante" class="btn btn-success"/>
+        <button type="button" class="btn btn-secondary shadow" data-bs-dismiss="modal">Cerrar</button>
+        <input type="submit" value="Ingresar Estudiante" class="btn btn-success shadow"/>
       </div>
     </div>
   </div>
