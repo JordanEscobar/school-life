@@ -59,12 +59,6 @@ public class HomeController {
 		return "Index";
 	}
 
-	@GetMapping("/login")
-	public String login(Model model) {
-		return "Login";
-	}
-	
-
 	// Matricula
 	@GetMapping("/matricula")
 	public String matricula(Model model) {

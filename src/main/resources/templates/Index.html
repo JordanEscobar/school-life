@@ -32,7 +32,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h4>Buenas tardes. <span style="color:red;">USUARIO CONECTADO</span></h4>
+			<h4>Buenas tardes. <span style="color:red;" th:text="${usuario[0].nombre} + ' '  +${usuario[0].apaterno} + ' ' + ${usuario[0].amaterno} "></span></h4>
 		</div>
 		<div class="col"></div>
 	</div>

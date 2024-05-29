@@ -1,5 +1,7 @@
 package com.schoollife.web.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,13 @@ public class UsuarioServiceImpl implements UsuarioService{
         user.setTelefono(usuario.getTelefono());
         usuarioR.save(user);
     }
+
+	@Override
+	public List<Usuario> buscarUsuarioCorreo(String correo) {
+		
+		return usuarioR.findByCorreoContaining(correo);
+	}
+
 	
 	
 	

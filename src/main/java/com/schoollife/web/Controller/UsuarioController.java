@@ -1,12 +1,13 @@
 package com.schoollife.web.Controller;
 
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.schoollife.web.Dto.DtoLogin;
-import com.schoollife.web.Dto.DtoRegistro;
 import com.schoollife.web.Entities.Rol;
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Repository.RolRepository;
@@ -103,14 +103,30 @@ public class UsuarioController {
 		return "redirect:/login";
 	}
 	
-	@PostMapping(path = "/loginUsuario")
-	public String loginUsuario(@RequestBody DtoLogin dtologin, Model model) {
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				dtologin.getUsername(), dtologin.getPassword())); 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String token = jwtGenerador.generarToken(authentication);
-		System.out.println("El token de la autenticación es:" + token);
-		return "Index";
+	@GetMapping("/login")
+	public String login(Usuario usuario,Model model) {
+		model.addAttribute("usuario",new Usuario());
+		return "Login";
+	}
+	
+	@PostMapping(path = "/logearse", consumes = "application/x-www-form-urlencoded")
+	public String loginUsuario(@ModelAttribute Usuario usuario, Model model) {
+		try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(usuario.getCorreo(), usuario.getPass()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String token = jwtGenerador.generarToken(authentication);
+            List<Usuario> usuarioConectado = usuarioR.findByCorreoContaining(usuario.getCorreo());
+            System.out.println("El usuario es:" + usuarioConectado);
+            model.addAttribute("usuario",usuarioConectado);
+            System.out.println("El token de la autenticación es: " + token);
+            System.out.println("la autenticacion es: " + authentication);
+            return "Index";
+        } catch (BadCredentialsException e) {
+            System.out.println("Error de autenticación: " + e.getMessage());
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
+            return "Login";
+        }
 	}
 
 

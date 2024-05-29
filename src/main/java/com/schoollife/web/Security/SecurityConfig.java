@@ -42,30 +42,32 @@ public class SecurityConfig {
 	JwtAuthenticationFilter jwtAuthenticationFilter() {
 		return new JwtAuthenticationFilter();
 	}
-	//DEPRECADO
 	//Establece una cadena de filtros de seguridad en el proyecto, permisos segun rol
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-		.exceptionHandling()//permitir manejo de excepciones
-		.authenticationEntryPoint(jwtAuthenticationEntryPoint)
-		.and()
-		.sessionManagement()//permitir gestion de sesiones
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-		.authorizeHttpRequests()
-		.requestMatchers("/registro","/registrar","/css/**","/js/**","/img/**","https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css","https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js","https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.formLogin()
-		.loginPage("/login").permitAll()
-		.and()
-		.logout()
-		.permitAll()
-		.and()
-		.httpBasic();
-		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-		return http.build();
+		
+		  http
+          .authorizeHttpRequests(authorizeRequests ->
+              authorizeRequests
+                  .requestMatchers("/login","/registro", "/registrar","/logearse", "/css/**", "/js/**","/img/**","https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css","https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js","https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js").permitAll()
+                  .requestMatchers("/matricula", "/","/filtrarnombre","/filtrarrut","/filtrarcurso","/filtrarestado","/matricula/ingresar","/matricula/ingresar/creada","/matricula/ingresar/apoderados","/matricula/ingresar/programa_integracion","/programa/pie","/programa/pie/ingreso","/matricula/modificar/{runEstudiante}","/matricula/modificada","/resumenMatricula/{runEstudiante}","/matricula/retirada/{runEstudiante}","/matricula/recuperada/{runEstudiante}").permitAll()
+                  .requestMatchers("/curso", "/curso/ingresar","/curso/ingresado", "/curso/modificado", "/curso/modificar/{id_curso}").permitAll()
+                  .requestMatchers("/establecimiento","/establecimiento/ingresar","/establecimiento/ingresado","/establecimiento/modificar/{rbd}", "/establecimiento/modificado").permitAll()
+                  .anyRequest().authenticated()
+          )
+          .formLogin(formLogin ->
+              formLogin
+                  .loginPage("/login")
+                  .defaultSuccessUrl("/", true)
+                  .permitAll()
+          )
+          .logout(logout ->
+              logout
+                  .permitAll()
+          );
+		  http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+      return http.build();
+		
 	}
 		
 }

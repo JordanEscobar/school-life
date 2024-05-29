@@ -24,8 +24,7 @@ public class JwtGenerador {
 				setSubject(username).
 				setIssuedAt(new Date()).
 				setExpiration(expiracionToken).
-				signWith(SignatureAlgorithm.HS512,ConstantesSeguridad.JWT_FIRMA).compact();
-						
+				signWith(SignatureAlgorithm.HS512,ConstantesSeguridad.JWT_FIRMA).compact();		
 		return token;
 	}
 	
