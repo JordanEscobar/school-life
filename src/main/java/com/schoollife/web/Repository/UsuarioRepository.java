@@ -4,15 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, String>{
-	//busca a un usuario por su correo
+	//busca a un usuario por su correo ESTE ES 
 	Optional<Usuario> findByCorreo(String correo);
-	//verifica si existe el correo en la BD
-	boolean existsByCorreo(String correo);
 	
 	List<Usuario> findByCorreoContaining(String correo);
 }

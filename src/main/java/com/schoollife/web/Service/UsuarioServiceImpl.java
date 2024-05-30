@@ -14,22 +14,23 @@ import jakarta.transaction.Transactional;
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
 	
-	//@Autowired
-   // private PasswordEncoder passwordEncoder;
 	@Autowired
 	private final UsuarioRepository usuarioR;
+	@Autowired
+	private final PasswordEncoder passwordEncoder;
 		
-    public UsuarioServiceImpl( UsuarioRepository usuarioR) {
+    public UsuarioServiceImpl( UsuarioRepository usuarioR, PasswordEncoder passwordEncoder) {
 		super();
 		this.usuarioR = usuarioR;
+		this.passwordEncoder = passwordEncoder;
 	}
 
     @Override
     @Transactional
 	public void registerUser(Usuario usuario) {
-       // String encodedPassword = passwordEncoder.encode(usuario.getPass());
+    	String encoderPassword = this.passwordEncoder.encode(usuario.getPass());
         Usuario user = new Usuario();     
-        //user.setPass(encodedPassword);
+        user.setPass(encoderPassword);
         user.setCorreo(usuario.getCorreo());
         user.setAmaterno(usuario.getAmaterno());
         user.setApaterno(usuario.getApaterno());
@@ -47,7 +48,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public List<Usuario> buscarUsuarioCorreo(String correo) {
-		
 		return usuarioR.findByCorreoContaining(correo);
 	}
 

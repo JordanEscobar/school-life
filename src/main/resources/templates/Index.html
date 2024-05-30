@@ -23,7 +23,7 @@
 <nav class="sidebar ">
 	<a th:href="@{/curso}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los cursos">Cursos</a>
 	<a th:href="@{/establecimiento}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los establecimientos">Establecimientos</a>
-	<a th:href="@{/usuario}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los usuarios">Usuarios</a>
+	<a th:href="@{/usuario}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los usuarios">Usuarios</a>
 </nav>
 <div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
@@ -32,7 +32,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h4>Buenas tardes. <span style="color:red;" th:text="${usuario[0].nombre} + ' '  +${usuario[0].apaterno} + ' ' + ${usuario[0].amaterno} "></span></h4>
+			<h4>Buenas tardes. <span style="color:red;">USUARIO</span></h4>
 		</div>
 		<div class="col"></div>
 	</div>
@@ -56,8 +56,8 @@
 				<a th:href="@{/matricula}" class="btn shadow"><div class="card-body">Matrícula</div></a>
 			</div>
 			<br>
-			<div th:href="@{/matricula}" class="card w-50 text-center border-danger btn-danger shadow disabled" style="max-width: 18rem;" >
-				<a  class="btn shadow disabled" data-toggle="tooltip" data-placement="bottom" title="PRÓXIMAMENTE"><div class="card-body">Ficha Estudiante</div></a>
+			<div class="card w-50 text-center border-danger btn-danger shadow" style="max-width: 18rem;" >
+				<a  class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="PRÓXIMAMENTE"><div class="card-body">Ficha Estudiante</div></a>
 			</div>
 		</div>
 		<div class="col">
