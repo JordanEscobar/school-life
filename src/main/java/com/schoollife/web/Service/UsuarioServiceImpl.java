@@ -1,14 +1,11 @@
 package com.schoollife.web.Service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Repository.UsuarioRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -16,21 +13,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	private final UsuarioRepository usuarioR;
-	@Autowired
-	private final PasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 		
-    public UsuarioServiceImpl( UsuarioRepository usuarioR, PasswordEncoder passwordEncoder) {
+    public UsuarioServiceImpl( UsuarioRepository usuarioR) {
 		super();
 		this.usuarioR = usuarioR;
-		this.passwordEncoder = passwordEncoder;
 	}
 
     @Override
     @Transactional
 	public void registerUser(Usuario usuario) {
-    	String encoderPassword = this.passwordEncoder.encode(usuario.getPass());
         Usuario user = new Usuario();     
-        user.setPass(encoderPassword);
+        user.setPass(encoder.encode(usuario.getPass()));
         user.setCorreo(usuario.getCorreo());
         user.setAmaterno(usuario.getAmaterno());
         user.setApaterno(usuario.getApaterno());

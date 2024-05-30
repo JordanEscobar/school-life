@@ -1,35 +1,34 @@
 package com.schoollife.web.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.schoollife.web.Entities.Usuario;
-import com.schoollife.web.Repository.UsuarioRepository;
 import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.RolService;
+import com.schoollife.web.Service.UsuarioService;
 
 @Controller
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioRepository usuarioR;
-	@Autowired
 	private RolService rolS;
 	@Autowired
 	private EstablecimientoService establecimientoS;
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final UsuarioService userService;
 	
 	public UsuarioController(
-			UsuarioRepository usuarioR, RolService rolS,PasswordEncoder passwordEncoder, EstablecimientoService establecimientoS) {
+			RolService rolS, EstablecimientoService establecimientoS,
+			UsuarioService userService) {
 		super();
-		this.usuarioR = usuarioR;
 		this.rolS = rolS;
 		this.establecimientoS = establecimientoS;
-		this.passwordEncoder = passwordEncoder;
+		this.userService = userService;
+
 	}
 	
 	@GetMapping("/usuario")
@@ -55,7 +54,7 @@ public class UsuarioController {
 		
 		Usuario us = new Usuario();
 		us.setCorreo(usuario.getCorreo());
-		us.setPass(passwordEncoder.encode(usuario.getPass()));
+		us.setPass(usuario.getPass());
 		us.setRoles(usuario.getRoles());
 		us.setAmaterno(usuario.getAmaterno());
 		us.setApaterno(usuario.getApaterno());
@@ -69,20 +68,21 @@ public class UsuarioController {
 		us.setRol_id(usuario.getRol_id());
 		us.setRoles(usuario.getRoles());
 		us.setTelefono(usuario.getTelefono());
-		usuarioR.save(us);
+		userService.registerUser(usuario);
 		System.out.println("Usuario creado: " + us);
 		return "redirect:/login";
 	}
 	
 	@GetMapping("/login")
-	public String login(Usuario usuario,Model model) {
-		model.addAttribute("usuario",new Usuario());
+	public String login( Usuario usuario,Model model) {
+		model.addAttribute("usuario",usuario);
 		return "Login";
 	}
 	
 	@PostMapping(path = "/logearse", consumes = "application/x-www-form-urlencoded")
-	public String loginUsuario(Usuario usuario, Model model) {
-            return "Index";
+	public String loginUsuario(Usuario usuario) {
+
+			return "Index";		
 	}
 
 

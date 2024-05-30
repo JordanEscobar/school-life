@@ -23,7 +23,7 @@
 		<br>
 		<img alt="logo-daem" style="width:80px;" src="/img/logo-daemhualpen.jpg">
 		<br>
-        <form th:action="@{/logearse}" method="post">
+        <form th:action="@{/logearse}" th:method="post" th:object="${usuario}">
             <div class="form-group">
                 <label for="correo">Correo</label>
                 <input type="text" class="form-control" id="correo" name="correo" required>
