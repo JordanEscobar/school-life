@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.servlet.ServletException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Curso;
 import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Programa_Integracion;
+import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Service.ApoderadoService;
 import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
@@ -25,6 +28,7 @@ import com.schoollife.web.Service.EstudianteService;
 import com.schoollife.web.Service.Programa_IntegracionService;
 import com.schoollife.web.Service.RutValidationService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -55,447 +59,632 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String index(Model model) {
-		return "Index";
+	public String index(Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			System.out.println("la sesion iniciada es: "+ sesion.getAttribute("usuario"));		
+			return "Index";
+		}
+		return "Login";
+	}
+	
+	@GetMapping("/cerrarSesion")
+	public String cerrarSesion(Model model,HttpSession sesion) throws ServletException {
+		sesion.invalidate();
+		return "redirect:/";
 	}
 
 	// Matricula
 	@GetMapping("/matricula")
-	public String matricula(Model model) {
-		var estudiantes = estudianteS.getAll(4717);
+	public String matricula(Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			Integer mujeres = estudianteS.totalMujeres();
+			Integer hombres = estudianteS.totalHombres();
+			Integer otros = estudianteS.totalOtro();
+			var programas = programaS.getAll();
+			/*Collections.reverse(estudiantes);
+			Collections.reverse(cursos);
+			Collections.reverse(programas);*/
+			model.addAttribute("otros", otros);
+			model.addAttribute("mujeres", mujeres);
+			model.addAttribute("hombres", hombres);
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+			model.addAttribute("matriculados", estudiantesMatriculados);
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("programas", programas);
+			model.addAttribute("estudiantes", estudiantes);
+			return "Matricula";
+		}
+		return "Login";
 		
-		var cursos = cursoS.getAll(4717);
-		Integer mujeres = estudianteS.totalMujeres();
-		Integer hombres = estudianteS.totalHombres();
-		Integer otros = estudianteS.totalOtro();
-		var programas = programaS.getAll();
-		/*Collections.reverse(estudiantes);
-		Collections.reverse(cursos);
-		Collections.reverse(programas);*/
-		model.addAttribute("otros", otros);
-		model.addAttribute("mujeres", mujeres);
-		model.addAttribute("hombres", hombres);
-		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-		model.addAttribute("matriculados", estudiantesMatriculados);
 		
-		model.addAttribute("cursos", cursos);
-		model.addAttribute("programas", programas);
-		model.addAttribute("estudiantes", estudiantes);
-		return "Matricula";
+		
 	}
 	
 	
 
 	// filtrar por nombre y apellidos
 	@PostMapping(path = "/filtrarnombre", consumes = "application/x-www-form-urlencoded")
-	public String filtroNombre(Model model, @RequestParam("filtronombre") String filtronombre) {
-		var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre);
-		var cursos = cursoS.getAll(4717);
-		var programas = programaS.getAll();
-		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-		Integer mujeres = estudianteS.totalMujeres();
-		Integer hombres = estudianteS.totalHombres();
-		Integer otros = estudianteS.totalOtro();
-		model.addAttribute("otros", otros);
-		model.addAttribute("mujeres", mujeres);
-		model.addAttribute("hombres", hombres);
-		model.addAttribute("matriculados", estudiantesMatriculados);
-		model.addAttribute("programas", programas);
-		model.addAttribute("estudiantes", estudiantes);
-		model.addAttribute("cursos", cursos);
-		model.addAttribute("filtronombre", filtronombre);
-		return "Matricula";
+	public String filtroNombre(Model model, @RequestParam("filtronombre") String filtronombre,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre);
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var programas = programaS.getAll();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+			Integer mujeres = estudianteS.totalMujeres();
+			Integer hombres = estudianteS.totalHombres();
+			Integer otros = estudianteS.totalOtro();
+			model.addAttribute("otros", otros);
+			model.addAttribute("mujeres", mujeres);
+			model.addAttribute("hombres", hombres);
+			model.addAttribute("matriculados", estudiantesMatriculados);
+			model.addAttribute("programas", programas);
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("filtronombre", filtronombre);
+			return "Matricula";
+		}
+		return "Login";
+				
 	}
 	
 	// filtrar por Rut
 	@PostMapping(path = "/filtrarrut", consumes = "application/x-www-form-urlencoded")
-	public String filtroRut(Model model, @RequestParam("filtrorut") String filtrorut) {
-		var estudiantes = estudianteS.findEstudiantePorRut(filtrorut);
-		var cursos = cursoS.getAll(4717);
-		var programas = programaS.getAll();
-		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-		Integer mujeres = estudianteS.totalMujeres();
-		Integer hombres = estudianteS.totalHombres();
-		Integer otros = estudianteS.totalOtro();
-		model.addAttribute("otros", otros);
-		model.addAttribute("mujeres", mujeres);
-		model.addAttribute("hombres", hombres);
-		model.addAttribute("matriculados", estudiantesMatriculados);
-		model.addAttribute("programas", programas);
-		model.addAttribute("estudiantes", estudiantes);
-		model.addAttribute("cursos", cursos);
-		model.addAttribute("filtrorut", filtrorut);
-		return "Matricula";
+	public String filtroRut(Model model, @RequestParam("filtrorut") String filtrorut,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut);
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var programas = programaS.getAll();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+			Integer mujeres = estudianteS.totalMujeres();
+			Integer hombres = estudianteS.totalHombres();
+			Integer otros = estudianteS.totalOtro();
+			model.addAttribute("otros", otros);
+			model.addAttribute("mujeres", mujeres);
+			model.addAttribute("hombres", hombres);
+			model.addAttribute("matriculados", estudiantesMatriculados);
+			model.addAttribute("programas", programas);
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("filtrorut", filtrorut);
+			return "Matricula";
+		}
+		return "Login";
+		
+		
+		
 	}
 
 	@PostMapping(path = "/filtrarcurso", consumes = "application/x-www-form-urlencoded")
-	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso) {
-		var estudiantes = estudianteS.findEstudiantePorCurso(filtrocurso);
-		List<Curso> cursos = cursoS.getAll(4717);
-		var programas = programaS.getAll();
-		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-		Integer mujeres = estudianteS.totalMujeres();
-		Integer hombres = estudianteS.totalHombres();
-		Integer otros = estudianteS.totalOtro();
-		model.addAttribute("otros", otros);
-		model.addAttribute("mujeres", mujeres);
-		model.addAttribute("hombres", hombres);
-		model.addAttribute("matriculados", estudiantesMatriculados);
-		model.addAttribute("programas", programas);
-		model.addAttribute("estudiantes", estudiantes);
-		model.addAttribute("cursos", cursos);
-		model.addAttribute("filtrocurso", filtrocurso);
-		return "Matricula";
+	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var estudiantes = estudianteS.findEstudiantePorCurso(filtrocurso);
+			List<Curso> cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var programas = programaS.getAll();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+			Integer mujeres = estudianteS.totalMujeres();
+			Integer hombres = estudianteS.totalHombres();
+			Integer otros = estudianteS.totalOtro();
+			model.addAttribute("otros", otros);
+			model.addAttribute("mujeres", mujeres);
+			model.addAttribute("hombres", hombres);
+			model.addAttribute("matriculados", estudiantesMatriculados);
+			model.addAttribute("programas", programas);
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("filtrocurso", filtrocurso);
+			return "Matricula";
+		}
+		return "Login";
+		
+		
 	}
 
 	@PostMapping(path = "/filtrarestado", consumes = "application/x-www-form-urlencoded")
-	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado) {
-		var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado);
-		var cursos = cursoS.getAll(4717);
-		System.out.println("Los cursos del establecimiento 4717 son:" + cursos);
-		var programas = programaS.getAll();
-		Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-		Integer mujeres = estudianteS.totalMujeres();
-		Integer hombres = estudianteS.totalHombres();
-		Integer otros = estudianteS.totalOtro();
-		model.addAttribute("otros", otros);
-		model.addAttribute("mujeres", mujeres);
-		model.addAttribute("hombres", hombres);
-		model.addAttribute("matriculados", estudiantesMatriculados);
-		model.addAttribute("programas", programas);
-		model.addAttribute("estudiantes", estudiantes);
-		model.addAttribute("cursos", cursos);
-		model.addAttribute("filtrocurso", filtroestado);
-		return "Matricula";
+	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado);
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var programas = programaS.getAll();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+			Integer mujeres = estudianteS.totalMujeres();
+			Integer hombres = estudianteS.totalHombres();
+			Integer otros = estudianteS.totalOtro();
+			model.addAttribute("otros", otros);
+			model.addAttribute("mujeres", mujeres);
+			model.addAttribute("hombres", hombres);
+			model.addAttribute("matriculados", estudiantesMatriculados);
+			model.addAttribute("programas", programas);
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("filtrocurso", filtroestado);
+			return "Matricula";
+		}
+		return "Login";
+		
+		
 	}
 
 	// Ingreso de una matricula
 	@GetMapping("/matricula/ingresar")
-	public String matriculaIngresar(Estudiante estudiante, Model model) {
+	public String matriculaIngresar(Estudiante estudiante, Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			model.addAttribute("comunas",establecimientoS.comunas());
+			model.addAttribute("estudiante", estudiante);
+			boolean rutex = false;
+			model.addAttribute("rutexiste", rutex);
+			boolean rutinvalido = false;
+			model.addAttribute("rutinvalido", rutinvalido);
+			return "Matricula-ingresar";
+		}
+		return "Login";
 		
-		model.addAttribute("comunas",establecimientoS.comunas());
-		model.addAttribute("estudiante", estudiante);
-		boolean rutex = false;
-		model.addAttribute("rutexiste", rutex);
-		boolean rutinvalido = false;
-		model.addAttribute("rutinvalido", rutinvalido);
-		return "Matricula-ingresar";
+		
 	}
 	
 	@PostMapping(path = "/matricula/ingresar/creada", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado) {
-		model.addAttribute("comunas",establecimientoS.comunas());		
-		model.addAttribute("apoderado", apoderado);
-		
-		boolean rutex2 = false;
-		model.addAttribute("rutexiste2", rutex2);
-		boolean rutinvalido2 = false;
-		model.addAttribute("rutinvalido2", rutinvalido2);
-				
-		Estudiante e = new Estudiante();
-		Integer correlativo = estudianteS.getAll(4717).size() + 1;
-		String correlativoString = (String) correlativo.toString();
-		e.setNumero_matricula(correlativoString);
-		e.setColegio_procedencia(estudiante.getColegio_procedencia());
-		e.setEstado(true);
-		e.setEstablecimiento_id(4717);
-		e.setCurso_id(1);
-		e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
-		e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
-		e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());
-		e.setAmaterno(estudiante.getAmaterno());
-		e.setApaterno(estudiante.getApaterno());
-		e.setApto_educacion_fisica(estudiante.isApto_educacion_fisica());
-		e.setBeca(estudiante.getBeca());
-		e.setCantidad_computadores_casa(estudiante.getCantidad_computadores_casa());
-		e.setCantidad_vacunas_covid(estudiante.getCantidad_vacunas_covid());
-		e.setCelular(estudiante.getCelular());		
-		e.setComuna(estudiante.getComuna());
-		e.setConsultorio_clinica(estudiante.getConsultorio_clinica());
-		e.setCorreo_electronico(estudiante.getCorreo_electronico());
-		e.setDireccion(estudiante.getDireccion());
-		e.setEnfermedades_cronicas(estudiante.getEnfermedades_cronicas());
-		e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());		
-		e.setEstatura(estudiante.getEstatura());
-		e.setEtnia(estudiante.getEtnia());
-		
-		//fecha actual en local date
-		LocalDate localDate = LocalDate.now();
-		//transformar el local date a date
-		Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		e.setFecha_matricula(date);
-		e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
-		e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
-		e.setGenero(estudiante.getGenero());
-		e.setGrupo_sanguineo(estudiante.getGrupo_sanguineo());
-		e.setMedicamentos_contraindicados(estudiante.getMedicamentos_contraindicados());
-		e.setNacionalidad(estudiante.getNacionalidad());
-		e.setNombre(estudiante.getNombre());
-		e.setNombre_contacto_emergencia(estudiante.getNombre_contacto_emergencia());		
-		e.setObservaciones(estudiante.getObservaciones());
-		e.setPais_nacimiento(estudiante.getPais_nacimiento());
-		e.setPeso(estudiante.getPeso());
-		e.setReligion(estudiante.getReligion());
-		
-		if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
-			for (Estudiante es : estudianteS.getAll(4717)) {
-				if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
-					System.out.println("El rut del estudiante ya existe en el sistema: " + estudiante.getRunEstudiante());
-					boolean rutex =true;
-					model.addAttribute("rutexiste",rutex);
-					return "Matricula-ingresar";
+	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			
+			model.addAttribute("comunas",establecimientoS.comunas());		
+			model.addAttribute("apoderado", apoderado);
+			
+			boolean rutex2 = false;
+			model.addAttribute("rutexiste2", rutex2);
+			boolean rutinvalido2 = false;
+			model.addAttribute("rutinvalido2", rutinvalido2);
+					
+			Estudiante e = new Estudiante();
+			Integer correlativo = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id()).size() + 1;
+			String correlativoString = (String) correlativo.toString();
+			e.setNumero_matricula(correlativoString);
+			e.setColegio_procedencia(estudiante.getColegio_procedencia());
+			e.setEstado(true);
+			e.setEstablecimiento_id(uSesion.get(0).getEstablecimiento_id());
+			//el curso se debe seleccionar o modificar FALTA ESO
+			e.setCurso_id(1);
+			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
+			e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
+			e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());
+			e.setAmaterno(estudiante.getAmaterno());
+			e.setApaterno(estudiante.getApaterno());
+			e.setApto_educacion_fisica(estudiante.isApto_educacion_fisica());
+			e.setBeca(estudiante.getBeca());
+			e.setCantidad_computadores_casa(estudiante.getCantidad_computadores_casa());
+			e.setCantidad_vacunas_covid(estudiante.getCantidad_vacunas_covid());
+			e.setCelular(estudiante.getCelular());		
+			e.setComuna(estudiante.getComuna());
+			e.setConsultorio_clinica(estudiante.getConsultorio_clinica());
+			e.setCorreo_electronico(estudiante.getCorreo_electronico());
+			e.setDireccion(estudiante.getDireccion());
+			e.setEnfermedades_cronicas(estudiante.getEnfermedades_cronicas());
+			e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());		
+			e.setEstatura(estudiante.getEstatura());
+			e.setEtnia(estudiante.getEtnia());
+			
+			//fecha actual en local date
+			LocalDate localDate = LocalDate.now();
+			//transformar el local date a date
+			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			e.setFecha_matricula(date);
+			e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
+			e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
+			e.setGenero(estudiante.getGenero());
+			e.setGrupo_sanguineo(estudiante.getGrupo_sanguineo());
+			e.setMedicamentos_contraindicados(estudiante.getMedicamentos_contraindicados());
+			e.setNacionalidad(estudiante.getNacionalidad());
+			e.setNombre(estudiante.getNombre());
+			e.setNombre_contacto_emergencia(estudiante.getNombre_contacto_emergencia());		
+			e.setObservaciones(estudiante.getObservaciones());
+			e.setPais_nacimiento(estudiante.getPais_nacimiento());
+			e.setPeso(estudiante.getPeso());
+			e.setReligion(estudiante.getReligion());
+			
+			if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
+				for (Estudiante es : estudianteS.getAll(4717)) {
+					if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
+						System.out.println("El rut del estudiante ya existe en el sistema: " + estudiante.getRunEstudiante());
+						boolean rutex =true;
+						model.addAttribute("rutexiste",rutex);
+						return "Matricula-ingresar";
+					}
+					else {
+						boolean rutex =false;
+						model.addAttribute("rutexiste",rutex);
+						e.setRunEstudiante(estudiante.getRunEstudiante());
+					}
 				}
-				else {
-					boolean rutex =false;
-					model.addAttribute("rutexiste",rutex);
-					e.setRunEstudiante(estudiante.getRunEstudiante());
-				}
+			}else {
+				//Valida los rut pero falta mostrar una alerta en este caso!!!!!
+				System.out.println("El rut es invalido: " + estudiante.getRunEstudiante());
+				return "Matricula-ingresar";
 			}
-		}else {
-			//Valida los rut pero falta mostrar una alerta en este caso!!!!!
-			System.out.println("El rut es invalido: " + estudiante.getRunEstudiante());
-			return "Matricula-ingresar";
+					
+			e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
+			e.setSistema_prevision(estudiante.getSistema_prevision());
+			e.setTelefono(estudiante.getTelefono());
+			e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
+			e.setVacuna_covid(estudiante.isVacuna_covid());
+			e.setVive_con(estudiante.getVive_con());
+			e.setEs_pie(estudiante.isEs_pie());
+			
+			
+			if (errores.hasErrors()) {
+				return "Matricula-ingresar";
+			}
+			
+			//se crea el estudiante
+			estudianteS.createEstudiante(e);
+			model.addAttribute("estudiante", e);
+			model.addAttribute("estudianteid",e.getRunEstudiante());
+			
+			return "Matricula-ingresar-apoderado";
+			
+			
 		}
-				
-		e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
-		e.setSistema_prevision(estudiante.getSistema_prevision());
-		e.setTelefono(estudiante.getTelefono());
-		e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
-		e.setVacuna_covid(estudiante.isVacuna_covid());
-		e.setVive_con(estudiante.getVive_con());
-		e.setEs_pie(estudiante.isEs_pie());
+		return "Login";
 		
 		
-		if (errores.hasErrors()) {
-			return "Matricula-ingresar";
-		}
 		
-		//se crea el estudiante
-		estudianteS.createEstudiante(e);
-		model.addAttribute("estudiante", e);
-		model.addAttribute("estudianteid",e.getRunEstudiante());
-		
-		return "Matricula-ingresar-apoderado";
 	}
 	
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion) {
-		
-		boolean rutex2 = false;
-		model.addAttribute("rutexiste2", rutex2);
-		boolean rutinvalido2 = false;
-		model.addAttribute("rutinvalido2", rutinvalido2);
-		
-		var estudiantes = estudianteS.getAll(4717);
-		String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRunEstudiante();
-		model.addAttribute("estudianteid", rut_estudiante);
-		model.addAttribute("comunas",establecimientoS.comunas());
-		Apoderado a = new Apoderado();
-		a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
-		a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
-		a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
-		a.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
-		a.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
-		a.setCelular_apoderado(apoderado.getCelular_apoderado());
-		a.setComuna_apoderado(apoderado.getComuna_apoderado());
-		a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
-		a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
-		a.setEs_tutor(apoderado.isEs_tutor());
-		a.setEstudiante_id(rut_estudiante);
-		a.setRun_apoderado(apoderado.getRun_apoderado());
-		a.setFecha_nacimiento_apoderado(apoderado.getFecha_nacimiento_apoderado());
-		a.setNivel_educacion(apoderado.getNivel_educacion());
-		a.setNombres(apoderado.getNombres());
-		a.setNumero_documento(apoderado.getNumero_documento());
-		a.setOcupacion(apoderado.getOcupacion());
-		a.setParentesco(apoderado.getParentesco());
-		a.setPasaporte(apoderado.getPasaporte());
-		a.setTelefono_apoderado(apoderado.getTelefono_apoderado());
-		a.setTipo_apoderado(apoderado.getTipo_apoderado());
-		a.setEstado_civil(apoderado.getEstado_civil());	
-		
-		if (errores.hasErrors()) {
-			return "Matricula-ingresar-apoderado";
-		}		
-		
-		//se crea el apoderado
-		apoderadoS.createApoderado(a);
-		//model.addAttribute("estudianteid",a.getEstudiante_id());
-		model.addAttribute("programa_integracion", programa_integracion);
-		
-		
-		return "Matricula-ingresar-pie";
+	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
+			
+			boolean rutex2 = false;
+			model.addAttribute("rutexiste2", rutex2);
+			boolean rutinvalido2 = false;
+			model.addAttribute("rutinvalido2", rutinvalido2);
+			
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRunEstudiante();
+			model.addAttribute("estudianteid", rut_estudiante);
+			model.addAttribute("comunas",establecimientoS.comunas());
+			Apoderado a = new Apoderado();
+			a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
+			a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
+			a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
+			a.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
+			a.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
+			a.setCelular_apoderado(apoderado.getCelular_apoderado());
+			a.setComuna_apoderado(apoderado.getComuna_apoderado());
+			a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
+			a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
+			a.setEs_tutor(apoderado.isEs_tutor());
+			a.setEstudiante_id(rut_estudiante);
+			a.setRun_apoderado(apoderado.getRun_apoderado());
+			a.setFecha_nacimiento_apoderado(apoderado.getFecha_nacimiento_apoderado());
+			a.setNivel_educacion(apoderado.getNivel_educacion());
+			a.setNombres(apoderado.getNombres());
+			a.setNumero_documento(apoderado.getNumero_documento());
+			a.setOcupacion(apoderado.getOcupacion());
+			a.setParentesco(apoderado.getParentesco());
+			a.setPasaporte(apoderado.getPasaporte());
+			a.setTelefono_apoderado(apoderado.getTelefono_apoderado());
+			a.setTipo_apoderado(apoderado.getTipo_apoderado());
+			a.setEstado_civil(apoderado.getEstado_civil());	
+			
+			if (errores.hasErrors()) {
+				return "Matricula-ingresar-apoderado";
+			}			
+			//se crea el apoderado
+			apoderadoS.createApoderado(a);
+			//model.addAttribute("estudianteid",a.getEstudiante_id());
+			model.addAttribute("programa_integracion", programa_integracion);
+			
+			return "Matricula-ingresar-pie";			
+		}
+		return "Login";
+	
 	}
 	
 	@PostMapping(path = "/matricula/ingresar/programa_integracion", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarPie(@Valid Programa_Integracion programa_integracion, Errors errores,RedirectAttributes flash, Model model) {
-		
-		Programa_Integracion p = new Programa_Integracion();
-		p.setEstudiante_id("17861759-1");
-		p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
-		p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
-		p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
-		
-		if (errores.hasErrors()) {
-			return "Matricula-ingresar-pie";
-		}	
-		//se crea el Programa para el estudiante
-		programaS.CreatePrograma(p);
-		model.addAttribute("programa_integracion",p);
-		model.addAttribute("programa_integracionId",p.getId_Programa());
-		flash.addFlashAttribute("success","Estudiante matriculado correctamente");
-		return "redirect:/matricula";
+	public String matriculaIngresarPie(@Valid Programa_Integracion programa_integracion, Errors errores,RedirectAttributes flash, Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
+			
+			Programa_Integracion p = new Programa_Integracion();
+			//el rut esta hardcode, hay que modificarlo
+			p.setEstudiante_id("17861759-1");
+			p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
+			p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
+			p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
+			
+			if (errores.hasErrors()) {
+				return "Matricula-ingresar-pie";
+			}	
+			//se crea el Programa para el estudiante
+			programaS.CreatePrograma(p);
+			model.addAttribute("programa_integracion",p);
+			model.addAttribute("programa_integracionId",p.getId_Programa());
+			flash.addFlashAttribute("success","Estudiante matriculado correctamente");
+			return "redirect:/matricula";
+		}
+		return "Login";			
 	}
 	
 	@GetMapping("/programa/pie")
-	public String ingresarProgramaPie(Programa_Integracion programa_integracion,Model model) {
-		var estudiantes = estudianteS.getAll(4717);
-		model.addAttribute("estudiantes", estudiantes);
-		model.addAttribute("programa_integracion",programa_integracion);
-		return "Ingresar-programa-pie";
+	public String ingresarProgramaPie(Programa_Integracion programa_integracion,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("programa_integracion",programa_integracion);
+			return "Ingresar-programa-pie";
+			
+		}
+		return "Login";
+		
+		
+		
 	}
 	
 	@PostMapping(path = "/programa/pie/ingreso")
-	public String programaPieIngresado(@Valid Programa_Integracion programa_integracion,Errors errores,RedirectAttributes flash,Model model) {
-		var estudiantes = estudianteS.getAll(4717);
-		model.addAttribute("estudiantes", estudiantes);
-		model.addAttribute("programa_integracion",programa_integracion);
+	public String programaPieIngresado(@Valid Programa_Integracion programa_integracion,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("programa_integracion",programa_integracion);
+			Programa_Integracion p = new Programa_Integracion();
+			p.setEstudiante_id(programa_integracion.getEstudiante_id());
+			p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
+			p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
+			p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
+			
+			if (errores.hasErrors()) {
+				return "Ingresar-programa-pie";
+			}	
+			//se crea el Programa para el estudiante
+			estudianteS.updateEstudiantePie(programa_integracion.getEstudiante_id());
+			programaS.CreatePrograma(p);	
+			flash.addFlashAttribute("success","Estudiante ingresado correctamente");
+			return "redirect:/matricula";
+		}
+		return "Login";
 		
-		Programa_Integracion p = new Programa_Integracion();
-		p.setEstudiante_id(programa_integracion.getEstudiante_id());
-		p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
-		p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
-		p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
 		
-		if (errores.hasErrors()) {
-			return "Ingresar-programa-pie";
-		}	
-		//se crea el Programa para el estudiante
-		estudianteS.updateEstudiantePie(programa_integracion.getEstudiante_id());
-		programaS.CreatePrograma(p);	
-		flash.addFlashAttribute("success","Estudiante ingresado correctamente");
-		return "redirect:/matricula";
 	}
 	
 	@GetMapping("/matricula/modificar/{runEstudiante}")
-	public String matriculaModificar(Estudiante estudiante,Model model) {
-		estudiante = estudianteS.findEstudiante(estudiante);
-		var cursos = cursoS.getAll(4717);
-		model.addAttribute("cursos", cursos);
-		model.addAttribute("comunas",establecimientoS.comunas());
-		model.addAttribute("estudiante",estudiante);
-		return "Matricula-modificar";
+	public String matriculaModificar(Estudiante estudiante,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+	
+			estudiante = estudianteS.findEstudiante(estudiante);
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("comunas",establecimientoS.comunas());
+			model.addAttribute("estudiante",estudiante);
+			return "Matricula-modificar";	
+		}
+		return "Login";
 	}
 	
 	@PostMapping(path = "/matricula/modificada", consumes = "application/x-www-form-urlencoded")
-	public String matriculaModificada(@Valid Estudiante estudiante,Errors errores,RedirectAttributes flash,Model model) {
-		var estudiantes = estudianteS.getAll(4717);
-		Estudiante e = new Estudiante();
-		for (Estudiante es : estudiantes) {
-			if(es.getRunEstudiante().equalsIgnoreCase(estudiante.getRunEstudiante())) {
-				e.setNumero_matricula(es.getNumero_matricula());
-				e.setColegio_procedencia("Colegio Concepción");
-				e.setEstado(true);
-				e.setEstablecimiento_id(es.getEstablecimiento_id());
-				e.setAcepta_clases_religion(es.isAcepta_clases_religion());
-				e.setAlergias_alimentos(es.getAlergias_alimentos());
-				e.setAlergias_medicamentos(es.getAlergias_medicamentos());
-				e.setAmaterno(es.getAmaterno());
-				e.setApaterno(es.getApaterno());
-				e.setApto_educacion_fisica(es.isApto_educacion_fisica());
-				e.setBeca(es.getBeca());
-				e.setCantidad_computadores_casa(es.getCantidad_computadores_casa());
-				e.setCantidad_vacunas_covid(es.getCantidad_vacunas_covid());
-				e.setCelular(es.getCelular());		
-				e.setComuna(es.getComuna());
-				e.setConsultorio_clinica(es.getConsultorio_clinica());
-				e.setCorreo_electronico(es.getCorreo_electronico());
-				e.setCurso_id(1);
-				e.setDireccion(es.getDireccion());
-				e.setEnfermedades_cronicas(es.getEnfermedades_cronicas());
-				e.setEsquema_completo_vacunacion_covid(es.isEsquema_completo_vacunacion_covid());		
-				e.setEstatura(es.getEstatura());
-				e.setEtnia(es.getEtnia());
-				e.setFecha_matricula(es.getFecha_matricula());
-				e.setFecha_nacimiento(es.getFecha_nacimiento());
-				e.setFecha_ultima_vacuna_COVID(es.getFecha_ultima_vacuna_COVID());
-				e.setGenero(es.getGenero());
-				e.setGrupo_sanguineo(es.getGrupo_sanguineo());
-				e.setMedicamentos_contraindicados(es.getMedicamentos_contraindicados());
-				e.setNacionalidad(es.getNacionalidad());
-				e.setNombre(es.getNombre());
-				e.setNombre_contacto_emergencia(es.getNombre_contacto_emergencia());		
-				e.setObservaciones(es.getObservaciones());
-				e.setPais_nacimiento(es.getPais_nacimiento());
-				e.setPeso(es.getPeso());
-				e.setReligion(es.getReligion());
-				e.setRunEstudiante(es.getRunEstudiante());
-				e.setSeguro_escolar_privado(es.isSeguro_escolar_privado());
-				e.setSistema_prevision(es.getSistema_prevision());
-				e.setTelefono(es.getTelefono());
-				e.setTelefono_emergencia(es.getTelefono_emergencia());
-				e.setVacuna_covid(es.isVacuna_covid());
-				e.setVive_con(es.getVive_con());
-				e.setEs_pie(es.isEs_pie());
+	public String matriculaModificada(@Valid Estudiante estudiante,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			Estudiante e = new Estudiante();
+			for (Estudiante es : estudiantes) {
+				if(es.getRunEstudiante().equalsIgnoreCase(estudiante.getRunEstudiante())) {
+					e.setNumero_matricula(es.getNumero_matricula());
+					e.setColegio_procedencia("Colegio Concepción");
+					e.setEstado(true);
+					e.setEstablecimiento_id(es.getEstablecimiento_id());
+					e.setAcepta_clases_religion(es.isAcepta_clases_religion());
+					e.setAlergias_alimentos(es.getAlergias_alimentos());
+					e.setAlergias_medicamentos(es.getAlergias_medicamentos());
+					e.setAmaterno(es.getAmaterno());
+					e.setApaterno(es.getApaterno());
+					e.setApto_educacion_fisica(es.isApto_educacion_fisica());
+					e.setBeca(es.getBeca());
+					e.setCantidad_computadores_casa(es.getCantidad_computadores_casa());
+					e.setCantidad_vacunas_covid(es.getCantidad_vacunas_covid());
+					e.setCelular(es.getCelular());		
+					e.setComuna(es.getComuna());
+					e.setConsultorio_clinica(es.getConsultorio_clinica());
+					e.setCorreo_electronico(es.getCorreo_electronico());
+					e.setCurso_id(1);
+					e.setDireccion(es.getDireccion());
+					e.setEnfermedades_cronicas(es.getEnfermedades_cronicas());
+					e.setEsquema_completo_vacunacion_covid(es.isEsquema_completo_vacunacion_covid());		
+					e.setEstatura(es.getEstatura());
+					e.setEtnia(es.getEtnia());
+					e.setFecha_matricula(es.getFecha_matricula());
+					e.setFecha_nacimiento(es.getFecha_nacimiento());
+					e.setFecha_ultima_vacuna_COVID(es.getFecha_ultima_vacuna_COVID());
+					e.setGenero(es.getGenero());
+					e.setGrupo_sanguineo(es.getGrupo_sanguineo());
+					e.setMedicamentos_contraindicados(es.getMedicamentos_contraindicados());
+					e.setNacionalidad(es.getNacionalidad());
+					e.setNombre(es.getNombre());
+					e.setNombre_contacto_emergencia(es.getNombre_contacto_emergencia());		
+					e.setObservaciones(es.getObservaciones());
+					e.setPais_nacimiento(es.getPais_nacimiento());
+					e.setPeso(es.getPeso());
+					e.setReligion(es.getReligion());
+					e.setRunEstudiante(es.getRunEstudiante());
+					e.setSeguro_escolar_privado(es.isSeguro_escolar_privado());
+					e.setSistema_prevision(es.getSistema_prevision());
+					e.setTelefono(es.getTelefono());
+					e.setTelefono_emergencia(es.getTelefono_emergencia());
+					e.setVacuna_covid(es.isVacuna_covid());
+					e.setVive_con(es.getVive_con());
+					e.setEs_pie(es.isEs_pie());
+				}
 			}
+			
+			if (errores.hasErrors()) {
+				return "Matricula-modificar";
+			}				
+			estudianteS.updateEstudiante(estudiante, estudiante.getRunEstudiante());
+			flash.addFlashAttribute("success","Matrícula modificada correctamente");
+			model.addAttribute("estudiante",estudiante);		
+			return "redirect:/matricula";			
 		}
-		
-		if (errores.hasErrors()) {
-			return "Matricula-modificar";
-		}	
-		
-		estudianteS.updateEstudiante(estudiante, estudiante.getRunEstudiante());
-		flash.addFlashAttribute("success","Matrícula modificada correctamente");
-		model.addAttribute("estudiante",estudiante);		
-		return "redirect:/matricula";
+		return "Login";	
 	}
 	
 	@GetMapping("/resumenMatricula/{runEstudiante}")
-	public String resumenMatricula(Estudiante estudiante, Model model) {
-		model.addAttribute("estudiante", estudiante);
-		var estudiantes = estudianteS.findEstudiante(estudiante);
-		var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRunEstudiante());
-		var programa = programaS.findProgramaPorEstudiante(estudiante.getRunEstudiante());
-			model.addAttribute("listaA",apoderados);
-			model.addAttribute("listaP",programa);
-			model.addAttribute("listaE", estudiantes);
+	public String resumenMatricula(Estudiante estudiante, Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			model.addAttribute("estudiante", estudiante);
+			var estudiantes = estudianteS.findEstudiante(estudiante);
+			var apoderados = apoderadoS.findApoderadoPorEstudiante(estudiante.getRunEstudiante());
+			var programa = programaS.findProgramaPorEstudiante(estudiante.getRunEstudiante());
+				model.addAttribute("listaA",apoderados);
+				model.addAttribute("listaP",programa);
+				model.addAttribute("listaE", estudiantes);
 
-		return "ResumenMatricula";
+			return "ResumenMatricula";
+		}
+		return "Login";
+		
+
 	}
 	
 	@GetMapping(path = "/matricula/retirada/{runEstudiante}")
-	public String matriculaRetirada(Estudiante estudiante,RedirectAttributes flash,Model model) {
-		var e = establecimientoS.getAll();
-		model.addAttribute("establecimientos",e);
-		var estudiantes = estudianteS.getAll(4717);
-		Estudiante estu = new Estudiante();
-		for (Estudiante es : estudiantes) {
-			if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
-				estu.setRunEstudiante(es.getRunEstudiante());
-				estu.setEstado(false);
-			}
-		}		
-		estudianteS.estadoMatriculaRetirado(estudiante, estudiante.getRunEstudiante());
-		flash.addFlashAttribute("success","Matrícula retirada correctamente");
-		model.addAttribute("estudiante",estudiante);	
-		return "redirect:/matricula";
+	public String matriculaRetirada(Estudiante estudiante,RedirectAttributes flash,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var e = establecimientoS.getAll();
+			model.addAttribute("establecimientos",e);
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			Estudiante estu = new Estudiante();
+			for (Estudiante es : estudiantes) {
+				if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
+					estu.setRunEstudiante(es.getRunEstudiante());
+					estu.setEstado(false);
+				}
+			}		
+			estudianteS.estadoMatriculaRetirado(estudiante, estudiante.getRunEstudiante());
+			flash.addFlashAttribute("success","Matrícula retirada correctamente");
+			model.addAttribute("estudiante",estudiante);	
+			return "redirect:/matricula";
+		}
+		return "Login";
+		
+		
 	}
 	@GetMapping(path = "/matricula/recuperada/{runEstudiante}")
-	public String matriculaRecuperada(Estudiante estudiante,RedirectAttributes flash,Model model) {
-		var e = establecimientoS.getAll();
-		model.addAttribute("establecimientos",e);
-		var estudiantes = estudianteS.getAll(4717);
-		Estudiante estu = new Estudiante();
-		for (Estudiante es : estudiantes) {
-			if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
-				estu.setRunEstudiante(es.getRunEstudiante());
-				estu.setEstado(true);
-			}
-		}		
-		estudianteS.estadoMatriculaRecuperado(estudiante, estudiante.getRunEstudiante());
-		flash.addFlashAttribute("success","Matrícula recuperada correctamente");
-		model.addAttribute("estudiante",estudiante);	
-		return "redirect:/matricula";
+	public String matriculaRecuperada(Estudiante estudiante,RedirectAttributes flash,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+						
+			var e = establecimientoS.getAll();
+			model.addAttribute("establecimientos",e);
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			Estudiante estu = new Estudiante();
+			for (Estudiante es : estudiantes) {
+				if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
+					estu.setRunEstudiante(es.getRunEstudiante());
+					estu.setEstado(true);
+				}
+			}		
+			estudianteS.estadoMatriculaRecuperado(estudiante, estudiante.getRunEstudiante());
+			flash.addFlashAttribute("success","Matrícula recuperada correctamente");
+			model.addAttribute("estudiante",estudiante);	
+			return "redirect:/matricula";
+		}
+		return "Login";
+		
+
 	}
 	
 	

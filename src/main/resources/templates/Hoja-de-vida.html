@@ -13,11 +13,11 @@
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE DE LA ESCUELA</span>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
 	</div>
 	
 	<div class="d-flex justify-content-end">
-		<a class="btn btn-outline-danger" th:href="@{/login}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
 
@@ -27,9 +27,54 @@
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
 	<h1 class=""><span><a class="btn"  th:href="@{/}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Hoja de vida</h1>
-	<br>
+	<br><br>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<form id="filtroForm2" action="#" th:action="@{/filtrarcursos}" method="post" th:object="${filtrocursos}">
+					<label class="fw-bold">Curso</label>
+					<select id="filtroSelect2" class="form-select shadow" name="filtrocursos" >
+						<option th:value="0">Todos</option>
+						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra} + ' (' +${c.nivel_ensenanza} + ')'" th:selected="${c.id_curso == filtrocursos}"></option>
+					</select>
+					</form>
+			</div>
+			<div class="col"></div>
+			<div class="col"></div>
 
+		</div>
+		<br><br>
+		<table class="table text-center table-hover shadow">
+			<thead>
+				<tr>
+					<th>N°</th>
+					<th>Nombre</th>
+					<th>Rut</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="e : ${estudiantes}">
+					<td th:text="${e.numero_matricula}"></td>
+					<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' '+ ${e.amaterno}"></td>
+					<td th:text="${e.runEstudiante}"></td>
+					<td>
+						<a class="btn btn-primary" th:text="'+ Citación'"></a>
+						<a class="btn btn-secondary" th:text="'Ver citaciones'"></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
+<br><br>
+<script type="text/javascript">
+
+document.getElementById('filtroSelect2').addEventListener('change', function() {
+	document.getElementById('filtroForm2').submit();
+	
+});
+</script>
 
 </body>
 </html>

@@ -29,12 +29,12 @@
 		data-bs-theme="dark">
 		<div>
 	<div>
-		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE ESCUELA</span>
+		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
 	</div>
 		</div>
 
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-danger" th:href="@{/login}"><i
+			<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}"><i
 				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 		</div>
 	</nav>

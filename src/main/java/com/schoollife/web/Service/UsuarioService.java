@@ -9,6 +9,7 @@ public interface UsuarioService {
 	void registerUser(Usuario usuario);
 	
 	List<Usuario> buscarUsuarioCorreo(String correo);
+	Usuario buscarUserPorCorreoYPass(String correo, String pass);
 
 	
 }

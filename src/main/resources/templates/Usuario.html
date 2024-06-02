@@ -13,11 +13,11 @@
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE DE LA ESCUELA</span>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
 	</div>
 	
 	<div class="d-flex justify-content-end">
-		<a class="btn btn-outline-danger" th:href="@{/login}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
 

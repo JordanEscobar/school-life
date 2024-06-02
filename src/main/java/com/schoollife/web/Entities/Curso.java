@@ -1,6 +1,8 @@
 package com.schoollife.web.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -12,7 +14,7 @@ import jakarta.validation.constraints.NotNull;
 public class Curso {
 	
 	@Id
-	@NotNull
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_curso;
 	private String nivel_ensenanza;
 	private String nivel;

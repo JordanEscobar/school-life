@@ -16,21 +16,21 @@
 <div class="container ">
 
 <div class="m-0 vh-100 row justify-content-center align-items-center ">
-	
+
 	<div class="col-auto p-5 border rounded text-center shadow">
 		<br>
 		<h4 class="fst-italic">Libro de clases online</h4>
 		<br>
 		<img alt="logo-daem" style="width:80px;" src="/img/logo-daemhualpen.jpg">
 		<br>
-        <form th:action="@{/logearse}" th:method="post" th:object="${usuario}">
+        	<form th:action="@{/logearse}" th:method="post" th:object="${usuario}">
             <div class="form-group">
                 <label for="correo">Correo</label>
-                <input type="text" class="form-control" id="correo" name="correo" required>
+                <input type="email" class="form-control" id="correo" name="correo" >
             </div>
             <div class="form-group">
                 <label for="pass">Contraseña</label>
-                <input type="password" class="form-control" id="pass" name="pass" required>
+                <input type="password" class="form-control" id="pass" name="pass" >
             </div>
             <br>
             <input type="submit" class="btn btn-primary shadow" value="Iniciar Sesión">
@@ -38,12 +38,17 @@
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <p th:text="${error}"></p>
             </div>
-        </form>
+				<div>
+					<div class="alert alert-warning" th:if="${warning} != null" th:text="${warning}"></div>	
+				</div>
+            </form>
 		<br>
 		<a class="text-primary" th:href="@{/registro}">registrate acá</a>
 		<br><br>
+
 		
 	</div>
+		
 	
 </div>
 

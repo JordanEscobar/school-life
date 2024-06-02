@@ -13,11 +13,11 @@
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
-		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light">NOMBRE DE LA ESCUELA</span>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span th:text="${establecimientoSesion.nombre}" class="text-light"></span>
 	</div>
 	
 	<div class="d-flex justify-content-end">
-		<a class="btn btn-outline-danger" th:href="@{/login}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
 <nav class="sidebar ">
@@ -32,7 +32,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h4>Buenas tardes. <span style="color:red;">USUARIO</span></h4>
+			<h4>Buenas tardes. <span th:text="${uSesion.nombre} + ' ' + ${uSesion.apaterno} + ' ' + ${uSesion.amaterno}" style="color:red;"></span></h4>
 		</div>
 		<div class="col"></div>
 	</div>
@@ -57,7 +57,7 @@
 			</div>
 			<br>
 			<div class="card w-50 text-center border-danger btn-danger shadow" style="max-width: 18rem;" >
-				<a  class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="PRÓXIMAMENTE"><div class="card-body">Ficha Estudiante</div></a>
+				<a  class="btn shadow" th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Gestionar información del estudiante"><div class="card-body">Hoja del estudiante</div></a>
 			</div>
 		</div>
 		<div class="col">

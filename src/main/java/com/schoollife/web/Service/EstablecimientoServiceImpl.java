@@ -106,6 +106,12 @@ public class EstablecimientoServiceImpl implements EstablecimientoService{
 		}
 		return regiones;
 	}
+
+	@Override
+	@Transactional
+	public Establecimiento findById(Integer rbd) {
+		return establecimientoR.findById(rbd).get();
+	}
 	
 	
 

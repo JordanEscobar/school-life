@@ -41,8 +41,15 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
 	@Override
+	@Transactional
 	public List<Usuario> buscarUsuarioCorreo(String correo) {
-		return usuarioR.findByCorreoContaining(correo);
+		return usuarioR.findByCorreo(correo);
+	}
+
+	@Override
+	@Transactional
+	public Usuario buscarUserPorCorreoYPass(String correo, String pass) {
+		return usuarioR.findByCorreoAndPass(correo, pass);
 	}
 
 	
