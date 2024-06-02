@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.schoollife.web.Entities.Estudiante;
 
 public interface EstudianteRepository extends JpaRepository<Estudiante, String>{
-	List<Estudiante> findByRunEstudianteContaining(String rut);
+	List<Estudiante> findByEstablecimientoId(Integer establciemiento_id);
+	 List<Estudiante> findByRunEstudianteContainingAndEstablecimientoId(String rut, Integer establecimientoId);
 	
 	@Query(value = "SELECT e.numero_matricula AS n_matricula, e.run_estudiante AS run_estudiante,\r\n"
 			+ "e.nombre + ' ' + e.apaterno + ' ' + e.amaterno AS nombre, p.tipo_permanencia AS tipo_permanencia,\r\n"

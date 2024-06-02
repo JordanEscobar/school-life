@@ -105,10 +105,10 @@
 			</div>
 			<div class="col">
 				<label>Establecimiento</label>
-				<select th:field="*{establecimiento_id}" class="form-select">
+				<select th:field="*{establecimientoId}" class="form-select">
 					<option th:each="e : ${establecimientos}" th:text="${e.nombre}" th:value="${e.rbd}"></option>
 				</select>
-				<span th:if="${#fields.hasErrors('establecimiento_id')}" th:errors="*{establecimiento_id}" class="text-danger">Error establecimiento</span>
+				<span th:if="${#fields.hasErrors('establecimientoId')}" th:errors="*{establecimientoId}" class="text-danger">Error establecimiento</span>
 			</div>
 		</div>
 		<br>

@@ -35,7 +35,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Transactional
 	public List<Estudiante> getAll(Integer establecimiento_id) {
 		List<Estudiante> estudiantes = estudianteR.findAll();
-		estudiantes = estudiantes.stream().filter(e-> e.getEstablecimiento_id().equals(establecimiento_id)).collect(Collectors.toList());
+		estudiantes = estudiantes.stream().filter(e-> e.getEstablecimientoId().equals(establecimiento_id)).collect(Collectors.toList());
 		return estudiantes.stream()
                 .sorted(Comparator.comparing(Estudiante::getFecha_matricula).reversed())
                 .collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setDireccion(estudiante.getDireccion());
 		e.setEnfermedades_cronicas(estudiante.getEnfermedades_cronicas());
 		e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());
-		e.setEstablecimiento_id(estudiante.getEstablecimiento_id());
+		e.setEstablecimientoId(estudiante.getEstablecimientoId());
 		e.setEstado(estudiante.isEstado());
 		e.setEstatura(estudiante.getEstatura());
 		e.setEtnia(estudiante.getEtnia());
@@ -120,7 +120,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 		e.setDireccion(estudiantes.get(0).getDireccion());
 		e.setEnfermedades_cronicas(estudiantes.get(0).getEnfermedades_cronicas());
 		e.setEsquema_completo_vacunacion_covid(estudiantes.get(0).isEsquema_completo_vacunacion_covid());
-		e.setEstablecimiento_id(estudiantes.get(0).getEstablecimiento_id());
+		e.setEstablecimientoId(estudiantes.get(0).getEstablecimientoId());
 		e.setEstado(estudiantes.get(0).isEstado());
 		e.setEstatura(estudiantes.get(0).getEstatura());
 		e.setEtnia(estudiantes.get(0).getEtnia());
@@ -172,29 +172,29 @@ public class EstudianteServiceImpl implements EstudianteService{
 		return estudianteR.findMatriculas();
 	}
 
-    @Override
-    @Transactional
-    public List<Estudiante> findPorEstudiantePorCodigo(String query) {
-        if (query.isEmpty()) {
-            return estudianteR.findAll();
-        }
-        // Si hay una consulta proporcionada, realiza la búsqueda filtrando por nombre, apellido paterno o materno
-        String[] palabras = query.split("\\s+"); // Divide la consulta en palabras separadas por espacio
-        return estudianteR.findAll().stream()
-                .filter(estudiante -> {
-                    String nombreCompleto = (estudiante.getNombre() + " " +
-                                            estudiante.getApaterno() + " " +
-                                            estudiante.getAmaterno()).toLowerCase();
-                    nombreCompleto = quitarAcentos(nombreCompleto); // Quitar tildes
-                    for (String palabra : palabras) {
-                        if (!nombreCompleto.contains(palabra.toLowerCase())) {
-                            return false;
-                        }
-                    }
-                    return true;
-                })
-                .collect(Collectors.toList());
-    }
+	public List<Estudiante> findPorEstudiantePorCodigo(String query, Integer colegioId) {
+	    if (query.isEmpty()) {
+	        // Si no hay consulta, simplemente filtrar por colegioId
+	        return estudianteR.findByEstablecimientoId(colegioId);
+	    }
+	    
+	    // Si hay una consulta proporcionada, realiza la búsqueda filtrando por nombre, apellido paterno o materno
+	    String[] palabras = query.split("\\s+"); // Divide la consulta en palabras separadas por espacio
+	    return estudianteR.findByEstablecimientoId(colegioId).stream()
+	            .filter(estudiante -> {
+	                String nombreCompleto = (estudiante.getNombre() + " " +
+	                                        estudiante.getApaterno() + " " +
+	                                        estudiante.getAmaterno()).toLowerCase();
+	                nombreCompleto = quitarAcentos(nombreCompleto); // Quitar tildes
+	                for (String palabra : palabras) {
+	                    if (!nombreCompleto.contains(palabra.toLowerCase())) {
+	                        return false;
+	                    }
+	                }
+	                return true;
+	            })
+	            .collect(Collectors.toList());
+	}
 
     private String quitarAcentos(String input) {
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
@@ -266,7 +266,7 @@ public class EstudianteServiceImpl implements EstudianteService{
 	//Filtrar estudiantes por estado matriculado(true) o retirado(false)
 	@Override
 	@Transactional
-	public List<Estudiante> findEstudiantePorEstado(String estado) {
+	public List<Estudiante> findEstudiantePorEstado(String estado, Integer colegioId) {
 		
 		if(estado.isEmpty())
 		{
@@ -275,9 +275,9 @@ public class EstudianteServiceImpl implements EstudianteService{
 		
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		if(estado.equalsIgnoreCase("matriculado")) {
-			estudiantes = estudiantes.stream().filter(e-> e.isEstado()).collect(Collectors.toList());
+			estudiantes = estudiantes.stream().filter(e-> e.isEstado() && e.getEstablecimientoId().equals(colegioId)).collect(Collectors.toList());
 		}else {
-			estudiantes = estudiantes.stream().filter(e-> !e.isEstado()).collect(Collectors.toList());
+			estudiantes = estudiantes.stream().filter(e-> !e.isEstado() && e.getEstablecimientoId().equals(colegioId)).collect(Collectors.toList());
 		}
 			return estudiantes;
 	}
@@ -325,12 +325,12 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public List<Estudiante> findEstudiantePorRut(String rut) {
+	public List<Estudiante> findEstudiantePorRut(String rut,Integer colegioid) {
 		
         if (rut.isEmpty()) {
             return estudianteR.findAll();
         }
-        return estudianteR.findByRunEstudianteContaining(rut);
+        return estudianteR.findByRunEstudianteContainingAndEstablecimientoId(rut,colegioid);
 	}
 
 

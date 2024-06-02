@@ -124,7 +124,7 @@ public class HomeController {
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre);
+			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre, uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
 			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
@@ -155,7 +155,7 @@ public class HomeController {
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut);
+			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut, uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
 			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
@@ -218,7 +218,7 @@ public class HomeController {
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado);
+			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado,uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
 			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
@@ -287,7 +287,7 @@ public class HomeController {
 			e.setNumero_matricula(correlativoString);
 			e.setColegio_procedencia(estudiante.getColegio_procedencia());
 			e.setEstado(true);
-			e.setEstablecimiento_id(uSesion.get(0).getEstablecimiento_id());
+			e.setEstablecimientoId(uSesion.get(0).getEstablecimiento_id());
 			//el curso se debe seleccionar o modificar FALTA ESO
 			e.setCurso_id(1);
 			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
@@ -551,7 +551,7 @@ public class HomeController {
 					e.setNumero_matricula(es.getNumero_matricula());
 					e.setColegio_procedencia("Colegio Concepción");
 					e.setEstado(true);
-					e.setEstablecimiento_id(es.getEstablecimiento_id());
+					e.setEstablecimientoId(es.getEstablecimientoId());
 					e.setAcepta_clases_religion(es.isAcepta_clases_religion());
 					e.setAlergias_alimentos(es.getAlergias_alimentos());
 					e.setAlergias_medicamentos(es.getAlergias_medicamentos());

@@ -13,8 +13,8 @@ public interface EstudianteService {
 	Estudiante findEstudiante(Estudiante estudiante);
 	Estudiante createEstudiante(Estudiante estudiante);
 	//filtrar estudiantes por nombre y apellidos y funciona
-	List<Estudiante> findPorEstudiantePorCodigo(String nombre);
-	List<Estudiante> findEstudiantePorRut(String rut);
+	List<Estudiante> findPorEstudiantePorCodigo(String nombre, Integer colegioId);
+	List<Estudiante> findEstudiantePorRut(String rut, Integer colegioId);
 	//filtrar estudiantes por curso
 	List<Estudiante> findEstudiantePorCurso(Integer curso_id);
 	List<Object[]> findMatriculas();
@@ -22,7 +22,7 @@ public interface EstudianteService {
 	Integer totalHombres();
 	Integer totalMujeres();
 	Integer totalOtro();
-	List<Estudiante> findEstudiantePorEstado(String estado);
+	List<Estudiante> findEstudiantePorEstado(String estado, Integer colegioId);
 	List<Estudiante> findEstudiantePorPie(String pie);
 	void cancelarMatricula(String estudianteid);
 	

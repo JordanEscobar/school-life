@@ -171,7 +171,7 @@ public class ListarMatriculaPDF extends AbstractPdfView{
 			PdfPCell celda31 = new PdfPCell(new Phrase(formateadorFechaMedia.format(listaE.getFecha_nacimiento()),fuenteCeldas));
 			celda24.setPadding(8);
 			tablaEvento.addCell(celda31);
-			PdfPCell celda32 = new PdfPCell(new Phrase(listaE.getEstablecimiento_id().toString(),fuenteCeldas));
+			PdfPCell celda32 = new PdfPCell(new Phrase(listaE.getEstablecimientoId().toString(),fuenteCeldas));
 			celda24.setPadding(8);
 			tablaEvento.addCell(celda32);
 			PdfPCell celda33 = new PdfPCell(new Phrase(listaE.getCurso_id().toString(),fuenteCeldas));

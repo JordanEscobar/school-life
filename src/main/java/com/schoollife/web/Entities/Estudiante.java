@@ -99,7 +99,8 @@ public class Estudiante {
 	@Length(min = 0, max = 250)
 	private String observaciones;
 	private boolean estado;
-	private Integer establecimiento_id;
+	@Column(name = "establecimiento_id")
+	private Integer establecimientoId;
 	private Integer curso_id;
 	private boolean es_pie;
 	public Estudiante(@NotBlank String runEstudiante, @NotBlank String nombre, @NotBlank String apaterno,
@@ -116,7 +117,7 @@ public class Estudiante {
 			boolean apto_educacion_fisica, @NotBlank String sistema_prevision, @NotNull boolean seguro_escolar_privado,
 			String nacionalidad, String etnia, @NotBlank String consultorio_clinica,
 			@Length(min = 0, max = 250) @NotBlank @Length(min = 0, max = 250) String observaciones, boolean estado,
-			Integer establecimiento_id, Integer curso_id, boolean es_pie) {
+			Integer establecimientoId, Integer curso_id, boolean es_pie) {
 		super();
 		this.runEstudiante = runEstudiante;
 		this.nombre = nombre;
@@ -159,7 +160,7 @@ public class Estudiante {
 		this.consultorio_clinica = consultorio_clinica;
 		this.observaciones = observaciones;
 		this.estado = estado;
-		this.establecimiento_id = establecimiento_id;
+		this.establecimientoId = establecimientoId;
 		this.curso_id = curso_id;
 		this.es_pie = es_pie;
 	}
@@ -412,11 +413,11 @@ public class Estudiante {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	public Integer getEstablecimiento_id() {
-		return establecimiento_id;
+	public Integer getEstablecimientoId() {
+		return establecimientoId;
 	}
-	public void setEstablecimiento_id(Integer establecimiento_id) {
-		this.establecimiento_id = establecimiento_id;
+	public void setEstablecimientoId(Integer establecimientoId) {
+		this.establecimientoId = establecimientoId;
 	}
 	public Integer getCurso_id() {
 		return curso_id;
@@ -450,12 +451,9 @@ public class Estudiante {
 				+ apto_educacion_fisica + ", sistema_prevision=" + sistema_prevision + ", seguro_escolar_privado="
 				+ seguro_escolar_privado + ", nacionalidad=" + nacionalidad + ", etnia=" + etnia
 				+ ", consultorio_clinica=" + consultorio_clinica + ", observaciones=" + observaciones + ", estado="
-				+ estado + ", establecimiento_id=" + establecimiento_id + ", curso_id=" + curso_id + ", es_pie="
-				+ es_pie + "]";
+				+ estado + ", establecimientoId=" + establecimientoId + ", curso_id=" + curso_id + ", es_pie=" + es_pie
+				+ "]";
 	}
-	
-	
-	
 	
 
 }
