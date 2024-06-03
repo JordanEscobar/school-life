@@ -37,7 +37,6 @@ public class EstablecimientoController {
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			System.out.println("la sesion es: " +sesion.getAttribute("usuario"));
 			return "Establecimiento";
 		}
 		return "Login";
@@ -52,7 +51,6 @@ public class EstablecimientoController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
-
 			model.addAttribute("regiones",establecimientoS.regiones());
 			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("establecimiento",establecimiento);
@@ -73,7 +71,6 @@ public class EstablecimientoController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
-
 			
 			Establecimiento e = new Establecimiento();
 			e.setComuna(establecimiento.getComuna());

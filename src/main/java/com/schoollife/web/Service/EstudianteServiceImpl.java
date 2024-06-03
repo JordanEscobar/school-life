@@ -217,10 +217,10 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public Integer totalMatriculados() {
+	public Integer totalMatriculados(Integer establecimientoId) {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.isEstado()) {
+			if(e.isEstado() && e.getEstablecimientoId().equals(establecimientoId)) {
 				es.add(e);
 			}
 		}
@@ -229,10 +229,10 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public Integer totalHombres() {
+	public Integer totalHombres(Integer establecimientoId) {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.isEstado() && e.getGenero().equalsIgnoreCase("masculino")) {
+			if(e.isEstado() && e.getGenero().equalsIgnoreCase("masculino") && e.getEstablecimientoId().equals(establecimientoId)) {
 				es.add(e);
 			}
 		}
@@ -241,10 +241,10 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public Integer totalMujeres() {
+	public Integer totalMujeres(Integer establecimientoId) {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.isEstado() && e.getGenero().equalsIgnoreCase("femenino")) {
+			if(e.isEstado() && e.getGenero().equalsIgnoreCase("femenino") && e.getEstablecimientoId().equals(establecimientoId)) {
 				es.add(e);
 			}
 		}
@@ -253,10 +253,10 @@ public class EstudianteServiceImpl implements EstudianteService{
 
 	@Override
 	@Transactional
-	public Integer totalOtro() {
+	public Integer totalOtro(Integer establecimientoId) {
 		List<Estudiante> es = new ArrayList<Estudiante>(); 
 		for (Estudiante e : estudianteR.findAll()) {
-			if(e.isEstado() && e.getGenero().equalsIgnoreCase("otro")) {
+			if(e.isEstado() && e.getGenero().equalsIgnoreCase("otro") && e.getEstablecimientoId().equals(establecimientoId)) {
 				es.add(e);
 			}
 		}

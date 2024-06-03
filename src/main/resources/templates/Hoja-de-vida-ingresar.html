@@ -33,7 +33,7 @@
 	<div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
-	<h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Hoja de vida ingresar</h1>
+	<h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span>Ingresar anotaciones</h1>
 	<br><br>
 	<div class="container shadow">
 		<form method="POST" th:action="@{/Hoja-de-vida/ingresado}" th:object="${hoja_de_vida}">
@@ -41,7 +41,6 @@
 			<div class="col">
 				<label>Tipo de evento</label>
 				<select th:field="*{tipoEvento}" class="form-select" >
-					<option th:value="'Selecciona tipo de evento'">Selecciona tipo de evento</option>
 					<option th:value="'RECONOCIMIENTO'">RECONOCIMIENTO</option>
 					<option th:value="'DERIVACIÓN EXTERNA'">DERIVACIÓN EXTERNA</option>
 					<option th:value="'FALTA'">FALTA</option>
@@ -54,15 +53,17 @@
 					<option th:value="'ANOTACIÓN GENERAL DEL CURSO'">ANOTACIÓN GENERAL DEL CURSO</option>
 					<option th:value="'OTROS'">OTROS</option>
 				</select>
+				<span class="text-danger" th:if="${#fields.hasErrors('tipoEvento')}" th:errors="*{tipoEvento}">Error tipoEvento</span>
 			</div>
 			<div class="col">
 				<label>Asignatura</label>
 				<select th:field="*{asignatura}" class="form-select">
 					<option th:each="a : ${asignaturas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
 				</select>
+				<span class="text-danger" th:if="${#fields.hasErrors('asignatura')}" th:errors="*{asignatura}">Error asignatura</span>
 			</div>
 			<div class="col">
-				<label>Subir Archivo</label>
+				<label>Subir Archivo (opcional)</label>
 				<input th:field="*{archivo}" type="file" class="form-control">
 			</div>
 		</div>
@@ -75,6 +76,7 @@
 				<span class="help-block">
 					<p id="mensaje_ayuda" class="help-block">Cuerpo del mensaje de alerta</p>
 				</span>
+				<span class="text-danger" th:if="${#fields.hasErrors('detalle')}" th:errors="*{detalle}">Error detalle</span>
 			</div>
 		</div>
 			<input type="hidden" th:field="*{estudianteId}">
@@ -86,11 +88,30 @@
 			<div class="col"></div>
 			<div class="col"></div>
 			<div class="col text-end">
-				<button class="btn btn-success shadow">Agregar</button>
+				<button type="button" class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#anotacionModal">Crear anotación</button>
 			</div>
 		</div>
-
 	<br>
+			<!-- Modal -->
+		<div class="modal fade" id="anotacionModal" tabindex="-1"
+			aria-labelledby="anotacionModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">¿Esta seguro que desea ingresar la notificación?</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Cerrar</button>
+						<input type="submit" class="btn btn-primary"
+							value="Ingresar anotación">
+					</div>
+				</div>
+			</div>
+		</div>
+	
 	</form>
 	</div>
 

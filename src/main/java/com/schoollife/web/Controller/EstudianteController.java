@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,8 @@ import com.schoollife.web.Service.EstudianteService;
 import com.schoollife.web.Service.Hoja_de_vidaService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -85,7 +88,6 @@ public class EstudianteController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));		
-			System.out.println("el estudiante es:" + hoja_de_vida.getEstudianteId());
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimiento_id());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
 			model.addAttribute("asignaturas",asignaturas);
@@ -97,11 +99,16 @@ public class EstudianteController {
 	}
 	
 	@PostMapping(path = "/Hoja-de-vida/ingresado", consumes = "application/x-www-form-urlencoded")
-	public String hojaDeVidaIngresado(Hoja_de_vida hoja_de_vida,RedirectAttributes flash, Model model, HttpSession sesion) {
+	public String hojaDeVidaIngresado(@Valid Hoja_de_vida hoja_de_vida,Errors errores,RedirectAttributes flash, Model model, HttpSession sesion) {
 		if(sesion.getAttribute("usuario") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));					
+			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimiento_id());
+			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
+			model.addAttribute("asignaturas",asignaturas);
+			model.addAttribute("hoja_de_vida",hoja_de_vida);
+						
 			Hoja_de_vida hNueva = new Hoja_de_vida();
 			hNueva.setArchivo(hoja_de_vida.getArchivo());
 			hNueva.setAsignatura(hoja_de_vida.getAsignatura());
@@ -112,6 +119,10 @@ public class EstudianteController {
 			hNueva.setUsuarioId(uSesion.get(0).getRut_usuario());
 			Integer idHojaAutoincrement = hojaService.getByEstudianteId(hoja_de_vida.getEstudianteId()).size() + 1;
 			hNueva.setId_hoja_de_vida(idHojaAutoincrement);
+			
+			if (errores.hasErrors()) {
+				return "Hoja-de-vida-ingresar";
+			}
 			
 			hojaService.createHojaDeVida(hNueva);
 			flash.addFlashAttribute("success","Hoja ingresada correctamente");
@@ -137,15 +148,13 @@ public class EstudianteController {
 		if(sesion.getAttribute("usuario") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));									
-			
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));												
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimiento_id()));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));	
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("estudiantes",estudiantes);
-			
-			
+						
 			hojaService.deleteHojaDeVida(hoja_de_vida.getId_hoja_de_vida());			
 			flash.addFlashAttribute("success","Hoja eliminada correctamente");
 			return "redirect:/hojadevida";

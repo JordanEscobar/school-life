@@ -2,6 +2,7 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "hoja_de_vida")
@@ -17,10 +19,12 @@ public class Hoja_de_vida {
 	private Integer id_hoja_de_vida;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha;
+	@NotBlank
 	@Column(name = "tipo_evento")
 	private String tipoEvento;
 	private String asignatura;
-	
+	@NotBlank
+	@Length(min = 1,max = 250)
 	private String detalle;
 	private String archivo;
 	@Column(name = "usuario_id")

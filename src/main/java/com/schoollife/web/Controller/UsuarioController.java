@@ -82,7 +82,6 @@ public class UsuarioController {
 		us.setRoles(usuario.getRoles());
 		us.setTelefono(usuario.getTelefono());
 		userService.registerUser(usuario);
-		System.out.println("Usuario creado: " + us);
 		return "redirect:/login";
 	}
 	
@@ -123,7 +122,6 @@ public class UsuarioController {
 				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 				model.addAttribute("uSesion",uSesion.get(0));
 				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
-				System.out.println("la sesion iniciada es: "+ sesion.getAttribute("usuario"));
 				return "Index";
 			}
 			flash.addFlashAttribute("warning","Debe ingresar credenciales válidas");

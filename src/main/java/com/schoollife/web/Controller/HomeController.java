@@ -65,8 +65,7 @@ public class HomeController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
-			System.out.println("la sesion iniciada es: "+ sesion.getAttribute("usuario"));		
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));	
 			return "Index";
 		}
 		return "Login";
@@ -89,17 +88,14 @@ public class HomeController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
-			Integer mujeres = estudianteS.totalMujeres();
-			Integer hombres = estudianteS.totalHombres();
-			Integer otros = estudianteS.totalOtro();
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
-			/*Collections.reverse(estudiantes);
-			Collections.reverse(cursos);
-			Collections.reverse(programas);*/
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("matriculados", estudiantesMatriculados);
 			model.addAttribute("cursos", cursos);
 			model.addAttribute("programas", programas);
@@ -127,10 +123,10 @@ public class HomeController {
 			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre, uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-			Integer mujeres = estudianteS.totalMujeres();
-			Integer hombres = estudianteS.totalHombres();
-			Integer otros = estudianteS.totalOtro();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -158,10 +154,10 @@ public class HomeController {
 			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut, uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-			Integer mujeres = estudianteS.totalMujeres();
-			Integer hombres = estudianteS.totalHombres();
-			Integer otros = estudianteS.totalOtro();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -190,10 +186,10 @@ public class HomeController {
 			var estudiantes = estudianteS.findEstudiantePorCurso(filtrocurso);
 			List<Curso> cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-			Integer mujeres = estudianteS.totalMujeres();
-			Integer hombres = estudianteS.totalHombres();
-			Integer otros = estudianteS.totalOtro();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -221,10 +217,10 @@ public class HomeController {
 			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado,uSesion.get(0).getEstablecimiento_id());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados();
-			Integer mujeres = estudianteS.totalMujeres();
-			Integer hombres = estudianteS.totalHombres();
-			Integer otros = estudianteS.totalOtro();
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -330,7 +326,6 @@ public class HomeController {
 			if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
 				for (Estudiante es : estudianteS.getAll(4717)) {
 					if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
-						System.out.println("El rut del estudiante ya existe en el sistema: " + estudiante.getRunEstudiante());
 						boolean rutex =true;
 						model.addAttribute("rutexiste",rutex);
 						return "Matricula-ingresar";
@@ -342,8 +337,6 @@ public class HomeController {
 					}
 				}
 			}else {
-				//Valida los rut pero falta mostrar una alerta en este caso!!!!!
-				System.out.println("El rut es invalido: " + estudiante.getRunEstudiante());
 				return "Matricula-ingresar";
 			}
 					
@@ -422,9 +415,7 @@ public class HomeController {
 			}			
 			//se crea el apoderado
 			apoderadoS.createApoderado(a);
-			//model.addAttribute("estudianteid",a.getEstudiante_id());
 			model.addAttribute("programa_integracion", programa_integracion);
-			
 			return "Matricula-ingresar-pie";			
 		}
 		return "Login";
@@ -522,8 +513,7 @@ public class HomeController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			
-	
+				
 			estudiante = estudianteS.findEstudiante(estudiante);
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
 			model.addAttribute("cursos", cursos);
@@ -541,8 +531,7 @@ public class HomeController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));			
 			
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
 			Estudiante e = new Estudiante();
@@ -683,8 +672,6 @@ public class HomeController {
 			return "redirect:/matricula";
 		}
 		return "Login";
-		
-
 	}
 	
 	
