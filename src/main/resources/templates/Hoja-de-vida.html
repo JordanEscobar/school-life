@@ -59,8 +59,8 @@
 					<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' '+ ${e.amaterno}"></td>
 					<td th:text="${e.runEstudiante}"></td>
 					<td>
-						<a class="btn btn-primary" th:text="'+ Citación'"></a>
-						<a class="btn btn-secondary" th:text="'Ver citaciones'"></a>
+						<a class="btn btn-primary" th:href="@{/Hoja-de-vida/ingresar/} + ${e.runEstudiante}" th:text="'+ Citación'"></a>
+						<a class="btn btn-secondary" th:href="@{/Hoja-de-vida/ver/} + ${e.runEstudiante}" th:text="'Ver citaciones'"></a>
 					</td>
 				</tr>
 			</tbody>

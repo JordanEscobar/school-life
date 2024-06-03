@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de clases online</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<div>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
+	</div>
+	
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+	</div>
+</nav>
+
+<div class="container">
+
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
+	<h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Hoja de vida</h1>
+	<br><br>
+	<div class="container">
+		<div class="row">
+			<div class="col-auto"></div>
+			<div class="col-auto">
+				<div th:each="h : ${hoja_de_vida}" class="card text-white bg-secondary mb-3 shadow" style="max-width: 60rem;">
+				  <div  class="card-header">
+				  <div class="text-end">
+				  	<span th:text="'Fecha: ' + ${#calendars.format(h.fecha,'dd-MMMM-yyyy')}"></span>
+				  </div>
+				  	<div class="text-center">
+				  		<span class="card-text text-end" th:text="${h.asignatura}"></span>
+				  	</div>
+				  	
+				  </div>
+				  
+				  <div class="card-body">
+				    <h5 class="card-title" th:text="${h.tipoEvento}"></h5>				    
+				    <p class="card-text" th:text="${h.detalle}"></p>
+				  </div>
+				  <div class="card-footer">
+				  	<a class="btn btn-danger" th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}">Eliminar</a>
+				  </div>
+				</div>
+			</div>
+			<div class="col-auto"></div>
+		<br><br>
+	</div>
+</div>
+<br><br>
+</div>
+</body>
+</html>

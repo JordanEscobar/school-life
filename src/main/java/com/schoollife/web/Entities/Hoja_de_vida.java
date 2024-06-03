@@ -2,6 +2,10 @@ package com.schoollife.web.Entities;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,24 +15,29 @@ import jakarta.persistence.Table;
 public class Hoja_de_vida {
 	@Id
 	private Integer id_hoja_de_vida;
+	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha;
-	private String tipo_evento;
+	@Column(name = "tipo_evento")
+	private String tipoEvento;
 	private String asignatura;
+	
 	private String detalle;
 	private String archivo;
-	private String usuario_id;
-	private String estudiante_id;
-	public Hoja_de_vida(Integer id_hoja_de_vida, Date fecha, String tipo_evento, String asignatura, String detalle,
-			String archivo, String usuario_id, String estudiante_id) {
+	@Column(name = "usuario_id")
+	private String usuarioId;
+	@Column(name = "estudiante_id")
+	private String estudianteId;
+	public Hoja_de_vida(Integer id_hoja_de_vida, Date fecha, String tipoEvento, String asignatura, String detalle,
+			String archivo, String usuarioId, String estudianteId) {
 		super();
 		this.id_hoja_de_vida = id_hoja_de_vida;
 		this.fecha = fecha;
-		this.tipo_evento = tipo_evento;
+		this.tipoEvento = tipoEvento;
 		this.asignatura = asignatura;
 		this.detalle = detalle;
 		this.archivo = archivo;
-		this.usuario_id = usuario_id;
-		this.estudiante_id = estudiante_id;
+		this.usuarioId = usuarioId;
+		this.estudianteId = estudianteId;
 	}
 	public Hoja_de_vida() {
 		super();
@@ -45,11 +54,11 @@ public class Hoja_de_vida {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getTipo_evento() {
-		return tipo_evento;
+	public String getTipoEvento() {
+		return tipoEvento;
 	}
-	public void setTipo_evento(String tipo_evento) {
-		this.tipo_evento = tipo_evento;
+	public void setTipoEvento(String tipoEvento) {
+		this.tipoEvento = tipoEvento;
 	}
 	public String getAsignatura() {
 		return asignatura;
@@ -69,25 +78,24 @@ public class Hoja_de_vida {
 	public void setArchivo(String archivo) {
 		this.archivo = archivo;
 	}
-	public String getUsuario_id() {
-		return usuario_id;
+	public String getUsuarioId() {
+		return usuarioId;
 	}
-	public void setUsuario_id(String usuario_id) {
-		this.usuario_id = usuario_id;
+	public void setUsuarioId(String usuarioId) {
+		this.usuarioId = usuarioId;
 	}
-	public String getEstudiante_id() {
-		return estudiante_id;
+	public String getEstudianteId() {
+		return estudianteId;
 	}
-	public void setEstudiante_id(String estudiante_id) {
-		this.estudiante_id = estudiante_id;
+	public void setEstudianteId(String estudianteId) {
+		this.estudianteId = estudianteId;
 	}
 	@Override
 	public String toString() {
-		return "Hoja_de_vida [id_hoja_de_vida=" + id_hoja_de_vida + ", fecha=" + fecha + ", tipo_evento=" + tipo_evento
-				+ ", asignatura=" + asignatura + ", detalle=" + detalle + ", archivo=" + archivo + ", usuario_id="
-				+ usuario_id + ", estudiante_id=" + estudiante_id + "]";
+		return "Hoja_de_vida [id_hoja_de_vida=" + id_hoja_de_vida + ", fecha=" + fecha + ", tipoEvento=" + tipoEvento
+				+ ", asignatura=" + asignatura + ", detalle=" + detalle + ", archivo=" + archivo + ", usuarioId="
+				+ usuarioId + ", estudianteId=" + estudianteId + "]";
 	}
-	
 	
 	
 	
