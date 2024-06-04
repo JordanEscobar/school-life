@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -32,8 +33,10 @@ public class Usuario {
 	private String genero;
 	private String estudios;
 	private String cargo;
-	private Integer rol_id;
-	private Integer establecimiento_id;
+	@Column(name = "rol_id")
+	private Integer rolId;
+	@Column(name = "establecimiento_id")
+	private Integer establecimientoId;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	    name = "usuario_roles",
@@ -42,8 +45,8 @@ public class Usuario {
 	)
 	private List<Rol> roles;
 	public Usuario(String rut_usuario, String pass, String nombre, String apaterno, String amaterno, String correo,
-			String telefono, Date fecha_nacimiento, String genero, String estudios, String cargo, Integer rol_id,
-			Integer establecimiento_id) {
+			String telefono, Date fecha_nacimiento, String genero, String estudios, String cargo, Integer rolId,
+			Integer establecimientoId, List<Rol> roles) {
 		super();
 		this.rut_usuario = rut_usuario;
 		this.pass = pass;
@@ -56,8 +59,9 @@ public class Usuario {
 		this.genero = genero;
 		this.estudios = estudios;
 		this.cargo = cargo;
-		this.rol_id = rol_id;
-		this.establecimiento_id = establecimiento_id;
+		this.rolId = rolId;
+		this.establecimientoId = establecimientoId;
+		this.roles = roles;
 	}
 	public Usuario() {
 		super();
@@ -128,17 +132,17 @@ public class Usuario {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
-	public Integer getRol_id() {
-		return rol_id;
+	public Integer getRolId() {
+		return rolId;
 	}
-	public void setRol_id(Integer rol_id) {
-		this.rol_id = rol_id;
+	public void setRolId(Integer rolId) {
+		this.rolId = rolId;
 	}
-	public Integer getEstablecimiento_id() {
-		return establecimiento_id;
+	public Integer getEstablecimientoId() {
+		return establecimientoId;
 	}
-	public void setEstablecimiento_id(Integer establecimiento_id) {
-		this.establecimiento_id = establecimiento_id;
+	public void setEstablecimientoId(Integer establecimientoId) {
+		this.establecimientoId = establecimientoId;
 	}
 	public List<Rol> getRoles() {
 		return roles;
@@ -151,9 +155,9 @@ public class Usuario {
 		return "Usuario [rut_usuario=" + rut_usuario + ", pass=" + pass + ", nombre=" + nombre + ", apaterno="
 				+ apaterno + ", amaterno=" + amaterno + ", correo=" + correo + ", telefono=" + telefono
 				+ ", fecha_nacimiento=" + fecha_nacimiento + ", genero=" + genero + ", estudios=" + estudios
-				+ ", cargo=" + cargo + ", rol_id=" + rol_id + ", establecimiento_id=" + establecimiento_id + ", roles="
-				+ roles + "]";
+				+ ", cargo=" + cargo + ", rolId=" + rolId + ", establecimientoId=" + establecimientoId + "]";
 	}
+	
 	
 	
 	

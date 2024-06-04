@@ -46,9 +46,11 @@
 				  <div class="card-body">
 				    <h5 class="card-title" th:text="${h.tipoEvento}"></h5>				    
 				    <p class="card-text" th:text="${h.detalle}"></p>
+				    
 				  </div>
 				  <div class="card-footer">
 				  	<a class="btn btn-danger" th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}">Eliminar</a>
+				  	<p class="card-text" th:text="'Documento adjunto: '+ ${h.archivo}"></p>
 				  </div>
 				</div>
 			</div>

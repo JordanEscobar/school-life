@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +18,7 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "hoja_de_vida")
 public class Hoja_de_vida {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_hoja_de_vida;
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha;
@@ -31,8 +34,9 @@ public class Hoja_de_vida {
 	private String usuarioId;
 	@Column(name = "estudiante_id")
 	private String estudianteId;
-	public Hoja_de_vida(Integer id_hoja_de_vida, Date fecha, String tipoEvento, String asignatura, String detalle,
-			String archivo, String usuarioId, String estudianteId) {
+	public Hoja_de_vida(Integer id_hoja_de_vida, Date fecha, @NotBlank String tipoEvento, String asignatura,
+			@NotBlank @Length(min = 1, max = 250) String detalle, String archivo, String usuarioId,
+			String estudianteId) {
 		super();
 		this.id_hoja_de_vida = id_hoja_de_vida;
 		this.fecha = fecha;
@@ -100,6 +104,7 @@ public class Hoja_de_vida {
 				+ ", asignatura=" + asignatura + ", detalle=" + detalle + ", archivo=" + archivo + ", usuarioId="
 				+ usuarioId + ", estudianteId=" + estudianteId + "]";
 	}
+	
 	
 	
 	

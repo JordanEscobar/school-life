@@ -65,7 +65,7 @@ public class HomeController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));	
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			return "Index";
 		}
 		return "Login";
@@ -84,18 +84,18 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
-			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
-			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
-			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
-			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimientoId());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimientoId());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimientoId());
 			var programas = programaS.getAll();
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("matriculados", estudiantesMatriculados);
 			model.addAttribute("cursos", cursos);
 			model.addAttribute("programas", programas);
@@ -117,16 +117,16 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre, uSesion.get(0).getEstablecimiento_id());
-			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre, uSesion.get(0).getEstablecimientoId());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
-			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
-			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
-			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimientoId());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimientoId());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimientoId());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -148,16 +148,16 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut, uSesion.get(0).getEstablecimiento_id());
-			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut, uSesion.get(0).getEstablecimientoId());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
-			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
-			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
-			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimientoId());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimientoId());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimientoId());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -180,16 +180,16 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
 			var estudiantes = estudianteS.findEstudiantePorCurso(filtrocurso);
-			List<Curso> cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			List<Curso> cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
-			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
-			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
-			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimientoId());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimientoId());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimientoId());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -211,16 +211,16 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado,uSesion.get(0).getEstablecimiento_id());
-			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado,uSesion.get(0).getEstablecimientoId());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			var programas = programaS.getAll();
-			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimiento_id());
-			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimiento_id());
-			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimiento_id());
-			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimiento_id());
+			Integer estudiantesMatriculados = estudianteS.totalMatriculados(uSesion.get(0).getEstablecimientoId());
+			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimientoId());
+			Integer hombres = estudianteS.totalHombres(uSesion.get(0).getEstablecimientoId());
+			Integer otros = estudianteS.totalOtro(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("otros", otros);
 			model.addAttribute("mujeres", mujeres);
 			model.addAttribute("hombres", hombres);
@@ -243,7 +243,7 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
 			model.addAttribute("comunas",establecimientoS.comunas());
@@ -265,7 +265,7 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
 			
@@ -278,12 +278,12 @@ public class HomeController {
 			model.addAttribute("rutinvalido2", rutinvalido2);
 					
 			Estudiante e = new Estudiante();
-			Integer correlativo = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id()).size() + 1;
+			Integer correlativo = estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size() + 1;
 			String correlativoString = (String) correlativo.toString();
 			e.setNumero_matricula(correlativoString);
 			e.setColegio_procedencia(estudiante.getColegio_procedencia());
 			e.setEstado(true);
-			e.setEstablecimientoId(uSesion.get(0).getEstablecimiento_id());
+			e.setEstablecimientoId(uSesion.get(0).getEstablecimientoId());
 			//el curso se debe seleccionar o modificar FALTA ESO
 			e.setCurso_id(1);
 			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
@@ -374,7 +374,7 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
 			
 			boolean rutex2 = false;
@@ -382,7 +382,7 @@ public class HomeController {
 			boolean rutinvalido2 = false;
 			model.addAttribute("rutinvalido2", rutinvalido2);
 			
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRunEstudiante();
 			model.addAttribute("estudianteid", rut_estudiante);
 			model.addAttribute("comunas",establecimientoS.comunas());
@@ -428,7 +428,7 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
 			
 			Programa_Integracion p = new Programa_Integracion();
@@ -457,10 +457,10 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("estudiantes", estudiantes);
 			model.addAttribute("programa_integracion",programa_integracion);
 			return "Ingresar-programa-pie";
@@ -478,11 +478,11 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
 			
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("estudiantes", estudiantes);
 			model.addAttribute("programa_integracion",programa_integracion);
 			Programa_Integracion p = new Programa_Integracion();
@@ -511,11 +511,11 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 				
 			estudiante = estudianteS.findEstudiante(estudiante);
-			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("cursos", cursos);
 			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("estudiante",estudiante);
@@ -530,10 +530,10 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));			
 			
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			Estudiante e = new Estudiante();
 			for (Estudiante es : estudiantes) {
 				if(es.getRunEstudiante().equalsIgnoreCase(estudiante.getRunEstudiante())) {
@@ -601,7 +601,7 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
 			model.addAttribute("estudiante", estudiante);
@@ -625,12 +625,12 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			Estudiante estu = new Estudiante();
 			for (Estudiante es : estudiantes) {
 				if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {
@@ -653,12 +653,12 @@ public class HomeController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 						
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			Estudiante estu = new Estudiante();
 			for (Estudiante es : estudiantes) {
 				if(es.getRunEstudiante() == estudiante.getRunEstudiante()) {

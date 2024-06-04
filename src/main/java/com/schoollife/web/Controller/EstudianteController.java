@@ -1,5 +1,9 @@
 package com.schoollife.web.Controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +14,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.schoollife.web.Entities.Curso;
 import com.schoollife.web.Entities.Hoja_de_vida;
 import com.schoollife.web.Entities.Usuario;
@@ -20,10 +24,8 @@ import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.EstudianteService;
 import com.schoollife.web.Service.Hoja_de_vidaService;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -41,6 +43,8 @@ public class EstudianteController {
 	@Autowired
 	private final Hoja_de_vidaService hojaService;
 	
+	private static String UPLOADED_FOLDER = "C://Temp/uploads/";
+	
 	public EstudianteController(EstudianteService estudianteS, EstablecimientoService establecimientoS, CursoService cursoS,
 			AsignaturaService asignaturaS, Hoja_de_vidaService hojaService) {
 		super();
@@ -57,9 +61,9 @@ public class EstudianteController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimiento_id()));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));	
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("estudiantes",estudiantes);
 			return "Hoja-de-vida";
 		}
@@ -74,8 +78,8 @@ public class EstudianteController {
 			model.addAttribute("filtrocursos", filtrocursos);	
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimiento_id()));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));	
+			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			model.addAttribute("estudiantes",estudiantes);
 			return "Hoja-de-vida";
 		}
@@ -87,8 +91,8 @@ public class EstudianteController {
 		if(sesion.getAttribute("usuario") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));		
-			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
+			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
 			model.addAttribute("asignaturas",asignaturas);
 			model.addAttribute("hoja_de_vida",hoja_de_vida);
@@ -98,32 +102,56 @@ public class EstudianteController {
 		
 	}
 	
-	@PostMapping(path = "/Hoja-de-vida/ingresado", consumes = "application/x-www-form-urlencoded")
-	public String hojaDeVidaIngresado(@Valid Hoja_de_vida hoja_de_vida,Errors errores,RedirectAttributes flash, Model model, HttpSession sesion) {
+	@PostMapping("/Hoja-de-vida/ingresado")
+	public String hojaDeVidaIngresado(@Valid Hoja_de_vida hoja_de_vida,Errors errores,RedirectAttributes flash,@RequestParam(name = "file",required = false) MultipartFile file, Model model, HttpSession sesion) {
 		if(sesion.getAttribute("usuario") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));					
-			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));					
+			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
 			model.addAttribute("asignaturas",asignaturas);
 			model.addAttribute("hoja_de_vida",hoja_de_vida);
 						
 			Hoja_de_vida hNueva = new Hoja_de_vida();
-			hNueva.setArchivo(hoja_de_vida.getArchivo());
 			hNueva.setAsignatura(hoja_de_vida.getAsignatura());
 			hNueva.setDetalle(hoja_de_vida.getDetalle());
 			hNueva.setEstudianteId(hoja_de_vida.getEstudianteId());
 			hNueva.setFecha(new Date());
 			hNueva.setTipoEvento(hoja_de_vida.getTipoEvento());
 			hNueva.setUsuarioId(uSesion.get(0).getRut_usuario());
-			Integer idHojaAutoincrement = hojaService.getByEstudianteId(hoja_de_vida.getEstudianteId()).size() + 1;
-			hNueva.setId_hoja_de_vida(idHojaAutoincrement);
+			hNueva.setId_hoja_de_vida(hoja_de_vida.getId_hoja_de_vida());
+			
+	        try {
+	            // Guardar el archivo en el servidor
+	            byte[] bytes = file.getBytes();
+	            Date fechaHoy = new Date();	            
+	            // Obtener el nombre original del archivo
+	            String nombreOriginal = file.getOriginalFilename();	            
+	            // Obtener la extensión del archivo (si es necesario)
+	            String extension = "";
+	            int lastIndex = nombreOriginal.lastIndexOf('.');
+	            if (lastIndex > 0) {
+	                extension = nombreOriginal.substring(lastIndex);
+	            }	            
+	            // Concatenar la fecha al nombre del archivo
+	            String nombreConFecha = fechaHoy.getTime() +"_" + nombreOriginal  +  extension;            
+	            // Crear la ruta del archivo con el nuevo nombre
+	            Path path = Paths.get(UPLOADED_FOLDER + nombreConFecha);	            
+	            // Escribir el archivo en el servidor
+	            Files.write(path, bytes);            
+	            // Guardar el nombre del archivo con fecha en el objeto hoja_de_vida
+	            hoja_de_vida.setArchivo(nombreConFecha);	            
+	            // Agregar el nombre del archivo con fecha al modelo
+	            model.addAttribute("fileName", nombreConFecha);
+	        } catch (IOException e) {
+	            e.printStackTrace();	           
+	        }			
 			
 			if (errores.hasErrors()) {
 				return "Hoja-de-vida-ingresar";
 			}
-			
+			hNueva.setArchivo(hoja_de_vida.getArchivo());
 			hojaService.createHojaDeVida(hNueva);
 			flash.addFlashAttribute("success","Hoja ingresada correctamente");
 			return "redirect:/hojadevida";
@@ -135,7 +163,7 @@ public class EstudianteController {
 		if(sesion.getAttribute("usuario") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));							
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));							
 			var hojas = hojaService.getByEstudianteId(hoja_de_vida.getEstudianteId());
 			model.addAttribute("hoja_de_vida",hojas);
 			return "Hoja-de-vida-ver";
@@ -148,20 +176,17 @@ public class EstudianteController {
 		if(sesion.getAttribute("usuario") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));												
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));												
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimiento_id()));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));	
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimiento_id());
+			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("estudiantes",estudiantes);
 						
 			hojaService.deleteHojaDeVida(hoja_de_vida.getId_hoja_de_vida());			
 			flash.addFlashAttribute("success","Hoja eliminada correctamente");
 			return "redirect:/hojadevida";
 		}
-		return "Login";
-		
-		
+		return "Login";	
 	}
-
 }

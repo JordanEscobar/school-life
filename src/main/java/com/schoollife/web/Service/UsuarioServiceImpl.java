@@ -29,12 +29,12 @@ public class UsuarioServiceImpl implements UsuarioService{
         user.setAmaterno(usuario.getAmaterno());
         user.setApaterno(usuario.getApaterno());
         user.setCargo(usuario.getCargo());
-        user.setEstablecimiento_id(usuario.getEstablecimiento_id());
+        user.setEstablecimientoId(usuario.getEstablecimientoId());
         user.setEstudios(usuario.getEstudios());
         user.setFecha_nacimiento(usuario.getFecha_nacimiento());
         user.setGenero(usuario.getGenero());
         user.setNombre(usuario.getNombre());
-        user.setRol_id(usuario.getRol_id());
+        user.setRolId(usuario.getRolId());
         user.setRut_usuario(usuario.getRut_usuario());
         user.setTelefono(usuario.getTelefono());
         usuarioR.save(user);

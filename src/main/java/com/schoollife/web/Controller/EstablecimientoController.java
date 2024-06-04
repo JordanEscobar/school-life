@@ -32,7 +32,7 @@ public class EstablecimientoController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
@@ -50,7 +50,7 @@ public class EstablecimientoController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("regiones",establecimientoS.regiones());
 			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("establecimiento",establecimiento);
@@ -70,7 +70,7 @@ public class EstablecimientoController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			
 			Establecimiento e = new Establecimiento();
 			e.setComuna(establecimiento.getComuna());
@@ -104,7 +104,7 @@ public class EstablecimientoController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
 			establecimiento = establecimientoS.findEstablecimiento(establecimiento);
 			model.addAttribute("establecimiento",establecimiento);
@@ -124,7 +124,7 @@ public class EstablecimientoController {
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
 			var establecimientos = establecimientoS.getAll();
 			Establecimiento e = new Establecimiento();

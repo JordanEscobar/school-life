@@ -39,9 +39,9 @@ public class CursoController {
 			
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));		
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
 			
-			var c = cursoS.getAll(uSesion.get(0).getEstablecimiento_id());
+			var c = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			var e = establecimientoS.getAll();
 			model.addAttribute("cursos",c);
 			model.addAttribute("establecimientos",e);
@@ -58,7 +58,7 @@ public class CursoController {
 			
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			var establecimientos = establecimientoS.getAll();
 			model.addAttribute("establecimientos", establecimientos);
 			model.addAttribute("curso",curso);
@@ -105,7 +105,7 @@ public class CursoController {
 			
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			System.out.println("la sesion iniciada es: "+ sesion.getAttribute("usuario"));					
 			
 		curso = cursoS.findCurso(curso);

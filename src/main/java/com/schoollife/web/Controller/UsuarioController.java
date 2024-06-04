@@ -43,8 +43,11 @@ public class UsuarioController {
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			
+			
 			return "Usuario";
 		}
 		return "Login";	
@@ -72,13 +75,13 @@ public class UsuarioController {
 		us.setAmaterno(usuario.getAmaterno());
 		us.setApaterno(usuario.getApaterno());
 		us.setCargo(usuario.getCargo());
-		us.setEstablecimiento_id(usuario.getEstablecimiento_id());
+		us.setEstablecimientoId(usuario.getEstablecimientoId());
 		us.setEstudios(usuario.getEstudios());
 		us.setFecha_nacimiento(usuario.getFecha_nacimiento());
 		us.setGenero(usuario.getGenero());
 		us.setNombre(usuario.getNombre());
 		us.setRut_usuario(usuario.getRut_usuario());
-		us.setRol_id(usuario.getRol_id());
+		us.setRolId(usuario.getRolId());
 		us.setRoles(usuario.getRoles());
 		us.setTelefono(usuario.getTelefono());
 		userService.registerUser(usuario);
@@ -121,7 +124,7 @@ public class UsuarioController {
 				model.addAttribute("usuario",sesion.getAttribute("usuario"));
 				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 				model.addAttribute("uSesion",uSesion.get(0));
-				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimiento_id()));
+				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 				return "Index";
 			}
 			flash.addFlashAttribute("warning","Debe ingresar credenciales válidas");

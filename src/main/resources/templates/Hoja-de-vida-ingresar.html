@@ -36,7 +36,7 @@
 	<h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span>Ingresar anotaciones</h1>
 	<br><br>
 	<div class="container shadow">
-		<form method="POST" th:action="@{/Hoja-de-vida/ingresado}" th:object="${hoja_de_vida}">
+		<form method="POST" th:action="@{/Hoja-de-vida/ingresado}" enctype="multipart/form-data" th:object="${hoja_de_vida}">
 		<div class="row">
 			<div class="col">
 				<label>Tipo de evento</label>
@@ -64,7 +64,7 @@
 			</div>
 			<div class="col">
 				<label>Subir Archivo (opcional)</label>
-				<input th:field="*{archivo}" type="file" class="form-control">
+				<input type="file" name="file" accept=".pdf,.doc,.docx,.jpg,.png" class="form-control">
 			</div>
 		</div>
 		<br>

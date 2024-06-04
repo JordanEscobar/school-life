@@ -333,5 +333,11 @@ public class EstudianteServiceImpl implements EstudianteService{
         return estudianteR.findByRunEstudianteContainingAndEstablecimientoId(rut,colegioid);
 	}
 
+	@Override
+	@Transactional
+	public List<Estudiante> getAlls() {
+		return estudianteR.findAll();
+	}
+
 
 }
