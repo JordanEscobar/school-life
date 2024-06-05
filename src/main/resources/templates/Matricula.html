@@ -18,12 +18,11 @@
 	<div>
 		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
 	</div>
-	
 	<div class="d-flex justify-content-end">
 		<a class="btn btn-outline-danger shadow" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
-<br><br>
+<br>
 <div class="container">
 	<div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
@@ -35,7 +34,7 @@
 		<a th:href="@{/matricula/ingresar}" class="btn btn-danger shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar matrícula">+ Matricular Estudiante</a>
 	</div>
 </div>
-<br><br>
+<br>
 <div class="container">
 	<div class="row g-3 align-items-center">
 		<div class="col-auto">
@@ -117,8 +116,10 @@
 		<tbody>
 			<tr th:each="e : ${estudiantes}">
 				<td th:text="${e.numero_matricula}"></td>
-				<td th:text="${e.runEstudiante}"></td>
-				<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
+				<td th:if="${e.estado} == True" th:text="${e.runEstudiante}"></td>
+				<td th:if="${e.estado} == False" class="text-danger"><del th:text="${e.runEstudiante}"></del></td>
+				<td th:if="${e.estado} == True" th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></td>
+				<td th:if="${e.estado} == False" class="text-danger"><del th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></del>l</td>
 				<td  th:if="${e.es_pie} == True" ><span class="text-success"><i class="fa-solid fa-check"></i></span></td>
 				<td  th:if="${e.es_pie} == False" ><span class="text-danger"><i class="fa-solid fa-x"></i></span></td>
 				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel}"></td>

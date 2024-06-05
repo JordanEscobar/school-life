@@ -15,26 +15,40 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="usuarios")
 public class Usuario {
 	
 	@Id
+	@NotBlank
 	private String rut_usuario;
+	@NotBlank
 	private String pass;
+	@NotBlank
 	private String nombre;
+	@NotBlank
 	private String apaterno;
 	private String amaterno;
+	@NotBlank
 	private String correo;
+	@NotBlank
 	private String telefono;
+	@NotNull
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
+	@NotNull
 	private String genero;
+	@NotNull
 	private String estudios;
+	@NotNull
 	private String cargo;
 	@Column(name = "rol_id")
+	@NotNull
 	private Integer rolId;
+	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId;
 	@ManyToMany(fetch = FetchType.EAGER)

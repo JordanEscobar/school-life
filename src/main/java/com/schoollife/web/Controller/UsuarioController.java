@@ -1,6 +1,7 @@
 package com.schoollife.web.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.RolService;
+import com.schoollife.web.Service.RutValidationService;
 import com.schoollife.web.Service.UsuarioService;
 
 @Controller
@@ -25,15 +28,19 @@ public class UsuarioController {
 	@Autowired
 	private EstablecimientoService establecimientoS;
 	@Autowired
+	private final RutValidationService rutValidationService;
+	@Autowired
 	private final UsuarioService userService;
+	
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 	public UsuarioController(
 			RolService rolS, EstablecimientoService establecimientoS,
-			UsuarioService userService) {
+			UsuarioService userService, RutValidationService rutValidationService) {
 		super();
 		this.rolS = rolS;
 		this.establecimientoS = establecimientoS;
 		this.userService = userService;
+		this.rutValidationService = rutValidationService;
 
 	}
 	
@@ -56,6 +63,13 @@ public class UsuarioController {
 	@GetMapping("/registro")
 	public String registroUsuario(Usuario usuario,Model model) {
 		model.addAttribute("usuario",new Usuario());
+		
+		boolean rutinvalido3 = false;
+		model.addAttribute("rutinvalido3", rutinvalido3);
+		boolean rutex3 =false;
+		model.addAttribute("rutexiste3",rutex3);
+		boolean correoexiste3 =false;
+		model.addAttribute("correoexiste3",correoexiste3);
 		var roles = rolS.getAll();
 		model.addAttribute("establecimientos",establecimientoS.getAll());
 		model.addAttribute("roles",roles);
@@ -63,13 +77,32 @@ public class UsuarioController {
 	}
 
 	@PostMapping(path = "/registrar", consumes = "application/x-www-form-urlencoded")
-	public String registrarUsuario(Usuario usuario , Model model){
+	public String registrarUsuario(@Valid Usuario usuario ,Errors errores, Model model,RedirectAttributes flash){
 
 		var roles = rolS.getAll();
 		model.addAttribute("roles",roles);
+		model.addAttribute("establecimientos",establecimientoS.getAll());
+		boolean rutinvalido3 = false;
+		model.addAttribute("rutinvalido3", rutinvalido3);
+		boolean rutex3 =false;
+		model.addAttribute("rutexiste3",rutex3);
+		boolean correoexiste3 =false;
+		model.addAttribute("correoexiste3",correoexiste3);
 		
 		Usuario us = new Usuario();
-		us.setCorreo(usuario.getCorreo());
+		
+		for (Usuario user : userService.getAll()) {
+			if(usuario.getCorreo().equals(user.getCorreo())) {
+				correoexiste3 =true;
+				model.addAttribute("correoexiste3",correoexiste3);
+				return "Registro";
+			}else {
+				correoexiste3 =false;
+				model.addAttribute("correoexiste3",correoexiste3);
+				us.setCorreo(usuario.getCorreo());
+			}
+		}
+		
 		us.setPass(usuario.getPass());
 		us.setRoles(usuario.getRoles());
 		us.setAmaterno(usuario.getAmaterno());
@@ -80,11 +113,35 @@ public class UsuarioController {
 		us.setFecha_nacimiento(usuario.getFecha_nacimiento());
 		us.setGenero(usuario.getGenero());
 		us.setNombre(usuario.getNombre());
-		us.setRut_usuario(usuario.getRut_usuario());
+		
+		if(rutValidationService.isValidRut(usuario.getRut_usuario())) {
+			for (Usuario u : userService.getAll()) {
+				if(usuario.getRut_usuario().equals(u.getRut_usuario())) {
+					rutex3 =true;
+					model.addAttribute("rutexiste3",rutex3);
+					return "Registro";
+				}else {
+					rutex3 =false;
+					model.addAttribute("rutexiste3",rutex3);
+					us.setRut_usuario(usuario.getRut_usuario());
+				}
+			}		
+		}else {
+			rutinvalido3 = true;
+			model.addAttribute("rutinvalido3", rutinvalido3);
+			return "Registro";				
+		}
+	
 		us.setRolId(usuario.getRolId());
 		us.setRoles(usuario.getRoles());
 		us.setTelefono(usuario.getTelefono());
+		
+		if (errores.hasErrors()) {
+			return "Registro";
+		}
+		
 		userService.registerUser(usuario);
+		flash.addFlashAttribute("success","Usuario creado correctamente");
 		return "redirect:/login";
 	}
 	

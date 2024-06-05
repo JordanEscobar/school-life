@@ -24,6 +24,8 @@
 				<label class="">Rut</label>
 				<input class="form-control" th:field="*{rut_usuario}" type="text" id="rut" placeholder="Sin puntos, con guion">
 				<span th:if="${#fields.hasErrors('rut_usuario')}" th:errors="*{rut_usuario}" class="text-danger">Error Rut</span>
+				<span class="text-danger" th:if="${rutinvalido3} == True" th:text="'Rut Inválido.'"></span>	
+				<span class="text-danger" th:if="${rutexiste3} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 			</div>
 			<div class="col">
 				<label>Nombre</label>
@@ -47,6 +49,7 @@
 				<label>Correo</label>
 				<input th:field="*{correo}" class="form-control" type="email">
 				<span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="text-danger">Error Correo</span>
+				<span class="text-danger" th:if="${correoexiste3} == True" th:text="'el correo ya existe en el sistema, correo inválido.'"></span>
 			</div>
 			<div class="col">
 				<label>Teléfono</label>
@@ -83,7 +86,7 @@
 					<option th:value="'PROFESIONAL COMPLETA'">PROFESIONAL COMPLETA</option>
 					<option th:value="'POSGRADO/POSTÍTULOS'">POSGRADO/POSTÍTULOS</option>
 				</select>
-				<span th:if="${#fields.hasErrors('estudios')}" th:errors="*{rut_usuario}" class="text-danger">Error estudios</span>
+				<span th:if="${#fields.hasErrors('estudios')}" th:errors="*{estudios}" class="text-danger">Error estudios</span>
 			</div>
 		</div>
 		<br>
@@ -120,10 +123,10 @@
 			</div>
 			<div class="col">
 				<label>Rol ID</label><br>
-				<select th:field="*{rol_id}" class="form-select">
+				<select th:field="*{rolId}" class="form-select">
 					<option th:each="r : ${roles}" th:value="${r.id_rol}" th:text="${r.nombre}"></option>
 				</select>
-				<span th:if="${#fields.hasErrors('rol_id')}" th:errors="*{rol_id}" class="text-danger">Error Rol ID</span>
+				<span th:if="${#fields.hasErrors('rolId')}" th:errors="*{rolId}" class="text-danger">Error Rol ID</span>
 			</div>
 			<div class="col">
 			<br>
@@ -136,7 +139,7 @@
 			<div class="col">
 			</div>
 			<div class="col text-center">
-				<a th:href="@{/login}" class="btn btn-danger shadow">Cancelar</a>
+				<a th:href="@{/usuario}" class="btn btn-danger shadow">Cancelar</a>
 				<input type="submit" class="btn btn-success shadow" value="Registrar usuario">
 			</div>
 		</div>

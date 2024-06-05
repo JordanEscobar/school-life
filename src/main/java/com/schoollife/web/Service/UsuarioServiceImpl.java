@@ -52,6 +52,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return usuarioR.findByCorreoAndPass(correo, pass);
 	}
 
+	@Override
+	@Transactional
+	public List<Usuario> getAll() {
+		return usuarioR.findAll();
+	}
+
 	
 	
 	
