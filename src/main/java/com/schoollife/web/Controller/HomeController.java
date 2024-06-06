@@ -259,7 +259,7 @@ public class HomeController {
 		
 		
 	}
-	
+	/*Ingresa datos del estudiante*/
 	@PostMapping(path = "/matricula/ingresar/creada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado,HttpSession sesion) {
 		if(sesion.getAttribute("usuario")!=null)
@@ -335,7 +335,6 @@ public class HomeController {
 						boolean rutex =false;
 						model.addAttribute("rutexiste",rutex);
 						e.setRunEstudiante(estudiante.getRunEstudiante());
-						model.addAttribute("estudiante_id",e.getRunEstudiante());
 					}
 				}
 			}else {
@@ -369,7 +368,7 @@ public class HomeController {
 	}
 	
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion,@Param("estudianteid") String estudianteid,HttpSession sesion) {
+	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion,HttpSession sesion) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
@@ -396,7 +395,8 @@ public class HomeController {
 			a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
 			a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
 			a.setEs_tutor(apoderado.isEs_tutor());
-			a.setEstudiante_id(estudianteid);
+			
+			a.setEstudiante_id(apoderado.getEstudiante_id());
 			
 			
 			if(rutValidationService.isValidRut(apoderado.getRun_apoderado())) {
