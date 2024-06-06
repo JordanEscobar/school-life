@@ -8,8 +8,12 @@
 <script type="text/javascript" src="/js/sidebars.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 </head>
-<body>
+<body class="pt-sans-regular">
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
@@ -49,7 +53,7 @@
 				    
 				  </div>
 				  <div class="card-footer">
-				  	<a class="btn btn-danger" th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}">Eliminar</a>
+				  	<a class="btn btn-danger" th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa-regular fa-trash-can"></i></a>
 				  	<p class="card-text" th:text="'Documento adjunto: '+ ${h.archivo}"></p>
 				  </div>
 				</div>

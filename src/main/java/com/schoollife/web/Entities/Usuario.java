@@ -3,10 +3,10 @@ package com.schoollife.web.Entities;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +17,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="usuarios")
@@ -37,6 +39,7 @@ public class Usuario {
 	@NotBlank
 	private String telefono;
 	@NotNull
+	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
 	@NotNull

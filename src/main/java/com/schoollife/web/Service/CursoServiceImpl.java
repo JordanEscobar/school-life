@@ -1,5 +1,6 @@
 package com.schoollife.web.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,6 +64,16 @@ public class CursoServiceImpl implements CursoService{
 	@Transactional
 	public Curso CreateCurso(Curso curso) {
 		return cursoR.save(curso);
+	}
+
+	@Override
+	@Transactional
+	public List<String> abecedario() {
+		List<String> abc = new ArrayList<>();
+        for (char c = 'A'; c <= 'Z'; c++) {
+            abc.add(String.valueOf(c));
+        }
+        return abc;
 	}
 	
 	

@@ -8,6 +8,7 @@ import java.util.List;
 import jakarta.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -334,6 +335,7 @@ public class HomeController {
 						boolean rutex =false;
 						model.addAttribute("rutexiste",rutex);
 						e.setRunEstudiante(estudiante.getRunEstudiante());
+						model.addAttribute("estudiante_id",e.getRunEstudiante());
 					}
 				}
 			}else {
@@ -367,7 +369,7 @@ public class HomeController {
 	}
 	
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion,HttpSession sesion) {
+	public String matriculaIngresarApoderado(@Valid Apoderado apoderado,Errors errores, Model model, Programa_Integracion programa_integracion,@Param("estudianteid") String estudianteid,HttpSession sesion) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
@@ -378,9 +380,9 @@ public class HomeController {
 			boolean rutinvalido2 = false;
 			model.addAttribute("rutinvalido2", rutinvalido2);
 			//
-			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
+			/*var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			String rut_estudiante = estudiantes.get(estudiantes.size() - 1).getRunEstudiante();
-			model.addAttribute("estudianteid", rut_estudiante);
+			model.addAttribute("estudianteid", rut_estudiante);*/
 			model.addAttribute("comunas",establecimientoS.comunas());
 			//
 			Apoderado a = new Apoderado();
@@ -394,7 +396,7 @@ public class HomeController {
 			a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
 			a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
 			a.setEs_tutor(apoderado.isEs_tutor());
-			a.setEstudiante_id(rut_estudiante);
+			a.setEstudiante_id(estudianteid);
 			
 			
 			if(rutValidationService.isValidRut(apoderado.getRun_apoderado())) {

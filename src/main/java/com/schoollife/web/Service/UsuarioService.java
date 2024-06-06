@@ -8,8 +8,10 @@ public interface UsuarioService {
 	
 	void registerUser(Usuario usuario);
 	List<Usuario> getAll();
+	List<Usuario> getByEstablecimiento(Integer rbd);
 	List<Usuario> buscarUsuarioCorreo(String correo);
 	Usuario buscarUserPorCorreoYPass(String correo, String pass);
+	void deleteUser(String runUsuario);
 
 	
 }

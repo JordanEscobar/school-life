@@ -52,9 +52,10 @@ public class UsuarioController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			
-			
-			
+			var roles = rolS.getAll();
+			model.addAttribute("roles",roles);
+			var usuarios = userService.getByEstablecimiento(uSesion.get(0).getEstablecimientoId());
+			model.addAttribute("usuarios",usuarios);
 			return "Usuario";
 		}
 		return "Login";	
@@ -189,6 +190,21 @@ public class UsuarioController {
 		}
 		flash.addFlashAttribute("warning","Debe ingresar credenciales válidas");
 		return "redirect:/login";		
+	}
+	@GetMapping("/usuario/eliminar/{rut_usuario}")
+	public String deleteUsuario(Usuario usuario,Model model,HttpSession sesion, RedirectAttributes flash) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			userService.deleteUser(usuario.getRut_usuario());
+			flash.addFlashAttribute("warning","Usuario eliminado correctamente");
+			return "redirect:/usuario";
+		}
+		return "Login";
 	}
 
 

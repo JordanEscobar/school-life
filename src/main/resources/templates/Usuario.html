@@ -8,8 +8,13 @@
 <script type="text/javascript" src="/js/sidebars.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 </head>
-<body>
+<body class="pt-sans-regular ">
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
@@ -20,13 +25,19 @@
 		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
-
+<br>
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-warning" th:if="${warning} != null" th:text="${warning}"></div>	
+	</div>
 <div class="container">
-	<h1>Usuarios</h1>
+	<h1 class="pt-sans-regular">Usuarios</h1>
 </div>
 <br>
 <div class="container">
-<a class="btn btn-primary" th:href="@{/registro}">Registrar usuario</a>
+<a class="btn btn-outline-primary" th:href="@{/registro}">Registrar usuario</a>
 <br><br>
 	<table class="table table-hover shadow">
 		<thead>
@@ -39,18 +50,23 @@
 				<th>Fecha de nacimiento</th>
 				<th>Estudios</th>
 				<th>Rol</th>
+				<th>Opciones</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+			<tr th:each="u : ${usuarios}">
+				<td th:text="${u.rut_usuario}"></td>
+				<td th:text="${u.nombre} + ' ' + ${u.apaterno} + ' '+ ${u.amaterno} "></td>
+				<td th:text="${u.correo}"></td>
+				<td th:text="${u.telefono}"></td>
+				<td th:text="${u.genero}"></td>
+				<td th:text="${u.fecha_nacimiento}"></td>
+				<td th:text="${u.estudios}"></td>
+				<td th:each="r : ${roles}" th:if="${r.id_rol} == ${u.rolId}" th:text="${r.nombre}"></td>
+				<td>
+					<a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Editar usuario"><i class="fa-solid fa-user-pen"></i></a>
+					<a class="btn btn-danger" th:href="@{/usuario/eliminar/} + ${u.rut_usuario}" data-toggle="tooltip" data-placement="bottom" title="Eliminar usuario"><i class="fa-regular fa-trash-can"></i></a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

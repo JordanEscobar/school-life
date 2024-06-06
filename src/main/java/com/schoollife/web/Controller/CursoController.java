@@ -62,6 +62,10 @@ public class CursoController {
 			var establecimientos = establecimientoS.getAll();
 			model.addAttribute("establecimientos", establecimientos);
 			model.addAttribute("curso",curso);
+			
+			var letras = cursoS.abecedario();
+			model.addAttribute("letras",letras);
+			
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			return "Curso-ingresar"; 
 		}
@@ -72,12 +76,19 @@ public class CursoController {
 	public String cursoIngresado(@Valid Curso curso,Errors errores,RedirectAttributes flash,Model model, HttpSession sesion)
 	{
 		if(sesion.getAttribute("usuario") != null) {
+			
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
+			var letras = cursoS.abecedario();
+			model.addAttribute("letras",letras);
 			var establecimientos = establecimientoS.getAll();
 			model.addAttribute("establecimientos", establecimientos);
 			Curso c = new Curso();
 			c.setApodo(curso.getApodo());
 			c.setCapacidad(curso.getCapacidad());
-			c.setEstablecimiento_id(curso.getEstablecimiento_id());
+			c.setEstablecimiento_id(uSesion.get(0).getEstablecimientoId());
 			c.setId_curso(curso.getId_curso());
 			c.setJornada(curso.getJornada());
 			c.setLetra(curso.getLetra());
@@ -103,11 +114,13 @@ public class CursoController {
 	public String cursoModificar(Curso curso,Model model,HttpSession sesion) {
 		if(sesion.getAttribute("usuario") != null) {
 			
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			System.out.println("la sesion iniciada es: "+ sesion.getAttribute("usuario"));					
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			
+			var letras = cursoS.abecedario();
+			model.addAttribute("letras",letras);
 		curso = cursoS.findCurso(curso);
 		var e = establecimientoS.getAll();
 		model.addAttribute("curso",curso);
@@ -120,15 +133,23 @@ public class CursoController {
 	@PostMapping(path = "/curso/modificado", consumes = "application/x-www-form-urlencoded")
 	public String cursoModificada(@Valid Curso curso,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
 		if(sesion.getAttribute("usuario") != null) {
+			
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
+			
+			var letras = cursoS.abecedario();
+			model.addAttribute("letras",letras);
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
-			var cursos = cursoS.getAll(4717);
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			Curso c = new Curso();
 			for (Curso cu : cursos) {
 				if(cu.getId_curso() == curso.getId_curso()) {
 					c.setApodo(cu.getApodo());
 					c.setCapacidad(cu.getCapacidad());
-					c.setEstablecimiento_id(cu.getEstablecimiento_id());
+					c.setEstablecimiento_id(uSesion.get(0).getEstablecimientoId());
 					c.setId_curso(cu.getId_curso());
 					c.setJornada(cu.getJornada());
 					c.setLetra(cu.getLetra());

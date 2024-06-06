@@ -14,6 +14,8 @@ public interface CursoService {
 		Curso findCurso(Curso curso);
 		//Crear
 		Curso CreateCurso(Curso curso);
+		//letras
+		List<String> abecedario();
 		
 
 }

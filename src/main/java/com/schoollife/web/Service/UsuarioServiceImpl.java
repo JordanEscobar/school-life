@@ -58,6 +58,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return usuarioR.findAll();
 	}
 
+	@Override
+	@Transactional
+	public List<Usuario> getByEstablecimiento(Integer rbd) {
+		return usuarioR.findByEstablecimientoId(rbd);
+	}
+
+	@Override
+	@Transactional
+	public void deleteUser(String runUsuario) {
+		usuarioR.deleteById(runUsuario);
+	}
+
 	
 	
 	
