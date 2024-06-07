@@ -32,35 +32,40 @@
 	</div>
 	<h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Hoja de vida</h1>
 	<br><br>
-	<div class="container">
-		<div class="row">
-			<div class="col-auto"></div>
-			<div class="col-auto">
-				<div th:each="h : ${hoja_de_vida}" class="card text-white bg-secondary mb-3 shadow" style="max-width: 60rem;">
-				  <div  class="card-header">
-				  <div class="text-end">
-				  	<span th:text="'Fecha: ' + ${#calendars.format(h.fecha,'dd-MMMM-yyyy')}"></span>
-				  </div>
-				  	<div class="text-center">
-				  		<span class="card-text text-end" th:text="${h.asignatura}"></span>
-				  	</div>
-				  	
-				  </div>
-				  
-				  <div class="card-body">
-				    <h5 class="card-title" th:text="${h.tipoEvento}"></h5>				    
-				    <p class="card-text" th:text="${h.detalle}"></p>
-				    
-				  </div>
-				  <div class="card-footer">
-				  	<a class="btn btn-danger" th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa-regular fa-trash-can"></i></a>
-				  	<p class="card-text" th:text="'Documento adjunto: '+ ${h.archivo}"></p>
-				  </div>
-				</div>
-			</div>
-			<div class="col-auto"></div>
-		<br><br>
-	</div>
+	<div class="table-responsive">
+		<table class="table table-bordered text-center border rounded container shadow">
+			<thead>
+				<tr >
+					<th>#</th>
+					<th>FECHA</th>
+					<th>TIPO DE EVENTO</th>
+					<th>ASIGNATURA</th>
+					<th>DETALLE</th>
+					<th>USUARIO QUE REGISTRÓ</th>
+					<th>ESTUDIANTE</th>
+					<th>ARCHIVO</th>
+					<th>OPCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="h : ${hoja_de_vida}">
+					<td th:text="${h.id_hoja_de_vida}"></td>
+					<td th:text="'Fecha: ' + ${#calendars.format(h.fecha,'dd-MMMM-yyyy')}"></td>
+					<td th:text="${h.tipoEvento}"></td>
+					<td th:text="${h.asignatura}"></td>
+					<td th:text="${h.detalle}"></td>
+					<td th:text="${h.usuarioId}"></td>
+					<td th:text="${h.estudianteId}"></td>
+					<td th:text="${h.archivo}"></td>
+					<td>
+						<a class="btn btn-danger">Editar</a>
+						<a class="btn btn-danger" th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}" data-toggle="tooltip" data-placement="bottom" title="Eliminar"><i class="fa-regular fa-trash-can"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		
+		</table>
+
 </div>
 <br><br>
 </div>

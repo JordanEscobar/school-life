@@ -46,8 +46,8 @@
 <h2>Datos Personales</h2>
 <br>
 <div class="table-responsive">
-<table class="table ">
-	<thead class="table table-secondary">
+<table class="table table-bordered text-center border rounded container shadow">
+	<thead class="text-uppercase">
 		<tr>
 			<th>#</th>
 			<th>Nombre</th>
@@ -65,7 +65,6 @@
 			<th>Vive con</th>
 			<th>Cantidad computadores en casa</th>
 			<th>Religión</th>
-
 		</tr>
 	</thead>
 	<tbody>
@@ -89,10 +88,10 @@
 		</tr>
 	</tbody>
 </table>
+<br>
 
-
-	<table class="table ">
-	<thead class="table table-secondary">
+	<table class="table table-bordered text-center border rounded container shadow">
+	<thead class="text-uppercase">
 		<tr>
 			<th>Seguro escolar</th>
 			<th>Nacionalidad</th>
@@ -124,11 +123,11 @@
 
 </div>
 
-
+<br>
 <div class="container">
 <h2>Datos educación</h2>
-	<table class="table ">
-		<thead class="table table-secondary">
+	<table class="table table-bordered text-center border rounded container shadow">
+		<thead class="text-uppercase">
 			<tr>
 				<th>Colegio de Procedencia</th>
 				<th>Beca</th>
@@ -148,8 +147,8 @@
 
 <div class="container table-responsive">
 <h2>Datos Salud</h2>
-	<table class="table ">
-		<thead class="table table-secondary">
+	<table class="table table-bordered text-center border rounded container shadow">
+		<thead class="text-uppercase">
 			<tr>
 				<th>Estatura</th>
 				<th>Peso</th>
@@ -185,31 +184,85 @@
 		</tbody>
 	</table>
 </div>
-
-<div class="container">
+<br>
+<div class="container border rounded shadow">
+	<br>
 	<h2>Apoderado</h2>
-	<label>Nombre: <span th:text="${listaA[0].nombres} + ' ' + ${listaA[0].apaterno_apoderado}"></span></label><br>
-	<label>Rut: <span th:text="${listaA[0].run_apoderado}"></span></label><br>
-	<label>Parentesco: <span th:text="${listaA[0].parentesco}"></span></label><br>
-	<label>Tipo apoderado: <span th:text="${listaA[0].tipo_apoderado}"></span></label><br>
-	<label>Fecha Nacimiento: <span th:text="${#calendars.format(listaA[0].fecha_nacimiento_apoderado,'dd-MMMM-yyyy')}"></span></label><br>
-	<label>Dirección: <span th:text="${listaA[0].domicilio_apoderado}"></span></label><br>
-	<label>Comuna: <span th:text="${listaA[0].comuna_apoderado}"></span></label><br>
-	<label>Nivel Educación: <span th:text="${listaA[0].nivel_educacion}"></span></label><br>
-	<label>Ocupación: <span th:text="${listaA[0].ocupacion}"></span></label><br>
-	<label>Teléfono: <span th:text="${listaA[0].telefono_apoderado}"></span></label><br>
-	<label>Celular: <span th:text="${listaA[0].celular_apoderado}"></span></label><br>
-	<label>Correo electrónico: <span th:text="${listaA[0].correo_electronico_apoderado}"></span></label><br>
-	<label>Es tutor: <span th:text="${listaA[0].es_tutor}"></span></label><br>
-	<label>Estado Civil: <span th:text="${listaA[0].estado_civil}"></span></label><br>
-	<label th:if="${listaA[0].acepta_manual_convivencia_escolar} == True">Acepta manual de convivencia escolar: <span >Si</span><br></label>
-	<label th:if="${listaA[0].acepta_manual_convivencia_escolar} == False">Acepta manual de convivencia escolar: <span >No</span><br></label>
-	<label th:if="${listaA[0].autorizacion_fotografia_grabacion} == True">Autoriza fotografia y grabación: <span >Si</span><br></label>
-	<label th:if="${listaA[0].autorizacion_fotografia_grabacion} == False">Autoriza fotografia y grabación: <span >No</span><br></label>
-	<label th:if="${listaA[0].autorizado_retirar_establecimiento} == True">Autorizado para retirar al estudiante del establecimiento: <span  th:text="Si"></span><br></label>
-	<label th:if="${listaA[0].autorizado_retirar_establecimiento} == False">Autorizado para retirar al estudiante del establecimiento: <span  th:text="No"></span><br></label>
+	<br>
+	<div class="row">
+		<div class="col">
+			<label class="text-uppercase "><strong>Nombre:</strong></label>&nbsp;<span th:text="${listaA[0].nombres} + ' ' + ${listaA[0].apaterno_apoderado}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Rut: </strong></label>&nbsp;<span th:text="${listaA[0].run_apoderado}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Parentesco:</strong></label>&nbsp;<span th:text="${listaA[0].parentesco}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Tipo apoderado:</strong> </label>&nbsp;<span th:text="${listaA[0].tipo_apoderado}"></span>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col">
+			<label class="text-uppercase "><strong>Fecha Nacimiento:</strong> </label>&nbsp;<span th:text="${#calendars.format(listaA[0].fecha_nacimiento_apoderado,'dd-MMMM-yyyy')}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Dirección:</strong> </label>&nbsp;<span th:text="${listaA[0].domicilio_apoderado}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Comuna:</strong> </label>&nbsp;<span th:text="${listaA[0].comuna_apoderado}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Nivel Educación:</strong> </label>&nbsp;<span th:text="${listaA[0].nivel_educacion}"></span>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col">
+			<label class="text-uppercase "><strong>Correo electrónico:</strong> </label>&nbsp;<span th:text="${listaA[0].correo_electronico_apoderado}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Celular:</strong> </label>&nbsp;<span th:text="${listaA[0].celular_apoderado}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Ocupación:</strong> </label>&nbsp;<span th:text="${listaA[0].ocupacion}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Teléfono:</strong> </label>&nbsp;<span th:text="${listaA[0].telefono_apoderado}"></span>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col">
+			<label th:if="${listaA[0].es_tutor} == True" class="text-uppercase "><strong>Es tutor:</strong> </label>&nbsp;<span th:if="${listaA[0].es_tutor} == True">Si</span>
+			<label th:if="${listaA[0].es_tutor} == False " class="text-uppercase "><strong>Es tutor:</strong> </label>&nbsp;<span th:if="${listaA[0].es_tutor} == False ">No</span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase "><strong>Estado Civil:</strong> </label>&nbsp;<span th:text="${listaA[0].estado_civil}"></span>
+		</div>
+		<div class="col">
+			<label class="text-uppercase " th:if="${listaA[0].acepta_manual_convivencia_escolar} == True"><strong>Acepta manual de convivencia escolar:</strong></label><span th:if="${listaA[0].acepta_manual_convivencia_escolar} == True">Si</span>
+			<label class="text-uppercase " th:if="${listaA[0].acepta_manual_convivencia_escolar} == False"><strong>Acepta manual de convivencia escolar:</strong> </label><span th:if="${listaA[0].acepta_manual_convivencia_escolar} == False">No</span>
+		</div>
+		<div class="col">	
+			<label class="text-uppercase " th:if="${listaA[0].autorizacion_fotografia_grabacion} == True"><strong>Autoriza fotografia y grabación:</strong> </label>&nbsp;<span th:if="${listaA[0].autorizacion_fotografia_grabacion} == True">Si</span><br>
+			<label class="text-uppercase " th:if="${listaA[0].autorizacion_fotografia_grabacion} == False"><strong>Autoriza fotografia y grabación:</strong> </label>&nbsp;<span th:if="${listaA[0].autorizacion_fotografia_grabacion} == False">No</span><br>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col">
+			<label class="text-uppercase " th:if="${listaA[0].autorizado_retirar_establecimiento} == True"><strong>Autorizado para retirar al estudiante del establecimiento:</strong> </label><span th:if="${listaA[0].autorizado_retirar_establecimiento} == True"  th:text="Si"></span><br>
+			<label class="text-uppercase " th:if="${listaA[0].autorizado_retirar_establecimiento} == False"><strong>Autorizado para retirar al estudiante del establecimiento:</strong> </label><span th:if="${listaA[0].autorizado_retirar_establecimiento} == False"  th:text="No"></span><br>
+		</div>
+		<div class="col"></div>
+		<div class="col"></div>
+	</div>
+	<br>
 </div>
-
+<br><br>
 
 
 </div>

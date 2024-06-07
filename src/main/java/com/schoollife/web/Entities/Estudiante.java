@@ -37,10 +37,13 @@ public class Estudiante {
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;
 	@Past
+	@NotNull
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_nacimiento;
 	@NotBlank
+	@NotNull
 	private String pais_nacimiento;
+	@NotNull
 	private String genero;
 	@NotBlank
 	private String direccion;
@@ -71,13 +74,13 @@ public class Estudiante {
 	@NotNull
 	private double peso;
 	private String grupo_sanguineo;
-	@NotBlank
+
 	private String alergias_alimentos;
-	@NotBlank
+
 	private String alergias_medicamentos;
-	@NotBlank
+
 	private String medicamentos_contraindicados;
-	@NotBlank
+
 	private String enfermedades_cronicas;
 	private boolean vacuna_covid;
 	private Integer cantidad_vacunas_covid;
@@ -85,18 +88,16 @@ public class Estudiante {
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_ultima_vacuna_COVID;
 	private boolean apto_educacion_fisica;
-	@NotBlank
+
 	private String sistema_prevision;
-	@NotNull
+
 	private boolean seguro_escolar_privado;
 	private String nacionalidad;
 	private String etnia;
-	@NotBlank
+
 	private String consultorio_clinica;
-	@Length(min = 0, max = 250)
+
 	@Column(name = "observaciones_medicas")
-	@NotBlank
-	@Length(min = 0, max = 250)
 	private String observaciones;
 	private boolean estado;
 	@Column(name = "establecimiento_id")

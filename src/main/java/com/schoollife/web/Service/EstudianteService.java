@@ -27,6 +27,8 @@ public interface EstudianteService {
 	List<Estudiante> findEstudiantePorPie(String pie);
 	void cancelarMatricula(String estudianteid);
 	
+	boolean estudianteExiste(String estudiante_id);
+	
 	
 
 }

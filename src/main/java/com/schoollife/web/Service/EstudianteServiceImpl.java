@@ -339,5 +339,11 @@ public class EstudianteServiceImpl implements EstudianteService{
 		return estudianteR.findAll();
 	}
 
+	@Override
+	@Transactional
+	public boolean estudianteExiste(String estudiante_id) {
+		return estudianteR.existsById(estudiante_id);
+	}
+
 
 }
