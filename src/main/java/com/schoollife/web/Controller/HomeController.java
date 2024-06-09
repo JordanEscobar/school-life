@@ -361,13 +361,40 @@ public class HomeController {
 			model.addAttribute("estudiante", e);
 			model.addAttribute("estudianteid",e.getRunEstudiante());
 			sesion.setAttribute("estudiante", e);
+			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 			model.addAttribute("estudiante", sesion.getAttribute("estudiante"));
+			model.addAttribute("eSesion",eSesion);
+			System.out.println("el estudiante creado es: " + eSesion);
 			return "Matricula-ingresar-apoderado";	
+		}
+		return "Login";		
+	}
+	@GetMapping("/matricula/ingresar/apoderados/get")
+	public String matriculaIngresarApoderadoGet(Apoderado apoderado,Model model,HttpSession sesion) {
+		
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("usuario");
+		    model.addAttribute("uSesion", uSesion.get(0));
+		    model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+		    model.addAttribute("usuario", sesion.getAttribute("usuario"));
+		    boolean rutex2 = false;
+		    model.addAttribute("rutexiste2", rutex2);
+		    boolean rutinvalido2 = false;
+		    model.addAttribute("rutinvalido2", rutinvalido2);
+		    
+		    model.addAttribute("comunas", establecimientoS.comunas());
+		    Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
+		    model.addAttribute("eSesion",eSesion);
+		    System.out.println("el estudiante que se creo es: " + eSesion);
+			return "Matricula-ingresar-apoderado";		
 		}
 		return "Login";
 		
+		
 	}
-	//
+	
+	//recibe datos del estudiante, Ingresa datos del apoderado 
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarApoderado(@Valid Apoderado apoderado, Errors errores, Model model, Programa_Integracion programa_integracion, HttpSession sesion) {
 		if(sesion.getAttribute("usuario")!=null)
@@ -391,6 +418,11 @@ public class HomeController {
 
 		    // Crear el objeto Apoderado y asignar los valores
 		    Apoderado a = new Apoderado();
+		    
+		    Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
+		    model.addAttribute("eSesion",eSesion);
+		    a.setEstudiante_id(apoderado.getEstudiante_id());
+		    
 		    a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
 		    a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
 		    a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
@@ -401,7 +433,7 @@ public class HomeController {
 		    a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
 		    a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
 		    a.setEs_tutor(apoderado.isEs_tutor());
-		    a.setEstudiante_id(apoderado.getEstudiante_id());
+		    
 		    if (rutValidationService.isValidRut(apoderado.getRun_apoderado())) {
 		        a.setRun_apoderado(apoderado.getRun_apoderado());
 		    } else {
@@ -422,7 +454,11 @@ public class HomeController {
 		    a.setEstado_civil(apoderado.getEstado_civil());
 
 		    if (errores.hasErrors()) {
-		        return "Matricula-ingresar-apoderado";
+		    	model.addAttribute("eSesion",eSesion);
+		    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
+		        System.out.println("El usuario conectado es: "+ sesion.getAttribute("usuario"));
+		        System.out.println("el estudiante que se registro es:"+ eSesion);
+		    	return "Matricula-ingresar-apoderado";
 		    }
 
 		    // Se crea el apoderado
