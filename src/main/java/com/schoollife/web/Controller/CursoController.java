@@ -121,11 +121,11 @@ public class CursoController {
 			
 			var letras = cursoS.abecedario();
 			model.addAttribute("letras",letras);
-		curso = cursoS.findCurso(curso);
-		var e = establecimientoS.getAll();
-		model.addAttribute("curso",curso);
-		model.addAttribute("establecimientos",e);
-		return "Curso-modificar";
+			curso = cursoS.findCurso(curso);
+			var e = establecimientoS.getAll();
+			model.addAttribute("curso",curso);
+			model.addAttribute("establecimientos",e);
+			return "Curso-modificar";
 		}
 		return "Login";
 	}

@@ -174,7 +174,7 @@ public class HomeController {
 		
 		
 	}
-
+	//filtrar por curso
 	@PostMapping(path = "/filtrarcurso", consumes = "application/x-www-form-urlencoded")
 	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso,HttpSession sesion) {
 		if(sesion.getAttribute("usuario")!=null)
@@ -205,7 +205,7 @@ public class HomeController {
 		
 		
 	}
-
+	//filtrar por estado matriculado o retirado
 	@PostMapping(path = "/filtrarestado", consumes = "application/x-www-form-urlencoded")
 	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado,HttpSession sesion) {
 		if(sesion.getAttribute("usuario")!=null)
@@ -369,6 +369,7 @@ public class HomeController {
 		}
 		return "Login";		
 	}
+	//ingreso por GET que me permite ingresar a la vista de ingreso de apoderado para la matricula
 	@GetMapping("/matricula/ingresar/apoderados/get")
 	public String matriculaIngresarApoderadoGet(Apoderado apoderado,Model model,HttpSession sesion) {
 		
@@ -474,22 +475,47 @@ public class HomeController {
 		
 	}
 	
-	@PostMapping(path = "/matricula/ingresar/programa_integracion", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarPie(@Valid Programa_Integracion programa_integracion, Errors errores,RedirectAttributes flash, Model model,HttpSession sesion) {
-
+	public String matricularIngresarPieGet(Programa_Integracion programa_integracion, Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
 			
+			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
+			model.addAttribute("eSesion",eSesion);
+	    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
+	    	return "Matricula-ingresar-pie";
+		}
+		
+		return "Login";
+	}
+	
+	//Ingreso por post a ingresar al programa de integracion luego de ingresar el apoderado
+	@PostMapping(path = "/matricula/ingresar/programa_integracion", consumes = "application/x-www-form-urlencoded")
+	public String matriculaIngresarPie(@Valid Programa_Integracion programa_integracion, Errors errores,RedirectAttributes flash, Model model,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
+			
+			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
+			model.addAttribute("eSesion",eSesion);
+	    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
+			
 			Programa_Integracion p = new Programa_Integracion();
 			//el rut esta hardcode, hay que modificarlo
-			p.setEstudiante_id("17861759-1");
+			p.setEstudiante_id(eSesion.getRunEstudiante());
 			p.setIndicaciones_generales(programa_integracion.getIndicaciones_generales());
 			p.setPermanencia_pie(programa_integracion.isPermanencia_pie());
 			p.setTipo_permanencia(programa_integracion.getTipo_permanencia());
 			
 			if (errores.hasErrors()) {
+				model.addAttribute("eSesion",eSesion);
+		    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
 				return "Matricula-ingresar-pie";
 			}	
 			//se crea el Programa para el estudiante
@@ -498,6 +524,8 @@ public class HomeController {
 			model.addAttribute("programa_integracionId",p.getId_Programa());
 			flash.addFlashAttribute("success","Estudiante matriculado correctamente");
 			return "redirect:/matricula";
+		}
+		return "Login";
 		
 	}
 	

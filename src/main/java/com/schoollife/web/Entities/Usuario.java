@@ -49,7 +49,6 @@ public class Usuario {
 	@NotNull
 	private String cargo;
 	@Column(name = "rol_id")
-	@NotNull
 	private Integer rolId;
 	@NotNull
 	@Column(name = "establecimiento_id")

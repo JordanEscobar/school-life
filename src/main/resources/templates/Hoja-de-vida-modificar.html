@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Libro de clases online</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<script type="text/javascript" src="/js/sidebars.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>	
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+</head>
+<body class="pt-sans-regular">
+
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+	<div>
+		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
+	</div>
+	
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+	</div>
+</nav>
+
+<div class="container">
+
+	<div class="col-md-4 mt-5">
+		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+	</div>
+	<h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span>Modificar anotación</h1>
+	<br><br>
+	<div class="container shadow">
+		<form method="POST" th:action="@{/Hoja-de-vida/ingresado}" enctype="multipart/form-data" th:object="${hoja_de_vida}">
+		<div class="row">
+			<div class="col">
+				<label>Tipo de evento</label>
+				<select th:field="*{tipoEvento}" class="form-select" >
+					<option th:value="'RECONOCIMIENTO'">RECONOCIMIENTO</option>
+					<option th:value="'DERIVACIÓN EXTERNA'">DERIVACIÓN EXTERNA</option>
+					<option th:value="'FALTA'">FALTA</option>
+					<option th:value="'FALTA LEVE'">FALTA LEVE</option>
+					<option th:value="'FALTA GRAVE'">FALTA GRAVE</option>
+					<option th:value="'FALTA GRAVÍSIMA'">FALTA GRAVÍSIMA</option>
+					<option th:value="'ENTREVISTA CON EL ESTUDIANTE'">ENTREVISTA CON EL ESTUDIANTE</option>
+					<option th:value="'ANITACIÓN POSITIVA'">ANITACIÓN POSITIVA</option>
+					<option th:value="'ANOTACIÓN NEGATIVA'">ANOTACIÓN NEGATIVA</option>
+					<option th:value="'ANOTACIÓN GENERAL DEL CURSO'">ANOTACIÓN GENERAL DEL CURSO</option>
+					<option th:value="'OTROS'">OTROS</option>
+				</select>
+				<span class="text-danger" th:if="${#fields.hasErrors('tipoEvento')}" th:errors="*{tipoEvento}">Error tipoEvento</span>
+			</div>
+			<div class="col">
+				<label>Asignatura</label>
+				<select th:field="*{asignatura}" class="form-select">
+					<option th:each="a : ${asignaturas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
+				</select>
+				<span class="text-danger" th:if="${#fields.hasErrors('asignatura')}" th:errors="*{asignatura}">Error asignatura</span>
+			</div>
+			<div class="col">
+				<label>Subir Archivo (opcional)</label>
+				<input type="file" name="file" accept=".pdf,.doc,.docx,.jpg,.png" class="form-control">
+			</div>
+			<div class="col">
+				<label>Fecha</label>
+				<input type="date" name="fecha" th:field="*{fecha}" class="form-control">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col">
+				<label>Detalle <span class="text-danger">(*)</span></label>
+				<textarea id="message" name="message" maxlength="250" th:field="*{detalle}" class="form-control" cols="" rows="5" placeholder="Ingrese el detalle....">
+				</textarea>
+				<span class="help-block">
+					<p id="mensaje_ayuda" class="help-block">Cuerpo del mensaje de alerta</p>
+				</span>
+				<span class="text-danger" th:if="${#fields.hasErrors('detalle')}" th:errors="*{detalle}">Error detalle</span>
+			</div>
+		</div>
+		<div class="d-none">
+			<input type="text" th:field="*{estudianteId}">
+			<input type="number" th:field="*{id_hoja_de_vida}">
+			<input type="text" th:field="*{usuarioId}">
+		</div>
+			
+		<br>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col"></div>
+			<div class="col text-end">
+				<button type="button" class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#anotacionModal">Modificar anotación</button>
+			</div>
+		</div>
+	<br>
+			<!-- Modal -->
+		<div class="modal fade" id="anotacionModal" tabindex="-1"
+			aria-labelledby="anotacionModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">¿Esta seguro que desea modificar la anotación?</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary"
+							value="Modificar anotación">
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</form>
+	</div>
+
+
+</div>
+<br><br>
+
+<script type="text/javascript">
+
+$('#mensaje_ayuda').text('250 carácteres restantes');
+$('#message').keydown(function () {
+    var max = 250;
+    var len = $(this).val().length;
+    if (len >= max) {
+        $('#mensaje_ayuda').text('Has llegado al límite');// Aquí enviamos el mensaje a mostrar          
+        $('#mensaje_ayuda').addClass('text-danger');
+        $('#message').addClass('is-invalid');
+        $('#inputsubmit').addClass('disabled');    
+        document.getElementById('inputsubmit').disabled = true;                    
+    } 
+    else {
+        var ch = max - len;
+        $('#mensaje_ayuda').text(ch + ' carácteres restantes');
+        $('#mensaje_ayuda').removeClass('text-danger');            
+        $('#message').removeClass('is-invalid');            
+        $('#inputsubmit').removeClass('disabled');
+        document.getElementById('inputsubmit').disabled = false;            
+    }
+}); 
+
+</script>
+</body>
+</html>

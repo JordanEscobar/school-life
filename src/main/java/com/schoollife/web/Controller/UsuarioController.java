@@ -131,11 +131,10 @@ public class UsuarioController {
 			rutinvalido3 = true;
 			model.addAttribute("rutinvalido3", rutinvalido3);
 			return "Registro";				
-		}
-	
-		us.setRolId(usuario.getRolId());
+		}	
 		us.setRoles(usuario.getRoles());
 		us.setTelefono(usuario.getTelefono());
+		us.setRolId(usuario.getRolId());
 		
 		if (errores.hasErrors()) {
 			return "Registro";

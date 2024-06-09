@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Libro de clases online</title>
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
+<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" /> -->
 <link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -60,7 +61,7 @@
                     <td th:text="${h.estudianteId}"></td>
                     <td th:text="${h.archivo}"></td>
                     <td>
-                        <a class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="btn btn-secondary" th:href="@{/HojaDeVida/modificar/} + ${h.id_hoja_de_vida}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
                         
                         <a class="btn btn-danger" data-toggle="modal" th:attr="data-target='#confirmDeleteModal_' + ${h.id_hoja_de_vida}" data-placement="bottom" title="Eliminar"><i class="fa-regular fa-trash-can"></i></a>
                        
@@ -77,7 +78,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <a th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}" class="btn btn-danger">Eliminar</a>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        
+                                        <button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
