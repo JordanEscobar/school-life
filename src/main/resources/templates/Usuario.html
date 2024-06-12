@@ -49,7 +49,7 @@
 				<th>Género</th>
 				<th>Fecha de nacimiento</th>
 				<th>Estudios</th>
-				<th>Rol</th>
+				<!-- <th>Rol</th> -->
 				<th>Opciones</th>
 			</tr>
 		</thead>
@@ -62,7 +62,7 @@
 				<td th:text="${u.genero}"></td>
 				<td th:text="${u.fecha_nacimiento}"></td>
 				<td th:text="${u.estudios}"></td>
-				<td th:each="r : ${roles}" th:if="${r.id_rol} == ${u.roles[0].id_rol}" th:text="${r.nombre}"></td>
+				<!--  <td th:each="r : ${roles}" th:if="${r.id_rol} == ${u.roles[0].id_rol}" th:text="${r.nombre}"></td>-->
 				<td>
 					<a class="btn btn-info" th:href="@{/usuario/modificar/} + ${u.rutUsuario}" data-toggle="tooltip" data-placement="bottom" title="Editar usuario"><i class="fa-solid fa-user-pen"></i></a>
 					<a class="btn btn-danger" th:href="@{/usuario/eliminar/} + ${u.rutUsuario}" data-toggle="tooltip" data-placement="bottom" title="Eliminar usuario"><i class="fa-regular fa-trash-can"></i></a>

@@ -98,8 +98,24 @@
 			<div class="col">
 				<label>Cargo <span class="text-danger">(*)</span></label>
 				<select th:field="*{cargo}" class="form-select">
-					<option th:value="Profesor">Profesor</option>
-					<option th:value="Paradocente">Para docente</option>
+					<option th:value="'Kinesiologo(a)'">Kinesiologo(a)</option>
+					<option th:value="'Fonoaudiologo(a)'">Fonoaudiologo(a)</option>
+					<option th:value="'Terapeuta Ocupacional'">Terapeuta Ocupacional</option>
+					<option th:value="'Psicopedagogo(a)'">Psicopedagogo(a)</option>
+					<option th:value="'Psicólogo(a)'">Psicólogo(a)</option>
+					<option th:value="'Profesor(a) de Educación Especial/Diferencial'">Profesor(a) de Educación Especial/Diferencial</option>
+					<option th:value="'Encargado de informática'">Encargado de informática</option>
+					<option th:value="'Jefe UTP'">Jefe UTP</option>
+					<option th:value="'Orientador'">Orientador</option>
+					<option th:value="'Equipo PIE'">Equipo PIE</option>
+					<option th:value="'Educadora de Párvulos'">Educadora de Párvulos</option>
+					<option th:value="'Docente'">Docente</option>
+					<option th:value="'Director'">Director</option>
+					<option th:value="'Coordinador'">Coordinador</option>
+					<option th:value="'Asistente social'">Asistente social</option>
+					<option th:value="'Educadora Diferencial'">Educadora Diferencial</option>
+					<option th:value="'Médico'">Médico</option>
+					<option th:value="'Rector'">Rector</option>
 				</select>
 				<span th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}" class="text-danger">Error cargo</span>
 			</div>

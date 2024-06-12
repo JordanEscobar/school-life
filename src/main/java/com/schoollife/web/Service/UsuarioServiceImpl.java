@@ -93,7 +93,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		userN.setFecha_nacimiento(usuario.getFecha_nacimiento());
 		userN.setGenero(usuario.getGenero());
 		userN.setNombre(usuario.getNombre());
-		userN.setPass(usuario.getPass());
+		userN.setPass(encoder.encode(usuario.getPass()));
 		userN.setRoles(usuario.getRoles());
 		userN.setRutUsuario(usuario.getRutUsuario());
 		userN.setTelefono(usuario.getTelefono());
