@@ -26,84 +26,86 @@ public class Estudiante {
 	//@Length(min = 6, max = 11)
 	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	@Column(name = "run_estudiante")
-	private String runEstudiante;
+	private String runEstudiante;//obligatorio
 	@NotBlank
-	private String nombre;
+	private String nombre;//obligatorio
 	@NotBlank
-	private String apaterno;
+	private String apaterno;//obligatorio
 	@NotBlank
-	private String amaterno;
-	private String numero_matricula;
+	private String amaterno;//obligatorio
+	private String numero_matricula;//obligatorio
+	
 	@DateTimeFormat(iso=ISO.DATE)
-	private Date fecha_matricula;
+	private Date fecha_matricula;//obligatorio
 	@Past
 	@NotNull
 	@DateTimeFormat(iso=ISO.DATE)
-	private Date fecha_nacimiento;
+	private Date fecha_nacimiento;//obligatorio
 	@NotBlank
 	@NotNull
-	private String pais_nacimiento;
+	private String pais_nacimiento;//obligatorio
 	@NotNull
-	private String genero;
+	private String genero;//obligatorio
 	@NotBlank
-	private String direccion;
+	private String direccion;//obligatorio
 	@NotBlank
-	private String comuna;
+	private String comuna;//obligatorio
 	@NotBlank
 	@Email
-	private String correo_electronico;
-	@Length(min = 6, max = 9)
-	private String telefono;
+	private String correo_electronico;//obligatorio - a cierta edad es del apoderado
+	//@Length(min = 6, max = 9)
+	private String telefono;//opcional
 	@Length(min = 8, max = 9)
-	private String celular;
+	@NotNull
+	private String celular;//obligatorio - a cierta edad es del apoderado
 	@NotBlank
-	private String colegio_procedencia;
+	private String colegio_procedencia;//obligatorio
 	@NotBlank
-	private String nombre_contacto_emergencia;
+	private String nombre_contacto_emergencia;//obligatorio
 	@Length(min = 6, max = 9)
-	private String telefono_emergencia;
+	@NotNull
+	private String telefono_emergencia; //obligatorio
 	@NotBlank
-	private String vive_con;
-	private Integer cantidad_computadores_casa;
-	private String religion;
-	private boolean acepta_clases_religion;
-	private String beca;
+	private String vive_con; //obligatorio
+	private Integer cantidad_computadores_casa; //opcional
+	private String religion;//opcional
+	@NotNull
+	private boolean acepta_clases_religion;//obligatorio
+	@NotNull
+	private String beca; //obligatorio
 	@Min(value = 1)
 	@Max(value = 260)
-	private Integer estatura;
+	private Integer estatura; //obligatorio
 	@NotNull
-	private double peso;
-	private String grupo_sanguineo;
-
-	private String alergias_alimentos;
-
-	private String alergias_medicamentos;
-
-	private String medicamentos_contraindicados;
-
-	private String enfermedades_cronicas;
-	private boolean vacuna_covid;
-	private Integer cantidad_vacunas_covid;
-	private boolean esquema_completo_vacunacion_covid;
+	private double peso; //obligatorio
+	@NotNull
+	private String grupo_sanguineo; //obligatorio
+	private String alergias_alimentos; //obligatorio
+	private String alergias_medicamentos; //obligatorio
+	private String medicamentos_contraindicados; //obligatorio
+	private String enfermedades_cronicas; //obligatorio
+	@NotNull
+	private boolean vacuna_covid; //obligatorio
+	private Integer cantidad_vacunas_covid; //opcional
+	private boolean esquema_completo_vacunacion_covid; //opcional
 	@DateTimeFormat(iso=ISO.DATE)
-	private Date fecha_ultima_vacuna_COVID;
-	private boolean apto_educacion_fisica;
-
-	private String sistema_prevision;
-
-	private boolean seguro_escolar_privado;
-	private String nacionalidad;
-	private String etnia;
-
-	private String consultorio_clinica;
-
+	private Date fecha_ultima_vacuna_COVID; //opcional
+	@NotNull
+	private boolean apto_educacion_fisica; //obligatorio
+	@NotNull
+	private String sistema_prevision; //obligatorio
+	private boolean seguro_escolar_privado; //opcional
+	@NotNull
+	private String nacionalidad; //obligatorio
+	private String etnia; //opcional
+	private String consultorio_clinica; //obligatorio
 	@Column(name = "observaciones_medicas")
-	private String observaciones;
+	private String observaciones; //opcional pero deberia ir bloqueado y desbloquearse si se quiere.
 	private boolean estado;
 	@Column(name = "establecimiento_id")
-	private Integer establecimientoId;
-	private Integer curso_id;
-	private boolean es_pie;
+	private Integer establecimientoId; //obligatorio
+	private Integer curso_id; //obligatorio
+	private boolean es_pie; //obligatorio
 	public Estudiante(@NotBlank String runEstudiante, @NotBlank String nombre, @NotBlank String apaterno,
 			@NotBlank String amaterno, String numero_matricula, Date fecha_matricula, @Past Date fecha_nacimiento,
 			@NotBlank String pais_nacimiento, String genero, @NotBlank String direccion, @NotBlank String comuna,

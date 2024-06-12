@@ -72,6 +72,9 @@ public class EstablecimientoController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			
+			model.addAttribute("regiones",establecimientoS.regiones());
+			model.addAttribute("comunas",establecimientoS.comunas());
+			
 			Establecimiento e = new Establecimiento();
 			e.setComuna(establecimiento.getComuna());
 			e.setCorreo_electronico(establecimiento.getCorreo_electronico());
@@ -126,6 +129,9 @@ public class EstablecimientoController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
+			
+			model.addAttribute("regiones",establecimientoS.regiones());
+			model.addAttribute("comunas",establecimientoS.comunas());
 			var establecimientos = establecimientoS.getAll();
 			Establecimiento e = new Establecimiento();
 			for (Establecimiento es : establecimientos) {

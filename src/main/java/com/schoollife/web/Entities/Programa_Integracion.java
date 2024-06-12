@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -14,12 +15,14 @@ public class Programa_Integracion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_Programa;
-	private String estudiante_id;
+	private Integer id_Programa; //obligatorio
+	private String estudiante_id; //obligatorio
 	@NotNull
-	private boolean permanencia_pie;
-	private String tipo_permanencia;
-	private String indicaciones_generales;
+	private boolean permanencia_pie; //obligatorio
+	@NotNull
+	private String tipo_permanencia; //obligatorio
+	@NotBlank
+	private String indicaciones_generales; //obligatorio
 	public Programa_Integracion(Integer id_Programa, String estudiante_id, boolean permanencia_pie,
 			String tipo_permanencia, String indicaciones_generales) {
 		super();

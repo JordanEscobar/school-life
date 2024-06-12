@@ -25,9 +25,7 @@ public class Curso {
 	private Integer capacidad;
 	@NotBlank
 	private String local;
-	@NotBlank
 	private String numero_sala;
-	@NotBlank
 	private String apodo;
 	private Integer establecimiento_id;
 	public Curso(Integer id_curso, String nivel_ensenanza, String nivel, String letra, String jornada,

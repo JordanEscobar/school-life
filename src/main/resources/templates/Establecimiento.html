@@ -27,7 +27,7 @@
 	</div>
 </nav>
 <nav class="sidebar ">
-	<a th:href="@{/establecimiento/ingresar}" class="btn shadow">Registrar Establecimientos</a>
+
 </nav>
 <div class="col-md-4 mt-5">
 	<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
@@ -37,6 +37,8 @@
 	<h1>Establecimientos</h1>
 	<br>
 	<div class="container">
+		<a th:href="@{/establecimiento/ingresar}" class="btn btn-outline-dark">Registrar Establecimientos</a>
+		<br><br>
 		<table class="table table-hover bounded border text-center shadow">
 			<thead class="table">
 				<tr>

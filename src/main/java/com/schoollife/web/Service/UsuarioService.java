@@ -2,6 +2,7 @@ package com.schoollife.web.Service;
 
 import java.util.List;
 
+import com.schoollife.web.Entities.Curso;
 import com.schoollife.web.Entities.Usuario;
 
 public interface UsuarioService {
@@ -12,6 +13,8 @@ public interface UsuarioService {
 	List<Usuario> buscarUsuarioCorreo(String correo);
 	Usuario buscarUserPorCorreoYPass(String correo, String pass);
 	void deleteUser(String runUsuario);
+	Usuario findUsuarioByRutUsuario(String rutUsuario);
+	void updateUsuario(Usuario usuario, String rutUsuario);
 
 	
 }

@@ -170,10 +170,8 @@ public class HomeController {
 			return "Matricula";
 		}
 		return "Login";
-		
-		
-		
 	}
+	
 	//filtrar por curso
 	@PostMapping(path = "/filtrarcurso", consumes = "application/x-www-form-urlencoded")
 	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso,HttpSession sesion) {

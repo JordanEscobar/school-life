@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.schoollife.web.Entities.Curso;
 import com.schoollife.web.Entities.Estudiante;
 
 public interface EstudianteRepository extends JpaRepository<Estudiante, String>{
 	List<Estudiante> findByEstablecimientoId(Integer establciemiento_id);
-	 List<Estudiante> findByRunEstudianteContainingAndEstablecimientoId(String rut, Integer establecimientoId);
-	
+	List<Estudiante> findByRunEstudianteContainingAndEstablecimientoId(String rut, Integer establecimientoId);
+	Curso findCursoByRunEstudiante(String runEstudiante);	 
+	 
+	 
 	@Query(value = "SELECT e.numero_matricula AS n_matricula, e.run_estudiante AS run_estudiante,\r\n"
 			+ "e.nombre + ' ' + e.apaterno + ' ' + e.amaterno AS nombre, p.tipo_permanencia AS tipo_permanencia,\r\n"
 			+ "c.nivel + ' '+ c.letra AS curso, c.nivel_ensenanza AS nivel_curso , e.estado AS estado, c.establecimiento_id AS establecimientos,"

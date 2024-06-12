@@ -26,8 +26,11 @@ public class Establecimiento {
 	private String nombre;
 	@NotBlank
 	private String direccion;
+	@NotNull
 	private String region;
+	@NotNull
 	private String comuna;
+	@NotNull
 	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_aniversario;
@@ -38,7 +41,6 @@ public class Establecimiento {
 	@NotBlank
 	@Length(min = 5, max = 9)
 	private String numero_telefonico;
-	@NotBlank
 	private String zona_horaria;
 	public Establecimiento(Integer rbd, String nombre, String direccion, String region, String comuna,
 			Date fecha_aniversario, String correo_electronico, String pagina_web, String numero_telefonico,

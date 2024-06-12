@@ -1,9 +1,13 @@
 package com.schoollife.web.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.schoollife.web.Entities.Curso;
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -34,8 +38,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         user.setFecha_nacimiento(usuario.getFecha_nacimiento());
         user.setGenero(usuario.getGenero());
         user.setNombre(usuario.getNombre());
-        user.setRolId(usuario.getRolId());
-        user.setRut_usuario(usuario.getRut_usuario());
+        user.setRutUsuario(usuario.getRutUsuario());
         user.setTelefono(usuario.getTelefono());
         usuarioR.save(user);
     }
@@ -68,6 +71,34 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Transactional
 	public void deleteUser(String runUsuario) {
 		usuarioR.deleteById(runUsuario);
+	}
+
+	@Override
+	@Transactional
+	public Usuario findUsuarioByRutUsuario(String rutUsuario) {
+		return usuarioR.findByRutUsuario(rutUsuario);
+	}
+
+	@Override
+	@Transactional
+	public void updateUsuario(Usuario usuario, String rutUsuario) {
+		Optional<Usuario> usuarioId = usuarioR.findById(rutUsuario);
+		Usuario userN = usuarioId.get();
+		userN.setAmaterno(usuario.getAmaterno());
+		userN.setApaterno(usuario.getApaterno());
+		userN.setCargo(usuario.getCargo());
+		userN.setCorreo(usuario.getCorreo());
+		userN.setEstablecimientoId(usuario.getEstablecimientoId());
+		userN.setEstudios(usuario.getEstudios());
+		userN.setFecha_nacimiento(usuario.getFecha_nacimiento());
+		userN.setGenero(usuario.getGenero());
+		userN.setNombre(usuario.getNombre());
+		userN.setPass(usuario.getPass());
+		userN.setRoles(usuario.getRoles());
+		userN.setRutUsuario(usuario.getRutUsuario());
+		userN.setTelefono(usuario.getTelefono());
+		usuarioR.save(userN);
+		
 	}
 
 	

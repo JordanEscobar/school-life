@@ -26,9 +26,6 @@
 		<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
-<nav class="sidebar ">
-	<a th:href="@{/curso/ingresar}" class="btn shadow">Registrar Curso</a>
-</nav>
 <div class="col-md-4 mt-5">
 	<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 </div>
@@ -37,6 +34,8 @@
 <h1>Cursos</h1>
 <br>
 <div class="container">
+	<a th:href="@{/curso/ingresar}" class="btn btn-outline-dark">Registrar Curso</a>
+	<br><br>
 	<table class="table table-hover bounded border text-center shadow">
 			<thead class="table">
 				<tr>
@@ -73,5 +72,7 @@
 </div>
 
 </div>
+<br><br><br>
+<br><br><br>
 </body>
 </html>

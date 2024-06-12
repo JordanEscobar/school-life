@@ -25,58 +25,58 @@ public class Apoderado {
 	@NotBlank
 	@Length(min = 6, max = 11)
 	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
-	private String run_apoderado;
-	private String estudiante_id;
+	private String run_apoderado; //obligatorio
+	private String estudiante_id; //obligatorio
 	@Min(value = 6)
-	private Integer numero_documento;
+	private Integer numero_documento; //obligatorio
 	@NotBlank
-	private String nombres;
+	private String nombres; //obligatorio
 	@NotBlank
 	@Column(name = "apaterno")
-	private String apaterno_apoderado;
+	private String apaterno_apoderado; //obligatorio
 	@NotBlank
 	@Column(name = "amaterno")
-	private String amaterno_apoderado;
+	private String amaterno_apoderado;//obligatorio
 	@NotBlank
-	private String pasaporte;
+	private String pasaporte;//opcional
 	@NotBlank
-	private String parentesco;
+	private String parentesco; //obligatorio
 	@NotBlank
-	private String tipo_apoderado;
+	private String tipo_apoderado; //obligatorio pero el principal
 	@NotBlank
-	private String estado_civil;
+	private String estado_civil; //obligatorio
 	@NotNull
 	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	@Column(name = "fecha_nacimiento")
-	private Date fecha_nacimiento_apoderado;
+	private Date fecha_nacimiento_apoderado; //obligatorio
 	@NotBlank
 	@Column(name = "domicilio")
-	private String domicilio_apoderado;
+	private String domicilio_apoderado; //obligatorio
 	@Column(name = "comuna")
-	private String comuna_apoderado;
+	private String comuna_apoderado; //obligatorio
 	@NotBlank
-	private String nivel_educacion;
+	private String nivel_educacion; //obligatorio
 	@NotBlank
-	private String ocupacion;	
-	@Length(min = 6, max = 9)
+	private String ocupacion;	//obligatorio
+	//@Length(min = 6, max = 9)
 	@Column(name = "telefono")
-	private String telefono_apoderado;
+	private String telefono_apoderado; //opcional
 	@Length(min = 7, max = 11)
 	@Column(name = "celular")
-	private String celular_apoderado;
+	private String celular_apoderado; //obligatorio
 	@NotBlank
 	@Email
 	@Column(name = "correo_electronico")
-	private String correo_electronico_apoderado;
+	private String correo_electronico_apoderado; //obligatorio
 	@NotNull
 	private boolean es_tutor;
 	@NotNull
-	private boolean acepta_manual_convivencia_escolar;
+	private boolean acepta_manual_convivencia_escolar; //obligatorio
 	@NotNull
-	private boolean autorizacion_fotografia_grabacion;
+	private boolean autorizacion_fotografia_grabacion; //obligatorio
 	@NotNull
-	private boolean autorizado_retirar_establecimiento;
+	private boolean autorizado_retirar_establecimiento; //obligatorio
 	public Apoderado(
 			@NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String run_apoderado,
 			String estudiante_id, @Min(6) Integer numero_documento, @NotBlank String nombres,

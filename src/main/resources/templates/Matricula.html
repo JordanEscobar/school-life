@@ -39,19 +39,17 @@
 		<a class="btn btn-outline-danger shadow" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
 	</div>
 </nav>
-<br>
 <div class="container">
 	<div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
 	</div>
 	<h1 class=""><span><a class="btn"  th:href="@{/}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
-	<br>
 	<div class="d-flex justify-content-end">
 		<a th:href="@{/programa/pie}" class="btn btn-warning text-light shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar estudiante a programa Pie">+ Programa Pie</a> &nbsp;&nbsp;
 		<a th:href="@{/matricula/ingresar}" class="btn btn-danger shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar matrícula">+ Matricular Estudiante</a>
 	</div>
+	<br>
 </div>
-<br>
 <div class="container">
 	<div class="row g-3 align-items-center">
 		<div class="col-auto">
@@ -95,10 +93,8 @@
 				 	<label class="fw-bold">Refresque</label><br>
 					<a class="btn btn-warning shadow" th:href="@{/matricula}" data-toggle="tooltip" data-placement="bottom" title="Refrescar"><i class="fa-solid fa-arrows-rotate"></i></a>
 				 </div>	
-
 			</div>
 		</div>
-
 	</div>
 </div>
 <br><br><br>
@@ -108,8 +104,7 @@
 	<label class="h6">Total mujeres: <span class="fw-bold" th:text="${mujeres}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label class="h6">Total otros: <span class="fw-bold" th:text="${otros}"></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>
-<br><br><br><br>
-
+<br>
 <div class="container">
 	<div class="d-flex justify-content-end">
 		<a href="#" class="btn btn-info disabled" data-toggle="tooltip" data-placement="bottom" title="PRÓXIMAMENTE">Carga N° Matrículas</a>

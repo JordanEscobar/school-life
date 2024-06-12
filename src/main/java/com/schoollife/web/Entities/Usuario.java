@@ -26,7 +26,8 @@ public class Usuario {
 	
 	@Id
 	@NotBlank
-	private String rut_usuario;
+	@Column(name = "rut_usuario")
+	private String rutUsuario;
 	@NotBlank
 	private String pass;
 	@NotBlank
@@ -48,8 +49,6 @@ public class Usuario {
 	private String estudios;
 	@NotNull
 	private String cargo;
-	@Column(name = "rol_id")
-	private Integer rolId;
 	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId;
@@ -60,11 +59,12 @@ public class Usuario {
 	    inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	private List<Rol> roles;
-	public Usuario(String rut_usuario, String pass, String nombre, String apaterno, String amaterno, String correo,
-			String telefono, Date fecha_nacimiento, String genero, String estudios, String cargo, Integer rolId,
-			Integer establecimientoId, List<Rol> roles) {
+	public Usuario(@NotBlank String rutUsuario, @NotBlank String pass, @NotBlank String nombre,
+			@NotBlank String apaterno, String amaterno, @NotBlank String correo, @NotBlank String telefono,
+			@NotNull @Past Date fecha_nacimiento, @NotNull String genero, @NotNull String estudios,
+			@NotNull String cargo, @NotNull Integer establecimientoId, List<Rol> roles) {
 		super();
-		this.rut_usuario = rut_usuario;
+		this.rutUsuario = rutUsuario;
 		this.pass = pass;
 		this.nombre = nombre;
 		this.apaterno = apaterno;
@@ -75,18 +75,17 @@ public class Usuario {
 		this.genero = genero;
 		this.estudios = estudios;
 		this.cargo = cargo;
-		this.rolId = rolId;
 		this.establecimientoId = establecimientoId;
 		this.roles = roles;
 	}
 	public Usuario() {
 		super();
 	}
-	public String getRut_usuario() {
-		return rut_usuario;
+	public String getRutUsuario() {
+		return rutUsuario;
 	}
-	public void setRut_usuario(String rut_usuario) {
-		this.rut_usuario = rut_usuario;
+	public void setRutUsuario(String rutUsuario) {
+		this.rutUsuario = rutUsuario;
 	}
 	public String getPass() {
 		return pass;
@@ -148,12 +147,6 @@ public class Usuario {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
-	public Integer getRolId() {
-		return rolId;
-	}
-	public void setRolId(Integer rolId) {
-		this.rolId = rolId;
-	}
 	public Integer getEstablecimientoId() {
 		return establecimientoId;
 	}
@@ -168,12 +161,11 @@ public class Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Usuario [rut_usuario=" + rut_usuario + ", pass=" + pass + ", nombre=" + nombre + ", apaterno="
-				+ apaterno + ", amaterno=" + amaterno + ", correo=" + correo + ", telefono=" + telefono
-				+ ", fecha_nacimiento=" + fecha_nacimiento + ", genero=" + genero + ", estudios=" + estudios
-				+ ", cargo=" + cargo + ", rolId=" + rolId + ", establecimientoId=" + establecimientoId + "]";
+		return "Usuario [rutUsuario=" + rutUsuario + ", pass=" + pass + ", nombre=" + nombre + ", apaterno=" + apaterno
+				+ ", amaterno=" + amaterno + ", correo=" + correo + ", telefono=" + telefono + ", fecha_nacimiento="
+				+ fecha_nacimiento + ", genero=" + genero + ", estudios=" + estudios + ", cargo=" + cargo
+				+ ", establecimientoId=" + establecimientoId + "]";
 	}
-	
 	
 	
 	

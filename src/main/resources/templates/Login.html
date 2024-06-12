@@ -27,7 +27,7 @@
 
 	<div class="col-auto p-5 border rounded text-center shadow">
 		<br>
-		<h4 class="fst-italic">Libro de clases online</h4>
+		<h4 class="fst-italic">School life</h4>
 		<br>
 		<img alt="logo-daem" style="width:80px;" src="/img/logo-daemhualpen.jpg">
 		<br>
@@ -43,6 +43,7 @@
             <br>
             <input type="submit" class="btn btn-primary shadow" value="Iniciar Sesión">
             <br><br>
+            <a class="btn btn-outline-dark" th:href="@{/registro}">Registrar usuario</a>
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <p th:text="${error}"></p>
             </div>

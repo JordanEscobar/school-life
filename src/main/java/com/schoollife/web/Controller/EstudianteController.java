@@ -119,7 +119,7 @@ public class EstudianteController {
 			hNueva.setEstudianteId(hoja_de_vida.getEstudianteId());
 			hNueva.setFecha(new Date());
 			hNueva.setTipoEvento(hoja_de_vida.getTipoEvento());
-			hNueva.setUsuarioId(uSesion.get(0).getRut_usuario());
+			hNueva.setUsuarioId(uSesion.get(0).getRutUsuario());
 			hNueva.setId_hoja_de_vida(hoja_de_vida.getId_hoja_de_vida());
 			
 	        try {
@@ -164,6 +164,7 @@ public class EstudianteController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));							
+			
 			var hojas = hojaService.getByEstudianteId(hoja_de_vida.getEstudianteId());
 			model.addAttribute("hoja_de_vida",hojas);
 			return "Hoja-de-vida-ver";
@@ -260,6 +261,27 @@ public class EstudianteController {
 			hojaService.updateCurso(hoja_de_vida, hoja_de_vida.getId_hoja_de_vida());
 			flash.addFlashAttribute("success","Hoja modificada correctamente");
 			return "redirect:/hojadevida";
+		}
+		return "Login";
+	}
+	
+	// filtrar por Rut
+	@PostMapping(path = "/filtrarruthoja", consumes = "application/x-www-form-urlencoded")
+	public String filtroRutHoja(Model model, @RequestParam("filtroruthoja") String filtroruthoja,HttpSession sesion) {
+		if(sesion.getAttribute("usuario")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			
+			var estudiantes = estudianteS.findEstudiantePorRut(filtroruthoja, uSesion.get(0).getEstablecimientoId());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+
+			model.addAttribute("estudiantes", estudiantes);
+			model.addAttribute("cursos", cursos);
+			model.addAttribute("filtroruthoja", filtroruthoja);
+			return "Hoja-de-vida";
 		}
 		return "Login";
 	}

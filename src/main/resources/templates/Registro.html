@@ -25,19 +25,19 @@
 		<form th:action="@{/registrar}" th:method="post" th:object="${usuario}">
 			<div class="row">
 			<div class="col">
-				<label class="">Rut</label>
-				<input class="form-control" th:field="*{rut_usuario}" type="text" id="rut" placeholder="Sin puntos, con guion">
-				<span th:if="${#fields.hasErrors('rut_usuario')}" th:errors="*{rut_usuario}" class="text-danger">Error Rut</span>
+				<label class="">Rut <span class="text-danger">(*)</span></label>
+				<input class="form-control" th:field="*{rutUsuario}" type="text" id="rut" placeholder="Sin puntos, con guion">
+				<span th:if="${#fields.hasErrors('rutUsuario')}" th:errors="*{rutUsuario}" class="text-danger">Error Rut</span>
 				<span class="text-danger" th:if="${rutinvalido3} == True" th:text="'Rut Inválido.'"></span>	
 				<span class="text-danger" th:if="${rutexiste3} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 			</div>
 			<div class="col">
-				<label>Nombre</label>
+				<label>Nombre <span class="text-danger">(*)</span></label>
 				<input th:field="*{nombre}" class="form-control" id="nombre" type="text">
 				<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">Error nombre</span>
 			</div>
 			<div class="col">
-				<label>Apellido Paterno</label>
+				<label>Apellido Paterno <span class="text-danger">(*)</span></label>
 				<input th:field="*{apaterno}" class="form-control" type="text">
 				<span th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}" class="text-danger">Error Apellido Paterno</span>
 			</div>
@@ -45,18 +45,18 @@
 		<br>
 		<div class="row">
 			<div class="col">
-				<label>Apellido Materno</label>
+				<label>Apellido Materno <span class="text-danger">(*)</span></label>
 				<input th:field="*{amaterno}" class="form-control" type="text">
 				<span th:if="${#fields.hasErrors('amaterno')}" th:errors="*{amaterno}" class="text-danger">Error Apellido materno</span>
 			</div>
 			<div class="col">
-				<label>Correo</label>
+				<label>Correo electrónico <span class="text-danger">(*)</span></label>
 				<input th:field="*{correo}" class="form-control" type="email">
 				<span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="text-danger">Error Correo</span>
 				<span class="text-danger" th:if="${correoexiste3} == True" th:text="'el correo ya existe en el sistema, correo inválido.'"></span>
 			</div>
 			<div class="col">
-				<label>Teléfono</label>
+				<label>Teléfono <span class="text-danger">(*)</span></label>
 				<input th:field="*{telefono}" class="form-control" type="text">
 				<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="text-danger">Error Teléfono</span>
 			</div>
@@ -64,12 +64,12 @@
 		<br>
 		<div class="row">
 			<div class="col">
-				<label>Fecha de nacimiento</label>
+				<label>Fecha de nacimiento <span class="text-danger">(*)</span></label>
 				<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}"  class="form-control" type="date">
 				<span th:if="${#fields.hasErrors('fecha_nacimiento')}" th:errors="*{fecha_nacimiento}" class="text-danger">Error Fecha nacimiento</span>
 			</div>
 			<div class="col">
-				<label>Género</label>
+				<label>Género <span class="text-danger">(*)</span></label>
 				<select th:field="*{genero}" class="form-select">
 					<option th:value="otro">OTRO</option>
 					<option th:value="femenino">FEMENINO</option>
@@ -78,7 +78,7 @@
 				<span th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}" class="text-danger">Error genero</span>
 			</div>
 			<div class="col">
-				<label>Estudios</label>
+				<label>Estudios <span class="text-danger">(*)</span></label>
 				<select th:field="*{estudios}" class="form-select">
 					<option th:value="'BÁSICA INCOMPLETA'">BÁSICA INCOMPLETA</option>
 					<option th:value="'BÁSICA COMPLETA'">BÁSICA COMPLETA</option>
@@ -96,7 +96,7 @@
 		<br>
 		<div class="row">
 			<div class="col">
-				<label>Cargo</label>
+				<label>Cargo <span class="text-danger">(*)</span></label>
 				<select th:field="*{cargo}" class="form-select">
 					<option th:value="Profesor">Profesor</option>
 					<option th:value="Paradocente">Para docente</option>
@@ -104,14 +104,14 @@
 				<span th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}" class="text-danger">Error cargo</span>
 			</div>
 			<div class="col">
-				<label>Roles</label><br>
+				<label>Rol <span class="text-danger">(*)</span></label><br>
 				<select th:field="*{roles}" class="form-select">
 					<option th:each="r : ${roles}" th:value="${r.id_rol}" th:text="${r.nombre}"></option>
 				</select>
 				<span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="text-danger">Error Roles</span>
 			</div>
 			<div class="col">
-				<label>Establecimiento</label>
+				<label>Establecimiento <span class="text-danger">(*)</span></label>
 				<select th:field="*{establecimientoId}" class="form-select">
 					<option th:each="e : ${establecimientos}" th:text="${e.nombre}" th:value="${e.rbd}"></option>
 				</select>
@@ -121,15 +121,11 @@
 		<br>
 		<div class="row">
 			<div class="col">
-				<label>Contraseña</label>
+				<label>Contraseña <span class="text-danger">(*)</span></label>
 				<input th:field="*{pass}" class="form-control" type="password">
 				<span th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}" class="text-danger">Error contraseña</span>
 			</div>
 			<div class="col">
-				<label>Rol ID</label><br>
-				<select th:field="*{rolId}" class="form-select">
-					<option th:each="r : ${roles}" th:value="${r.id_rol}" th:text="${r.nombre}"></option>
-				</select>
 			</div>
 			<div class="col">
 			<br>

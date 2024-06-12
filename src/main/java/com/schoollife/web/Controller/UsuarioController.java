@@ -115,16 +115,16 @@ public class UsuarioController {
 		us.setGenero(usuario.getGenero());
 		us.setNombre(usuario.getNombre());
 		
-		if(rutValidationService.isValidRut(usuario.getRut_usuario())) {
+		if(rutValidationService.isValidRut(usuario.getRutUsuario())) {
 			for (Usuario u : userService.getAll()) {
-				if(usuario.getRut_usuario().equals(u.getRut_usuario())) {
+				if(usuario.getRutUsuario().equals(u.getRutUsuario())) {
 					rutex3 =true;
 					model.addAttribute("rutexiste3",rutex3);
 					return "Registro";
 				}else {
 					rutex3 =false;
 					model.addAttribute("rutexiste3",rutex3);
-					us.setRut_usuario(usuario.getRut_usuario());
+					us.setRutUsuario(usuario.getRutUsuario());
 				}
 			}		
 		}else {
@@ -134,7 +134,6 @@ public class UsuarioController {
 		}	
 		us.setRoles(usuario.getRoles());
 		us.setTelefono(usuario.getTelefono());
-		us.setRolId(usuario.getRolId());
 		
 		if (errores.hasErrors()) {
 			return "Registro";
@@ -144,6 +143,55 @@ public class UsuarioController {
 		flash.addFlashAttribute("success","Usuario creado correctamente");
 		return "redirect:/login";
 	}
+	
+	@GetMapping("/usuario/modificar/{rutUsuario}")
+	public String modificarUsuario(Usuario usuario,Model model,HttpSession sesion ) {
+	
+			Usuario usuarioEncontrado = userService.findUsuarioByRutUsuario(usuario.getRutUsuario());
+			model.addAttribute("usuario",usuarioEncontrado);
+			
+			model.addAttribute("roles", rolS.getAll());
+            model.addAttribute("establecimientos", establecimientoS.getAll());
+            
+			return "Usuario-modificar";		
+		}
+	
+	@PostMapping(path = "/usuario/modificado", consumes = "application/x-www-form-urlencoded")
+	public String modificadoUsuario(@Valid Usuario usuario,Errors errores, Model model,RedirectAttributes flash){
+
+		var roles = rolS.getAll();
+		model.addAttribute("roles",roles);
+		model.addAttribute("establecimientos",establecimientoS.getAll());
+		
+		
+		Usuario usuarioModificado = new Usuario();
+		
+		for (Usuario user : userService.getAll()) {
+			if(user.getRutUsuario().equals(usuario.getRutUsuario())) {
+				usuarioModificado.setPass(usuario.getPass());
+				usuarioModificado.setRoles(usuario.getRoles());
+				usuarioModificado.setAmaterno(usuario.getAmaterno());
+				usuarioModificado.setApaterno(usuario.getApaterno());
+				usuarioModificado.setCargo(usuario.getCargo());
+				usuarioModificado.setEstablecimientoId(usuario.getEstablecimientoId());
+				usuarioModificado.setEstudios(usuario.getEstudios());
+				usuarioModificado.setFecha_nacimiento(usuario.getFecha_nacimiento());
+				usuarioModificado.setGenero(usuario.getGenero());
+				usuarioModificado.setNombre(usuario.getNombre());
+				usuarioModificado.setTelefono(usuario.getTelefono());
+				usuarioModificado.setRutUsuario(usuario.getRutUsuario());
+			}
+		}
+	
+		if (errores.hasErrors()) {
+			return "Usuario-modificar";
+		}
+		
+		userService.updateUsuario(usuario,usuario.getRutUsuario());
+		flash.addFlashAttribute("success","Usuario modificado correctamente");
+		return "redirect:/usuario";
+	}
+	
 	
 	@GetMapping("/login")
 	public String login( Usuario usuario,Model model) {
@@ -199,7 +247,7 @@ public class UsuarioController {
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("usuario",sesion.getAttribute("usuario"));
 			
-			userService.deleteUser(usuario.getRut_usuario());
+			userService.deleteUser(usuario.getRutUsuario());
 			flash.addFlashAttribute("warning","Usuario eliminado correctamente");
 			return "redirect:/usuario";
 		}

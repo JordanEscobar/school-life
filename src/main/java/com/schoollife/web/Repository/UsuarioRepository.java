@@ -9,7 +9,7 @@ import com.schoollife.web.Entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, String>{
 	//busca a un usuario por su correo y pass
 	Usuario findByCorreoAndPass(String correo, String pass);
-	
+	Usuario findByRutUsuario(String rutUsuario);
 	List<Usuario> findByCorreo(String correo);
 	List<Usuario> findByEstablecimientoId(Integer rbd);
 }
