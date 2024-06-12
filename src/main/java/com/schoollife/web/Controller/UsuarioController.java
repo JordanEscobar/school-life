@@ -46,12 +46,12 @@ public class UsuarioController {
 	
 	@GetMapping("/usuario")
 	public String usuario(Model model, HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			var roles = rolS.getAll();
 			model.addAttribute("roles",roles);
 			var usuarios = userService.getByEstablecimiento(uSesion.get(0).getEstablecimientoId());
@@ -62,91 +62,114 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/registro")
-	public String registroUsuario(Usuario usuario,Model model) {
-		model.addAttribute("usuario",new Usuario());
-		
-		boolean rutinvalido3 = false;
-		model.addAttribute("rutinvalido3", rutinvalido3);
-		boolean rutex3 =false;
-		model.addAttribute("rutexiste3",rutex3);
-		boolean correoexiste3 =false;
-		model.addAttribute("correoexiste3",correoexiste3);
-		var roles = rolS.getAll();
-		model.addAttribute("establecimientos",establecimientoS.getAll());
-		model.addAttribute("roles",roles);
-		return "Registro";	
+	public String registroUsuario(Usuario usuario,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
+			model.addAttribute("usuario",new Usuario());
+			
+			boolean rutinvalido3 = false;
+			model.addAttribute("rutinvalido3", rutinvalido3);
+			boolean rutex3 =false;
+			model.addAttribute("rutexiste3",rutex3);
+			boolean correoexiste3 =false;
+			model.addAttribute("correoexiste3",correoexiste3);
+			var roles = rolS.getAll();
+			model.addAttribute("establecimientos",establecimientoS.getAll());
+			model.addAttribute("roles",roles);
+			return "Registro";	
+			}
+		return "Login";
 	}
 
 	@PostMapping(path = "/registrar", consumes = "application/x-www-form-urlencoded")
-	public String registrarUsuario(@Valid Usuario usuario ,Errors errores, Model model,RedirectAttributes flash){
-
-		var roles = rolS.getAll();
-		model.addAttribute("roles",roles);
-		model.addAttribute("establecimientos",establecimientoS.getAll());
-		boolean rutinvalido3 = false;
-		model.addAttribute("rutinvalido3", rutinvalido3);
-		boolean rutex3 =false;
-		model.addAttribute("rutexiste3",rutex3);
-		boolean correoexiste3 =false;
-		model.addAttribute("correoexiste3",correoexiste3);
-		
-		Usuario us = new Usuario();
-		
-		for (Usuario user : userService.getAll()) {
-			if(usuario.getCorreo().equals(user.getCorreo())) {
-				correoexiste3 =true;
-				model.addAttribute("correoexiste3",correoexiste3);
-				return "Registro";
-			}else {
-				correoexiste3 =false;
-				model.addAttribute("correoexiste3",correoexiste3);
-				us.setCorreo(usuario.getCorreo());
-			}
-		}
-		
-		us.setPass(usuario.getPass());
-		us.setRoles(usuario.getRoles());
-		us.setAmaterno(usuario.getAmaterno());
-		us.setApaterno(usuario.getApaterno());
-		us.setCargo(usuario.getCargo());
-		us.setEstablecimientoId(usuario.getEstablecimientoId());
-		us.setEstudios(usuario.getEstudios());
-		us.setFecha_nacimiento(usuario.getFecha_nacimiento());
-		us.setGenero(usuario.getGenero());
-		us.setNombre(usuario.getNombre());
-		
-		if(rutValidationService.isValidRut(usuario.getRutUsuario())) {
-			for (Usuario u : userService.getAll()) {
-				if(usuario.getRutUsuario().equals(u.getRutUsuario())) {
-					rutex3 =true;
-					model.addAttribute("rutexiste3",rutex3);
+	public String registrarUsuario(@Valid Usuario usuario ,Errors errores, Model model,RedirectAttributes flash, HttpSession sesion){
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
+			var roles = rolS.getAll();
+			model.addAttribute("roles",roles);
+			model.addAttribute("establecimientos",establecimientoS.getAll());
+			boolean rutinvalido3 = false;
+			model.addAttribute("rutinvalido3", rutinvalido3);
+			boolean rutex3 =false;
+			model.addAttribute("rutexiste3",rutex3);
+			boolean correoexiste3 =false;
+			model.addAttribute("correoexiste3",correoexiste3);
+			
+			Usuario us = new Usuario();
+			
+			for (Usuario user : userService.getAll()) {
+				if(usuario.getCorreo().equals(user.getCorreo())) {
+					correoexiste3 =true;
+					model.addAttribute("correoexiste3",correoexiste3);
 					return "Registro";
 				}else {
-					rutex3 =false;
-					model.addAttribute("rutexiste3",rutex3);
-					us.setRutUsuario(usuario.getRutUsuario());
+					correoexiste3 =false;
+					model.addAttribute("correoexiste3",correoexiste3);
+					us.setCorreo(usuario.getCorreo());
 				}
-			}		
-		}else {
-			rutinvalido3 = true;
-			model.addAttribute("rutinvalido3", rutinvalido3);
-			return "Registro";				
-		}	
-		us.setRoles(usuario.getRoles());
-		us.setTelefono(usuario.getTelefono());
-		
-		if (errores.hasErrors()) {
-			return "Registro";
+			}
+			
+			us.setPass(usuario.getPass());
+			us.setRoles(usuario.getRoles());
+			us.setAmaterno(usuario.getAmaterno());
+			us.setApaterno(usuario.getApaterno());
+			us.setCargo(usuario.getCargo());
+			us.setEstablecimientoId(usuario.getEstablecimientoId());
+			us.setEstudios(usuario.getEstudios());
+			us.setFecha_nacimiento(usuario.getFecha_nacimiento());
+			us.setGenero(usuario.getGenero());
+			us.setNombre(usuario.getNombre());
+			
+			if(rutValidationService.isValidRut(usuario.getRutUsuario())) {
+				for (Usuario u : userService.getAll()) {
+					if(usuario.getRutUsuario().equals(u.getRutUsuario())) {
+						rutex3 =true;
+						model.addAttribute("rutexiste3",rutex3);
+						return "Registro";
+					}else {
+						rutex3 =false;
+						model.addAttribute("rutexiste3",rutex3);
+						us.setRutUsuario(usuario.getRutUsuario());
+					}
+				}		
+			}else {
+				rutinvalido3 = true;
+				model.addAttribute("rutinvalido3", rutinvalido3);
+				return "Registro";				
+			}	
+			us.setRoles(usuario.getRoles());
+			us.setTelefono(usuario.getTelefono());
+			
+			if (errores.hasErrors()) {
+				return "Registro";
+			}
+			
+			userService.registerUser(usuario);
+			flash.addFlashAttribute("success","Usuario creado correctamente");
+			return "redirect:/login";
 		}
-		
-		userService.registerUser(usuario);
-		flash.addFlashAttribute("success","Usuario creado correctamente");
-		return "redirect:/login";
+		return "Login";
 	}
 	
 	@GetMapping("/usuario/modificar/{rutUsuario}")
 	public String modificarUsuario(Usuario usuario,Model model,HttpSession sesion ) {
-	
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
 			Usuario usuarioEncontrado = userService.findUsuarioByRutUsuario(usuario.getRutUsuario());
 			model.addAttribute("usuario",usuarioEncontrado);
 			
@@ -154,42 +177,53 @@ public class UsuarioController {
             model.addAttribute("establecimientos", establecimientoS.getAll());
             
 			return "Usuario-modificar";		
+			}
+			return "Login";
 		}
 	
 	@PostMapping(path = "/usuario/modificado", consumes = "application/x-www-form-urlencoded")
-	public String modificadoUsuario(@Valid Usuario usuario,Errors errores, Model model,RedirectAttributes flash){
-
-		var roles = rolS.getAll();
-		model.addAttribute("roles",roles);
-		model.addAttribute("establecimientos",establecimientoS.getAll());
-		
-		
-		Usuario usuarioModificado = new Usuario();
-		
-		for (Usuario user : userService.getAll()) {
-			if(user.getRutUsuario().equals(usuario.getRutUsuario())) {
-				usuarioModificado.setPass(usuario.getPass());
-				usuarioModificado.setRoles(usuario.getRoles());
-				usuarioModificado.setAmaterno(usuario.getAmaterno());
-				usuarioModificado.setApaterno(usuario.getApaterno());
-				usuarioModificado.setCargo(usuario.getCargo());
-				usuarioModificado.setEstablecimientoId(usuario.getEstablecimientoId());
-				usuarioModificado.setEstudios(usuario.getEstudios());
-				usuarioModificado.setFecha_nacimiento(usuario.getFecha_nacimiento());
-				usuarioModificado.setGenero(usuario.getGenero());
-				usuarioModificado.setNombre(usuario.getNombre());
-				usuarioModificado.setTelefono(usuario.getTelefono());
-				usuarioModificado.setRutUsuario(usuario.getRutUsuario());
+	public String modificadoUsuario(@Valid Usuario usuario,Errors errores, Model model,RedirectAttributes flash, HttpSession sesion){
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
+			
+			var roles = rolS.getAll();
+			model.addAttribute("roles",roles);
+			model.addAttribute("establecimientos",establecimientoS.getAll());
+			
+			
+			Usuario usuarioModificado = new Usuario();
+			
+			for (Usuario user : userService.getAll()) {
+				if(user.getRutUsuario().equals(usuario.getRutUsuario())) {
+					usuarioModificado.setPass(usuario.getPass());
+					usuarioModificado.setRoles(usuario.getRoles());
+					usuarioModificado.setAmaterno(usuario.getAmaterno());
+					usuarioModificado.setApaterno(usuario.getApaterno());
+					usuarioModificado.setCargo(usuario.getCargo());
+					usuarioModificado.setEstablecimientoId(usuario.getEstablecimientoId());
+					usuarioModificado.setEstudios(usuario.getEstudios());
+					usuarioModificado.setFecha_nacimiento(usuario.getFecha_nacimiento());
+					usuarioModificado.setGenero(usuario.getGenero());
+					usuarioModificado.setNombre(usuario.getNombre());
+					usuarioModificado.setTelefono(usuario.getTelefono());
+					usuarioModificado.setRutUsuario(usuario.getRutUsuario());
+				}
 			}
-		}
-	
-		if (errores.hasErrors()) {
-			return "Usuario-modificar";
-		}
 		
-		userService.updateUsuario(usuario,usuario.getRutUsuario());
-		flash.addFlashAttribute("success","Usuario modificado correctamente");
-		return "redirect:/usuario";
+			if (errores.hasErrors()) {
+				return "Usuario-modificar";
+			}
+			
+			userService.updateUsuario(usuario,usuario.getRutUsuario());
+			flash.addFlashAttribute("success","Usuario modificado correctamente");
+			return "redirect:/usuario";
+		}
+		return "Login";
 	}
 	
 	
@@ -225,9 +259,9 @@ public class UsuarioController {
 			var user = userService.buscarUsuarioCorreo(usuario.getCorreo());
 			if(encoder.matches(usuario.getPass(), user.get(0).getPass())) {
 				
-				sesion.setAttribute("usuario", user);
-				model.addAttribute("usuario",sesion.getAttribute("usuario"));
-				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+				sesion.setAttribute("user", user);
+				model.addAttribute("user",sesion.getAttribute("user"));
+				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 				model.addAttribute("uSesion",uSesion.get(0));
 				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 				return "Index";
@@ -238,14 +272,15 @@ public class UsuarioController {
 		flash.addFlashAttribute("warning","Debe ingresar credenciales válidas");
 		return "redirect:/login";		
 	}
+	
 	@GetMapping("/usuario/eliminar/{rut_usuario}")
 	public String deleteUsuario(Usuario usuario,Model model,HttpSession sesion, RedirectAttributes flash) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			userService.deleteUser(usuario.getRutUsuario());
 			flash.addFlashAttribute("warning","Usuario eliminado correctamente");

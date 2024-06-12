@@ -35,9 +35,9 @@ public class CursoController {
 	
 	@GetMapping("/curso")
 	public String indexCurso(Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
+		if(sesion.getAttribute("user") != null) {
 			
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
 			
@@ -45,7 +45,7 @@ public class CursoController {
 			var e = establecimientoS.getAll();
 			model.addAttribute("cursos",c);
 			model.addAttribute("establecimientos",e);
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			return "Curso";
 		}
 		return "Login";
@@ -54,9 +54,9 @@ public class CursoController {
 	@GetMapping("/curso/ingresar")
 	public String cursoAgregar(Curso curso,Model model,HttpSession sesion)
 	{
-		if(sesion.getAttribute("usuario") != null) {
+		if(sesion.getAttribute("user") != null) {
 			
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			var establecimientos = establecimientoS.getAll();
@@ -66,7 +66,7 @@ public class CursoController {
 			var letras = cursoS.abecedario();
 			model.addAttribute("letras",letras);
 			
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			return "Curso-ingresar"; 
 		}
 		return "Login";
@@ -75,10 +75,10 @@ public class CursoController {
 	@PostMapping(path = "/curso/ingresado", consumes = "application/x-www-form-urlencoded")
 	public String cursoIngresado(@Valid Curso curso,Errors errores,RedirectAttributes flash,Model model, HttpSession sesion)
 	{
-		if(sesion.getAttribute("usuario") != null) {
+		if(sesion.getAttribute("user") != null) {
 			
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			var letras = cursoS.abecedario();
@@ -112,10 +112,10 @@ public class CursoController {
 	
 	@GetMapping("/curso/modificar/{id_curso}")
 	public String cursoModificar(Curso curso,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
+		if(sesion.getAttribute("user") != null) {
 			
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			
@@ -132,10 +132,10 @@ public class CursoController {
 	
 	@PostMapping(path = "/curso/modificado", consumes = "application/x-www-form-urlencoded")
 	public String cursoModificada(@Valid Curso curso,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
+		if(sesion.getAttribute("user") != null) {
 			
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			

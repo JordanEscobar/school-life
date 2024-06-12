@@ -61,10 +61,10 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String index(Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			return "Index";
@@ -81,12 +81,12 @@ public class HomeController {
 	// Matricula
 	@GetMapping("/matricula")
 	public String matricula(Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			Integer mujeres = estudianteS.totalMujeres(uSesion.get(0).getEstablecimientoId());
@@ -114,12 +114,12 @@ public class HomeController {
 	// filtrar por nombre y apellidos
 	@PostMapping(path = "/filtrarnombre", consumes = "application/x-www-form-urlencoded")
 	public String filtroNombre(Model model, @RequestParam("filtronombre") String filtronombre,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var estudiantes = estudianteS.findPorEstudiantePorCodigo(filtronombre, uSesion.get(0).getEstablecimientoId());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
@@ -145,12 +145,12 @@ public class HomeController {
 	// filtrar por Rut
 	@PostMapping(path = "/filtrarrut", consumes = "application/x-www-form-urlencoded")
 	public String filtroRut(Model model, @RequestParam("filtrorut") String filtrorut,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var estudiantes = estudianteS.findEstudiantePorRut(filtrorut, uSesion.get(0).getEstablecimientoId());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
@@ -175,12 +175,12 @@ public class HomeController {
 	//filtrar por curso
 	@PostMapping(path = "/filtrarcurso", consumes = "application/x-www-form-urlencoded")
 	public String filtroCurso(Model model, @RequestParam("filtrocurso") Integer filtrocurso,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var estudiantes = estudianteS.findEstudiantePorCurso(filtrocurso);
 			List<Curso> cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
@@ -206,12 +206,12 @@ public class HomeController {
 	//filtrar por estado matriculado o retirado
 	@PostMapping(path = "/filtrarestado", consumes = "application/x-www-form-urlencoded")
 	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var estudiantes = estudianteS.findEstudiantePorEstado(filtroestado,uSesion.get(0).getEstablecimientoId());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
@@ -238,12 +238,12 @@ public class HomeController {
 	// Ingreso de una matricula
 	@GetMapping("/matricula/ingresar")
 	public String matriculaIngresar(Estudiante estudiante, Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("estudiante", estudiante);
@@ -260,12 +260,12 @@ public class HomeController {
 	/*Ingresa datos del estudiante*/
 	@PostMapping(path = "/matricula/ingresar/creada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			
 			model.addAttribute("comunas",establecimientoS.comunas());		
@@ -371,12 +371,12 @@ public class HomeController {
 	@GetMapping("/matricula/ingresar/apoderados/get")
 	public String matriculaIngresarApoderadoGet(Apoderado apoderado,Model model,HttpSession sesion) {
 		
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
 		    model.addAttribute("uSesion", uSesion.get(0));
 		    model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-		    model.addAttribute("usuario", sesion.getAttribute("usuario"));
+		    model.addAttribute("user", sesion.getAttribute("user"));
 		    boolean rutex2 = false;
 		    model.addAttribute("rutexiste2", rutex2);
 		    boolean rutinvalido2 = false;
@@ -396,12 +396,12 @@ public class HomeController {
 	//recibe datos del estudiante, Ingresa datos del apoderado 
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarApoderado(@Valid Apoderado apoderado, Errors errores, Model model, Programa_Integracion programa_integracion, HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
 		    model.addAttribute("uSesion", uSesion.get(0));
 		    model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-		    model.addAttribute("usuario", sesion.getAttribute("usuario"));
+		    model.addAttribute("user", sesion.getAttribute("user"));
 		    boolean rutex2 = false;
 		    model.addAttribute("rutexiste2", rutex2);
 		    boolean rutinvalido2 = false;
@@ -454,8 +454,8 @@ public class HomeController {
 
 		    if (errores.hasErrors()) {
 		    	model.addAttribute("eSesion",eSesion);
-		    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
-		        System.out.println("El usuario conectado es: "+ sesion.getAttribute("usuario"));
+		    	model.addAttribute("user", sesion.getAttribute("user"));
+		        System.out.println("El usuario conectado es: "+ sesion.getAttribute("user"));
 		        System.out.println("el estudiante que se registro es:"+ eSesion);
 		    	return "Matricula-ingresar-apoderado";
 		    }
@@ -474,16 +474,15 @@ public class HomeController {
 	}
 	
 	public String matricularIngresarPieGet(Programa_Integracion programa_integracion, Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
+			model.addAttribute("user",sesion.getAttribute("user"));	
 			
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 			model.addAttribute("eSesion",eSesion);
-	    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
 	    	return "Matricula-ingresar-pie";
 		}
 		
@@ -493,16 +492,15 @@ public class HomeController {
 	//Ingreso por post a ingresar al programa de integracion luego de ingresar el apoderado
 	@PostMapping(path = "/matricula/ingresar/programa_integracion", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarPie(@Valid Programa_Integracion programa_integracion, Errors errores,RedirectAttributes flash, Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));	
+			model.addAttribute("user",sesion.getAttribute("user"));	
 			
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 			model.addAttribute("eSesion",eSesion);
-	    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
 			
 			Programa_Integracion p = new Programa_Integracion();
 			//el rut esta hardcode, hay que modificarlo
@@ -513,7 +511,7 @@ public class HomeController {
 			
 			if (errores.hasErrors()) {
 				model.addAttribute("eSesion",eSesion);
-		    	model.addAttribute("usuario", sesion.getAttribute("usuario"));
+		    	model.addAttribute("user", sesion.getAttribute("user"));
 				return "Matricula-ingresar-pie";
 			}	
 			//se crea el Programa para el estudiante
@@ -529,12 +527,12 @@ public class HomeController {
 	
 	@GetMapping("/programa/pie")
 	public String ingresarProgramaPie(Programa_Integracion programa_integracion,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			model.addAttribute("estudiantes", estudiantes);
@@ -550,12 +548,12 @@ public class HomeController {
 	
 	@PostMapping(path = "/programa/pie/ingreso")
 	public String programaPieIngresado(@Valid Programa_Integracion programa_integracion,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
@@ -583,12 +581,12 @@ public class HomeController {
 	
 	@GetMapping("/matricula/modificar/{runEstudiante}")
 	public String matriculaModificar(Estudiante estudiante,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 				
 			estudiante = estudianteS.findEstudiante(estudiante);
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
@@ -602,12 +600,12 @@ public class HomeController {
 	
 	@PostMapping(path = "/matricula/modificada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaModificada(@Valid Estudiante estudiante,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));			
+			model.addAttribute("user",sesion.getAttribute("user"));			
 			
 			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
 			Estudiante e = new Estudiante();
@@ -673,12 +671,12 @@ public class HomeController {
 	
 	@GetMapping("/resumenMatricula/{runEstudiante}")
 	public String resumenMatricula(Estudiante estudiante, Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			model.addAttribute("estudiante", estudiante);
 			var estudiantes = estudianteS.findEstudiante(estudiante);
@@ -697,12 +695,12 @@ public class HomeController {
 	
 	@GetMapping(path = "/matricula/retirada/{runEstudiante}")
 	public String matriculaRetirada(Estudiante estudiante,RedirectAttributes flash,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
@@ -725,12 +723,12 @@ public class HomeController {
 	}
 	@GetMapping(path = "/matricula/recuperada/{runEstudiante}")
 	public String matriculaRecuperada(Estudiante estudiante,RedirectAttributes flash,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 						
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);

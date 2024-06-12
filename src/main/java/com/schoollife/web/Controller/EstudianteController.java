@@ -57,9 +57,9 @@ public class EstudianteController {
 
 	@GetMapping("/hojadevida")
 	public String hojaVida(Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+		if(sesion.getAttribute("user") != null) {
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
@@ -72,11 +72,11 @@ public class EstudianteController {
 	
 	@PostMapping(path = "/filtrarcursos", consumes = "application/x-www-form-urlencoded")
 	public String filtroCursos(Model model, @RequestParam("filtrocursos") Integer filtrocursos,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
+		if(sesion.getAttribute("user") != null) {
 			var estudiantes = estudianteS.findEstudiantePorCurso(filtrocursos);
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("filtrocursos", filtrocursos);	
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
@@ -88,9 +88,9 @@ public class EstudianteController {
 	
 	@GetMapping("/Hoja-de-vida/ingresar/{estudianteId}")
 	public String hojaDeVidaIngresar(Hoja_de_vida hoja_de_vida, Model model,HttpSession sesion ) {
-		if(sesion.getAttribute("usuario") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+		if(sesion.getAttribute("user") != null) {
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
@@ -104,9 +104,9 @@ public class EstudianteController {
 	
 	@PostMapping("/Hoja-de-vida/ingresado")
 	public String hojaDeVidaIngresado(@Valid Hoja_de_vida hoja_de_vida,Errors errores,RedirectAttributes flash,@RequestParam(name = "file",required = false) MultipartFile file, Model model, HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+		if(sesion.getAttribute("user") != null) {
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));					
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
@@ -160,9 +160,9 @@ public class EstudianteController {
 	}
 	@GetMapping("/Hoja-de-vida/ver/{estudianteId}")
 	public String hojaDeVidaEstudiante(Hoja_de_vida hoja_de_vida,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+		if(sesion.getAttribute("user") != null) {
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));							
 			
 			var hojas = hojaService.getByEstudianteId(hoja_de_vida.getEstudianteId());
@@ -174,9 +174,9 @@ public class EstudianteController {
 	
 	@GetMapping("/HojaDeVida/eliminar/{id_hoja_de_vida}")
 	public String deleteHojaDeVida(Hoja_de_vida hoja_de_vida,RedirectAttributes flash,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+		if(sesion.getAttribute("user") != null) {
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));												
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("cursos",cursoS.getAll(uSesion.get(0).getEstablecimientoId()));
@@ -193,9 +193,9 @@ public class EstudianteController {
 	
 	@GetMapping("/HojaDeVida/modificar/{id_hoja_de_vida}")
 	public String updateHojaDeVida(Hoja_de_vida hoja_de_vida,Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+		if(sesion.getAttribute("user") != null) {
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
 			Hoja_de_vida hojaSeleccionada = hojaService.findById(hoja_de_vida.getId_hoja_de_vida());			
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hojaSeleccionada.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
@@ -209,9 +209,9 @@ public class EstudianteController {
 	
 	@PostMapping("/Hoja-de-vida/modificado")
 	public String hojaDeVidaModificado(@Valid Hoja_de_vida hoja_de_vida,Errors errores,RedirectAttributes flash,@RequestParam(name = "file",required = false) MultipartFile file, Model model, HttpSession sesion) {
-		if(sesion.getAttribute("usuario") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+		if(sesion.getAttribute("user") != null) {
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));					
 			Hoja_de_vida hojaSeleccionada = hojaService.findById(hoja_de_vida.getId_hoja_de_vida());
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hojaSeleccionada.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
@@ -268,12 +268,12 @@ public class EstudianteController {
 	// filtrar por Rut
 	@PostMapping(path = "/filtrarruthoja", consumes = "application/x-www-form-urlencoded")
 	public String filtroRutHoja(Model model, @RequestParam("filtroruthoja") String filtroruthoja,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			
 			var estudiantes = estudianteS.findEstudiantePorRut(filtroruthoja, uSesion.get(0).getEstablecimientoId());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());

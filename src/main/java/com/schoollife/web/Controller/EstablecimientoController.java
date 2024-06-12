@@ -27,16 +27,15 @@ public class EstablecimientoController {
 	}
 	@GetMapping("/establecimiento")
 	public String indexEstablecimiento(Model model,HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
 			var e = establecimientoS.getAll();
 			model.addAttribute("establecimientos",e);
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			return "Establecimiento";
 		}
 		return "Login";
@@ -45,16 +44,15 @@ public class EstablecimientoController {
 	
 	@GetMapping("/establecimiento/ingresar")
 	public String establecimientoIngresar(Establecimiento establecimiento,Model model, HttpSession sesion) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("regiones",establecimientoS.regiones());
 			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("establecimiento",establecimiento);
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			return "Establecimiento-ingresar";
 		}
 		return "Login";
@@ -65,10 +63,10 @@ public class EstablecimientoController {
 	@PostMapping(path = "/establecimiento/ingresado", consumes = "application/x-www-form-urlencoded")
 	public String establecimientoIngresado(@Valid Establecimiento establecimiento,Errors errores, RedirectAttributes flash,Model model,HttpSession sesion) {
 		
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			
@@ -102,10 +100,9 @@ public class EstablecimientoController {
 	
 	@GetMapping("/establecimiento/modificar/{rbd}")
 	public String establecimientoModificar(Establecimiento establecimiento,Model model,HttpSession sesion ) {
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
@@ -113,7 +110,7 @@ public class EstablecimientoController {
 			model.addAttribute("establecimiento",establecimiento);
 			model.addAttribute("regiones",establecimientoS.regiones());
 			model.addAttribute("comunas",establecimientoS.comunas());
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
+			model.addAttribute("user",sesion.getAttribute("user"));
 			return "Establecimiento-modificar";
 		}
 		return "Login";
@@ -122,10 +119,10 @@ public class EstablecimientoController {
 	
 	@PostMapping(path = "/establecimiento/modificado", consumes = "application/x-www-form-urlencoded")
 	public String establecimientoModificada(@Valid Establecimiento establecimiento,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {	
-		if(sesion.getAttribute("usuario")!=null)
+		if(sesion.getAttribute("user")!=null)
 		{
-			model.addAttribute("usuario",sesion.getAttribute("usuario"));
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("usuario");
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
