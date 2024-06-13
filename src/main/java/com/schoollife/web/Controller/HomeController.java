@@ -391,7 +391,7 @@ public class HomeController {
 	
 	//recibe datos del estudiante, Ingresa datos del apoderado 
 	@PostMapping(path = "/matricula/ingresar/apoderados", consumes = "application/x-www-form-urlencoded")
-	public String matriculaIngresarApoderado(@Valid Apoderado apoderado, Errors errores, Model model, Programa_Integracion programa_integracion, HttpSession sesion) {
+	public String matriculaIngresarApoderado(@Valid Apoderado apoderado, Errors errores, Model model, Programa_Integracion programa_integracion,RedirectAttributes flash, HttpSession sesion) {
 		if(sesion.getAttribute("user")!=null)
 		{
 			List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
@@ -458,15 +458,16 @@ public class HomeController {
 
 		    // Se crea el apoderado
 		    apoderadoS.createApoderado(a);
+		    if(!eSesion.isEs_pie()) {
+		    	System.out.println("No es pie, se crea la matricula");
+		    	flash.addFlashAttribute("success","Estudiante matriculado correctamente");
+		    	return "redirect:/matricula";
+		    }
+		    System.out.println("Es pie sigue el proceso");
 		    model.addAttribute("programa_integracion", programa_integracion);
-		    return "Matricula-ingresar-pie";
-			
-		}
-		
-		return "Login";
-		
-		
-		
+		    return "Matricula-ingresar-pie";		
+		}		
+		return "Login";	
 	}
 	
 	public String matricularIngresarPieGet(Programa_Integracion programa_integracion, Model model,HttpSession sesion) {
