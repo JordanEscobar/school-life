@@ -13,8 +13,6 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>	
 <style>
 /* Estilos para indicar pestañas deshabilitadas */
 .disabled {
@@ -31,11 +29,9 @@
 
 	<nav class="navbar bg-dark border-bottom border-body"
 		data-bs-theme="dark">
-		<div>
 	<div>
 		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
 	</div>
-		</div>
 
 		<div class="d-flex justify-content-end">
 			<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}"><i
@@ -49,13 +45,22 @@
 	<br>
 
 
-	<form th:action="@{/matricula/ingresar/creada}" method="post" th:object="${estudiante}">
+	<form th:action="@{/matricula/modificada}" method="POST"
+		th:object="${estudiante}">
 
-		<div class="container border rounded shadow">
+		<div class="container">
+			<h1>Ingresar Matrícula estudiante antiguo</h1>
 			<br>
-			<h1>Ingresar Matrícula</h1>
 			<br>
-			<br>
+			<div class="row">
+				<div class="col">
+					<label>Ingresa Rut y presiona enter</label>
+					<input type="text" id="runEstudiante" class="form-control shadow" placeholder="Rut sin puntos y con guion">
+				</div>
+				<div class="col"></div>
+				<div class="col"></div>
+			</div>
+			<br><br>
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -81,45 +86,46 @@
 				<div class="tab-pane fade show active" id="home-tab-pane"
 					role="tabpanel" aria-labelledby="home-tab" tabindex="1">
 
+
 					<h2>Antecedentes personales</h2>
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>RUT<span class="text-danger">&nbsp;*(sin puntos y con guion)</span></label> 
-							<input class="form-control" type="text" th:field="*{runEstudiante}"/> 
-								<span th:if="${#fields.hasErrors('runEstudiante')}" th:errors="*{runEstudiante}" class="text-danger">Error Rut</span>
-								<span class="text-danger" th:if="${rutexiste} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
-								<span class="text-danger" th:if="${rutinvalido} == True" th:text="'Rut Inválido.'"></span>
+							<label>Nombres <span class="text-danger">*</span></label> <input
+								id="nombre" th:field="*{nombre}" class="form-control"
+								type="text"> <span
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
+								Nombre</span>
+									<input class="form-control" type="hidden"id="rut" th:field="*{runEstudiante}"placeholder="Ingrese sin puntos y con guion" > 
 						</div>
 						<div class="col">
 							<label>Apellido Paterno <span class="text-danger">*</span></label>
-							<input id="apaterno" th:field="*{apaterno}" placeholder="Ingrese el apellido paterno acá" class="form-control"
-								type="text"> <span class="text-danger"
+							<input id="apaterno" th:field="*{apaterno}" class="form-control"
+								type="text"> <span
 								th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error
 								Apellido Paterno</span>
 						</div>
 						<div class="col">
-							<label>Apellido Materno</label> <input id="amaterno" placeholder="ingrese el apellido materno acá"
+							<label>Apellido Materno</label> <input id="amaterno"
 								th:field="*{amaterno}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('amaterno')}"
-								th:errors="*{amaterno}" class="text-danger">Error Apellido Materno</span>
+								th:errors="*{amaterno}">Error Apellido Materno</span>
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Nombres <span class="text-danger">*</span></label> <input
-								id="nombre" th:field="*{nombre}" placeholder="Ingrese los nombres del estudiante acá" class="form-control"
-								type="text"> <span
-								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">Error
-								Nombre</span>
+							<label>Curso</label>
+							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
+								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
+							</select>
 						</div>
 						<div class="col">
 							<label>Email</label> <input id="correo_electronico"
-								th:field="*{correo_electronico}" placeholder="Ingrese el email acá" class="form-control"
+								th:field="*{correo_electronico}" class="form-control"
 								type="email"> <span
 								th:if="${#fields.hasErrors('correo_electronico')}"
-								th:errors="*{correo_electronico}" class="text-danger">Error Correo
+								th:errors="*{correo_electronico}">Error Correo
 								Electrónico</span>
 						</div>
 						<div class="col">
@@ -127,7 +133,7 @@
 							<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
 								class="form-control" type="date"> <span
 								th:if="${#fields.hasErrors('fecha_nacimiento')}"
-								th:errors="*{fecha_nacimiento}" class="text-danger">Error Fecha de nacimiento</span>
+								th:errors="*{fecha_nacimiento}">Error Fecha de nacimiento</span>
 						</div>
 					</div>
 					<br>
@@ -185,14 +191,14 @@
 						</div>
 						<div class="col">
 							<label>Dirección</label> <input id="direccion"
-								th:field="*{direccion}" placeholder="Ingrese la dirección acá" class="form-control" type="text">
+								th:field="*{direccion}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('direccion')}"
-								th:errors="*{direccion}" class="text-danger">Error Dirección</span>
+								th:errors="*{direccion}">Error Dirección</span>
 						</div>
 						<div class="col">
 							<label>Comuna</label> <select class="form-select" id="comuna"
 								th:field="*{comuna}">
-								<option th:each="c : ${comunas}" th:text="${c}" th:value="${c}"></option>
+								<option th:each="c : ${comunas}" th:value="${c}" th:text="${c}"></option>
 							</select>
 						</div>
 					</div>
@@ -217,15 +223,15 @@
 						</div>
 						<div class="col">
 							<label>Teléfono Celular</label> <input id="celular"
-								th:field="*{celular}" placeholder="Número de celular sin el +56 9" class="form-control" type="number">
+								th:field="*{celular}" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('celular')}"
-								th:errors="*{celular}" class="text-danger">Error Celular</span>
+								th:errors="*{celular}">Error Celular</span>
 						</div>
 						<div class="col">
 							<label>Teléfono Fijo</label> <input id="telefono"
-								th:field="*{telefono}" placeholder="Ingresa solo números" class="form-control" type="number">
+								th:field="*{telefono}" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('telefono')}"
-								th:errors="*{telefono}" class="text-danger">Error Celular</span>
+								th:errors="*{telefono}">Error Celular</span>
 						</div>
 					</div>
 
@@ -234,26 +240,22 @@
 						<div class="col">
 							<label>Nombre contacto Emergencia</label> <input
 								id="nombre_contacto_emergencia"
-								th:field="*{nombre_contacto_emergencia}" placeholder="Ingrese el nombre de contacto de emergencia acá" class="form-control"
+								th:field="*{nombre_contacto_emergencia}" class="form-control"
 								type="text"> <span
 								th:if="${#fields.hasErrors('nombre_contacto_emergencia')}"
-								th:errors="*{nombre_contacto_emergencia}" class="text-danger">Error Nombre
+								th:errors="*{nombre_contacto_emergencia}">Error Nombre
 								contacto emergencia</span>
 						</div>
 						<div class="col">
 							<label>Teléfono emergencia</label> <input
-								id="telefono_emergencia"  placeholder="Número de celular sin el +56 9" th:field="*{telefono_emergencia}"
+								id="telefono_emergencia" th:field="*{telefono_emergencia}"
 								class="form-control" type="number"> <span
 								th:if="${#fields.hasErrors('telefono_emergencia')}"
-								th:errors="*{telefono_emergencia}" class="text-danger">Error Telefono
+								th:errors="*{telefono_emergencia}">Error Telefono
 								Emergencia</span>
 						</div>
-						<div class="col"></div>
-					</div>
-					<br>
-					<div class="row">
 						<div class="col">
-							<label>Religión</label> <select id="religion"
+								<label>Religión</label> <select id="religion"
 								th:field="*{religion}" class="form-select">
 								<option th:value="'Bahaísmo'">Bahaísmo</option>
 								<option th:value="'Budismo'">Budismo</option>
@@ -281,9 +283,11 @@
 								<option th:value="'Vudú'">Vudú</option>
 								<option th:value="'Wicca'">Wicca</option>
 								<option th:value="'Yazidismo'">Yazidismo</option>
-								<option th:value="Otras">Otras</option>
 							</select>
 						</div>
+					</div>
+					<br>
+					<div class="row">
 						<div class="col">
 							<label>¿Acepta clases de religión en el colegio?</label><br>
 							<input id="acepta_clases_religion"
@@ -293,14 +297,14 @@
 								th:field="*{acepta_clases_religion}"
 								name="acepta_clases_religion" value="False" type="radio">No
 							<span th:if="${#fields.hasErrors('acepta_clases_religion')}"
-								th:errors="*{acepta_clases_religion}" class="text-danger">Error Acepta Clases
+								th:errors="*{acepta_clases_religion}">Error Acepta Clases
 								Religion</span>
 						</div>
-						<div class="col text-end">
-
-							<br>
+						<div class="col">
 						</div>
 						<br>
+						<div class="col">
+						</div>
 						<div class="row">
 							<div class="col text-end">
 							</div>
@@ -317,23 +321,22 @@
 
 						<div class="col">
 							<label>Colegio procedencia</label> <label class="text-danger">Colegio
-								de dónde viene</label> <input type="text" placeholder="Ingrese el nombre del colégio " class="form-control"
+								de dónde viene</label> <input type="text" class="form-control"
 								id="colegio_procedencia" th:field="*{colegio_procedencia}">
-								<span class="text-danger" th:if="${#fields.hasErrors('colegio_procedencia')}" th:errors="*{colegio_procedencia}">Error colegio procedencia</span>
 						</div>
 						<div class="col">
-							<input id="fecha_matricula" th:field="*{fecha_matricula}" class="form-control" type="hidden">
+							<label>Fecha matrícula <span class="text-danger">*</span></label>
+							<input id="fecha_matricula" th:field="*{fecha_matricula}"
+								class="form-control" type="date">
 						</div>
-						<div class="col">
-							
-						</div>
+						<div class="col"></div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
 							<label>Beca</label> <select id="beca" th:field="*{beca}"
 								class="form-select">
-								<option th:value="'Ninguna'">Ninguna</option>
+								<option th:value="'No tiene'">No tiene</option>
 								<option th:value="'Beca indigena'">Beca indigena</option>
 								<option th:value="'Beca de apoyo a la retención escolar (BARE)'">Beca
 									de apoyo a la retención escolar (BARE)</option>
@@ -348,21 +351,14 @@
 						<div class="col">
 							<label>¿Cuántos computadores hay en casa?</label> <input
 								id="cantidad_computadores_casa"
-								th:field="*{cantidad_computadores_casa}" placeholder="Ingrese la cantidad acá" type="number"
+								th:field="*{cantidad_computadores_casa}" type="number"
 								class="form-control">
-								<span class="text-danger" th:if="${#fields.hasErrors('cantidad_computadores_casa')}" th:errors="*{cantidad_computadores_casa}">Error cuantos computadores en casa</span>
 						</div>
-						<div class="col text-end">
-						
-						</div>
+						<div class="col text-end"></div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
-						
-						
-						
-						
 						</div>
 					</div>
 					<br> <br>
@@ -376,13 +372,11 @@
 					<div class="row">
 						<div class="col">
 							<label>Estatura</label> <input id="estatura"
-								th:field="*{estatura}" placeholder="Ingrese la estatura en centimetros" class="form-control" type="number">
-								<span class="text-danger" th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}">Error estatura</span>
+								th:field="*{estatura}" class="form-control" type="number">
 						</div>
 						<div class="col">
 							<label>Peso</label> <input id="peso" th:field="*{peso}"
-								class="form-control" placeholder="Ingrese el peso en Kilogramos" type="number">
-								<span class="text-danger" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">Error peso</span>
+								class="form-control" type="number">
 						</div>
 						<div class="col">
 							<label>Grupo sanguíneo <span class="text-danger">*</span></label>
@@ -403,17 +397,17 @@
 					<div class="row">
 						<div class="col">
 							<label>Alergias a alimentos</label> <input
-								id="alergias_alimentos" placeholder="Ingrese el nombre de las alergias" th:field="*{alergias_alimentos}"
+								id="alergias_alimentos" th:field="*{alergias_alimentos}"
 								class="form-control" type="text">
 						</div>
 						<div class="col">
 							<label>Alergias a medicamentos</label> <input
-								id="alergias_medicamentos" placeholder="Ingrese el nombre de las alergias" th:field="*{alergias_medicamentos}"
+								id="alergias_medicamentos" th:field="*{alergias_medicamentos}"
 								class="form-control" type="text">
 						</div>
 						<div class="col">
 							<label>Medicamentos Contraindicados</label> <input
-								id="medicamentos_contraindicados" placeholder="Ingrese el nombre de los medicamentos"
+								id="medicamentos_contraindicados"
 								th:field="*{medicamentos_contraindicados}" class="form-control"
 								type="text">
 						</div>
@@ -439,12 +433,11 @@
 								class="form-radio" type="radio">&nbsp;Si &nbsp; <input
 								id="vacuna_covid" th:field="*{vacuna_covid}" value="False"
 								class="form-radio" type="radio">No
-								<span class="text-danger" th:if="${#fields.hasErrors('vacuna_covid')}" th:errors="*{vacuna_covid}">Error cuenta con vacunas covid</span>
 						</div>
 						<div class="col">
 							<label>¿Cantidad de vacunas COVID 19?</label> <input
 								id="cantidad_vacunas_covid" th:field="*{cantidad_vacunas_covid}"
-								class="form-control" placeholder="Ingrese la cantidad acá" type="number">
+								class="form-control" type="number">
 						</div>
 					</div>
 					<br> <br>
@@ -471,7 +464,6 @@
 								id="apto_educacion_fisica" value="False"
 								th:field="*{apto_educacion_fisica}" class="form-radio"
 								type="radio">No
-								<span class="text-danger" th:if="${#fields.hasErrors('apto_educacion_fisica')}" th:errors="*{apto_educacion_fisica}">Error apto educación física</span>
 						</div>
 					</div>
 					<br> <br>
@@ -499,19 +491,14 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>¿Posee seguro escolar privado?</label><br> <input
-								class="form-radio" value="True" id="seguro_escolar_privado"
-								th:field="*{seguro_escolar_privado}" type="radio">&nbsp;Si
-							&nbsp; <input class="form-radio" value="False"
-								id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}"
-								type="radio">No
-								<span class="text-danger" th:if="${#fields.hasErrors('seguro_escolar_privado')}" th:errors="*{seguro_escolar_privado}">Error posee seguro escolar</span>
+							<label>¿Posee seguro escolar privado?</label><br>
+							 <input class="form-radio" value="True" id="seguro_escolar_privado"	th:field="*{seguro_escolar_privado}" type="radio">&nbsp;Si
+							&nbsp; <input class="form-radio" value="False" id="seguro_escolar_privado" th:field="*{seguro_escolar_privado}" type="radio">No
 						</div>
 						<div class="col">
 							<label>Consultorio o clínica donde se atiende</label> <input
 								id="consultorio_clinica" th:field="*{consultorio_clinica}"
-								class="form-control" placeholder="Ingrese el nombre del consultorio o clínica" type="text">
-								<span class="text-danger" th:if="${#fields.hasErrors('consultorio_clinica')}" th:errors="*{consultorio_clinica}">Error consultorio o clinica</span>
+								class="form-control" type="text">
 						</div>
 					</div>
 					<br>
@@ -522,7 +509,6 @@
 								class="form-radio" /> Si &nbsp; <input id="es_pie"
 								th:field="*{es_pie}" value="False" type="radio"
 								class="form-radio" /> NO
-								<span class="text-danger" th:if="${#fields.hasErrors('es_pie')}" th:errors="*{es_pie}">Error pertenece programa pie</span>
 						</div>
 						<div class="col"></div>
 						<div class="col"></div>
@@ -531,34 +517,35 @@
 					<div class="row">
 						<div class="col">
 							<label>Observaciones Médicas</label>
-							<textarea id="message" name="message" maxlength="250" th:field="*{observaciones}" placeholder="Ingrese observaciones especificas que se necesiten conocer del estudiante." rows="5"
+							<textarea id="observaciones" th:field="*{observaciones}" rows="5"
 								class="form-control" cols=""></textarea>
-							<span class="help-block">
-							<p id="mensaje_ayuda" class="help-block">Cuerpo del mensaje de alerta</p>
-							</span>	
 						</div>
 					</div>
-					<br>
 					<div class="row">
 						<div class="col"></div>
 						<div class="col"></div>
 						<div class="col text-end">
 							<br>
-							<button type="button" class="btn btn-primary shadow"
+							<button type="button" class="btn btn-primary"
 								data-bs-toggle="modal" data-bs-target="#avanzarapoderadosModal">
-								Avanzar al ingreso de apoderados</button>
+								Ingresar matrícula</button>
 						</div>
 					</div>
 					<br>
 				</div>
 			</div>
-		<br><br>
+
 		</div>
 
 		<input type="hidden" th:field="*{estado}"> <input
 			type="hidden" th:field="*{establecimientoId}"> <input
 			type="hidden" th:field="*{numero_matricula}"> <br>
-		<br><br><br><br><br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
 		<!-- Modal -->
 		<div class="modal fade" id="avanzarapoderadosModal" tabindex="-1"
 			aria-labelledby="avanzarapoderadosModalLabel" aria-hidden="true">
@@ -568,13 +555,12 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">¿Estás seguro de que quieres avanzar
-						al proceso de ingreso de los apoderados?</div>
+					<div class="modal-body">¿Estás seguro de que quieres modificar la matrícula?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Cerrar</button>
 						<input type="submit" class="btn btn-primary"
-							value="Pasar al Ingreso de apoderados">
+							value="Ingresar matrícula"  data-toggle="tooltip" data-placement="bottom" title="Presione para modificar la matrícula">
 					</div>
 				</div>
 			</div>
@@ -587,30 +573,7 @@
 	<br>
 	<br>
 
-<script type="text/javascript">
 
-$('#mensaje_ayuda').text('250 carácteres restantes');
-$('#message').keydown(function () {
-    var max = 250;
-    var len = $(this).val().length;
-    if (len >= max) {
-        $('#mensaje_ayuda').text('Has llegado al límite');// Aquí enviamos el mensaje a mostrar          
-        $('#mensaje_ayuda').addClass('text-danger');
-        $('#message').addClass('is-invalid');
-        $('#inputsubmit').addClass('disabled');    
-        document.getElementById('inputsubmit').disabled = true;                    
-    } 
-    else {
-        var ch = max - len;
-        $('#mensaje_ayuda').text(ch + ' carácteres restantes');
-        $('#mensaje_ayuda').removeClass('text-danger');            
-        $('#message').removeClass('is-invalid');            
-        $('#inputsubmit').removeClass('disabled');
-        document.getElementById('inputsubmit').disabled = false;            
-    }
-}); 
-
-</script>
 
 
 

@@ -46,7 +46,11 @@
 	<h1 class=""><span><a class="btn"  th:href="@{/}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Matrícula</h1>
 	<div class="d-flex justify-content-end">
 		<a th:href="@{/programa/pie}" class="btn btn-warning text-light shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar estudiante a programa Pie">+ Programa Pie</a> &nbsp;&nbsp;
-		<a th:href="@{/matricula/ingresar}" class="btn btn-danger shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar matrícula">+ Matricular Estudiante</a>
+		
+		<button type="button" class="btn btn-danger shadow" data-bs-toggle="modal" data-bs-target="#selectmatriculaModal">
+			+ Matricular Estudiante
+		</button>
+		
 	</div>
 	<br>
 </div>
@@ -153,6 +157,27 @@
 	</table>
 </div>
 <br><br><br><br>
+
+		<div class="modal fade" id="selectmatriculaModal" tabindex="-1"
+			aria-labelledby="selectmatriculaModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					Seleccione según corresponda.
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+							
+					</div>
+					<div class="modal-body text-center">
+						<a th:href="@{/matricula/estudiante/antiguo/ingresar}" class="btn btn-primary shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar matrícula">Estudiante antiguo</a>
+						<a th:href="@{/matricula/ingresar}" class="btn btn-danger shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar matrícula">Estudiante nuevo</a>
+					</div>
+					<div class="modal-footer text-center">
+						
+					</div>
+				</div>
+			</div>
+		</div>
 
 <script>
 

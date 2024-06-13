@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.schoollife.web.Entities.Curso;
+import com.schoollife.web.Entities.Estudiante;
 import com.schoollife.web.Entities.Hoja_de_vida;
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Service.AsignaturaService;
@@ -282,6 +283,21 @@ public class EstudianteController {
 			model.addAttribute("cursos", cursos);
 			model.addAttribute("filtroruthoja", filtroruthoja);
 			return "Hoja-de-vida";
+		}
+		return "Login";
+	}
+	
+	@GetMapping("/matricula/estudiante/antiguo/ingresar")
+	public String matriculaEstudianteAntiguo(Estudiante estudiante,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
+			model.addAttribute("estudiante",estudiante);
+			return "Matricula-estudiante-antiguo";
 		}
 		return "Login";
 	}
