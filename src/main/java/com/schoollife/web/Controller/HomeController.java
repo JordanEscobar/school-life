@@ -103,10 +103,7 @@ public class HomeController {
 			model.addAttribute("estudiantes", estudiantes);
 			return "Matricula";
 		}
-		return "Login";
-		
-		
-		
+		return "Login";	
 	}
 	
 	
@@ -253,10 +250,9 @@ public class HomeController {
 			model.addAttribute("rutinvalido", rutinvalido);
 			return "Matricula-ingresar";
 		}
-		return "Login";
-		
-		
+		return "Login";	
 	}
+	
 	/*Ingresa datos del estudiante*/
 	@PostMapping(path = "/matricula/ingresar/creada", consumes = "application/x-www-form-urlencoded")
 	public String matriculaIngresarCreada(@Valid Estudiante estudiante,Errors errores, Model model, Apoderado apoderado,HttpSession sesion) {
@@ -266,17 +262,51 @@ public class HomeController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("user",sesion.getAttribute("user"));
-			
-			
+						
 			model.addAttribute("comunas",establecimientoS.comunas());		
 			model.addAttribute("apoderado", apoderado);
-			
 			boolean rutex2 = false;
 			model.addAttribute("rutexiste2", rutex2);
 			boolean rutinvalido2 = false;
 			model.addAttribute("rutinvalido2", rutinvalido2);
 					
 			Estudiante e = new Estudiante();
+	
+			if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
+				for (Estudiante es : estudianteS.getAll(uSesion.get(0).getEstablecimientoId())) {
+					if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
+						boolean rutex =true;
+						model.addAttribute("rutexiste",rutex);
+						return "Matricula-ingresar";
+					}
+					else {
+						boolean rutex =false;
+						model.addAttribute("rutexiste",rutex);
+						e.setRunEstudiante(estudiante.getRunEstudiante());
+					}
+				}
+			}else {
+				rutinvalido2 = true;
+				model.addAttribute("rutinvalido2", rutinvalido2);
+				return "Matricula-ingresar";
+			}
+			//fecha actual en local date
+			LocalDate localDate = LocalDate.now();
+			//transformar el local date a date
+			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			e.setFecha_matricula(date);
+			e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
+			e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
+			e.setGenero(estudiante.getGenero());
+			e.setGrupo_sanguineo(estudiante.getGrupo_sanguineo());
+			e.setMedicamentos_contraindicados(estudiante.getMedicamentos_contraindicados());
+			e.setNacionalidad(estudiante.getNacionalidad());
+			e.setNombre(estudiante.getNombre());
+			e.setNombre_contacto_emergencia(estudiante.getNombre_contacto_emergencia());		
+			e.setObservaciones(estudiante.getObservaciones());
+			e.setPais_nacimiento(estudiante.getPais_nacimiento());
+			e.setPeso(estudiante.getPeso());
+			e.setReligion(estudiante.getReligion());
 			Integer correlativo = estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size() + 1;
 			String correlativoString = (String) correlativo.toString();
 			e.setNumero_matricula(correlativoString);
@@ -302,45 +332,7 @@ public class HomeController {
 			e.setEnfermedades_cronicas(estudiante.getEnfermedades_cronicas());
 			e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());		
 			e.setEstatura(estudiante.getEstatura());
-			e.setEtnia(estudiante.getEtnia());
-			
-			//fecha actual en local date
-			LocalDate localDate = LocalDate.now();
-			//transformar el local date a date
-			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			e.setFecha_matricula(date);
-			e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
-			e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
-			e.setGenero(estudiante.getGenero());
-			e.setGrupo_sanguineo(estudiante.getGrupo_sanguineo());
-			e.setMedicamentos_contraindicados(estudiante.getMedicamentos_contraindicados());
-			e.setNacionalidad(estudiante.getNacionalidad());
-			e.setNombre(estudiante.getNombre());
-			e.setNombre_contacto_emergencia(estudiante.getNombre_contacto_emergencia());		
-			e.setObservaciones(estudiante.getObservaciones());
-			e.setPais_nacimiento(estudiante.getPais_nacimiento());
-			e.setPeso(estudiante.getPeso());
-			e.setReligion(estudiante.getReligion());
-			
-			if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
-				for (Estudiante es : estudianteS.getAll(uSesion.get(0).getEstablecimientoId())) {
-					if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
-						boolean rutex =true;
-						model.addAttribute("rutexiste",rutex);
-						return "Matricula-ingresar";
-					}
-					else {
-						boolean rutex =false;
-						model.addAttribute("rutexiste",rutex);
-						e.setRunEstudiante(estudiante.getRunEstudiante());
-					}
-				}
-			}else {
-				rutinvalido2 = false;
-				model.addAttribute("rutinvalido2", rutinvalido2);
-				return "Matricula-ingresar";
-			}
-					
+			e.setEtnia(estudiante.getEtnia());					
 			e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
 			e.setSistema_prevision(estudiante.getSistema_prevision());
 			e.setTelefono(estudiante.getTelefono());
@@ -353,11 +345,10 @@ public class HomeController {
 			if (errores.hasErrors()) {
 				return "Matricula-ingresar";
 			}
-			
+			System.out.println("el estudianto a crear es: " + e);
 			//se crea el estudiante
 			estudianteS.createEstudiante(e);
-			model.addAttribute("estudiante", e);
-			model.addAttribute("estudianteid",e.getRunEstudiante());
+
 			sesion.setAttribute("estudiante", e);
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 			model.addAttribute("estudiante", sesion.getAttribute("estudiante"));

@@ -163,7 +163,52 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public Estudiante createEstudiante(Estudiante estudiante) {
-		return estudianteR.save(estudiante);
+		Estudiante e = new Estudiante();
+		e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
+		e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
+		e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());
+		e.setAmaterno(estudiante.getAmaterno());
+		e.setApaterno(estudiante.getApaterno());
+		e.setApto_educacion_fisica(estudiante.isApto_educacion_fisica());
+		e.setBeca(estudiante.getBeca());
+		e.setCantidad_computadores_casa(estudiante.getCantidad_computadores_casa());
+		e.setCantidad_vacunas_covid(estudiante.getCantidad_vacunas_covid());
+		e.setCelular(estudiante.getCelular());
+		e.setColegio_procedencia(estudiante.getColegio_procedencia());
+		e.setComuna(estudiante.getComuna());
+		e.setConsultorio_clinica(estudiante.getConsultorio_clinica());
+		e.setCorreo_electronico(estudiante.getCorreo_electronico());
+		e.setCurso_id(estudiante.getCurso_id());
+		e.setDireccion(estudiante.getDireccion());
+		e.setEnfermedades_cronicas(estudiante.getEnfermedades_cronicas());
+		e.setEs_pie(estudiante.isEs_pie());
+		e.setEsquema_completo_vacunacion_covid(estudiante.isEsquema_completo_vacunacion_covid());
+		e.setEstablecimientoId(estudiante.getEstablecimientoId());
+		e.setEstado(estudiante.isEstado());
+		e.setEstatura(estudiante.getEstatura());
+		e.setEtnia(estudiante.getEtnia());
+		e.setFecha_matricula(estudiante.getFecha_matricula());
+		e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
+		e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
+		e.setGenero(estudiante.getGenero());
+		e.setGrupo_sanguineo(estudiante.getGrupo_sanguineo());
+		e.setMedicamentos_contraindicados(estudiante.getMedicamentos_contraindicados());
+		e.setNacionalidad(estudiante.getNacionalidad());
+		e.setNombre(estudiante.getNombre());
+		e.setNombre_contacto_emergencia(estudiante.getNombre_contacto_emergencia());
+		e.setNumero_matricula(estudiante.getNumero_matricula());
+		e.setObservaciones(estudiante.getObservaciones());
+		e.setPais_nacimiento(estudiante.getPais_nacimiento());
+		e.setPeso(estudiante.getPeso());
+		e.setReligion(estudiante.getReligion());
+		e.setRunEstudiante(estudiante.getRunEstudiante());
+		e.setSeguro_escolar_privado(estudiante.isSeguro_escolar_privado());
+		e.setSistema_prevision(estudiante.getSistema_prevision());
+		e.setTelefono(estudiante.getTelefono());
+		e.setTelefono_emergencia(estudiante.getTelefono_emergencia());
+		e.setVacuna_covid(estudiante.isVacuna_covid());
+		e.setVive_con(estudiante.getVive_con());		
+		return estudianteR.save(e);
 	}
 
 	@Override

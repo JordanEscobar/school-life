@@ -49,8 +49,7 @@
 	<br>
 
 
-	<form th:action="@{/matricula/ingresar/creada}" method="POST"
-		th:object="${estudiante}">
+	<form th:action="@{/matricula/ingresar/creada}" method="post" th:object="${estudiante}">
 
 		<div class="container border rounded shadow">
 			<br>
@@ -82,17 +81,13 @@
 				<div class="tab-pane fade show active" id="home-tab-pane"
 					role="tabpanel" aria-labelledby="home-tab" tabindex="1">
 
-
 					<h2>Antecedentes personales</h2>
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>RUT<span class="text-danger">&nbsp;*(sin
-									puntos y con guion)</span></label> <input class="form-control" type="text"
-								id="rut" th:field="*{runEstudiante}"
-								placeholder="Ingrese sin puntos y con guion"> <span
-								th:if="${#fields.hasErrors('runEstudiante')}"
-								th:errors="*{runEstudiante}" class="text-danger">Error Rut</span>
+							<label>RUT<span class="text-danger">&nbsp;*(sin puntos y con guion)</span></label> 
+							<input class="form-control" type="text" id="runEstudiante" th:field="*{runEstudiante}"/> 
+								<span th:if="${#fields.hasErrors('runEstudiante')}" th:errors="*{runEstudiante}" class="text-danger">Error Rut</span>
 								<span class="text-danger" th:if="${rutexiste} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 								<span class="text-danger" th:if="${rutinvalido} == True" th:text="'Rut Inválido.'"></span>
 						</div>
@@ -329,7 +324,9 @@
 						<div class="col">
 							<input id="fecha_matricula" th:field="*{fecha_matricula}" class="form-control" type="hidden">
 						</div>
-						<div class="col"></div>
+						<div class="col">
+							
+						</div>
 					</div>
 					<br>
 					<div class="row">
@@ -355,11 +352,17 @@
 								class="form-control">
 								<span class="text-danger" th:if="${#fields.hasErrors('cantidad_computadores_casa')}" th:errors="*{cantidad_computadores_casa}">Error cuantos computadores en casa</span>
 						</div>
-						<div class="col text-end"></div>
+						<div class="col text-end">
+						
+						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
+						
+						
+						
+						
 						</div>
 					</div>
 					<br> <br>

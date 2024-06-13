@@ -16,15 +16,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name ="estudiantes")
 public class Estudiante {
 	@Id
 	@NotBlank
-	//@Length(min = 6, max = 11)
-	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	@Column(name = "run_estudiante")
 	private String runEstudiante;//obligatorio
 	@NotBlank
@@ -107,20 +104,19 @@ public class Estudiante {
 	private Integer curso_id; //obligatorio
 	private boolean es_pie; //obligatorio
 	public Estudiante(@NotBlank String runEstudiante, @NotBlank String nombre, @NotBlank String apaterno,
-			@NotBlank String amaterno, String numero_matricula, Date fecha_matricula, @Past Date fecha_nacimiento,
-			@NotBlank String pais_nacimiento, String genero, @NotBlank String direccion, @NotBlank String comuna,
-			@NotBlank @Email String correo_electronico, @Length(min = 6, max = 9) String telefono,
-			@Length(min = 8, max = 9) String celular, @NotBlank String colegio_procedencia,
-			@NotBlank String nombre_contacto_emergencia, @Length(min = 6, max = 9) String telefono_emergencia,
+			@NotBlank String amaterno, String numero_matricula, Date fecha_matricula,
+			@Past @NotNull Date fecha_nacimiento, @NotBlank @NotNull String pais_nacimiento, @NotNull String genero,
+			@NotBlank String direccion, @NotBlank String comuna, @NotBlank @Email String correo_electronico,
+			String telefono, @Length(min = 8, max = 9) @NotNull String celular, @NotBlank String colegio_procedencia,
+			@NotBlank String nombre_contacto_emergencia, @Length(min = 6, max = 9) @NotNull String telefono_emergencia,
 			@NotBlank String vive_con, Integer cantidad_computadores_casa, String religion,
-			boolean acepta_clases_religion, String beca, @Min(1) @Max(260) Integer estatura, @NotNull double peso,
-			String grupo_sanguineo, @NotBlank String alergias_alimentos, @NotBlank String alergias_medicamentos,
-			@NotBlank String medicamentos_contraindicados, @NotBlank String enfermedades_cronicas, boolean vacuna_covid,
-			Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid, Date fecha_ultima_vacuna_COVID,
-			boolean apto_educacion_fisica, @NotBlank String sistema_prevision, @NotNull boolean seguro_escolar_privado,
-			String nacionalidad, String etnia, @NotBlank String consultorio_clinica,
-			@Length(min = 0, max = 250) @NotBlank @Length(min = 0, max = 250) String observaciones, boolean estado,
-			Integer establecimientoId, Integer curso_id, boolean es_pie) {
+			@NotNull boolean acepta_clases_religion, @NotNull String beca, @Min(1) @Max(260) Integer estatura,
+			@NotNull double peso, @NotNull String grupo_sanguineo, String alergias_alimentos,
+			String alergias_medicamentos, String medicamentos_contraindicados, String enfermedades_cronicas,
+			@NotNull boolean vacuna_covid, Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid,
+			Date fecha_ultima_vacuna_COVID, @NotNull boolean apto_educacion_fisica, @NotNull String sistema_prevision,
+			boolean seguro_escolar_privado, @NotNull String nacionalidad, String etnia, String consultorio_clinica,
+			String observaciones, boolean estado, Integer establecimientoId, Integer curso_id, boolean es_pie) {
 		super();
 		this.runEstudiante = runEstudiante;
 		this.nombre = nombre;
@@ -456,7 +452,6 @@ public class Estudiante {
 				+ ", consultorio_clinica=" + consultorio_clinica + ", observaciones=" + observaciones + ", estado="
 				+ estado + ", establecimientoId=" + establecimientoId + ", curso_id=" + curso_id + ", es_pie=" + es_pie
 				+ "]";
-	}
-	
+	}	
 
 }
