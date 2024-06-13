@@ -273,16 +273,22 @@ public class HomeController {
 			Estudiante e = new Estudiante();
 	
 			if(rutValidationService.isValidRut(estudiante.getRunEstudiante())) {
-				for (Estudiante es : estudianteS.getAll(uSesion.get(0).getEstablecimientoId())) {
-					if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
-						boolean rutex =true;
-						model.addAttribute("rutexiste",rutex);
-						return "Matricula-ingresar";
-					}
-					else {
-						boolean rutex =false;
-						model.addAttribute("rutexiste",rutex);
-						e.setRunEstudiante(estudiante.getRunEstudiante());
+				if(estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).isEmpty()) {
+					boolean rutex =false;
+					model.addAttribute("rutexiste",rutex);
+					e.setRunEstudiante(estudiante.getRunEstudiante());
+				}else {
+					for (Estudiante es : estudianteS.getAll(uSesion.get(0).getEstablecimientoId())) {
+						if(estudiante.getRunEstudiante().equalsIgnoreCase(es.getRunEstudiante())) {
+							boolean rutex =true;
+							model.addAttribute("rutexiste",rutex);
+							return "Matricula-ingresar";
+						}
+						else {
+							boolean rutex =false;
+							model.addAttribute("rutexiste",rutex);
+							e.setRunEstudiante(estudiante.getRunEstudiante());
+						}
 					}
 				}
 			}else {
@@ -307,9 +313,8 @@ public class HomeController {
 			e.setPais_nacimiento(estudiante.getPais_nacimiento());
 			e.setPeso(estudiante.getPeso());
 			e.setReligion(estudiante.getReligion());
-			Integer correlativo = estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size() + 1;
-			String correlativoString = (String) correlativo.toString();
-			e.setNumero_matricula(correlativoString);
+
+			e.setNumero_matricula(1);
 			e.setColegio_procedencia(estudiante.getColegio_procedencia());
 			e.setEstado(true);
 			e.setEstablecimientoId(uSesion.get(0).getEstablecimientoId());

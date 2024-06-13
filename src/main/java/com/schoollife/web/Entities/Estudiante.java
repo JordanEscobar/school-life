@@ -30,7 +30,7 @@ public class Estudiante {
 	private String apaterno;//obligatorio
 	@NotBlank
 	private String amaterno;//obligatorio
-	private String numero_matricula;//obligatorio
+	private Integer numero_matricula;//obligatorio
 	
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;//obligatorio
@@ -104,7 +104,7 @@ public class Estudiante {
 	private Integer curso_id; //obligatorio
 	private boolean es_pie; //obligatorio
 	public Estudiante(@NotBlank String runEstudiante, @NotBlank String nombre, @NotBlank String apaterno,
-			@NotBlank String amaterno, String numero_matricula, Date fecha_matricula,
+			@NotBlank String amaterno, Integer numero_matricula, Date fecha_matricula,
 			@Past @NotNull Date fecha_nacimiento, @NotBlank @NotNull String pais_nacimiento, @NotNull String genero,
 			@NotBlank String direccion, @NotBlank String comuna, @NotBlank @Email String correo_electronico,
 			String telefono, @Length(min = 8, max = 9) @NotNull String celular, @NotBlank String colegio_procedencia,
@@ -190,10 +190,10 @@ public class Estudiante {
 	public void setAmaterno(String amaterno) {
 		this.amaterno = amaterno;
 	}
-	public String getNumero_matricula() {
+	public Integer getNumero_matricula() {
 		return numero_matricula;
 	}
-	public void setNumero_matricula(String numero_matricula) {
+	public void setNumero_matricula(Integer numero_matricula) {
 		this.numero_matricula = numero_matricula;
 	}
 	public Date getFecha_matricula() {
@@ -452,6 +452,8 @@ public class Estudiante {
 				+ ", consultorio_clinica=" + consultorio_clinica + ", observaciones=" + observaciones + ", estado="
 				+ estado + ", establecimientoId=" + establecimientoId + ", curso_id=" + curso_id + ", es_pie=" + es_pie
 				+ "]";
-	}	
+	}
+	
+	
 
 }
