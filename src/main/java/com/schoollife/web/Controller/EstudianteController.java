@@ -3,15 +3,18 @@ package com.schoollife.web.Controller;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.ZoneId;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -160,15 +163,29 @@ public class EstudianteController {
 		return "Login";
 	}
 	@GetMapping("/Hoja-de-vida/ver/{estudianteId}")
-	public String hojaDeVidaEstudiante(Hoja_de_vida hoja_de_vida,Model model,HttpSession sesion) {
+	public String hojaDeVidaEstudiante(/*Hoja_de_vida hoja_de_vida*/@PathVariable("estudianteId") String estudianteId,Model model,@RequestParam(name = "anio", required = false) Integer anio,HttpSession sesion) {
 		if(sesion.getAttribute("user") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("user",sesion.getAttribute("user"));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));							
 			
-			var hojas = hojaService.getByEstudianteId(hoja_de_vida.getEstudianteId());
+			var hojas = hojaService.getByEstudianteId(/*hoja_de_vida.getEstudianteId()*/estudianteId);
+			
+			//esto es nuevo para el filtro
+            if (anio != null) {
+                hojas = hojas.stream()
+                             .filter(h -> h.getFecha().toInstant()
+             	                    .atZone(ZoneId.systemDefault())
+            	                    .toLocalDate().getYear() == anio)
+                             .collect(Collectors.toList());
+            }
+			//
 			model.addAttribute("hoja_de_vida",hojas);
-			return "Hoja-de-vida-ver";
+			//esto es nuevo para el filtro
+			model.addAttribute("anios", hojaService.getDistinctYears(/*hoja_de_vida.getEstudianteId()*/estudianteId));  // Agregar lista de años distintos
+            model.addAttribute("selectedAnio", anio);
+			//
+            return "Hoja-de-vida-ver";
 		}
 		return "Login";
 	}
@@ -278,7 +295,7 @@ public class EstudianteController {
 			
 			var estudiantes = estudianteS.findEstudiantePorRut(filtroruthoja, uSesion.get(0).getEstablecimientoId());
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
-
+			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("estudiantes", estudiantes);
 			model.addAttribute("cursos", cursos);
 			model.addAttribute("filtroruthoja", filtroruthoja);
@@ -295,12 +312,41 @@ public class EstudianteController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("user",sesion.getAttribute("user"));
-			
+			model.addAttribute("comunas",establecimientoS.comunas());
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+			model.addAttribute("cursos", cursos);
 			model.addAttribute("estudiante",estudiante);
 			return "Matricula-estudiante-antiguo";
 		}
 		return "Login";
 	}
+	
+	// filtrar por Rut matricula de estudiante existente
+		@PostMapping(path = "/filtrarmatricula", consumes = "application/x-www-form-urlencoded")
+		public String filtroMatriculaExistenteByRut(Model model, @RequestParam("filtrorutmatricula") String filtrorutmatricula,HttpSession sesion) {
+			if(sesion.getAttribute("user")!=null)
+			{
+				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+				model.addAttribute("uSesion",uSesion.get(0));
+				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+				model.addAttribute("user",sesion.getAttribute("user"));
+				if(filtrorutmatricula.isBlank() || filtrorutmatricula.isEmpty() || filtrorutmatricula == null) {
+					return "redirect:/matricula/estudiante/antiguo/ingresar";
+				}
+				Estudiante estudiante = estudianteS.findMatriculaExistente(filtrorutmatricula, uSesion.get(0).getEstablecimientoId());
+				if(estudiante == null)
+				{
+					return "redirect:/matricula/estudiante/antiguo/ingresar";
+				}
+				var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+				model.addAttribute("comunas",establecimientoS.comunas());
+				model.addAttribute("estudiante", estudiante);
+				model.addAttribute("cursos", cursos);
+				model.addAttribute("filtrorutmatricula", filtrorutmatricula);
+				return "Matricula-estudiante-antiguo";
+			}
+			return "Login";
+		}
 	
 	
 }

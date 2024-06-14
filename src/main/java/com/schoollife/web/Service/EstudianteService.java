@@ -26,8 +26,8 @@ public interface EstudianteService {
 	List<Estudiante> findEstudiantePorEstado(String estado, Integer colegioId);
 	List<Estudiante> findEstudiantePorPie(String pie);
 	void cancelarMatricula(String estudianteid);
-	
 	boolean estudianteExiste(String estudiante_id);
+	Estudiante findMatriculaExistente(String runEstudiante,Integer establecimientoId);
 	
 	
 

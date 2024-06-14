@@ -312,14 +312,12 @@ public class HomeController {
 			e.setObservaciones(estudiante.getObservaciones());
 			e.setPais_nacimiento(estudiante.getPais_nacimiento());
 			e.setPeso(estudiante.getPeso());
-			e.setReligion(estudiante.getReligion());
-
-			e.setNumero_matricula(1);
+			e.setReligion(estudiante.getReligion());		
 			e.setColegio_procedencia(estudiante.getColegio_procedencia());
 			e.setEstado(true);
 			e.setEstablecimientoId(uSesion.get(0).getEstablecimientoId());
-			//el curso se debe seleccionar o modificar FALTA ESO
 			e.setCurso_id(1);
+			e.setNumero_matricula(1);
 			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
 			e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
 			e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());

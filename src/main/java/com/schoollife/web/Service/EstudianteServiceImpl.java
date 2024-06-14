@@ -390,5 +390,11 @@ public class EstudianteServiceImpl implements EstudianteService{
 		return estudianteR.existsById(estudiante_id);
 	}
 
+	@Override
+	@Transactional
+	public Estudiante findMatriculaExistente(String runEstudiante, Integer establecimientoId) {
+		return estudianteR.findByRunEstudianteAndEstablecimientoId(runEstudiante, establecimientoId);
+	}
+
 
 }

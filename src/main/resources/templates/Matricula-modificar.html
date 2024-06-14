@@ -85,7 +85,7 @@
 							<label>Nombres <span class="text-danger">*</span></label> <input
 								id="nombre" th:field="*{nombre}" class="form-control"
 								type="text"> <span
-								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">Error
 								Nombre</span>
 									<input class="form-control" type="hidden"id="rut" th:field="*{runEstudiante}"placeholder="Ingrese sin puntos y con guion" > 
 						</div>
@@ -93,14 +93,14 @@
 							<label>Apellido Paterno <span class="text-danger">*</span></label>
 							<input id="apaterno" th:field="*{apaterno}" class="form-control"
 								type="text"> <span
-								th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error
+								th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}" class="text-danger">Error
 								Apellido Paterno</span>
 						</div>
 						<div class="col">
 							<label>Apellido Materno</label> <input id="amaterno"
 								th:field="*{amaterno}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('amaterno')}"
-								th:errors="*{amaterno}">Error Apellido Materno</span>
+								th:errors="*{amaterno}" class="text-danger">Error Apellido Materno</span>
 						</div>
 					</div>
 					<br>
@@ -116,7 +116,7 @@
 								th:field="*{correo_electronico}" class="form-control"
 								type="email"> <span
 								th:if="${#fields.hasErrors('correo_electronico')}"
-								th:errors="*{correo_electronico}">Error Correo
+								th:errors="*{correo_electronico}" class="text-danger">Error Correo
 								Electrónico</span>
 						</div>
 						<div class="col">
@@ -124,7 +124,7 @@
 							<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
 								class="form-control" type="date"> <span
 								th:if="${#fields.hasErrors('fecha_nacimiento')}"
-								th:errors="*{fecha_nacimiento}">Error Fecha de nacimiento</span>
+								th:errors="*{fecha_nacimiento}" class="text-danger">Error Fecha de nacimiento</span>
 						</div>
 					</div>
 					<br>
@@ -184,7 +184,7 @@
 							<label>Dirección</label> <input id="direccion"
 								th:field="*{direccion}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('direccion')}"
-								th:errors="*{direccion}">Error Dirección</span>
+								th:errors="*{direccion}" class="text-danger">Error Dirección</span>
 						</div>
 						<div class="col">
 							<label>Comuna</label> <select class="form-select" id="comuna"
@@ -216,13 +216,13 @@
 							<label>Teléfono Celular</label> <input id="celular"
 								th:field="*{celular}" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('celular')}"
-								th:errors="*{celular}">Error Celular</span>
+								th:errors="*{celular}" class="text-danger">Error Celular</span>
 						</div>
 						<div class="col">
 							<label>Teléfono Fijo</label> <input id="telefono"
 								th:field="*{telefono}" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('telefono')}"
-								th:errors="*{telefono}">Error Celular</span>
+								th:errors="*{telefono}" class="text-danger">Error Celular</span>
 						</div>
 					</div>
 

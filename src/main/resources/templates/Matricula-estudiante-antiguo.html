@@ -41,26 +41,21 @@
 	<br> &nbsp;&nbsp;
 	<a class="btn text-danger" th:href="@{/matricula}"><i
 		class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Matrículas</a>
-	<br>
-	<br>
-
-
-	<form th:action="@{/matricula/modificada}" method="POST"
-		th:object="${estudiante}">
-
+	<br><br>
 		<div class="container">
 			<h1>Ingresar Matrícula estudiante antiguo</h1>
 			<br>
 			<br>
 			<div class="row">
 				<div class="col">
-					<label>Ingresa Rut y presiona enter</label>
-					<input type="text" id="runEstudiante" class="form-control shadow" placeholder="Rut sin puntos y con guion">
+				 <form  action="#"  th:action="@{/filtrarmatricula}" method="post">
+					<label class="fw-bold">Búsqueda por Rut</label>
+				    	<input class="form-control shadow" name="filtrorutmatricula"   id="filtrorutmatricula" th:value="${filtrorutmatricula}" placeholder="Sin puntos y con guíon">
+				 	</form>
 				</div>
 				<div class="col"></div>
 				<div class="col"></div>
-			</div>
-			<br><br>
+			</div><br><br>
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -80,13 +75,11 @@
 						aria-controls="contact-tab-pane" aria-selected="false">Antecedentes
 						Salud (3)</button>
 				</li>
-			</ul>
-			<br>
+			</ul><br>
+		<form th:action="@{/matricula/modificada}" method="POST" th:object="${estudiante}">
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="home-tab-pane"
 					role="tabpanel" aria-labelledby="home-tab" tabindex="1">
-
-
 					<h2>Antecedentes personales</h2>
 					<br>
 					<div class="row">
@@ -94,30 +87,55 @@
 							<label>Nombres <span class="text-danger">*</span></label> <input
 								id="nombre" th:field="*{nombre}" class="form-control"
 								type="text"> <span
-								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error
+								th:if="${#fields.hasErrors('nombre')}" class="text-danger" th:errors="*{nombre}">Error
 								Nombre</span>
-									<input class="form-control" type="hidden"id="rut" th:field="*{runEstudiante}"placeholder="Ingrese sin puntos y con guion" > 
+								<input class="form-control" type="hidden"id="rut" th:field="*{runEstudiante}"placeholder="Ingrese sin puntos y con guion" > 
 						</div>
 						<div class="col">
 							<label>Apellido Paterno <span class="text-danger">*</span></label>
 							<input id="apaterno" th:field="*{apaterno}" class="form-control"
 								type="text"> <span
-								th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error
+								th:if="${#fields.hasErrors('apaterno')}" class="text-danger" th:errors="*{apaterno}">Error
 								Apellido Paterno</span>
 						</div>
 						<div class="col">
 							<label>Apellido Materno</label> <input id="amaterno"
 								th:field="*{amaterno}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('amaterno')}"
-								th:errors="*{amaterno}">Error Apellido Materno</span>
+								th:errors="*{amaterno}" class="text-danger">Error Apellido Materno</span>
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Curso</label>
-							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
-								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
+							<label>Religión</label> <select id="religion"
+								th:field="*{religion}" class="form-select">
+								<option th:value="'Bahaísmo'">Bahaísmo</option>
+								<option th:value="'Budismo'">Budismo</option>
+								<option th:value="'Candomblé'">Candomblé</option>
+								<option th:value="'Cao Đài (Caodaísmo)'">Cao Đài
+									(Caodaísmo)</option>
+								<option th:value="'Catolicismo'">Catolicismo</option>
+								<option th:value="'Cheondoísmo'">Cheondoísmo</option>
+								<option th:value="'Cristianismo'">Cristianismo</option>
+								<option th:value="'Evangelismo'">Evangelismo</option>
+								<option th:value="'Hinduismo'">Hinduismo</option>
+								<option th:value="'Islam'">Islam</option>
+								<option th:value="'Jainismo'">Jainismo</option>
+								<option th:value="'Johrei'">Johrei</option>
+								<option th:value="'Judaísmo'">Judaísmo</option>
+								<option th:value="'Religión tradicional china'">Religión
+									tradicional china</option>
+								<option th:value="'Santería'">Santería</option>
+								<option th:value="'Sijismo'">Sijismo</option>
+								<option th:value="'Sin religión'">Sin religión</option>
+								<option th:value="'Sintoísmo'">Sintoísmo</option>
+								<option th:value="'Tenrikyo'">Tenrikyo</option>
+								<option th:value="'Testigo de Jehová'">Testigo de
+									Jehová</option>
+								<option th:value="'Vudú'">Vudú</option>
+								<option th:value="'Wicca'">Wicca</option>
+								<option th:value="'Yazidismo'">Yazidismo</option>
 							</select>
 						</div>
 						<div class="col">
@@ -125,7 +143,7 @@
 								th:field="*{correo_electronico}" class="form-control"
 								type="email"> <span
 								th:if="${#fields.hasErrors('correo_electronico')}"
-								th:errors="*{correo_electronico}">Error Correo
+								th:errors="*{correo_electronico}" class="text-danger">Error Correo
 								Electrónico</span>
 						</div>
 						<div class="col">
@@ -133,7 +151,7 @@
 							<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
 								class="form-control" type="date"> <span
 								th:if="${#fields.hasErrors('fecha_nacimiento')}"
-								th:errors="*{fecha_nacimiento}">Error Fecha de nacimiento</span>
+								th:errors="*{fecha_nacimiento}" class="text-danger">Error Fecha de nacimiento</span>
 						</div>
 					</div>
 					<br>
@@ -193,7 +211,7 @@
 							<label>Dirección</label> <input id="direccion"
 								th:field="*{direccion}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('direccion')}"
-								th:errors="*{direccion}">Error Dirección</span>
+								th:errors="*{direccion}" class="text-danger">Error Dirección</span>
 						</div>
 						<div class="col">
 							<label>Comuna</label> <select class="form-select" id="comuna"
@@ -225,13 +243,13 @@
 							<label>Teléfono Celular</label> <input id="celular"
 								th:field="*{celular}" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('celular')}"
-								th:errors="*{celular}">Error Celular</span>
+								th:errors="*{celular}" class="text-danger">Error Celular</span>
 						</div>
 						<div class="col">
 							<label>Teléfono Fijo</label> <input id="telefono"
 								th:field="*{telefono}" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('telefono')}"
-								th:errors="*{telefono}">Error Celular</span>
+								th:errors="*{telefono}" class="text-danger">Error Celular</span>
 						</div>
 					</div>
 
@@ -243,7 +261,7 @@
 								th:field="*{nombre_contacto_emergencia}" class="form-control"
 								type="text"> <span
 								th:if="${#fields.hasErrors('nombre_contacto_emergencia')}"
-								th:errors="*{nombre_contacto_emergencia}">Error Nombre
+								th:errors="*{nombre_contacto_emergencia}" class="text-danger">Error Nombre
 								contacto emergencia</span>
 						</div>
 						<div class="col">
@@ -251,43 +269,9 @@
 								id="telefono_emergencia" th:field="*{telefono_emergencia}"
 								class="form-control" type="number"> <span
 								th:if="${#fields.hasErrors('telefono_emergencia')}"
-								th:errors="*{telefono_emergencia}">Error Telefono
+								th:errors="*{telefono_emergencia}" class="text-danger">Error Telefono
 								Emergencia</span>
 						</div>
-						<div class="col">
-								<label>Religión</label> <select id="religion"
-								th:field="*{religion}" class="form-select">
-								<option th:value="'Bahaísmo'">Bahaísmo</option>
-								<option th:value="'Budismo'">Budismo</option>
-								<option th:value="'Candomblé'">Candomblé</option>
-								<option th:value="'Cao Đài (Caodaísmo)'">Cao Đài
-									(Caodaísmo)</option>
-								<option th:value="'Catolicismo'">Catolicismo</option>
-								<option th:value="'Cheondoísmo'">Cheondoísmo</option>
-								<option th:value="'Cristianismo'">Cristianismo</option>
-								<option th:value="'Evangelismo'">Evangelismo</option>
-								<option th:value="'Hinduismo'">Hinduismo</option>
-								<option th:value="'Islam'">Islam</option>
-								<option th:value="'Jainismo'">Jainismo</option>
-								<option th:value="'Johrei'">Johrei</option>
-								<option th:value="'Judaísmo'">Judaísmo</option>
-								<option th:value="'Religión tradicional china'">Religión
-									tradicional china</option>
-								<option th:value="'Santería'">Santería</option>
-								<option th:value="'Sijismo'">Sijismo</option>
-								<option th:value="'Sin religión'">Sin religión</option>
-								<option th:value="'Sintoísmo'">Sintoísmo</option>
-								<option th:value="'Tenrikyo'">Tenrikyo</option>
-								<option th:value="'Testigo de Jehová'">Testigo de
-									Jehová</option>
-								<option th:value="'Vudú'">Vudú</option>
-								<option th:value="'Wicca'">Wicca</option>
-								<option th:value="'Yazidismo'">Yazidismo</option>
-							</select>
-						</div>
-					</div>
-					<br>
-					<div class="row">
 						<div class="col">
 							<label>¿Acepta clases de religión en el colegio?</label><br>
 							<input id="acepta_clases_religion"
@@ -297,8 +281,14 @@
 								th:field="*{acepta_clases_religion}"
 								name="acepta_clases_religion" value="False" type="radio">No
 							<span th:if="${#fields.hasErrors('acepta_clases_religion')}"
-								th:errors="*{acepta_clases_religion}">Error Acepta Clases
-								Religion</span>
+								th:errors="*{acepta_clases_religion}" class="text-danger">Error Acepta Clases
+								Religion</span>		
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col">
+
 						</div>
 						<div class="col">
 						</div>
@@ -329,7 +319,12 @@
 							<input id="fecha_matricula" th:field="*{fecha_matricula}"
 								class="form-control" type="date">
 						</div>
-						<div class="col"></div>
+						<div class="col">
+							<label>Curso</label>
+							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
+								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
+							</select>
+						</div>
 					</div>
 					<br>
 					<div class="row">
@@ -527,55 +522,38 @@
 						<div class="col text-end">
 							<br>
 							<button type="button" class="btn btn-primary"
-								data-bs-toggle="modal" data-bs-target="#avanzarapoderadosModal">
+								data-bs-toggle="modal" data-bs-target="#ingresarmatriculaexistenteModal">
 								Ingresar matrícula</button>
 						</div>
 					</div>
 					<br>
 				</div>
 			</div>
-
-		</div>
-
-		<input type="hidden" th:field="*{estado}"> <input
-			type="hidden" th:field="*{establecimientoId}"> <input
-			type="hidden" th:field="*{numero_matricula}"> <br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-
+					<input type="hidden" th:field="*{estado}"> 
+					<input type="hidden" th:field="*{establecimientoId}"> 
+					<input type="hidden" th:field="*{numero_matricula}"> 
+					<br><br><br><br><br><br>
 		<!-- Modal -->
-		<div class="modal fade" id="avanzarapoderadosModal" tabindex="-1"
-			aria-labelledby="avanzarapoderadosModalLabel" aria-hidden="true">
+		<div class="modal fade" id="ingresarmatriculaexistenteModal" tabindex="-1"
+			aria-labelledby="ingresarmatriculaexistenteModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">¿Estás seguro de que quieres modificar la matrícula?</div>
+					<div class="modal-body">¿Estás seguro de que quieres ingresar la matrícula?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Cerrar</button>
 						<input type="submit" class="btn btn-primary"
-							value="Ingresar matrícula"  data-toggle="tooltip" data-placement="bottom" title="Presione para modificar la matrícula">
+							value="Ingresar matrícula"  data-toggle="tooltip" data-placement="bottom" title="Presione para ingresar la matrícula">
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
-
-
-
-
+</div>
+<br><br><br><br><br><br>
 </body>
 </html>

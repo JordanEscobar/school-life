@@ -35,6 +35,24 @@
     </div>
     <h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Hoja de vida</h1>
     <br><br>
+    <div class="row">
+    	<div class="col">
+             <form th:action="@{/Hoja-de-vida/ver/{estudianteId}(estudianteId=${estudianteId})}" method="get">
+			    <label for="filtroanio">Filtrar por año</label>
+			    <select class="form-select" id="filtroanio" name="anio" onchange="this.form.submit()">
+			        <option th:each="anio : ${anios}"
+			                th:value="${anio}"
+			                th:text="${anio}"
+			                th:selected="${anio == selectedAnio}"></option>
+			    </select>
+			    <input type="hidden" name="estudianteId" th:value="${estudianteId}" />
+			</form>
+
+    	</div>
+    	<div class="col"></div>
+    	<div class="col"></div>
+    </div>
+    <br><br>
     <div class="table-responsive">
         <table class="table table-bordered text-center border rounded container shadow">
             <thead>

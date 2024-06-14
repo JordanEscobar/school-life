@@ -1,7 +1,9 @@
 package com.schoollife.web.Service;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +60,18 @@ public class Hoja_de_vidaServiceImpl implements Hoja_de_vidaService{
 	@Transactional
 	public Hoja_de_vida findById(Integer id) {	
 		return hoja_de_vidaR.findById(id).get();
+	}
+
+	//extraer los años de las diferentes hojas de vida de un estudiante especifico
+	@Override
+	@Transactional
+	public List<Integer> getDistinctYears(String estudianteId) {
+		return hoja_de_vidaR.findByEstudianteId(estudianteId).stream()
+	            .map(h -> h.getFecha().toInstant()
+	                    .atZone(ZoneId.systemDefault())
+	                    .toLocalDate().getYear())
+	            .distinct()
+	            .collect(Collectors.toList());
 	}
 
 }
