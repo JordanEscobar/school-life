@@ -39,7 +39,8 @@
     	<div class="col">
              <form th:action="@{/Hoja-de-vida/ver/{estudianteId}(estudianteId=${estudianteId})}" method="get">
 			    <label for="filtroanio">Filtrar por año</label>
-			    <select class="form-select" id="filtroanio" name="anio" onchange="this.form.submit()">
+			    <select class="form-select shadow" id="filtroanio" name="anio" onchange="this.form.submit()">
+			        <option value="">Todos</option> <!-- Opción para mostrar todos los años -->
 			        <option th:each="anio : ${anios}"
 			                th:value="${anio}"
 			                th:text="${anio}"
@@ -47,13 +48,17 @@
 			    </select>
 			    <input type="hidden" name="estudianteId" th:value="${estudianteId}" />
 			</form>
-
     	</div>
     	<div class="col"></div>
-    	<div class="col"></div>
+    	<div class="col">
+    	</div>
     </div>
     <br><br>
     <div class="table-responsive">
+    	<div class="text-end">
+    		<a class="btn btn-info shadow" th:href="@{/Hoja-de-vida/ver/} + ${estudianteId} + '?format=pdf'" target="_blank">Descargar anotaciones</a>
+    	</div>
+    	<br>
         <table class="table table-bordered text-center border rounded container shadow">
             <thead>
                 <tr>

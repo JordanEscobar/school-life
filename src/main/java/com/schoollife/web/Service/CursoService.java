@@ -12,9 +12,9 @@ public interface CursoService {
 		void updateCurso(Curso curso, Integer id);
 		//Buscar un curso por curso
 		Curso findCurso(Curso curso);
-		//Crear
+		//Crear un curso
 		Curso CreateCurso(Curso curso);
-		//letras
+		//listar letras del abecedario
 		List<String> abecedario();
 		
 

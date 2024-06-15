@@ -162,33 +162,36 @@ public class EstudianteController {
 		}
 		return "Login";
 	}
+
 	@GetMapping("/Hoja-de-vida/ver/{estudianteId}")
-	public String hojaDeVidaEstudiante(/*Hoja_de_vida hoja_de_vida*/@PathVariable("estudianteId") String estudianteId,Model model,@RequestParam(name = "anio", required = false) Integer anio,HttpSession sesion) {
-		if(sesion.getAttribute("user") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
-			model.addAttribute("user",sesion.getAttribute("user"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));							
-			
-			var hojas = hojaService.getByEstudianteId(/*hoja_de_vida.getEstudianteId()*/estudianteId);
-			
-			//esto es nuevo para el filtro
-            if (anio != null) {
-                hojas = hojas.stream()
-                             .filter(h -> h.getFecha().toInstant()
-             	                    .atZone(ZoneId.systemDefault())
-            	                    .toLocalDate().getYear() == anio)
-                             .collect(Collectors.toList());
-            }
-			//
-			model.addAttribute("hoja_de_vida",hojas);
-			//esto es nuevo para el filtro
-			model.addAttribute("anios", hojaService.getDistinctYears(/*hoja_de_vida.getEstudianteId()*/estudianteId));  // Agregar lista de años distintos
-            model.addAttribute("selectedAnio", anio);
-			//
-            return "Hoja-de-vida-ver";
-		}
-		return "Login";
+	public String hojaDeVidaEstudiante(@PathVariable("estudianteId") String estudianteId, Model model, @RequestParam(name = "anio", required = false) Integer anio, HttpSession sesion) {
+	    if (sesion.getAttribute("user") != null) {
+	        List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+	        model.addAttribute("user", sesion.getAttribute("user"));
+	        model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));							
+	        model.addAttribute("estudianteId", estudianteId);
+	        var hojas = hojaService.getByEstudianteId(estudianteId);
+	        
+	        // Filtrar por año si se proporciona
+	        if (anio != null && anio > 0) {
+	            hojas = hojas.stream()
+	                         .filter(h -> h.getFecha().toInstant()
+	                                       .atZone(ZoneId.systemDefault())
+	                                       .toLocalDate().getYear() == anio)
+	                         .collect(Collectors.toList());
+	        }
+	        
+	        model.addAttribute("hoja_de_vida", hojas);
+	        model.addAttribute("anios", hojaService.getDistinctYears(estudianteId));  // Agregar lista de años distintos
+	        model.addAttribute("selectedAnio", anio);
+
+	        return "Hoja-de-vida-ver";
+	    }
+	    return "Login";
 	}
+
+
+
 	
 	@GetMapping("/HojaDeVida/eliminar/{id_hoja_de_vida}")
 	public String deleteHojaDeVida(Hoja_de_vida hoja_de_vida,RedirectAttributes flash,Model model,HttpSession sesion) {
