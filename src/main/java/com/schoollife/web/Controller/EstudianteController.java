@@ -270,62 +270,69 @@ public class EstudianteController {
 	}
 	
 	@PostMapping("/Hoja-de-vida/modificado")
-	public String hojaDeVidaModificado(@Valid Hoja_de_vida hoja_de_vida,Errors errores,RedirectAttributes flash,@RequestParam(name = "file",required = false) MultipartFile file, Model model, HttpSession sesion) {
-		if(sesion.getAttribute("user") != null) {
-			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
-			model.addAttribute("user",sesion.getAttribute("user"));
-			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));					
-			Hoja_de_vida hojaSeleccionada = hojaService.findById(hoja_de_vida.getId_hoja_de_vida());
-			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hojaSeleccionada.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
-			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
-			model.addAttribute("asignaturas",asignaturas);
-			model.addAttribute("hoja_de_vida",hoja_de_vida);
-						
-			Hoja_de_vida hNueva = new Hoja_de_vida();
-			hNueva.setAsignatura(hoja_de_vida.getAsignatura());
-			hNueva.setDetalle(hoja_de_vida.getDetalle());			
-			hNueva.setEstudianteId(hoja_de_vida.getEstudianteId());			
-			hNueva.setFecha(hoja_de_vida.getFecha());
-			hNueva.setTipoEvento(hoja_de_vida.getTipoEvento());			
-			hNueva.setUsuarioId(hoja_de_vida.getUsuarioId());			
-			hNueva.setId_hoja_de_vida(hoja_de_vida.getId_hoja_de_vida());
-			
-	        try {
-	            // Guardar el archivo en el servidor
-	            byte[] bytes = file.getBytes();
-	            Date fechaHoy = new Date();	            
-	            // Obtener el nombre original del archivo
-	            String nombreOriginal = file.getOriginalFilename();	            
-	            // Obtener la extensión del archivo (si es necesario)
-	            String extension = "";
-	            int lastIndex = nombreOriginal.lastIndexOf('.');
-	            if (lastIndex > 0) {
-	                extension = nombreOriginal.substring(lastIndex);
-	            }	            
-	            // Concatenar la fecha al nombre del archivo
-	            String nombreConFecha = fechaHoy.getTime() +"_" + nombreOriginal  +  extension;            
-	            // Crear la ruta del archivo con el nuevo nombre
-	            Path path = Paths.get(UPLOADED_FOLDER + nombreConFecha);	            
-	            // Escribir el archivo en el servidor
-	            Files.write(path, bytes);            
-	            // Guardar el nombre del archivo con fecha en el objeto hoja_de_vida
-	            hoja_de_vida.setArchivo(nombreConFecha);	            
-	            // Agregar el nombre del archivo con fecha al modelo
-	            model.addAttribute("fileName", nombreConFecha);
-	        } catch (IOException e) {
-	            e.printStackTrace();	           
-	        }			
-			
-			if (errores.hasErrors()) {
-				return "Hoja-de-vida-ingresar";
-			}
-			hNueva.setArchivo(hoja_de_vida.getArchivo());
-			hojaService.updateCurso(hoja_de_vida, hoja_de_vida.getId_hoja_de_vida());
-			flash.addFlashAttribute("success","Hoja modificada correctamente");
-			return "redirect:/hojadevida";
-		}
-		return "Login";
+	public String hojaDeVidaModificado(@Valid Hoja_de_vida hoja_de_vida, Errors errores, RedirectAttributes flash, @RequestParam(name = "file", required = false) MultipartFile file, Model model, HttpSession sesion) {
+	    if (sesion.getAttribute("user") != null) {
+	        List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
+	        model.addAttribute("user", sesion.getAttribute("user"));
+	        model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+	        Hoja_de_vida hojaSeleccionada = hojaService.findById(hoja_de_vida.getId_hoja_de_vida());
+	        var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hojaSeleccionada.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
+	        var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
+	        model.addAttribute("asignaturas", asignaturas);
+	        model.addAttribute("hoja_de_vida", hoja_de_vida);
+
+	        Hoja_de_vida hNueva = new Hoja_de_vida();
+	        hNueva.setAsignatura(hoja_de_vida.getAsignatura());
+	        hNueva.setDetalle(hoja_de_vida.getDetalle());
+	        hNueva.setEstudianteId(hoja_de_vida.getEstudianteId());
+	        hNueva.setFecha(hoja_de_vida.getFecha());
+	        hNueva.setTipoEvento(hoja_de_vida.getTipoEvento());
+	        hNueva.setUsuarioId(hoja_de_vida.getUsuarioId());
+	        hNueva.setId_hoja_de_vida(hoja_de_vida.getId_hoja_de_vida());
+
+	        if (file != null && !file.isEmpty()) {
+	            try {
+	                // Guardar el archivo en el servidor
+	                byte[] bytes = file.getBytes();
+	                Date fechaHoy = new Date();
+	                // Obtener el nombre original del archivo
+	                String nombreOriginal = file.getOriginalFilename();
+	                // Obtener la extensión del archivo (si es necesario)
+	                String extension = "";
+	                int lastIndex = nombreOriginal.lastIndexOf('.');
+	                if (lastIndex > 0) {
+	                    extension = nombreOriginal.substring(lastIndex);
+	                }
+	                // Concatenar la fecha al nombre del archivo
+	                String nombreConFecha = fechaHoy.getTime() + "_" + nombreOriginal + extension;
+	                // Crear la ruta del archivo con el nuevo nombre
+	                Path path = Paths.get(UPLOADED_FOLDER + nombreConFecha);
+	                // Escribir el archivo en el servidor
+	                Files.write(path, bytes);
+	                // Guardar el nombre del archivo con fecha en el objeto hoja_de_vida
+	                hoja_de_vida.setArchivo(nombreConFecha);
+	                // Agregar el nombre del archivo con fecha al modelo
+	                model.addAttribute("fileName", nombreConFecha);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            // Mantener el archivo existente si no se sube uno nuevo
+	            hoja_de_vida.setArchivo(hojaSeleccionada.getArchivo());
+	        }
+
+	        if (errores.hasErrors()) {
+	            return "Hoja-de-vida-ingresar";
+	        }
+
+	        hNueva.setArchivo(hoja_de_vida.getArchivo());
+	        hojaService.updateCurso(hoja_de_vida, hoja_de_vida.getId_hoja_de_vida());
+	        flash.addFlashAttribute("success", "Hoja modificada correctamente");
+	        return "redirect:/hojadevida";
+	    }
+	    return "Login";
 	}
+
 	
 	// filtrar por Rut
 	@PostMapping(path = "/filtrarruthoja", consumes = "application/x-www-form-urlencoded")

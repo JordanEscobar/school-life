@@ -56,7 +56,8 @@
     <br><br>
     <div class="table-responsive">
     	<div class="text-end">
-    		<a class="btn btn-info shadow" th:href="@{/Hoja-de-vida/ver/} + ${estudianteId} + '?format=pdf'" target="_blank">Descargar anotaciones</a>
+    		<a class="btn btn-info shadow disabled" th:if="${hoja_de_vida.size() <= 0}" th:href="@{/Hoja-de-vida/ver/} + ${estudianteId} + '?format=pdf'" target="_blank" >Descargar anotaciones</a>
+    		<a class="btn btn-info shadow" th:if="${hoja_de_vida.size() > 0}" th:href="@{/Hoja-de-vida/ver/} + ${estudianteId} + '?format=pdf'" target="_blank" >Descargar anotaciones</a>
     	</div>
     	<br>
         <table class="table table-bordered text-center border rounded container shadow">
@@ -85,8 +86,7 @@
                     <td >
                     <!-- Enlace para descargar el archivo -->
                         <a th:if="${h.archivo != null}" th:href="@{/descargar/} + ${h.archivo}" class="" target="_blank">Descargar Archivo</a>
-                        <span th:if="${h.archivo == null}">No disponible</span>
-                    
+                        <span th:if="${h.archivo == null}">No disponible</span>                  
                     </td>
                     <td>
                         <a class="btn btn-secondary" th:href="@{/HojaDeVida/modificar/} + ${h.id_hoja_de_vida}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
@@ -118,8 +118,13 @@
                 </tr>
             </tbody>
         </table>
+        <div th:if="${hoja_de_vida.size() <= 0}" class="display-5">
+        	<h5>No hay anotaciones registradas actualmente.</h5>
+        </div>
     </div>
+    
     <br><br>
+    
 </div>
 
 </body>
