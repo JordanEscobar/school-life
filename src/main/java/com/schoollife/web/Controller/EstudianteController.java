@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -28,6 +33,8 @@ import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.EstudianteService;
 import com.schoollife.web.Service.Hoja_de_vidaService;
+
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -137,17 +144,19 @@ public class EstudianteController {
 	            int lastIndex = nombreOriginal.lastIndexOf('.');
 	            if (lastIndex > 0) {
 	                extension = nombreOriginal.substring(lastIndex);
-	            }	            
-	            // Concatenar la fecha al nombre del archivo
-	            String nombreConFecha = fechaHoy.getTime() +"_" + nombreOriginal  +  extension;            
-	            // Crear la ruta del archivo con el nuevo nombre
-	            Path path = Paths.get(UPLOADED_FOLDER + nombreConFecha);	            
-	            // Escribir el archivo en el servidor
-	            Files.write(path, bytes);            
-	            // Guardar el nombre del archivo con fecha en el objeto hoja_de_vida
-	            hoja_de_vida.setArchivo(nombreConFecha);	            
-	            // Agregar el nombre del archivo con fecha al modelo
-	            model.addAttribute("fileName", nombreConFecha);
+	            }
+	            if(file.getSize() > 0) {
+		            // Concatenar la fecha al nombre del archivo
+		            String nombreConFecha = fechaHoy.getTime() +"_" + nombreOriginal  +  extension;            
+		            // Crear la ruta del archivo con el nuevo nombre
+		            Path path = Paths.get(UPLOADED_FOLDER + nombreConFecha);	            
+		            // Escribir el archivo en el servidor
+		            Files.write(path, bytes);            
+		            // Guardar el nombre del archivo con fecha en el objeto hoja_de_vida
+		            hoja_de_vida.setArchivo(nombreConFecha);	            
+		            // Agregar el nombre del archivo con fecha al modelo
+		            model.addAttribute("fileName", nombreConFecha);
+	            }          
 	        } catch (IOException e) {
 	            e.printStackTrace();	           
 	        }			
@@ -162,6 +171,38 @@ public class EstudianteController {
 		}
 		return "Login";
 	}
+	
+    @GetMapping("/descargar/{nombreArchivo:.+}")
+    public ResponseEntity<Resource> descargarArchivo(@PathVariable String nombreArchivo) {
+        try {
+            // Construir la ruta completa del archivo
+            Path filePath = Paths.get(UPLOADED_FOLDER).resolve(nombreArchivo).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            // Verificar si el archivo existe
+            if (resource.exists() && resource.isReadable()) {
+                // Preparar el encabezado de la respuesta HTTP
+                HttpHeaders headers = new HttpHeaders();
+                headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
+
+                // Devolver una respuesta con el archivo para descargar
+                return ResponseEntity.ok()
+                        .headers(headers)
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                        .body(resource);
+            } else {
+                // Manejar caso en que el archivo no existe
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception ex) {
+            // Manejar errores
+            ex.printStackTrace();
+            return ResponseEntity.status(500).build(); // Error interno del servidor
+        }
+    }
+
+	
+	
 
 	@GetMapping("/Hoja-de-vida/ver/{estudianteId}")
 	public String hojaDeVidaEstudiante(@PathVariable("estudianteId") String estudianteId, Model model, @RequestParam(name = "anio", required = false) Integer anio, HttpSession sesion) {

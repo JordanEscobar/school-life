@@ -82,7 +82,12 @@
                     <td th:text="${h.detalle}"></td>
                     <td th:text="${h.usuarioId}"></td>
                     <td th:text="${h.estudianteId}"></td>
-                    <td th:text="${h.archivo}"></td>
+                    <td >
+                    <!-- Enlace para descargar el archivo -->
+                        <a th:if="${h.archivo != null}" th:href="@{/descargar/} + ${h.archivo}" class="" target="_blank">Descargar Archivo</a>
+                        <span th:if="${h.archivo == null}">No disponible</span>
+                    
+                    </td>
                     <td>
                         <a class="btn btn-secondary" th:href="@{/HojaDeVida/modificar/} + ${h.id_hoja_de_vida}" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
                         

@@ -28,7 +28,7 @@
 <nav class="sidebar ">
 	<a th:href="@{/curso}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los cursos">Cursos</a>
 	<a th:href="@{/establecimiento}" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los establecimientos">Establecimientos</a>
-	<a th:href="@{/usuario}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los usuarios">Usuarios</a>
+	<a th:href="@{/usuario}"  class="btn shadow" data-toggle="tooltip" data-placement="bottom" title="Ingresar para gestionar los usuarios">Usuarios</a>
 </nav>
 <div class="col-md-4 mt-5">
 		<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	

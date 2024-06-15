@@ -66,6 +66,7 @@ public class HomeController {
 			model.addAttribute("user",sesion.getAttribute("user"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
+			
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
 			return "Index";
 		}
