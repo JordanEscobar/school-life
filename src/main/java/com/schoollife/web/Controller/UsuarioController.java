@@ -97,6 +97,7 @@ public class UsuarioController {
 			boolean validaPass= false;
 			model.addAttribute("validaPass",validaPass);
 			Usuario us = new Usuario();		
+			
 			for (Usuario user : userService.getAll()) {
 				if(usuario.getCorreo().equals(user.getCorreo())) {
 					correoexiste3 =true;
@@ -169,6 +170,15 @@ public class UsuarioController {
 			model.addAttribute("roles", rolS.getAll());
             model.addAttribute("establecimientos", establecimientoS.getAll());
             
+            boolean rutinvalido3 = false;
+			model.addAttribute("rutinvalido3", rutinvalido3);
+			boolean rutex3 =false;
+			model.addAttribute("rutexiste3",rutex3);
+			boolean correoexiste3 =false;
+			model.addAttribute("correoexiste3",correoexiste3);	
+			boolean validaPass= false;
+			model.addAttribute("validaPass",validaPass);
+            
 			return "Usuario-modificar";		
 			}
 			return "Login";
@@ -186,31 +196,81 @@ public class UsuarioController {
 			model.addAttribute("roles",roles);
 			model.addAttribute("establecimientos",establecimientoS.getAll());		
 			
+			boolean rutinvalido3 = false;
+			model.addAttribute("rutinvalido3", rutinvalido3);
+			boolean rutex3 =false;
+			model.addAttribute("rutexiste3",rutex3);
+			boolean correoexiste3 =false;
+			model.addAttribute("correoexiste3",correoexiste3);	
+			boolean validaPass= false;
+			model.addAttribute("validaPass",validaPass);
+			
+			
+			var usuarios = userService.getAll();
+			
 			Usuario usuarioModificado = new Usuario();
 			
-			for (Usuario user : userService.getAll()) {
+			for (Usuario user : usuarios) {
 				if(user.getRutUsuario().equals(usuario.getRutUsuario())) {
-					usuarioModificado.setPass(usuario.getPass());
-					usuarioModificado.setRolId(usuario.getRolId());
-					usuarioModificado.setAmaterno(usuario.getAmaterno());
-					usuarioModificado.setApaterno(usuario.getApaterno());
-					usuarioModificado.setCargo(usuario.getCargo());
-					usuarioModificado.setEstablecimientoId(usuario.getEstablecimientoId());
-					usuarioModificado.setEstudios(usuario.getEstudios());
-					usuarioModificado.setFecha_nacimiento(usuario.getFecha_nacimiento());
-					usuarioModificado.setGenero(usuario.getGenero());
-					usuarioModificado.setNombre(usuario.getNombre());
-					usuarioModificado.setTelefono(usuario.getTelefono());
-					usuarioModificado.setRutUsuario(usuario.getRutUsuario());
+					
+					//validar minimo 4 letras 2 numeros y al menos una mayuscula
+					if(passwordValidatorService.isValidPassword(usuario.getPass())){
+						usuarioModificado.setPass(user.getPass());
+					}else {
+						validaPass= true;
+						model.addAttribute("validaPass",validaPass);
+						return "Usuario-modificar";
+					}	
+					usuarioModificado.setRolId(user.getRolId());
+					usuarioModificado.setAmaterno(user.getAmaterno());
+					usuarioModificado.setApaterno(user.getApaterno());
+					usuarioModificado.setCargo(user.getCargo());
+					
+					for (Usuario us : userService.getAll()) {
+						if(usuario.getCorreo().equals(us.getCorreo()) && !usuario.getRutUsuario().equals(us.getRutUsuario())) {
+							correoexiste3 =true;
+							model.addAttribute("correoexiste3",correoexiste3);
+							return "Usuario-modificar";
+						}else {
+							correoexiste3 =false;
+							model.addAttribute("correoexiste3",correoexiste3);
+							usuarioModificado.setCorreo(user.getCorreo());
+						}
+					}	
+								
+					usuarioModificado.setEstablecimientoId(user.getEstablecimientoId());
+					usuarioModificado.setEstudios(user.getEstudios());
+					usuarioModificado.setFecha_nacimiento(user.getFecha_nacimiento());
+					usuarioModificado.setGenero(user.getGenero());
+					usuarioModificado.setNombre(user.getNombre());
+					usuarioModificado.setTelefono(user.getTelefono());
+					
+					if(rutValidationService.isValidRut(usuario.getRutUsuario())) {
+						for (Usuario u : userService.getAll()) {
+							if(usuario.getRutUsuario().equals(u.getRutUsuario()) && !usuario.getApaterno().equalsIgnoreCase(u.getAmaterno()) && !usuario.getCorreo().equalsIgnoreCase(u.getCorreo())) {
+								rutex3 =true;
+								model.addAttribute("rutexiste3",rutex3);
+								return "Usuario-modificar";
+							}else {
+								rutex3 =false;
+								model.addAttribute("rutexiste3",rutex3);
+								usuarioModificado.setRutUsuario(user.getRutUsuario());
+							}
+						}		
+					}else {
+						rutinvalido3 = true;
+						model.addAttribute("rutinvalido3", rutinvalido3);
+						return "Usuario-modificar";				
+					}
 				}
-			}
-		
+			}		
 			if (errores.hasErrors()) {
 				return "Usuario-modificar";
 			}
 			
 			userService.updateUsuario(usuario,usuario.getRutUsuario());
 			flash.addFlashAttribute("success","Usuario modificado correctamente");
+			model.addAttribute("usuario",usuario);	
 			return "redirect:/usuario";
 		}
 		return "Login";

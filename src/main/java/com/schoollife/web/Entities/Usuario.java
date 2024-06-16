@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -27,8 +28,10 @@ public class Usuario {
 	private String nombre;
 	@NotBlank
 	private String apaterno;
+	@NotBlank
 	private String amaterno;
 	@NotBlank
+	@Email
 	private String correo;
 	@NotBlank
 	private String telefono;
@@ -45,7 +48,7 @@ public class Usuario {
 	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId;
-
+	@NotNull
 	@JoinColumn(name = "rol_id")
 	private Integer rolId;
 	public Usuario(@NotBlank String rutUsuario, @NotBlank String pass, @NotBlank String nombre,

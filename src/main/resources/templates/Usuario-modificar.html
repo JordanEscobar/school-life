@@ -138,8 +138,9 @@
 		<div class="row">
 			<div class="col">
 				<label>Contraseña <span class="text-danger">(*)</span></label>
-				<input th:field="*{pass}" class="form-control" type="password">
-				<span th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}" class="text-danger">Error contraseña</span>
+				<input th:field="*{pass}" class="form-control" type="password" placeholder="Mínimo 4 letras, al menos una mayuscula y 2 números">
+				<span th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}" class="text-danger">Error contraseña</span><br>
+				<span class="text-danger" th:if="${validaPass} == True" th:text="'El formato de la contraseña es inválido, mínimo debe tener 4 letras, al menos una mayuscula y 2 números.'"></span>
 			</div>
 			<div class="col">
 			</div>
