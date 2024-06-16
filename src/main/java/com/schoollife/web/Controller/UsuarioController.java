@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Service.EstablecimientoService;
+import com.schoollife.web.Service.PasswordValidatorService;
 import com.schoollife.web.Service.RolService;
 import com.schoollife.web.Service.RutValidationService;
 import com.schoollife.web.Service.UsuarioService;
@@ -31,16 +32,19 @@ public class UsuarioController {
 	private final RutValidationService rutValidationService;
 	@Autowired
 	private final UsuarioService userService;
+	@Autowired
+    private PasswordValidatorService passwordValidatorService;
 	
 	private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 	public UsuarioController(
 			RolService rolS, EstablecimientoService establecimientoS,
-			UsuarioService userService, RutValidationService rutValidationService) {
+			UsuarioService userService, RutValidationService rutValidationService, PasswordValidatorService passwordValidatorService) {
 		super();
 		this.rolS = rolS;
 		this.establecimientoS = establecimientoS;
 		this.userService = userService;
 		this.rutValidationService = rutValidationService;
+		this.passwordValidatorService = passwordValidatorService;
 	}
 	
 	@GetMapping("/usuario")
@@ -70,6 +74,8 @@ public class UsuarioController {
 			model.addAttribute("rutexiste3",rutex3);
 			boolean correoexiste3 =false;
 			model.addAttribute("correoexiste3",correoexiste3);
+			boolean validaPass= false;
+			model.addAttribute("validaPass",validaPass);
 			var roles = rolS.getAll();
 			model.addAttribute("establecimientos",establecimientoS.getAll());
 			model.addAttribute("roles",roles);
@@ -87,7 +93,9 @@ public class UsuarioController {
 			boolean rutex3 =false;
 			model.addAttribute("rutexiste3",rutex3);
 			boolean correoexiste3 =false;
-			model.addAttribute("correoexiste3",correoexiste3);		
+			model.addAttribute("correoexiste3",correoexiste3);	
+			boolean validaPass= false;
+			model.addAttribute("validaPass",validaPass);
 			Usuario us = new Usuario();		
 			for (Usuario user : userService.getAll()) {
 				if(usuario.getCorreo().equals(user.getCorreo())) {
@@ -100,7 +108,15 @@ public class UsuarioController {
 					us.setCorreo(usuario.getCorreo());
 				}
 			}	
-			us.setPass(usuario.getPass());
+			//validar minimo 4 letras 2 numeros y al menos una mayuscula
+			if(passwordValidatorService.isValidPassword(usuario.getPass())){
+				us.setPass(usuario.getPass());
+			}else {
+				validaPass= true;
+				model.addAttribute("validaPass",validaPass);
+				return "Registro";
+			}
+		
 			us.setRolId(usuario.getRolId());
 			us.setAmaterno(usuario.getAmaterno());
 			us.setApaterno(usuario.getApaterno());

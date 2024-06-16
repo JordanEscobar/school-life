@@ -23,8 +23,8 @@ public class Apoderado {
 	
 	@Id
 	@NotBlank
-	@Length(min = 6, max = 11)
-	@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
+	//@Length(min = 6, max = 11)
+	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_apoderado; //obligatorio
 	private String estudiante_id; //obligatorio
 	@Min(value = 6)
@@ -37,7 +37,6 @@ public class Apoderado {
 	@NotBlank
 	@Column(name = "amaterno")
 	private String amaterno_apoderado;//obligatorio
-	@NotBlank
 	private String pasaporte;//opcional
 	@NotBlank
 	private String parentesco; //obligatorio
@@ -62,7 +61,7 @@ public class Apoderado {
 	//@Length(min = 6, max = 9)
 	@Column(name = "telefono")
 	private String telefono_apoderado; //opcional
-	@Length(min = 7, max = 11)
+	@Length(min = 6, max = 9)
 	@Column(name = "celular")
 	private String celular_apoderado; //obligatorio
 	@NotBlank
@@ -77,14 +76,12 @@ public class Apoderado {
 	private boolean autorizacion_fotografia_grabacion; //obligatorio
 	@NotNull
 	private boolean autorizado_retirar_establecimiento; //obligatorio
-	public Apoderado(
-			@NotBlank @Length(min = 6, max = 11) @Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión") String run_apoderado,
-			String estudiante_id, @Min(6) Integer numero_documento, @NotBlank String nombres,
-			@NotBlank String apaterno_apoderado, @NotBlank String amaterno_apoderado, @NotBlank String pasaporte,
-			@NotBlank String parentesco, @NotBlank String tipo_apoderado, @NotBlank String estado_civil,
-			@NotNull @Past Date fecha_nacimiento_apoderado, @NotBlank String domicilio_apoderado,
-			String comuna_apoderado, @NotBlank String nivel_educacion, @NotBlank String ocupacion,
-			@Length(min = 6, max = 9) String telefono_apoderado, @Length(min = 7, max = 11) String celular_apoderado,
+	public Apoderado(@NotBlank String run_apoderado, String estudiante_id, @Min(6) Integer numero_documento,
+			@NotBlank String nombres, @NotBlank String apaterno_apoderado, @NotBlank String amaterno_apoderado,
+			String pasaporte, @NotBlank String parentesco, @NotBlank String tipo_apoderado,
+			@NotBlank String estado_civil, @NotNull @Past Date fecha_nacimiento_apoderado,
+			@NotBlank String domicilio_apoderado, String comuna_apoderado, @NotBlank String nivel_educacion,
+			@NotBlank String ocupacion, String telefono_apoderado, @Length(min = 6, max = 9) String celular_apoderado,
 			@NotBlank @Email String correo_electronico_apoderado, @NotNull boolean es_tutor,
 			@NotNull boolean acepta_manual_convivencia_escolar, @NotNull boolean autorizacion_fotografia_grabacion,
 			@NotNull boolean autorizado_retirar_establecimiento) {

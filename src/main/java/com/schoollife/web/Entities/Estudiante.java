@@ -30,8 +30,9 @@ public class Estudiante {
 	private String apaterno;//obligatorio
 	@NotBlank
 	private String amaterno;//obligatorio
+	@NotNull
 	private Integer numero_matricula;//obligatorio
-	
+	@NotNull
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;//obligatorio
 	@Past
@@ -44,6 +45,7 @@ public class Estudiante {
 	@NotNull
 	private String genero;//obligatorio
 	@NotBlank
+	@NotNull
 	private String direccion;//obligatorio
 	@NotBlank
 	private String comuna;//obligatorio
@@ -52,7 +54,7 @@ public class Estudiante {
 	private String correo_electronico;//obligatorio - a cierta edad es del apoderado
 	//@Length(min = 6, max = 9)
 	private String telefono;//opcional
-	@Length(min = 8, max = 9)
+	@Length(min = 6, max = 9)
 	@NotNull
 	private String celular;//obligatorio - a cierta edad es del apoderado
 	@NotBlank
@@ -65,6 +67,7 @@ public class Estudiante {
 	@NotBlank
 	private String vive_con; //obligatorio
 	private Integer cantidad_computadores_casa; //opcional
+	@NotNull
 	private String religion;//opcional
 	@NotNull
 	private boolean acepta_clases_religion;//obligatorio
@@ -72,19 +75,25 @@ public class Estudiante {
 	private String beca; //obligatorio
 	@Min(value = 1)
 	@Max(value = 260)
+	@NotNull
 	private Integer estatura; //obligatorio
 	@NotNull
 	private double peso; //obligatorio
 	@NotNull
 	private String grupo_sanguineo; //obligatorio
+	@NotBlank
 	private String alergias_alimentos; //obligatorio
+	@NotBlank
 	private String alergias_medicamentos; //obligatorio
+	@NotBlank
 	private String medicamentos_contraindicados; //obligatorio
+	@NotBlank
 	private String enfermedades_cronicas; //obligatorio
 	@NotNull
 	private boolean vacuna_covid; //obligatorio
 	private Integer cantidad_vacunas_covid; //opcional
 	private boolean esquema_completo_vacunacion_covid; //opcional
+	@Past
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_ultima_vacuna_COVID; //opcional
 	@NotNull
@@ -95,28 +104,33 @@ public class Estudiante {
 	@NotNull
 	private String nacionalidad; //obligatorio
 	private String etnia; //opcional
+	@NotBlank
 	private String consultorio_clinica; //obligatorio
 	@Column(name = "observaciones_medicas")
 	private String observaciones; //opcional pero deberia ir bloqueado y desbloquearse si se quiere.
 	private boolean estado;
+	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId; //obligatorio
+	@NotNull
 	private Integer curso_id; //obligatorio
+	@NotNull
 	private boolean es_pie; //obligatorio
 	public Estudiante(@NotBlank String runEstudiante, @NotBlank String nombre, @NotBlank String apaterno,
-			@NotBlank String amaterno, Integer numero_matricula, Date fecha_matricula,
+			@NotBlank String amaterno, @NotNull Integer numero_matricula, @NotNull Date fecha_matricula,
 			@Past @NotNull Date fecha_nacimiento, @NotBlank @NotNull String pais_nacimiento, @NotNull String genero,
-			@NotBlank String direccion, @NotBlank String comuna, @NotBlank @Email String correo_electronico,
-			String telefono, @Length(min = 8, max = 9) @NotNull String celular, @NotBlank String colegio_procedencia,
+			@NotBlank @NotNull String direccion, @NotBlank String comuna, @NotBlank @Email String correo_electronico,
+			String telefono, @Length(min = 6, max = 9) @NotNull String celular, @NotBlank String colegio_procedencia,
 			@NotBlank String nombre_contacto_emergencia, @Length(min = 6, max = 9) @NotNull String telefono_emergencia,
-			@NotBlank String vive_con, Integer cantidad_computadores_casa, String religion,
-			@NotNull boolean acepta_clases_religion, @NotNull String beca, @Min(1) @Max(260) Integer estatura,
-			@NotNull double peso, @NotNull String grupo_sanguineo, String alergias_alimentos,
-			String alergias_medicamentos, String medicamentos_contraindicados, String enfermedades_cronicas,
-			@NotNull boolean vacuna_covid, Integer cantidad_vacunas_covid, boolean esquema_completo_vacunacion_covid,
-			Date fecha_ultima_vacuna_COVID, @NotNull boolean apto_educacion_fisica, @NotNull String sistema_prevision,
-			boolean seguro_escolar_privado, @NotNull String nacionalidad, String etnia, String consultorio_clinica,
-			String observaciones, boolean estado, Integer establecimientoId, Integer curso_id, boolean es_pie) {
+			@NotBlank String vive_con, Integer cantidad_computadores_casa, @NotNull String religion,
+			@NotNull boolean acepta_clases_religion, @NotNull String beca, @Min(1) @Max(260) @NotNull Integer estatura,
+			@NotNull double peso, @NotNull String grupo_sanguineo, @NotBlank String alergias_alimentos,
+			@NotBlank String alergias_medicamentos, @NotBlank String medicamentos_contraindicados,
+			@NotBlank String enfermedades_cronicas, @NotNull boolean vacuna_covid, Integer cantidad_vacunas_covid,
+			boolean esquema_completo_vacunacion_covid, @Past Date fecha_ultima_vacuna_COVID,
+			@NotNull boolean apto_educacion_fisica, @NotNull String sistema_prevision, boolean seguro_escolar_privado,
+			@NotNull String nacionalidad, String etnia, @NotBlank String consultorio_clinica, String observaciones,
+			boolean estado, @NotNull Integer establecimientoId, @NotNull Integer curso_id, @NotNull boolean es_pie) {
 		super();
 		this.runEstudiante = runEstudiante;
 		this.nombre = nombre;
@@ -453,6 +467,8 @@ public class Estudiante {
 				+ estado + ", establecimientoId=" + establecimientoId + ", curso_id=" + curso_id + ", es_pie=" + es_pie
 				+ "]";
 	}
+	
+	
 	
 	
 

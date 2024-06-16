@@ -85,22 +85,22 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>RUT<span class="text-danger">&nbsp;*(sin puntos y con guion)</span></label> 
-							<input class="form-control" type="text" th:field="*{runEstudiante}"/> 
+							<label>RUT<span class="text-danger">(*)</span></label> 
+							<input class="form-control" type="text" th:field="*{runEstudiante}" placeholder="sin puntos y con guion"/> 
 								<span th:if="${#fields.hasErrors('runEstudiante')}" th:errors="*{runEstudiante}" class="text-danger">Error Rut</span>
 								<span class="text-danger" th:if="${rutexiste} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 								<span class="text-danger" th:if="${rutinvalido} == True" th:text="'Rut Inválido.'"></span>
 						</div>
 						<div class="col">
-							<label>Apellido Paterno <span class="text-danger">*</span></label>
+							<label>Apellido Paterno <span class="text-danger">(*)</span></label>
 							<input id="apaterno" th:field="*{apaterno}" placeholder="Ingrese el apellido paterno acá" class="form-control"
 								type="text"> <span class="text-danger"
 								th:if="${#fields.hasErrors('apaterno')}" th:errors="*{apaterno}">Error
 								Apellido Paterno</span>
 						</div>
 						<div class="col">
-							<label>Apellido Materno</label> <input id="amaterno" placeholder="ingrese el apellido materno acá"
-								th:field="*{amaterno}" class="form-control" type="text">
+							<label>Apellido Materno<span class="text-danger">(*)</span></label> 
+							<input id="amaterno" placeholder="ingrese el apellido materno acá" th:field="*{amaterno}" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('amaterno')}"
 								th:errors="*{amaterno}" class="text-danger">Error Apellido Materno</span>
 						</div>
@@ -108,14 +108,14 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Nombres <span class="text-danger">*</span></label> <input
+							<label>Nombres <span class="text-danger">(*)</span></label> <input
 								id="nombre" th:field="*{nombre}" placeholder="Ingrese los nombres del estudiante acá" class="form-control"
 								type="text"> <span
 								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">Error
 								Nombre</span>
 						</div>
 						<div class="col">
-							<label>Email</label> <input id="correo_electronico"
+							<label>Email<span class="text-danger">(*)</span></label> <input id="correo_electronico"
 								th:field="*{correo_electronico}" placeholder="Ingrese el email acá" class="form-control"
 								type="email"> <span
 								th:if="${#fields.hasErrors('correo_electronico')}"
@@ -123,7 +123,7 @@
 								Electrónico</span>
 						</div>
 						<div class="col">
-							<label>Fecha Nacimiento <span class="text-danger">*</span></label>
+							<label>Fecha Nacimiento <span class="text-danger">(*)</span></label>
 							<input id="fecha_nacimiento" th:field="*{fecha_nacimiento}"
 								class="form-control" type="date"> <span
 								th:if="${#fields.hasErrors('fecha_nacimiento')}"
@@ -133,7 +133,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Género</label> <select class="form-select" id="genero"
+							<label>Género<span class="text-danger">(*)</span></label> <select class="form-select" id="genero"
 								th:field="*{genero}">
 								<option th:value="otro">OTRO</option>
 								<option th:value="femenino">FEMENINO</option>
@@ -141,7 +141,7 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>Nacionalidad</label> <select class="form-select"
+							<label>Nacionalidad<span class="text-danger">(*)</span></label> <select class="form-select"
 								id="nacionalidad" th:field="*{nacionalidad}">
 								<option th:value="CHILENA">CHILENA</option>
 								<option th:value="PERUANA">PERUANA</option>
@@ -155,7 +155,7 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>País de Nacimiento</label> <select class="form-select"
+							<label>País de Nacimiento<span class="text-danger">(*)</span></label> <select class="form-select"
 								id="pais_nacimiento" th:field="*{pais_nacimiento}">
 								<option th:value="CHILENA">CHILENA</option>
 								<option th:value="PERUANA">PERUANA</option>
@@ -172,7 +172,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Vive con</label> <select class="form-select" id="vive_con"
+							<label>Vive con<span class="text-danger">(*)</span></label> <select class="form-select" id="vive_con"
 								th:field="*{vive_con}">
 								<option th:value="'AMBOS PADRES'">AMBOS PADRES</option>
 								<option th:value="'SÓLO PADRE'">SÓLO PADRE</option>
@@ -184,13 +184,13 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>Dirección</label> <input id="direccion"
+							<label>Dirección<span class="text-danger">(*)</span></label> <input id="direccion"
 								th:field="*{direccion}" placeholder="Ingrese la dirección acá" class="form-control" type="text">
 							<span th:if="${#fields.hasErrors('direccion')}"
 								th:errors="*{direccion}" class="text-danger">Error Dirección</span>
 						</div>
 						<div class="col">
-							<label>Comuna</label> <select class="form-select" id="comuna"
+							<label>Comuna<span class="text-danger">(*)</span></label> <select class="form-select" id="comuna"
 								th:field="*{comuna}">
 								<option th:each="c : ${comunas}" th:text="${c}" th:value="${c}"></option>
 							</select>
@@ -216,13 +216,13 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>Teléfono Celular</label> <input id="celular"
+							<label>Teléfono Celular<span class="text-danger">(*)</span></label> <input id="celular"
 								th:field="*{celular}" placeholder="Número de celular sin el +56 9" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('celular')}"
 								th:errors="*{celular}" class="text-danger">Error Celular</span>
 						</div>
 						<div class="col">
-							<label>Teléfono Fijo</label> <input id="telefono"
+							<label>Teléfono Fijo<span>(opcional)</span></label> <input id="telefono"
 								th:field="*{telefono}" placeholder="Ingresa solo números" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('telefono')}"
 								th:errors="*{telefono}" class="text-danger">Error Celular</span>
@@ -232,7 +232,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Nombre contacto Emergencia</label> <input
+							<label>Nombre contacto Emergencia<span class="text-danger">(*)</span></label> <input
 								id="nombre_contacto_emergencia"
 								th:field="*{nombre_contacto_emergencia}" placeholder="Ingrese el nombre de contacto de emergencia acá" class="form-control"
 								type="text"> <span
@@ -241,7 +241,7 @@
 								contacto emergencia</span>
 						</div>
 						<div class="col">
-							<label>Teléfono emergencia</label> <input
+							<label>Teléfono emergencia<span class="text-danger">(*)</span></label> <input
 								id="telefono_emergencia"  placeholder="Número de celular sin el +56 9" th:field="*{telefono_emergencia}"
 								class="form-control" type="number"> <span
 								th:if="${#fields.hasErrors('telefono_emergencia')}"
@@ -253,7 +253,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Religión</label> <select id="religion"
+							<label>Religión<span class="text-danger">(*)</span></label> <select id="religion"
 								th:field="*{religion}" class="form-select">
 								<option th:value="'Bahaísmo'">Bahaísmo</option>
 								<option th:value="'Budismo'">Budismo</option>
@@ -285,7 +285,7 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>¿Acepta clases de religión en el colegio?</label><br>
+							<label>¿Acepta clases de religión en el colegio?<span class="text-danger">(*)</span></label><br>
 							<input id="acepta_clases_religion"
 								th:field="*{acepta_clases_religion}"
 								name="acepta_clases_religion" value="True" type="radio">Si
@@ -317,7 +317,7 @@
 
 						<div class="col">
 							<label>Colegio procedencia</label> <label class="text-danger">Colegio
-								de dónde viene</label> <input type="text" placeholder="Ingrese el nombre del colégio " class="form-control"
+								de dónde viene<span class="text-danger">(*)</span></label> <input type="text" placeholder="Ingrese el nombre del colégio " class="form-control"
 								id="colegio_procedencia" th:field="*{colegio_procedencia}">
 								<span class="text-danger" th:if="${#fields.hasErrors('colegio_procedencia')}" th:errors="*{colegio_procedencia}">Error colegio procedencia</span>
 						</div>
@@ -331,7 +331,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Beca</label> <select id="beca" th:field="*{beca}"
+							<label>Beca<span class="text-danger">(*)</span></label> <select id="beca" th:field="*{beca}"
 								class="form-select">
 								<option th:value="'Ninguna'">Ninguna</option>
 								<option th:value="'Beca indigena'">Beca indigena</option>
@@ -375,17 +375,17 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Estatura</label> <input id="estatura"
+							<label>Estatura<span class="text-danger">(*)</span></label> <input id="estatura"
 								th:field="*{estatura}" placeholder="Ingrese la estatura en centimetros" class="form-control" type="number">
 								<span class="text-danger" th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}">Error estatura</span>
 						</div>
 						<div class="col">
-							<label>Peso</label> <input id="peso" th:field="*{peso}"
+							<label>Peso<span class="text-danger">(*)</span></label> <input id="peso" th:field="*{peso}"
 								class="form-control" placeholder="Ingrese el peso en Kilogramos" type="number">
 								<span class="text-danger" th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">Error peso</span>
 						</div>
 						<div class="col">
-							<label>Grupo sanguíneo <span class="text-danger">*</span></label>
+							<label>Grupo sanguíneo <span class="text-danger">(*)</span></label>
 							<select id="grupo_sanguineo" th:field="*{grupo_sanguineo}"
 								class="form-select">
 								<option th:value="'A -'">A -</option>
@@ -397,31 +397,35 @@
 								<option th:value="'O -'">O -</option>
 								<option th:value="'O +'">O +</option>
 							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('grupo_sanguineo')}" th:errors="*{grupo_sanguineo}">Error grupo sanguineo</span>
 						</div>
 					</div>
 					<br> <br>
 					<div class="row">
 						<div class="col">
-							<label>Alergias a alimentos</label> <input
+							<label>Alergias a alimentos<span class="text-danger">(*)</span></label> <input
 								id="alergias_alimentos" placeholder="Ingrese el nombre de las alergias" th:field="*{alergias_alimentos}"
 								class="form-control" type="text">
+							<span class="text-danger" th:if="${#fields.hasErrors('alergias_alimentos')}" th:errors="*{alergias_alimentos}">Error alergias alimentos</span>
 						</div>
 						<div class="col">
-							<label>Alergias a medicamentos</label> <input
+							<label>Alergias a medicamentos<span class="text-danger">(*)</span></label> <input
 								id="alergias_medicamentos" placeholder="Ingrese el nombre de las alergias" th:field="*{alergias_medicamentos}"
 								class="form-control" type="text">
+							<span class="text-danger" th:if="${#fields.hasErrors('alergias_medicamentos')}" th:errors="*{alergias_medicamentos}">Error alergias medicamentos</span>
 						</div>
 						<div class="col">
-							<label>Medicamentos Contraindicados</label> <input
+							<label>Medicamentos Contraindicados<span class="text-danger">(*)</span></label> <input
 								id="medicamentos_contraindicados" placeholder="Ingrese el nombre de los medicamentos"
 								th:field="*{medicamentos_contraindicados}" class="form-control"
 								type="text">
+								<span class="text-danger" th:if="${#fields.hasErrors('medicamentos_contraindicados')}" th:errors="*{medicamentos_contraindicados}">Error medicamentos contraindicados</span>
 						</div>
 					</div>
 					<br> <br>
 					<div class="row">
 						<div class="col">
-							<label>Enfermedades crónicas</label> <select
+							<label>Enfermedades crónicas<span class="text-danger">(*)</span></label> <select
 								id="enfermedades_cronicas" th:field="*{enfermedades_cronicas}"
 								class="form-select">
 								<option th:value="VISUAL">VISUAL</option>
@@ -432,39 +436,32 @@
 								<option th:value="OTROS">OTROS</option>
 								<option th:value="NINGUNA">NINGUNA</option>
 							</select>
+							
 						</div>
+							<div class="col">
+							            <label>¿Cuenta con vacuna COVID 19?<span class="text-danger">(*)</span></label><br>
+							            <input id="vacuna_covid_si" th:field="*{vacuna_covid}" value="True" class="form-radio" type="radio" name="vacuna_covid">&nbsp;Si &nbsp;
+							            <input id="vacuna_covid_no" th:field="*{vacuna_covid}" value="False" class="form-radio" type="radio" name="vacuna_covid">No
+							            <span class="text-danger" th:if="${#fields.hasErrors('vacuna_covid')}" th:errors="*{vacuna_covid}">Error cuenta con vacunas covid</span>
+							        </div>
+							        <div class="col">
+							            <label>¿Cantidad de vacunas COVID 19?</label>
+							            <input id="cantidad_vacunas_covid" th:field="*{cantidad_vacunas_covid}" class="form-control" placeholder="Ingrese la cantidad acá" type="number" disabled>
+							        </div>
+							    </div>
+							    <br> <br>
+							    <div class="row">
+							        <div class="col">
+							            <label>¿Esquema completo de vacunación COVID 19?</label><br>
+							            <input class="form-radio" id="esquema_completo_vacunacion_covid_si" value="True" th:field="*{esquema_completo_vacunacion_covid}" type="radio" name="esquema_completo_vacunacion_covid" disabled>&nbsp;Si &nbsp;
+							            <input class="form-radio" id="esquema_completo_vacunacion_covid_no" value="False" th:field="*{esquema_completo_vacunacion_covid}" type="radio" name="esquema_completo_vacunacion_covid" disabled>No
+							        </div>
+							        <div class="col">
+							            <label>¿Fecha última vacuna COVID 19?</label>
+							            <input id="fecha_ultima_vacuna_COVID" th:field="*{fecha_ultima_vacuna_COVID}" class="form-control" type="date" disabled>
+							        </div>
 						<div class="col">
-							<label>¿Cuenta con vacuna COVID 19?</label><br> <input
-								id="vacuna_covid" th:field="*{vacuna_covid}" value="True"
-								class="form-radio" type="radio">&nbsp;Si &nbsp; <input
-								id="vacuna_covid" th:field="*{vacuna_covid}" value="False"
-								class="form-radio" type="radio">No
-								<span class="text-danger" th:if="${#fields.hasErrors('vacuna_covid')}" th:errors="*{vacuna_covid}">Error cuenta con vacunas covid</span>
-						</div>
-						<div class="col">
-							<label>¿Cantidad de vacunas COVID 19?</label> <input
-								id="cantidad_vacunas_covid" th:field="*{cantidad_vacunas_covid}"
-								class="form-control" placeholder="Ingrese la cantidad acá" type="number">
-						</div>
-					</div>
-					<br> <br>
-					<div class="row">
-						<div class="col">
-							<label>¿Esquema completo de vacunación COVID 19?</label><br>
-							<input class="form-radio" id="esquema_completo_vacunacion_covid"
-								value="True" th:field="*{esquema_completo_vacunacion_covid}"
-								type="radio">&nbsp;Si &nbsp; <input class="form-radio"
-								id="esquema_completo_vacunacion_covid" value="False"
-								th:field="*{esquema_completo_vacunacion_covid}" type="radio">No
-						</div>
-						<div class="col">
-							<label>¿Fecha última vacuna COVID 19?</label> <input
-								id="fecha_ultima_vacuna_COVID"
-								th:field="*{fecha_ultima_vacuna_COVID}" class="form-control"
-								type="date">
-						</div>
-						<div class="col">
-							<label>¿Es apto para Educación Física?</label><br> <input
+							<label>¿Es apto para Educación Física?<span class="text-danger">(*)</span></label><br> <input
 								id="apto_educacion_fisica" value="True"
 								th:field="*{apto_educacion_fisica}" class="form-radio"
 								type="radio">&nbsp;Si &nbsp; <input
@@ -477,7 +474,7 @@
 					<br> <br>
 					<div class="row">
 						<div class="col">
-							<label>Sistema previsión</label> <select id="sistema_prevision"
+							<label>Sistema previsión<span class="text-danger">(*)</span></label> <select id="sistema_prevision"
 								th:field="*{sistema_prevision}" class="form-select">
 								<option th:value="'Dipreca'">Dipreca</option>
 								<option th:value="'Isapre'">Isapre</option>
@@ -499,7 +496,7 @@
 							</select>
 						</div>
 						<div class="col">
-							<label>¿Posee seguro escolar privado?</label><br> <input
+							<label>¿Posee seguro escolar privado?<span class="text-danger">(*)</span></label><br> <input
 								class="form-radio" value="True" id="seguro_escolar_privado"
 								th:field="*{seguro_escolar_privado}" type="radio">&nbsp;Si
 							&nbsp; <input class="form-radio" value="False"
@@ -508,7 +505,7 @@
 								<span class="text-danger" th:if="${#fields.hasErrors('seguro_escolar_privado')}" th:errors="*{seguro_escolar_privado}">Error posee seguro escolar</span>
 						</div>
 						<div class="col">
-							<label>Consultorio o clínica donde se atiende</label> <input
+							<label>Consultorio o clínica donde se atiende<span class="text-danger">(*)</span></label> <input
 								id="consultorio_clinica" th:field="*{consultorio_clinica}"
 								class="form-control" placeholder="Ingrese el nombre del consultorio o clínica" type="text">
 								<span class="text-danger" th:if="${#fields.hasErrors('consultorio_clinica')}" th:errors="*{consultorio_clinica}">Error consultorio o clinica</span>
@@ -517,7 +514,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>¿Pertenece al programa PIE?</label><br> <input
+							<label>¿Pertenece al programa PIE?<span class="text-danger">(*)</span></label><br> <input
 								id="es_pie" th:field="*{es_pie}" value="True" type="radio"
 								class="form-radio" /> Si &nbsp; <input id="es_pie"
 								th:field="*{es_pie}" value="False" type="radio"
@@ -530,7 +527,7 @@
 					<br>
 					<div class="row">
 						<div class="col">
-							<label>Observaciones Médicas</label>
+							<label>Observaciones Médicas (opcional)</label>
 							<textarea id="message" name="message" maxlength="250" th:field="*{observaciones}" placeholder="Ingrese observaciones especificas que se necesiten conocer del estudiante." rows="5"
 								class="form-control" cols=""></textarea>
 							<span class="help-block">
@@ -588,6 +585,31 @@
 	<br>
 
 <script type="text/javascript">
+
+document.addEventListener('DOMContentLoaded', function () {
+    const vacunaCovidSi = document.getElementById('vacuna_covid_si');
+    const vacunaCovidNo = document.getElementById('vacuna_covid_no');
+    const cantidadVacunasCovid = document.getElementById('cantidad_vacunas_covid');
+    const esquemaCompletoSi = document.getElementById('esquema_completo_vacunacion_covid_si');
+    const esquemaCompletoNo = document.getElementById('esquema_completo_vacunacion_covid_no');
+    const fechaUltimaVacunaCovid = document.getElementById('fecha_ultima_vacuna_COVID');
+
+    function toggleVacunaFields() {
+        const isEnabled = vacunaCovidSi.checked;
+        cantidadVacunasCovid.disabled = !isEnabled;
+        esquemaCompletoSi.disabled = !isEnabled;
+        esquemaCompletoNo.disabled = !isEnabled;
+        fechaUltimaVacunaCovid.disabled = !isEnabled;
+    }
+
+    vacunaCovidSi.addEventListener('change', toggleVacunaFields);
+    vacunaCovidNo.addEventListener('change', toggleVacunaFields);
+
+    // Initial call to set the correct state
+    toggleVacunaFields();
+});
+
+
 
 $('#mensaje_ayuda').text('250 carácteres restantes');
 $('#message').keydown(function () {
