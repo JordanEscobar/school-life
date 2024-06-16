@@ -89,7 +89,7 @@ public class CursoController {
 			c.setApodo(curso.getApodo());
 			c.setCapacidad(curso.getCapacidad());
 			c.setEstablecimiento_id(uSesion.get(0).getEstablecimientoId());
-			c.setId_curso(curso.getId_curso());
+			c.setIdCurso(curso.getIdCurso());
 			c.setJornada(curso.getJornada());
 			c.setLetra(curso.getLetra());
 			c.setLocal(curso.getLocal());
@@ -146,11 +146,11 @@ public class CursoController {
 			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
 			Curso c = new Curso();
 			for (Curso cu : cursos) {
-				if(cu.getId_curso() == curso.getId_curso()) {
+				if(cu.getIdCurso() == curso.getIdCurso()) {
 					c.setApodo(cu.getApodo());
 					c.setCapacidad(cu.getCapacidad());
 					c.setEstablecimiento_id(uSesion.get(0).getEstablecimientoId());
-					c.setId_curso(cu.getId_curso());
+					c.setIdCurso(cu.getIdCurso());
 					c.setJornada(cu.getJornada());
 					c.setLetra(cu.getLetra());
 					c.setLocal(cu.getLocal());
@@ -162,7 +162,7 @@ public class CursoController {
 			if (errores.hasErrors()) {
 				return "Curso-modificar";
 			}			
-			cursoS.updateCurso(curso, curso.getId_curso());
+			cursoS.updateCurso(curso, curso.getIdCurso());
 			flash.addFlashAttribute("success","Curso modificado correctamente");
 			model.addAttribute("curso",curso);	
 			return "redirect:/curso";

@@ -6,8 +6,12 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" /> -->
 <link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>	
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,16 +102,12 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" th:id="'confirmDeleteModalLabel_' + ${h.id_hoja_de_vida}">Confirmar Eliminación</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         ¿Estás seguro de que deseas eliminar este registro?
                                     </div>
                                     <div class="modal-footer">
-                                        <a th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}" class="btn btn-danger">Eliminar</a>
-                                        
-                                        <button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">Cerrar</button>
+                                        <a th:href="@{/HojaDeVida/eliminar/} + ${h.id_hoja_de_vida}" class="btn btn-danger">Eliminar</a>                                        
                                     </div>
                                 </div>
                             </div>

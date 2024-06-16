@@ -40,7 +40,7 @@ public class CursoServiceImpl implements CursoService{
 	public void updateCurso(Curso curso, Integer id) {
 		Optional<Curso> cursoId = cursoR.findById(id);
 		Curso cursoN = cursoId.get();
-		cursoN.setId_curso(curso.getId_curso());
+		cursoN.setIdCurso(curso.getIdCurso());
 		cursoN.setApodo(curso.getApodo());
 		cursoN.setCapacidad(curso.getCapacidad());
 		cursoN.setEstablecimiento_id(curso.getEstablecimiento_id());
@@ -57,7 +57,7 @@ public class CursoServiceImpl implements CursoService{
 	@Override
 	@Transactional
 	public Curso findCurso(Curso curso) {
-		return cursoR.findById(curso.getId_curso()).orElse(null);
+		return cursoR.findById(curso.getIdCurso()).orElse(null);
 	}
 
 	@Override
@@ -74,6 +74,12 @@ public class CursoServiceImpl implements CursoService{
             abc.add(String.valueOf(c));
         }
         return abc;
+	}
+
+	@Override
+	@Transactional
+	public Curso findById(Integer idCurso) {
+		return cursoR.findByIdCurso(idCurso);
 	}
 	
 	

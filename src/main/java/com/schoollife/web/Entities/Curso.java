@@ -1,5 +1,6 @@
 package com.schoollife.web.Entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,8 @@ public class Curso {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id_curso;
+	@Column(name = "id_curso")
+	private Integer idCurso;
 	private String nivel_ensenanza;
 	private String nivel;
 	private String letra;
@@ -28,10 +30,11 @@ public class Curso {
 	private String numero_sala;
 	private String apodo;
 	private Integer establecimiento_id;
-	public Curso(Integer id_curso, String nivel_ensenanza, String nivel, String letra, String jornada,
-			Integer capacidad, String local, String numero_sala, String apodo, Integer establecimiento_id) {
+	public Curso(Integer idCurso, String nivel_ensenanza, String nivel, String letra, String jornada,
+			@NotNull @Min(10) Integer capacidad, @NotBlank String local, String numero_sala, String apodo,
+			Integer establecimiento_id) {
 		super();
-		this.id_curso = id_curso;
+		this.idCurso = idCurso;
 		this.nivel_ensenanza = nivel_ensenanza;
 		this.nivel = nivel;
 		this.letra = letra;
@@ -45,11 +48,11 @@ public class Curso {
 	public Curso() {
 		super();
 	}
-	public Integer getId_curso() {
-		return id_curso;
+	public Integer getIdCurso() {
+		return idCurso;
 	}
-	public void setId_curso(Integer id_curso) {
-		this.id_curso = id_curso;
+	public void setIdCurso(Integer idCurso) {
+		this.idCurso = idCurso;
 	}
 	public String getNivel_ensenanza() {
 		return nivel_ensenanza;
@@ -107,10 +110,11 @@ public class Curso {
 	}
 	@Override
 	public String toString() {
-		return "Curso [id_curso=" + id_curso + ", nivel_ensenanza=" + nivel_ensenanza + ", nivel=" + nivel + ", letra="
+		return "Curso [idCurso=" + idCurso + ", nivel_ensenanza=" + nivel_ensenanza + ", nivel=" + nivel + ", letra="
 				+ letra + ", jornada=" + jornada + ", capacidad=" + capacidad + ", local=" + local + ", numero_sala="
 				+ numero_sala + ", apodo=" + apodo + ", establecimiento_id=" + establecimiento_id + "]";
 	}
+	
 	
 	
 	

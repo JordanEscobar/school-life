@@ -16,6 +16,8 @@ public interface CursoService {
 		Curso CreateCurso(Curso curso);
 		//listar letras del abecedario
 		List<String> abecedario();
+		//buscar por ID
+		Curso findById(Integer idCurso);
 		
 
 }

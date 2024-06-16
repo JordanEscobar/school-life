@@ -20,12 +20,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.schoollife.web.Entities.Apoderado;
 import com.schoollife.web.Entities.Curso;
 import com.schoollife.web.Entities.Estudiante;
+import com.schoollife.web.Entities.Historial_estudiante;
 import com.schoollife.web.Entities.Programa_Integracion;
 import com.schoollife.web.Entities.Usuario;
 import com.schoollife.web.Service.ApoderadoService;
 import com.schoollife.web.Service.CursoService;
 import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.EstudianteService;
+import com.schoollife.web.Service.Historial_estudianteService;
 import com.schoollife.web.Service.Programa_IntegracionService;
 import com.schoollife.web.Service.RutValidationService;
 
@@ -46,10 +48,12 @@ public class HomeController {
 	private final Programa_IntegracionService programaS;
 	@Autowired
 	private final RutValidationService rutValidationService;
+	@Autowired
+	private final Historial_estudianteService historialS;
 
 	public HomeController(ApoderadoService apoderadoS, EstudianteService estudianteS,
 			EstablecimientoService establecimientoS, CursoService cursoS, Programa_IntegracionService programaS,
-			RutValidationService rutValidationService) {
+			RutValidationService rutValidationService, Historial_estudianteService historialS) {
 		super();
 		this.apoderadoS = apoderadoS;
 		this.estudianteS = estudianteS;
@@ -57,6 +61,7 @@ public class HomeController {
 		this.cursoS = cursoS;
 		this.programaS = programaS;
 		this.rutValidationService = rutValidationService;
+		this.historialS = historialS;
 	}
 
 	@GetMapping("/")
@@ -353,6 +358,10 @@ public class HomeController {
 
 			sesion.setAttribute("estudiante", e);
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
+			
+			
+			
+			
 			model.addAttribute("estudiante", sesion.getAttribute("estudiante"));
 			model.addAttribute("eSesion",eSesion);
 			System.out.println("el estudiante creado es: " + eSesion);
@@ -455,6 +464,31 @@ public class HomeController {
 
 		    // Se crea el apoderado
 		    apoderadoS.createApoderado(a);
+		    
+		    //se crea el historial de la matricula
+		    if(eSesion != null) {
+			    Historial_estudiante h = new Historial_estudiante();
+			    h.setAmaterno(eSesion.getAmaterno());
+			    h.setApaterno(eSesion.getApaterno());
+			    if(eSesion.isEs_pie())
+			    {
+			    	h.setEs_pie("Estudiante PIE");
+			    }else {
+			    	h.setEs_pie("No aplica");
+			    }			    
+			    Curso c = cursoS.findById(eSesion.getCurso_id());
+			    h.setCurso(c.getNivel() + " " + c.getLetra() + "("+ c.getNivel_ensenanza() + ")");
+			    h.setEstablecimiento(establecimientoS.findById(uSesion.get(0).getEstablecimientoId()).getNombre());
+			    h.setFecha_matricula(eSesion.getFecha_matricula());
+			    h.setFecha_nacimiento(eSesion.getFecha_nacimiento());
+			    h.setIdEstudiante(eSesion.getRunEstudiante());
+			    h.setNombre(eSesion.getNombre());
+			    h.setNumero_matricula(eSesion.getNumero_matricula());
+			    h.setHoja_de_vida("");
+			    h.setIdHistorial(0);
+			    historialS.createHistorial_estudiante(h);
+		    }	    
+		    
 		    if(!eSesion.isEs_pie()) {
 		    	System.out.println("No es pie, se crea la matricula");
 		    	flash.addFlashAttribute("success","Estudiante matriculado correctamente");
@@ -741,6 +775,9 @@ public class HomeController {
 		}
 		return "Login";
 	}
+	
+	
+	
 	
 	
 	
