@@ -20,7 +20,7 @@
 
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
     <div>
-        <a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
+      <a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
     </div>
     
     <div class="d-flex justify-content-end">
@@ -37,21 +37,20 @@
     <br><br>
     <div class="row">
     	<div class="col">
-             <form th:action="@{/Hoja-de-vida/ver/{estudianteId}(estudianteId=${estudianteId})}" method="get">
-			    <label for="filtroanio">Filtrar por año</label>
-			    <select class="form-select shadow" id="filtroanio" name="anio" onchange="this.form.submit()">
-			        <option value="">Todos</option> <!-- Opción para mostrar todos los años -->
-			        <option th:each="anio : ${anios}"
-			                th:value="${anio}"
-			                th:text="${anio}"
-			                th:selected="${anio == selectedAnio}"></option>
-			    </select>
-			    <input type="hidden" name="estudianteId" th:value="${estudianteId}" />
-			</form>
+		<form id="filtroForm" th:action="@{/filtrarAnio}" method="post">
+		        <label for="filtroanio">Filtrar por año</label>
+		        <select class="form-select shadow" id="filtroSelect" name="filtroanio">
+		            <option value="">Todos</option> <!-- Opción para mostrar todos los años -->
+		            <option th:each="anio : ${anios}"
+		                    th:value="${anio}"
+		                    th:text="${anio}"
+		                    th:selected="${anio} == ${filtroanio}"></option>
+		        </select>
+		        <input type="hidden" name="estudianteId" th:value="${estudianteId}" />
+		    </form>
     	</div>
     	<div class="col"></div>
-    	<div class="col">
-    	</div>
+    	<div class="col"></div>
     </div>
     <br><br>
     <div class="table-responsive">
@@ -126,6 +125,14 @@
     <br><br>
     
 </div>
+
+
+<script>
+	document.getElementById('filtroSelect').addEventListener('change', function() {
+		document.getElementById('filtroForm').submit();	
+	});
+
+</script>
 
 </body>
 </html>

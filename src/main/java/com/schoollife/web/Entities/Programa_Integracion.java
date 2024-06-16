@@ -16,9 +16,14 @@ public class Programa_Integracion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_Programa; //obligatorio
+	@NotNull
 	private String estudiante_id; //obligatorio
+	@NotNull
 	private boolean permanencia_pie; //obligatorio
+	@NotNull
 	private String tipo_permanencia; //obligatorio
+	@NotBlank
+	@NotNull
 	private String indicaciones_generales; //obligatorio
 	public Programa_Integracion(Integer id_Programa, String estudiante_id, boolean permanencia_pie,
 			String tipo_permanencia, String indicaciones_generales) {

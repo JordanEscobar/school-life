@@ -43,7 +43,7 @@
 		<form method="POST" th:action="@{/Hoja-de-vida/ingresado}" enctype="multipart/form-data" th:object="${hoja_de_vida}">
 		<div class="row">
 			<div class="col">
-				<label>Tipo de evento</label>
+				<label>Tipo de evento <span class="text-danger">(*)</span></label>
 				<select th:field="*{tipoEvento}" class="form-select" >
 					<option th:value="'RECONOCIMIENTO'">RECONOCIMIENTO</option>
 					<option th:value="'DERIVACIÓN EXTERNA'">DERIVACIÓN EXTERNA</option>
@@ -60,7 +60,7 @@
 				<span class="text-danger" th:if="${#fields.hasErrors('tipoEvento')}" th:errors="*{tipoEvento}">Error tipoEvento</span>
 			</div>
 			<div class="col">
-				<label>Asignatura</label>
+				<label>Asignatura <span class="text-danger">(*)</span></label>
 				<select th:field="*{asignatura}" class="form-select">
 					<option th:each="a : ${asignaturas}" th:value="${a.nombre}" th:text="${a.nombre}"></option>
 				</select>

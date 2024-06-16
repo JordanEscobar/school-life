@@ -16,9 +16,6 @@
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 
-
-
-
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 <link href="/css/sidebars.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
@@ -62,7 +59,7 @@
 				<form id="filtroForm" action="#" th:action="@{/filtrarcurso}" method="post" th:object="${filtrocurso}">
 					<label class="fw-bold">Curso</label>
 					<select id="filtroSelect" class="form-select shadow" name="filtrocurso" >
-						<option th:value="0">Seleccione...</option>
+						<option th:value="0">Todos</option>
 						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}" th:selected="${c.id_curso == filtrocurso}"></option>
 					</select>
 					</form>
@@ -73,9 +70,9 @@
 		<label class="fw-bold">Estado</label>
 			<form id="filtroForm2" action="#" th:action="@{/filtrarestado}" method="post" th:object="${filtroestado}">
 				<select id="selectestado" name="filtroestado" class="form-select shadow">
-					<option value=""  >Seleccione...</option>
-					<option value="matriculado"  th:value="matriculado" th:selected=" True == filtroestado">Matriculado</option>
-					<option value="retirado" th:value="retirado" th:selected=" False == filtroestado">Retirado</option>
+				    <option value="" th:selected="${filtroestado == ''}">Todos</option>
+				    <option value="matriculado" th:selected="${filtroestado == 'matriculado'}">Matriculado</option>
+				    <option value="retirado" th:selected="${filtroestado == 'retirado'}">Retirado</option>
 				</select>
 			</form>
 		</div>

@@ -65,6 +65,7 @@ public class HomeController {
 		{
 			model.addAttribute("user",sesion.getAttribute("user"));
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			System.out.println("usuario conectado:" + uSesion.get(0));
 			model.addAttribute("uSesion",uSesion.get(0));
 			
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
@@ -198,9 +199,8 @@ public class HomeController {
 			return "Matricula";
 		}
 		return "Login";
-		
-		
 	}
+	
 	//filtrar por estado matriculado o retirado
 	@PostMapping(path = "/filtrarestado", consumes = "application/x-www-form-urlencoded")
 	public String filtroEstado(Model model, @RequestParam("filtroestado") String filtroestado,HttpSession sesion) {
@@ -225,12 +225,10 @@ public class HomeController {
 			model.addAttribute("programas", programas);
 			model.addAttribute("estudiantes", estudiantes);
 			model.addAttribute("cursos", cursos);
-			model.addAttribute("filtrocurso", filtroestado);
+			model.addAttribute("filtroestado", filtroestado);
 			return "Matricula";
 		}
-		return "Login";
-		
-		
+		return "Login";	
 	}
 
 	// Ingreso de una matricula

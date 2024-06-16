@@ -121,10 +121,10 @@
 			</div>
 			<div class="col">
 				<label>Rol <span class="text-danger">(*)</span></label><br>
-				<select th:field="*{roles}" class="form-select">
+				<select th:field="*{rolId}" class="form-select">
 					<option th:each="r : ${roles}" th:value="${r.id_rol}" th:text="${r.nombre}"></option>
 				</select>
-				<span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="text-danger">Error Roles</span>
+				<span th:if="${#fields.hasErrors('rolId')}" th:errors="*{rolId}" class="text-danger">Error Roles</span>
 			</div>
 			<div class="col">
 				<label>Establecimiento <span class="text-danger">(*)</span></label>

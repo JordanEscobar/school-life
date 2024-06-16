@@ -41,7 +41,6 @@ public class UsuarioController {
 		this.establecimientoS = establecimientoS;
 		this.userService = userService;
 		this.rutValidationService = rutValidationService;
-
 	}
 	
 	@GetMapping("/usuario")
@@ -64,9 +63,7 @@ public class UsuarioController {
 	@GetMapping("/registro")
 	public String registroUsuario(Usuario usuario,Model model,HttpSession sesion) {
 
-			
-			model.addAttribute("usuario",new Usuario());
-			
+			model.addAttribute("usuario",new Usuario());	
 			boolean rutinvalido3 = false;
 			model.addAttribute("rutinvalido3", rutinvalido3);
 			boolean rutex3 =false;
@@ -77,13 +74,11 @@ public class UsuarioController {
 			model.addAttribute("establecimientos",establecimientoS.getAll());
 			model.addAttribute("roles",roles);
 			return "Registro";	
-
 	}
 
 	@PostMapping(path = "/registrar", consumes = "application/x-www-form-urlencoded")
 	public String registrarUsuario(@Valid Usuario usuario ,Errors errores, Model model,RedirectAttributes flash, HttpSession sesion){
-
-			
+		
 			var roles = rolS.getAll();
 			model.addAttribute("roles",roles);
 			model.addAttribute("establecimientos",establecimientoS.getAll());
@@ -92,10 +87,8 @@ public class UsuarioController {
 			boolean rutex3 =false;
 			model.addAttribute("rutexiste3",rutex3);
 			boolean correoexiste3 =false;
-			model.addAttribute("correoexiste3",correoexiste3);
-			
-			Usuario us = new Usuario();
-			
+			model.addAttribute("correoexiste3",correoexiste3);		
+			Usuario us = new Usuario();		
 			for (Usuario user : userService.getAll()) {
 				if(usuario.getCorreo().equals(user.getCorreo())) {
 					correoexiste3 =true;
@@ -106,10 +99,9 @@ public class UsuarioController {
 					model.addAttribute("correoexiste3",correoexiste3);
 					us.setCorreo(usuario.getCorreo());
 				}
-			}
-			
+			}	
 			us.setPass(usuario.getPass());
-			us.setRoles(usuario.getRoles());
+			us.setRolId(usuario.getRolId());
 			us.setAmaterno(usuario.getAmaterno());
 			us.setApaterno(usuario.getApaterno());
 			us.setCargo(usuario.getCargo());
@@ -136,7 +128,7 @@ public class UsuarioController {
 				model.addAttribute("rutinvalido3", rutinvalido3);
 				return "Registro";				
 			}	
-			us.setRoles(usuario.getRoles());
+			us.setRolId(usuario.getRolId());
 			us.setTelefono(usuario.getTelefono());
 			
 			if (errores.hasErrors()) {
@@ -155,11 +147,9 @@ public class UsuarioController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("user",sesion.getAttribute("user"));
-			
+			model.addAttribute("user",sesion.getAttribute("user"));		
 			Usuario usuarioEncontrado = userService.findUsuarioByRutUsuario(usuario.getRutUsuario());
-			model.addAttribute("usuario",usuarioEncontrado);
-			
+			model.addAttribute("usuario",usuarioEncontrado);		
 			model.addAttribute("roles", rolS.getAll());
             model.addAttribute("establecimientos", establecimientoS.getAll());
             
@@ -175,20 +165,17 @@ public class UsuarioController {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
-			model.addAttribute("user",sesion.getAttribute("user"));
-			
-			
+			model.addAttribute("user",sesion.getAttribute("user"));			
 			var roles = rolS.getAll();
 			model.addAttribute("roles",roles);
-			model.addAttribute("establecimientos",establecimientoS.getAll());
-			
+			model.addAttribute("establecimientos",establecimientoS.getAll());		
 			
 			Usuario usuarioModificado = new Usuario();
 			
 			for (Usuario user : userService.getAll()) {
 				if(user.getRutUsuario().equals(usuario.getRutUsuario())) {
 					usuarioModificado.setPass(usuario.getPass());
-					usuarioModificado.setRoles(usuario.getRoles());
+					usuarioModificado.setRolId(usuario.getRolId());
 					usuarioModificado.setAmaterno(usuario.getAmaterno());
 					usuarioModificado.setApaterno(usuario.getApaterno());
 					usuarioModificado.setCargo(usuario.getCargo());
@@ -216,7 +203,6 @@ public class UsuarioController {
 	
 	@GetMapping("/login")
 	public String login( Usuario usuario,Model model) {
-		
 		boolean passisBlank = false;
 		boolean correoisBlank = false;		
 		model.addAttribute("passisBlank",passisBlank);
@@ -268,7 +254,6 @@ public class UsuarioController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("user",sesion.getAttribute("user"));
-			
 			userService.deleteUser(usuario.getRutUsuario());
 			flash.addFlashAttribute("warning","Usuario eliminado correctamente");
 			return "redirect:/usuario";

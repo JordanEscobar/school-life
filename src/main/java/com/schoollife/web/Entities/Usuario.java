@@ -1,24 +1,17 @@
 package com.schoollife.web.Entities;
 
 import java.util.Date;
-import java.util.List;
-
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="usuarios")
@@ -52,17 +45,13 @@ public class Usuario {
 	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-	    name = "usuario_roles",
-	    joinColumns = @JoinColumn(name = "usuario_id"),
-	    inverseJoinColumns = @JoinColumn(name = "role_id")
-	)
-	private List<Rol> roles;
+
+	@JoinColumn(name = "rol_id")
+	private Integer rolId;
 	public Usuario(@NotBlank String rutUsuario, @NotBlank String pass, @NotBlank String nombre,
 			@NotBlank String apaterno, String amaterno, @NotBlank String correo, @NotBlank String telefono,
 			@NotNull @Past Date fecha_nacimiento, @NotNull String genero, @NotNull String estudios,
-			@NotNull String cargo, @NotNull Integer establecimientoId, List<Rol> roles) {
+			@NotNull String cargo, @NotNull Integer establecimientoId, Integer rolId) {
 		super();
 		this.rutUsuario = rutUsuario;
 		this.pass = pass;
@@ -76,7 +65,7 @@ public class Usuario {
 		this.estudios = estudios;
 		this.cargo = cargo;
 		this.establecimientoId = establecimientoId;
-		this.roles = roles;
+		this.rolId = rolId;
 	}
 	public Usuario() {
 		super();
@@ -153,19 +142,20 @@ public class Usuario {
 	public void setEstablecimientoId(Integer establecimientoId) {
 		this.establecimientoId = establecimientoId;
 	}
-	public List<Rol> getRoles() {
-		return roles;
+	public Integer getRolId() {
+		return rolId;
 	}
-	public void setRoles(List<Rol> roles) {
-		this.roles = roles;
+	public void setRolId(Integer rolId) {
+		this.rolId = rolId;
 	}
 	@Override
 	public String toString() {
 		return "Usuario [rutUsuario=" + rutUsuario + ", pass=" + pass + ", nombre=" + nombre + ", apaterno=" + apaterno
 				+ ", amaterno=" + amaterno + ", correo=" + correo + ", telefono=" + telefono + ", fecha_nacimiento="
 				+ fecha_nacimiento + ", genero=" + genero + ", estudios=" + estudios + ", cargo=" + cargo
-				+ ", establecimientoId=" + establecimientoId + "]";
+				+ ", establecimientoId=" + establecimientoId + ", rolId=" + rolId + "]";
 	}
+	
 	
 	
 	

@@ -94,7 +94,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		userN.setGenero(usuario.getGenero());
 		userN.setNombre(usuario.getNombre());
 		userN.setPass(encoder.encode(usuario.getPass()));
-		userN.setRoles(usuario.getRoles());
+		userN.setRolId(usuario.getRolId());
 		userN.setRutUsuario(usuario.getRutUsuario());
 		userN.setTelefono(usuario.getTelefono());
 		usuarioR.save(userN);
