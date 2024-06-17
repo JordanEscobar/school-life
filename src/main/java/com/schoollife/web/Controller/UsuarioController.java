@@ -66,7 +66,13 @@ public class UsuarioController {
 	
 	@GetMapping("/registro")
 	public String registroUsuario(Usuario usuario,Model model,HttpSession sesion) {
-
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
 			model.addAttribute("usuario",new Usuario());	
 			boolean rutinvalido3 = false;
 			model.addAttribute("rutinvalido3", rutinvalido3);
@@ -80,11 +86,19 @@ public class UsuarioController {
 			model.addAttribute("establecimientos",establecimientoS.getAll());
 			model.addAttribute("roles",roles);
 			return "Registro";	
+		}
+		return "Login";
 	}
 
 	@PostMapping(path = "/registrar", consumes = "application/x-www-form-urlencoded")
 	public String registrarUsuario(@Valid Usuario usuario ,Errors errores, Model model,RedirectAttributes flash, HttpSession sesion){
-		
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
 			var roles = rolS.getAll();
 			model.addAttribute("roles",roles);
 			model.addAttribute("establecimientos",establecimientoS.getAll());
@@ -155,6 +169,8 @@ public class UsuarioController {
 			userService.registerUser(usuario);
 			flash.addFlashAttribute("success","Usuario creado correctamente");
 			return "redirect:/login";
+		}
+			return "Login";
 		}
 	
 	@GetMapping("/usuario/modificar/{rutUsuario}")

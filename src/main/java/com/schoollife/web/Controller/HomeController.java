@@ -325,7 +325,14 @@ public class HomeController {
 			e.setEstado(true);
 			e.setEstablecimientoId(uSesion.get(0).getEstablecimientoId());
 			e.setCurso_id(estudiante.getCurso_id());
-			e.setNumero_matricula(1);
+			
+			if(estudianteS.getAll(uSesion.get(0).getEstablecimientoId()) != null || !uSesion.isEmpty()) {
+				Integer numMatricula = 1300 + estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size();
+				e.setNumero_matricula(numMatricula);
+			}else {
+				e.setNumero_matricula(1);
+			}
+			
 			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
 			e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
 			e.setAlergias_medicamentos(estudiante.getAlergias_medicamentos());
@@ -569,7 +576,7 @@ public class HomeController {
 	}
 	//cancelar matricula
 	@GetMapping("/matricula/cancelarProceso")
-	private String cancelarProcesoMatricula(Model model,HttpSession sesion) {
+	private String cancelarProcesoMatricula(Model model,RedirectAttributes flash,HttpSession sesion) {
 		if(sesion.getAttribute("user")!=null)
 		{
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
@@ -590,7 +597,8 @@ public class HomeController {
 			if(aSesion != null ) {
 				apoderadoS.deleteApoderado(aSesion.getRun_apoderado());
 			}
-			return "Matricula";
+			flash.addFlashAttribute("success","Proceso cancelado correctamente");
+			return "redirect:/";
 		}
 		return "Login";
 	}

@@ -213,25 +213,35 @@
 						</div>
 						<div class="col">
 							<label>¿Acepta el manual de convivencia escolar?</label><br>
-							<input type="checkbox" id="acepta_manual_convivencia_escolar"
+							<input type="radio" value="True" id="acepta_manual_convivencia_escolar"
 								th:field="*{acepta_manual_convivencia_escolar}"
-								class="form-checkbox">
+								class="form-radio">Si &nbsp;
+								<input type="radio" value="False" id="acepta_manual_convivencia_escolar"
+								th:field="*{acepta_manual_convivencia_escolar}"
+								class="form-radio">No
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col">
 							<label>¿Autoriza fotografía y grabación?</label><br> <input
-								type="checkbox" id="autorizacion_fotografia_grabacion"
+								type="radio" value="True" id="autorizacion_fotografia_grabacion"
 								th:field="*{autorizacion_fotografia_grabacion}"
-								class="form-checkbox">
+								class="form-radio">Si   &nbsp;
+								<input type="radio" value="False" id="autorizacion_fotografia_grabacion"
+								th:field="*{autorizacion_fotografia_grabacion}"
+								class="form-radio">No
 						</div>
 						<div class="col">
 							<label>¿Autorizado para retirar del establecimiento al
-								estudiante?</label><br> <input type="checkbox"
+								estudiante?</label><br> <input value=True type="radio"
 								id="autorizado_retirar_establecimiento"
 								th:field="*{autorizado_retirar_establecimiento}"
-								class="form-checkbox">
+								class="form-radio">Si
+								<input value=False type="radio"
+								id="autorizado_retirar_establecimiento"
+								th:field="*{autorizado_retirar_establecimiento}"
+								class="form-radio">No
 						</div>
 						<div class="col">
 						

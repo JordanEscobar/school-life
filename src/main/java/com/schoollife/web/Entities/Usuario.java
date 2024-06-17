@@ -48,7 +48,6 @@ public class Usuario {
 	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId;
-	@NotNull
 	@JoinColumn(name = "rol_id")
 	private Integer rolId;
 	public Usuario(@NotBlank String rutUsuario, @NotBlank String pass, @NotBlank String nombre,

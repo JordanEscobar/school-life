@@ -15,6 +15,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfContentByte;
@@ -58,7 +59,7 @@ public class ListarMatriculaPDF extends AbstractPdfView {
 	    celdaLogo.setBorder(0);
 	    celdaLogo.setHorizontalAlignment(PdfPCell.ALIGN_LEFT);
 	    celdaLogo.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);
-	    // celdaLogo.addElement(Image.getInstance("path/to/logo.png")); // Add your logo image here
+	    //celdaLogo.addElement(Image.getInstance("")); // Add your logo image here
 
 	    PdfPCell celdaTitulo = new PdfPCell(new Phrase("Resumen de Matrícula", fuenteTitulo));
 	    celdaTitulo.setBorder(0);
@@ -233,7 +234,7 @@ public class ListarMatriculaPDF extends AbstractPdfView {
 	    tablaSalud.addCell(crearCeldaDato(estudiante.isVacuna_covid() ? "Está vacunado" : "No está vacunado", fuenteCeldas)); // Mostrar según el valor booleano
 
 	    tablaSalud.addCell(crearCeldaCabecera("Cantidad de Vacunas COVID", fuenteTituloTabla));
-	    String cantidadVacunasCovid = estudiante.getCantidad_vacunas_covid() == 0 ? "No tiene vacunas" : String.valueOf(estudiante.getCantidad_vacunas_covid());
+	    String cantidadVacunasCovid = estudiante.getCantidad_vacunas_covid() == null ? "No tiene vacunas" : String.valueOf(estudiante.getCantidad_vacunas_covid());
 	    tablaSalud.addCell(crearCeldaDato(cantidadVacunasCovid, fuenteCeldas));
 
 	    // Mostrar la fecha de última vacuna COVID o mensaje si no tiene vacunas

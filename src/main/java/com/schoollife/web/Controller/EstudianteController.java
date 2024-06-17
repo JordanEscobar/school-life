@@ -214,7 +214,7 @@ public class EstudianteController {
             var hojas = hojaService.getByEstudianteId(estudianteId);
             sesion.setAttribute("runEstudiante", estudianteId);
             model.addAttribute("runEstudiante", sesion.getAttribute("runEstudiante"));
-
+            
             // Filtrar por año si se proporciona
             if (filtroanio != null) {
                 hojas = hojas.stream()
@@ -224,6 +224,8 @@ public class EstudianteController {
                              .collect(Collectors.toList());
             }
 
+            var curso = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+            model.addAttribute("cursos",curso);
             model.addAttribute("hoja_de_vida", hojas);
             model.addAttribute("anios", hojaService.getDistinctYears(estudianteId));  // Agregar lista de años distintos
             model.addAttribute("filtroanio", filtroanio); // Agregar filtroanio al modelo

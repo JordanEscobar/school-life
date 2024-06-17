@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class Apoderado {
 	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_apoderado; //obligatorio
 	private String estudiante_id; //obligatorio
-	@Min(value = 6)
+	@Max(value = 9,message = "Ingrese un número de documento válido")
 	private Integer numero_documento; //obligatorio
 	@NotBlank
 	private String nombres; //obligatorio

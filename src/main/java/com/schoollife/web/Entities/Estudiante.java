@@ -52,7 +52,7 @@ public class Estudiante {
 	private String correo_electronico;//obligatorio - a cierta edad es del apoderado
 	//@Length(min = 6, max = 9)
 	private String telefono;//opcional
-	@Length(min = 6, max = 9)
+	@Length(min = 8, max = 9)
 	@NotNull
 	private String celular;//obligatorio - a cierta edad es del apoderado
 	@NotBlank
