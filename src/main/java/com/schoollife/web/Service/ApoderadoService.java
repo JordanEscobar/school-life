@@ -15,6 +15,8 @@ public interface ApoderadoService {
 	List<Apoderado> findApoderadoPorEstudiante(String run_estudiante);
 	//crear un apoderado
 	Apoderado createApoderado(Apoderado apoderado);
+	//eliminar apoderado
+	void deleteApoderado(String apoderadoid);
 	
 	
 

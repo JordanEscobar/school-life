@@ -108,7 +108,7 @@
 						<div class="col">
 							<label>Curso</label>
 							<select id="curso_id" th:field="*{curso_id}" class="form-select" >
-								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.id_curso}"></option>
+								<option th:each="c : ${cursos}" th:text="${c.nivel} + ' ' + ${c.letra}" th:value="${c.idCurso}"></option>
 							</select>
 						</div>
 						<div class="col">

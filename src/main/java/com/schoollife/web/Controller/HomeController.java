@@ -246,6 +246,8 @@ public class HomeController {
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("user",sesion.getAttribute("user"));
 			
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+			model.addAttribute("cursos", cursos);
 			model.addAttribute("comunas",establecimientoS.comunas());
 			model.addAttribute("estudiante", estudiante);
 			boolean rutex = false;
@@ -266,7 +268,8 @@ public class HomeController {
 			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 			model.addAttribute("user",sesion.getAttribute("user"));
-						
+			var cursos = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
+			model.addAttribute("cursos", cursos);
 			model.addAttribute("comunas",establecimientoS.comunas());		
 			model.addAttribute("apoderado", apoderado);
 			boolean rutex2 = false;
@@ -304,6 +307,7 @@ public class HomeController {
 			LocalDate localDate = LocalDate.now();
 			//transformar el local date a date
 			Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			System.out.println("la fecha de hoy es:" + date);
 			e.setFecha_matricula(date);
 			e.setFecha_nacimiento(estudiante.getFecha_nacimiento());
 			e.setFecha_ultima_vacuna_COVID(estudiante.getFecha_ultima_vacuna_COVID());
@@ -320,7 +324,7 @@ public class HomeController {
 			e.setColegio_procedencia(estudiante.getColegio_procedencia());
 			e.setEstado(true);
 			e.setEstablecimientoId(uSesion.get(0).getEstablecimientoId());
-			e.setCurso_id(1);
+			e.setCurso_id(estudiante.getCurso_id());
 			e.setNumero_matricula(1);
 			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
 			e.setAlergias_alimentos(estudiante.getAlergias_alimentos());
@@ -350,6 +354,7 @@ public class HomeController {
 			
 			
 			if (errores.hasErrors()) {
+				System.out.println("entro aca" + estudiante);
 				return "Matricula-ingresar";
 			}
 			System.out.println("el estudianto a crear es: " + e);
@@ -358,9 +363,6 @@ public class HomeController {
 
 			sesion.setAttribute("estudiante", e);
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
-			
-			
-			
 			
 			model.addAttribute("estudiante", sesion.getAttribute("estudiante"));
 			model.addAttribute("eSesion",eSesion);
@@ -383,6 +385,10 @@ public class HomeController {
 		    model.addAttribute("rutexiste2", rutex2);
 		    boolean rutinvalido2 = false;
 		    model.addAttribute("rutinvalido2", rutinvalido2);
+		    
+			Apoderado aSesion = (Apoderado) sesion.getAttribute("apoSesion");			
+			model.addAttribute("apoderado", sesion.getAttribute("apoSesion"));
+			model.addAttribute("aSesion",aSesion);
 		    
 		    model.addAttribute("comunas", establecimientoS.comunas());
 		    Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
@@ -408,9 +414,8 @@ public class HomeController {
 		    model.addAttribute("rutexiste2", rutex2);
 		    boolean rutinvalido2 = false;
 		    model.addAttribute("rutinvalido2", rutinvalido2);
-
 		    model.addAttribute("comunas", establecimientoS.comunas());
-
+		    
 		    // Verificar que el estudiante_id existe en la base de datos
 		    if (!estudianteS.estudianteExiste(apoderado.getEstudiante_id())) {
 		        errores.rejectValue("estudiante_id", "error.apoderado", "El estudiante especificado no existe.");
@@ -464,6 +469,11 @@ public class HomeController {
 
 		    // Se crea el apoderado
 		    apoderadoS.createApoderado(a);
+		    //pasar el apoderado a una sesion
+		    sesion.setAttribute("apoSesion", a);
+			Apoderado aSesion = (Apoderado) sesion.getAttribute("apoSesion");			
+			model.addAttribute("apoderado", sesion.getAttribute("apoSesion"));
+			model.addAttribute("aSesion",aSesion);
 		    
 		    //se crea el historial de la matricula
 		    if(eSesion != null) {
@@ -511,6 +521,9 @@ public class HomeController {
 			
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 			model.addAttribute("eSesion",eSesion);
+			Apoderado aSesion = (Apoderado) sesion.getAttribute("apoSesion");			
+			model.addAttribute("apoderado", sesion.getAttribute("apoSesion"));
+			model.addAttribute("aSesion",aSesion);
 	    	return "Matricula-ingresar-pie";
 		}
 		
@@ -529,6 +542,9 @@ public class HomeController {
 			
 			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 			model.addAttribute("eSesion",eSesion);
+			Apoderado aSesion = (Apoderado) sesion.getAttribute("apoSesion");			
+			model.addAttribute("apoderado", sesion.getAttribute("apoSesion"));
+			model.addAttribute("aSesion",aSesion);
 			
 			Programa_Integracion p = new Programa_Integracion();
 			//el rut esta hardcode, hay que modificarlo
@@ -550,7 +566,33 @@ public class HomeController {
 			return "redirect:/matricula";
 		}
 		return "Login";
-		
+	}
+	//cancelar matricula
+	@GetMapping("/matricula/cancelarProceso")
+	private String cancelarProcesoMatricula(Model model,HttpSession sesion) {
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));
+			
+			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");			
+			model.addAttribute("estudiante", sesion.getAttribute("estudiante"));
+			
+			Apoderado aSesion = (Apoderado) sesion.getAttribute("apoSesion");			
+			model.addAttribute("apoderado", sesion.getAttribute("apoSesion"));
+
+			
+			if(eSesion != null) {
+				estudianteS.cancelarMatricula(eSesion.getRunEstudiante());
+			}
+			if(aSesion != null ) {
+				apoderadoS.deleteApoderado(aSesion.getRun_apoderado());
+			}
+			return "Matricula";
+		}
+		return "Login";
 	}
 	
 	@GetMapping("/programa/pie")
@@ -775,6 +817,106 @@ public class HomeController {
 		}
 		return "Login";
 	}
+	
+	@PostMapping(path = "/matricula/ingresado/antiguo", consumes = "application/x-www-form-urlencoded")
+	public String matriculaIngresadaAntigua(@Valid Estudiante estudiante,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));			
+			
+			Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
+			model.addAttribute("eSesion",eSesion);
+			
+			var estudiantes = estudianteS.getAll(uSesion.get(0).getEstablecimientoId());
+			Estudiante e = new Estudiante();
+			for (Estudiante es : estudiantes) {
+				if(es.getRunEstudiante().equalsIgnoreCase(estudiante.getRunEstudiante())) {
+					e.setNumero_matricula(es.getNumero_matricula());
+					e.setColegio_procedencia(es.getColegio_procedencia());
+					e.setEstado(true);
+					e.setEstablecimientoId(es.getEstablecimientoId());
+					e.setAcepta_clases_religion(es.isAcepta_clases_religion());
+					e.setAlergias_alimentos(es.getAlergias_alimentos());
+					e.setAlergias_medicamentos(es.getAlergias_medicamentos());
+					e.setAmaterno(es.getAmaterno());
+					e.setApaterno(es.getApaterno());
+					e.setApto_educacion_fisica(es.isApto_educacion_fisica());
+					e.setBeca(es.getBeca());
+					e.setCantidad_computadores_casa(es.getCantidad_computadores_casa());
+					e.setCantidad_vacunas_covid(es.getCantidad_vacunas_covid());
+					e.setCelular(es.getCelular());		
+					e.setComuna(es.getComuna());
+					e.setConsultorio_clinica(es.getConsultorio_clinica());
+					e.setCorreo_electronico(es.getCorreo_electronico());
+					e.setCurso_id(es.getCurso_id());
+					e.setDireccion(es.getDireccion());
+					e.setEnfermedades_cronicas(es.getEnfermedades_cronicas());
+					e.setEsquema_completo_vacunacion_covid(es.isEsquema_completo_vacunacion_covid());		
+					e.setEstatura(es.getEstatura());
+					e.setEtnia(es.getEtnia());
+					e.setFecha_matricula(es.getFecha_matricula());
+					e.setFecha_nacimiento(es.getFecha_nacimiento());
+					e.setFecha_ultima_vacuna_COVID(es.getFecha_ultima_vacuna_COVID());
+					e.setGenero(es.getGenero());
+					e.setGrupo_sanguineo(es.getGrupo_sanguineo());
+					e.setMedicamentos_contraindicados(es.getMedicamentos_contraindicados());
+					e.setNacionalidad(es.getNacionalidad());
+					e.setNombre(es.getNombre());
+					e.setNombre_contacto_emergencia(es.getNombre_contacto_emergencia());		
+					e.setObservaciones(es.getObservaciones());
+					e.setPais_nacimiento(es.getPais_nacimiento());
+					e.setPeso(es.getPeso());
+					e.setReligion(es.getReligion());
+					e.setRunEstudiante(es.getRunEstudiante());
+					e.setSeguro_escolar_privado(es.isSeguro_escolar_privado());
+					e.setSistema_prevision(es.getSistema_prevision());
+					e.setTelefono(es.getTelefono());
+					e.setTelefono_emergencia(es.getTelefono_emergencia());
+					e.setVacuna_covid(es.isVacuna_covid());
+					e.setVive_con(es.getVive_con());
+					e.setEs_pie(es.isEs_pie());
+				}
+			}
+			
+			if (errores.hasErrors()) {
+				return "Matricula-estudiante-antiguo";
+			}				
+			estudianteS.updateEstudiante(estudiante, estudiante.getRunEstudiante());
+			
+			//se crea el historial de la matricula
+			    Historial_estudiante h = new Historial_estudiante();
+			    h.setAmaterno(estudiante.getAmaterno());
+			    h.setApaterno(estudiante.getApaterno());
+			    if(estudiante.isEs_pie())
+			    {
+			    	h.setEs_pie("Estudiante PIE");
+			    }else {
+			    	h.setEs_pie("No aplica");
+			    }			    
+			    Curso c = cursoS.findById(estudiante.getCurso_id());
+			    h.setCurso(c.getNivel() + " " + c.getLetra() + "("+ c.getNivel_ensenanza() + ")");
+			    h.setEstablecimiento(establecimientoS.findById(uSesion.get(0).getEstablecimientoId()).getNombre());
+			    h.setFecha_matricula(estudiante.getFecha_matricula());
+			    h.setFecha_nacimiento(estudiante.getFecha_nacimiento());
+			    h.setIdEstudiante(estudiante.getRunEstudiante());
+			    h.setNombre(estudiante.getNombre());
+			    h.setNumero_matricula(estudiante.getNumero_matricula());
+			    h.setHoja_de_vida("");
+			    h.setIdHistorial(0);
+			    historialS.createHistorial_estudiante(h);
+		        
+					
+			flash.addFlashAttribute("success","Matrícula ingresada correctamente");
+			model.addAttribute("estudiante",estudiante);		
+			return "redirect:/matricula";			
+		}
+		return "Login";	
+	}
+	
+
 	
 	
 	

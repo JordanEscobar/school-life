@@ -38,7 +38,7 @@
 					<label class="fw-bold">Curso</label>
 					<select id="filtroSelect2" class="form-select shadow" name="filtrocursos" >
 						<option th:value="0">Todos</option>
-						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra} + ' (' +${c.nivel_ensenanza} + ')'" th:selected="${c.id_curso == filtrocursos}"></option>
+						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.idCurso}" th:text="${c.nivel} + ' ' + ${c.letra} + ' (' +${c.nivel_ensenanza} + ')'" th:selected="${c.idCurso == filtrocursos}"></option>
 					</select>
 					</form>
 			</div>
@@ -67,7 +67,7 @@
 					<td th:text="${e.numero_matricula}"></td>
 					<td th:text="${e.nombre} + ' ' + ${e.apaterno} + ' '+ ${e.amaterno}"></td>
 					<td th:text="${e.runEstudiante}"></td>
-					<td th:each="c : ${cursos}" th:if="${e.curso_id} == ${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra} + ' ('+ ${c.nivel_ensenanza} + ')'"></td>
+					<td th:each="c : ${cursos}" th:if="${e.curso_id} == ${c.idCurso}" th:text="${c.nivel} + ' ' + ${c.letra} + ' ('+ ${c.nivel_ensenanza} + ')'"></td>
 					<td>
 						<a class="btn btn-primary" th:href="@{/Hoja-de-vida/ingresar/} + ${e.runEstudiante}" data-toggle="tooltip" data-placement="bottom" title="Ingresar anotación"><i class="fa-solid fa-file-circle-plus"></i></a>
 						<a class="btn btn-secondary" th:href="@{/Hoja-de-vida/ver/} + ${e.runEstudiante}" data-toggle="tooltip" data-placement="bottom" title="Ver anotaciones"><i class="fa-solid fa-list"></i></a>

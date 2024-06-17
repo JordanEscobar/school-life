@@ -30,9 +30,7 @@ public class Estudiante {
 	private String apaterno;//obligatorio
 	@NotBlank
 	private String amaterno;//obligatorio
-	@NotNull
 	private Integer numero_matricula;//obligatorio
-	@NotNull
 	@DateTimeFormat(iso=ISO.DATE)
 	private Date fecha_matricula;//obligatorio
 	@Past
@@ -109,7 +107,6 @@ public class Estudiante {
 	@Column(name = "observaciones_medicas")
 	private String observaciones; //opcional pero deberia ir bloqueado y desbloquearse si se quiere.
 	private boolean estado;
-	@NotNull
 	@Column(name = "establecimiento_id")
 	private Integer establecimientoId; //obligatorio
 	@NotNull

@@ -97,7 +97,6 @@ public class EstudianteServiceImpl implements EstudianteService{
 	@Override
 	@Transactional
 	public void updateEstudiantePie(String estudianteId) {
-		// TODO Auto-generated method stub
 		List<Estudiante> estudiantes = estudianteR.findAll();
 		estudiantes = estudiantes.stream().filter(e -> e.getRunEstudiante().equalsIgnoreCase(estudianteId)).collect(Collectors.toList());
 		Estudiante e = new Estudiante();

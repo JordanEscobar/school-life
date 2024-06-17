@@ -110,7 +110,7 @@ public class CursoController {
 		return "Login";
 	}
 	
-	@GetMapping("/curso/modificar/{id_curso}")
+	@GetMapping("/curso/modificar/{idCurso}")
 	public String cursoModificar(Curso curso,Model model,HttpSession sesion) {
 		if(sesion.getAttribute("user") != null) {
 			

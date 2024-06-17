@@ -63,7 +63,7 @@
 					<td th:text="${c.apodo}"></td>
 					<td th:each="e : ${establecimientos}" th:if="${c.establecimiento_id == e.rbd}" th:text="${e.nombre}"></td>
 					<td>
-						<a th:href="@{/curso/modificar/} + ${c.id_curso}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+						<a th:href="@{/curso/modificar/} + ${c.idCurso}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
 					</td>
 
 				</tr>

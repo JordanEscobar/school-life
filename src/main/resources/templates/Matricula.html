@@ -60,7 +60,7 @@
 					<label class="fw-bold">Curso</label>
 					<select id="filtroSelect" class="form-select shadow" name="filtrocurso" >
 						<option th:value="0">Todos</option>
-						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.id_curso}" th:text="${c.nivel} + ' ' + ${c.letra}" th:selected="${c.id_curso == filtrocurso}"></option>
+						<option class="text-uppercase" th:each="c : ${cursos}" th:value="${c.idCurso}" th:text="${c.nivel} + ' ' + ${c.letra}" th:selected="${c.idCurso == filtrocurso}"></option>
 					</select>
 					</form>
 				</div>
@@ -134,9 +134,9 @@
 				<td th:if="${e.estado} == False" class="text-danger"><del th:text="${e.nombre} + ' ' + ${e.apaterno} + ' ' + ${e.amaterno}"></del>l</td>
 				<td  th:if="${e.es_pie} == True" ><span class="text-success"><i class="fa-solid fa-check"></i></span></td>
 				<td  th:if="${e.es_pie} == False" ><span class="text-danger"><i class="fa-solid fa-x"></i></span></td>
-				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel}"></td>
-				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.letra}"></td>
-				<td th:each="c : ${cursos}" th:if="${c.id_curso == e.curso_id}" th:text="${c.nivel_ensenanza}"></td>
+				<td th:each="c : ${cursos}" th:if="${c.idCurso == e.curso_id}" th:text="${c.nivel}"></td>
+				<td th:each="c : ${cursos}" th:if="${c.idCurso == e.curso_id}" th:text="${c.letra}"></td>
+				<td th:each="c : ${cursos}" th:if="${c.idCurso == e.curso_id}" th:text="${c.nivel_ensenanza}"></td>
 				<td th:if="${e.acepta_clases_religion} == True" th:text="Si"></td>
 				<td th:if="${e.acepta_clases_religion} == False" th:text="No"></td>
 				<td th:if="${e.estado} == True" class="text-success rounded"  th:text="Matriculado"></td>

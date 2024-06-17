@@ -75,4 +75,10 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 		apoderados = apoderados.stream().filter(a -> a.getEstudiante_id().equalsIgnoreCase(run_estudiante)).collect(Collectors.toList());
 		return apoderados;
 	}
+
+	@Override
+	@Transactional
+	public void deleteApoderado(String apoderadoid) {
+		apoderadoR.deleteById(apoderadoid);
+	}
 }
