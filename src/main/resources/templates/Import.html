@@ -17,8 +17,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
-<    
-    
 </head>
 <body>
 <br><br>
@@ -47,16 +45,61 @@
 <div class="table-responsive">
 	<h5>Matrículas</h5>
     <!-- Tabla para mostrar los datos del archivo Excel -->
-    <table class="table table-bordered text-center border rounded container shadow" border="1" th:if="${excelData != null && excelData.size() > 0}">
-        <thead class="text-uppercase">
+
+    <table class="table table-bordered text-center border rounded container shadow"  th:if="${excelData != null && excelData.size() > 0}">
+        <thead >
+        <tr>
+    		<th>RUT</th>
+    		<th>NOMBRE</th>
+    		<th>APELLIDO PATERNO</th>
+    		<th>APELLIDO MATERNO</th>
+    		<th>N° MATRÍCULA</th>
+    		<th>FECHA MATRÍCULA</th>
+    		<th>FECHA NACIMIENTO</th>
+    		<th>PAÍS NACIMIENTO</th>
+    		<th>GÉNERO</th>
+    		<th>DIRECCIÓN</th>
+    		<th>COMUNA</th>
+    		<th>CORREO ELECTRÓNICO</th>
+    		<th>TELÉFONO</th>
+    		<th>CELULAR</th>
+    		<th>COLEGIO PROCEDENCIA</th>
+    		<th>CONTACTO EMERGENCIA</th>
+    		<th>TELÉFONO EMERGENCIA</th>
+    		<th>VIVE CON</th>
+    		<th>N° COMPUTADORES CASA</th>
+    		<th>RELIGIÓN</th>
+    		<th>ACEPTA CLASES RELIGIÓN</th>
+    		<th>BECA</th>
+    		<th>ESTATURA</th>
+    		<th>PESO</th>
+    		<th>GRUPO SANGUINEO</th>
+    		<th>ALERGIA ALIMENTOS</th>
+    		<th>ALERGIA MEDICAMENTOS</th>
+    		<th>MEDICAMENTOS CONTRAINDICADOS</th>
+    		<th>ENFERMEDADES CRÓNICAS</th>
+    		<th>VACUNA COVID</th>
+    		<th>N° VACUNAS COVID</th>
+    		<th>ESQUEMA COMPLETO VACUNACIÓN COVID</th>
+    		<th>FECHA ULTIMA VACUNA COVID</th>
+    		<th>APTO EDUCACIÓN FÍSICA</th>
+    		<th>SISTEMA PREVISIÓN</th>
+    		<th>SEGURO ESCOLAR PRIVADO</th>
+    		<th>NACIONALIDAD</th>
+    		<th>ETNIA</th>
+    		<th>CONSULTORIO CLÍNICA</th>
+    		<th>OBSERVACIONES</th>
+    		<th>ESTADO MATRÍCULA</th>
+    		<th>ESTABLECIMIENTO</th>
+    		<th>CURSO</th>
+    		<th>ES ALUMNO PIE</th>
+    	</tr> 
+        </thead>
+        <tbody>           
             <tr>
-                <th>#</th>
                 <th th:each="header : ${excelData[0]}" th:text="${header}"></th>
             </tr>
-        </thead>
-        <tbody>
             <tr th:each="rowData, rowStat : ${excelData}" th:if="${rowStat.index > 0}">
-                <td th:text="${rowStat.index}"></td>
                 <td th:each="cellData : ${rowData}" th:text="${cellData}"></td>
             </tr>
         </tbody>

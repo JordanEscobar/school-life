@@ -165,23 +165,18 @@ public class ExcelUploadController {
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }
             String cantidadComputadoresStr = rowData.get(18);
             if (StringUtils.isNumeric(cantidadComputadoresStr)) {
                 try {
                     e.setCantidad_computadores_casa(Integer.parseInt(cantidadComputadoresStr));
                 } catch (NumberFormatException ese) {
-                    // Manejo de error si no se puede convertir a número (aunque isNumeric debería prevenir esto)
                     System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }
             
             try {
@@ -221,14 +216,11 @@ public class ExcelUploadController {
                 try {
                     e.setEstatura(Integer.parseInt(estaturaStr));
                 } catch (NumberFormatException ese) {
-                    // Manejo de error si no se puede convertir a número (aunque isNumeric debería prevenir esto)
                     System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }
             
             String pesoStr = rowData.get(23);
@@ -236,14 +228,11 @@ public class ExcelUploadController {
                 try {
                     e.setPeso(Double.parseDouble(pesoStr));
                 } catch (NumberFormatException ese) {
-                    // Manejo de error si no se puede convertir a número (aunque isNumeric debería prevenir esto)
                     System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }
 
             e.setGrupo_sanguineo(rowData.get(24));
@@ -262,14 +251,11 @@ public class ExcelUploadController {
                 try {
                 	e.setCantidad_vacunas_covid(Integer.parseInt(cantidadVacunasCovidStr));
                 } catch (NumberFormatException ese) {
-                    // Manejo de error si no se puede convertir a número (aunque isNumeric debería prevenir esto)
                     System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }            
             
             if(rowData.get(31).equalsIgnoreCase("si")){
@@ -305,14 +291,11 @@ public class ExcelUploadController {
                 try {
                     e.setEstablecimientoId(Integer.parseInt(establecimientoIdStr));
                 } catch (NumberFormatException ese) {
-                    // Manejo de error si no se puede convertir a número (aunque isNumeric debería prevenir esto)
                     System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }
             
             String cursoIdStr = rowData.get(42);
@@ -321,14 +304,11 @@ public class ExcelUploadController {
                 try {
                     e.setCurso_id(Integer.parseInt(cursoIdStr));
                 } catch (NumberFormatException ese) {
-                    // Manejo de error si no se puede convertir a número (aunque isNumeric debería prevenir esto)
                     System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
                     ese.printStackTrace();
                 }
             } else {
-                // Manejo de error o advertencia si no es un número válido
                 System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                // Puedes omitir el registro o manejarlo según tus necesidades
             }
             
             if(rowData.get(43).equalsIgnoreCase("si")){
@@ -336,8 +316,6 @@ public class ExcelUploadController {
             }else {
             	e.setEs_pie(false);
             }
-                
-            // Guarda la entidad en la base de datos usando el repositorio
             estudianteS.createEstudiante(e);
         }
     }
