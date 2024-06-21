@@ -103,6 +103,7 @@ public class EstudianteController {
 		if(sesion.getAttribute("user") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("user",sesion.getAttribute("user"));
+			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
@@ -119,6 +120,7 @@ public class EstudianteController {
 		if(sesion.getAttribute("user") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("user",sesion.getAttribute("user"));
+			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));					
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hoja_de_vida.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
 			var asignaturas = asignaturaS.getAsignaturasPorCurso(estudianteSeleccionado.get(0).getCurso_id());
@@ -210,6 +212,7 @@ public class EstudianteController {
         if (sesion.getAttribute("user") != null) {
             List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
             model.addAttribute("user", sesion.getAttribute("user"));
+            model.addAttribute("uSesion",uSesion.get(0));
             model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
             model.addAttribute("estudianteId", estudianteId);
             var hojas = hojaService.getByEstudianteId(estudianteId);
@@ -328,6 +331,7 @@ public class EstudianteController {
 		if(sesion.getAttribute("user") != null) {
 			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
 			model.addAttribute("user",sesion.getAttribute("user"));
+			model.addAttribute("uSesion",uSesion.get(0));
 			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));		
 			Hoja_de_vida hojaSeleccionada = hojaService.findById(hoja_de_vida.getId_hoja_de_vida());			
 			var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hojaSeleccionada.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
@@ -344,6 +348,7 @@ public class EstudianteController {
 	    if (sesion.getAttribute("user") != null) {
 	        List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
 	        model.addAttribute("user", sesion.getAttribute("user"));
+	        model.addAttribute("uSesion",uSesion.get(0));
 	        model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 	        Hoja_de_vida hojaSeleccionada = hojaService.findById(hoja_de_vida.getId_hoja_de_vida());
 	        var estudianteSeleccionado = estudianteS.findEstudiantePorRut(hojaSeleccionada.getEstudianteId(), uSesion.get(0).getEstablecimientoId());
