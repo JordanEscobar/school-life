@@ -16,5 +16,6 @@ public interface Hoja_de_vidaService {
 	void updateCurso(Hoja_de_vida hoja, Integer id);
 	//Retornar una lista con los años de las hojas de vida segun el run de un estudiante
 	List<Integer> getDistinctYears(String estudianteId);
-
+	//Buscar anotaciones por tipo de evento
+	List<Hoja_de_vida> findByTipoEventoAndEstudianteId(String tipoEvento, String estudianteId);
 }

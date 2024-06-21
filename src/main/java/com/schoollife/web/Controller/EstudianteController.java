@@ -205,6 +205,7 @@ public class EstudianteController {
     @GetMapping("/Hoja-de-vida/ver/{estudianteId}")
     public String hojaDeVidaEstudiante(@PathVariable("estudianteId") String estudianteId,
                                        @RequestParam(name = "filtroanio", required = false) Integer filtroanio,
+                                       @RequestParam(name = "filtrotipohoja", required = false) String filtrotipohoja,
                                        Model model, HttpSession sesion) {
         if (sesion.getAttribute("user") != null) {
             List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
@@ -227,6 +228,7 @@ public class EstudianteController {
             var curso = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
             model.addAttribute("cursos",curso);
             model.addAttribute("hoja_de_vida", hojas);
+            model.addAttribute("filtrotipohoja", filtrotipohoja);
             model.addAttribute("anios", hojaService.getDistinctYears(estudianteId));  // Agregar lista de años distintos
             model.addAttribute("filtroanio", filtroanio); // Agregar filtroanio al modelo
 
@@ -265,6 +267,40 @@ public class EstudianteController {
         }
 
         return "Login";
+    }
+    
+	// filtrar por Tipo de anotación
+    @PostMapping(path = "/filtrartipohoja", consumes = "application/x-www-form-urlencoded")
+    public String filtroTipoHoja(@RequestParam("filtrotipohoja") String filtrotipohoja,
+                                 @RequestParam(name = "filtroanio", required = false) Integer filtroanio,
+                                 Model model, HttpSession sesion) {
+        if (sesion.getAttribute("user") != null && sesion.getAttribute("runEstudiante") != null) {
+            String runEstudiante = (String) sesion.getAttribute("runEstudiante");
+
+            // Obtener datos adicionales necesarios del usuario y establecimiento
+            List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
+            model.addAttribute("uSesion", uSesion.get(0));
+            model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+            model.addAttribute("user", sesion.getAttribute("user"));
+            model.addAttribute("runEstudiante", runEstudiante);
+
+            // Realizar la búsqueda de hojas de vida según el tipo de evento seleccionado
+            if ("Todos".equals(filtrotipohoja)) {
+                // Obtener todas las hojas de vida sin filtrar por tipo de evento
+                model.addAttribute("hoja_de_vida", hojaService.getByEstudianteId(runEstudiante));
+            } else {
+                var hojas = hojaService.findByTipoEventoAndEstudianteId(filtrotipohoja, runEstudiante);
+                model.addAttribute("hoja_de_vida", hojas);
+            }
+
+            // Añadir atributos adicionales necesarios
+            model.addAttribute("filtrotipohoja", filtrotipohoja);
+            model.addAttribute("anios", hojaService.getDistinctYears(runEstudiante)); // Considera si necesitas esto para todos los casos
+
+            // Devolver la vista de hoja de vida sin redirigir
+            return "Hoja-de-vida-ver";
+        }
+        return "Login"; // Redirigir a la página de inicio de sesión si no hay usuario en sesión
     }
 
 	
@@ -388,6 +424,8 @@ public class EstudianteController {
 		}
 		return "Login";
 	}
+
+
 	
 	@GetMapping("/matricula/estudiante/antiguo/ingresar")
 	public String matriculaEstudianteAntiguo(Estudiante estudiante,Model model,HttpSession sesion) {

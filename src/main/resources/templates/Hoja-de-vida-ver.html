@@ -53,7 +53,26 @@
 		        <input type="hidden" name="estudianteId" th:value="${estudianteId}" />
 		    </form>
     	</div>
-    	<div class="col"></div>
+    	<div class="col">
+			<form id="filtroForm2" th:action="@{/filtrartipohoja}" method="post">
+			    <label class="fw-bold">Tipo evento</label>
+			    <select id="filtroSelect2" class="form-select shadow" name="filtrotipohoja">
+			        <option value="Todos">Todos</option>
+			        <option value="RECONOCIMIENTO" th:selected="${filtrotipohoja == 'RECONOCIMIENTO'}">RECONOCIMIENTO</option>
+			        <option value="DERIVACIÓN EXTERNA" th:selected="${filtrotipohoja == 'DERIVACIÓN EXTERNA'}">DERIVACIÓN EXTERNA</option>
+			        <!-- Añade las opciones restantes según sea necesario -->
+			        <option value="FALTA" th:selected="${filtrotipohoja == 'FALTA'}">FALTA</option>
+			        <option value="FALTA LEVE" th:selected="${filtrotipohoja == 'FALTA LEVE'}">FALTA LEVE</option>
+			        <option value="FALTA GRAVE" th:selected="${filtrotipohoja == 'FALTA GRAVE'}">FALTA GRAVE</option>
+			        <option value="FALTA GRAVÍSIMA" th:selected="${filtrotipohoja == 'FALTA GRAVÍSIMA'}">FALTA GRAVÍSIMA</option>
+			        <option value="ENTREVISTA CON EL ESTUDIANTE" th:selected="${filtrotipohoja == 'ENTREVISTA CON EL ESTUDIANTE'}">ENTREVISTA CON EL ESTUDIANTE</option>
+			        <option value="ANOTACIÓN POSITIVA" th:selected="${filtrotipohoja == 'ANOTACIÓN POSITIVA'}">ANOTACIÓN POSITIVA</option>
+			        <option value="ANOTACIÓN NEGATIVA" th:selected="${filtrotipohoja == 'ANOTACIÓN NEGATIVA'}">ANOTACIÓN NEGATIVA</option>
+			        <option value="ANOTACIÓN GENERAL DEL CURSO" th:selected="${filtrotipohoja == 'ANOTACIÓN GENERAL DEL CURSO'}">ANOTACIÓN GENERAL DEL CURSO</option>
+			        <option value="OTROS" th:selected="${filtrotipohoja == 'OTROS'}">OTROS</option>
+			    </select>
+			</form>
+    	</div>
     	<div class="col"></div>
     </div>
     <br><br>
@@ -130,6 +149,10 @@
 <script>
 	document.getElementById('filtroSelect').addEventListener('change', function() {
 		document.getElementById('filtroForm').submit();	
+	});
+	
+	document.getElementById('filtroSelect2').addEventListener('change', function() {
+		document.getElementById('filtroForm2').submit();	
 	});
 
 </script>

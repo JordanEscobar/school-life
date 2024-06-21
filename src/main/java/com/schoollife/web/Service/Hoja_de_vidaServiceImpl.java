@@ -73,5 +73,11 @@ public class Hoja_de_vidaServiceImpl implements Hoja_de_vidaService{
 	            .distinct()
 	            .collect(Collectors.toList());
 	}
+	//Buscar anotaciones por tipo de evento
+	@Override
+	@Transactional
+	public List<Hoja_de_vida> findByTipoEventoAndEstudianteId(String tipoEvento, String estudianteId) {
+		return hoja_de_vidaR.findByTipoEventoAndEstudianteId(tipoEvento,estudianteId);
+	}
 
 }

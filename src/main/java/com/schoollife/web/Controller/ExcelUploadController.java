@@ -2,13 +2,11 @@ package com.schoollife.web.Controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -22,10 +20,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.schoollife.web.Entities.Estudiante;
+import com.schoollife.web.Entities.Usuario;
+import com.schoollife.web.Service.EstablecimientoService;
 import com.schoollife.web.Service.EstudianteService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -33,38 +33,56 @@ public class ExcelUploadController {
 	
 	@Autowired
 	private final EstudianteService estudianteS;
+	@Autowired
+	private final EstablecimientoService establecimientoS;
 		
-    public ExcelUploadController(EstudianteService estudianteS) {
+    public ExcelUploadController(EstudianteService estudianteS, EstablecimientoService establecimientoS) {
 		super();
 		this.estudianteS = estudianteS;
+		this.establecimientoS = establecimientoS;
 	}
 
 	@GetMapping("/upload")
-    public String uploadForm(Model model) {
-    	model.addAttribute("excelData", new ArrayList<List<String>>());
-        return "Import"; // nombre del archivo HTML
-    }
+    public String uploadForm(Model model,HttpSession sesion) {
+	if(sesion.getAttribute("user") != null) {
+				
+				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+				model.addAttribute("uSesion",uSesion.get(0));
+				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
+				
+		    	model.addAttribute("excelData", new ArrayList<List<String>>());
+		        return "Import";
+		}
+		return "Login";
+	 
+	    }
     
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file, Model model) {
-        if (file.isEmpty()) {
-            model.addAttribute("message", "Por favor selecciona un archivo para subir.");
-            model.addAttribute("excelData", new ArrayList<List<String>>()); // Inicializa excelData como una lista vacía
-            return "Import";
-        }
+    public String uploadFile(@RequestParam("file") MultipartFile file, Model model,HttpSession sesion) {
+    	if(sesion.getAttribute("user") != null) {
+			
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
+			
+			if (file.isEmpty()) {
+	            model.addAttribute("message", "Por favor selecciona un archivo para subir.");
+	            model.addAttribute("excelData", new ArrayList<List<String>>()); // Inicializa excelData como una lista vacía
+	            return "Import";
+	        }
+	        try {
+	            List<List<String>> excelData = processExcelFile(file.getInputStream());
+	            model.addAttribute("excelData", excelData);
+	            saveExcelDataToDatabase(excelData);
+	            model.addAttribute("message", "Archivo subido correctamente: " + file.getOriginalFilename());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            model.addAttribute("message", "Error al subir el archivo.");
+	        }
 
-        try {
-            List<List<String>> excelData = processExcelFile(file.getInputStream());
-            model.addAttribute("excelData", excelData);
-            saveExcelDataToDatabase(excelData);
-            model.addAttribute("message", "Archivo subido correctamente: " + file.getOriginalFilename());
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Error al subir el archivo.");
-           
-        }
-
-        return "Import"; // nombre del archivo HTML para el formulario de carga
+	        return "Import";	
+    	}
+    	return "Login"; 
     }
     
     public List<List<String>> processExcelFile(InputStream inputStream) throws IOException {
