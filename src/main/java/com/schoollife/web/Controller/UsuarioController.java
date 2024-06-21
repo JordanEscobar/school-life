@@ -338,7 +338,7 @@ public class UsuarioController {
 		return "redirect:/login";		
 	}
 	
-	@GetMapping("/usuario/eliminar/{rut_usuario}")
+	@GetMapping("/usuario/eliminar/{rutUsuario}")
 	public String deleteUsuario(Usuario usuario,Model model,HttpSession sesion, RedirectAttributes flash) {
 		if(sesion.getAttribute("user")!=null)
 		{

@@ -25,6 +25,10 @@
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
 		<a th:href="@{/}" class="btn btn-outline-light  border-dark" aria-disabled="true" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa-solid fa-house-chimney"></i></a> <span class="text-light" th:text="${establecimientoSesion.nombre}"></span>
+		<span th:if="${uSesion.rolId} == 1" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Administrador'"></span>
+		<span th:if="${uSesion.rolId} == 2" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Usuario'"></span>
+		<span th:if="${uSesion.rolId} == 3" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Super administrador'"></span>
+		
 	</div>
 	
 	<div class="d-flex justify-content-end">

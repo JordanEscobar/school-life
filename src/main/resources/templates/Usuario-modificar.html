@@ -156,7 +156,30 @@
 			</div>
 			<div class="col text-center">
 				<a th:href="@{/usuario}" class="btn btn-danger shadow">Cancelar</a>
-				<input type="submit" class="btn btn-success shadow" value="Modificar usuario">
+				
+				
+					<button type="button" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#ingresarcursoModal">
+						Modificar usuario
+					</button>
+					
+					<div class="modal fade shadow" id="ingresarcursoModal" tabindex="-1"
+						aria-labelledby="ingresarcursoModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-center">¿Estás seguro de que quieres modificar un usuario?</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Cerrar</button>
+									<input type="submit" class="btn btn-success shadow" value="Modificar usuario">
+								</div>
+							</div>
+						</div>
+					</div>
+				
 			</div>
 		</div>
 		<br>
