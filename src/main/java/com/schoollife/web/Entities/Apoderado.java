@@ -28,7 +28,6 @@ public class Apoderado {
 	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_apoderado; //obligatorio
 	private String estudiante_id; //obligatorio
-	@Max(value = 9,message = "Ingrese un número de documento válido")
 	private Integer numero_documento; //obligatorio
 	@NotBlank
 	private String nombres; //obligatorio
