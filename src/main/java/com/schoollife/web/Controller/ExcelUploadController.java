@@ -56,57 +56,81 @@ public class ExcelUploadController {
 		this.programaS =programaS;
 	}
 
-	@GetMapping("/upload")
-    public String uploadForm(Model model,HttpSession sesion) {
-	if(sesion.getAttribute("user") != null) {
-				
-				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
-				model.addAttribute("uSesion",uSesion.get(0));
-				model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));	
-				
-		    	model.addAttribute("excelData", new ArrayList<List<String>>());
-		        return "Import";
-		}
-		return "Login";
-	 
-	    }
+    @GetMapping("/upload")
+    public String uploadForm(Model model, HttpSession sesion) {
+        if (sesion.getAttribute("user") != null) {
+            List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
+            model.addAttribute("uSesion", uSesion.get(0));
+            model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));    
+            model.addAttribute("excelData", new ArrayList<List<String>>());
+            return "Import";
+        }
+        return "Login";
+    }
+	
+    @PostMapping("/preview")
+    public String previewFile(@RequestParam("file") MultipartFile file, Model model, HttpSession sesion) {
+        if (sesion.getAttribute("user") != null) {
+            List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
+            model.addAttribute("uSesion", uSesion.get(0));
+            model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+
+            if (file.isEmpty()) {
+                model.addAttribute("message", "Por favor selecciona un archivo para subir.");
+                model.addAttribute("excelData", new HashMap<String, List<List<String>>>());
+                return "Import";
+            }
+            try {
+                Map<String, List<List<String>>> excelDataMap = processExcelFile(file.getInputStream());
+                model.addAttribute("excelData", excelDataMap);
+
+                List<List<String>> estudiantesData = excelDataMap.get("Estudiantes");
+                model.addAttribute("estudiantes", estudiantesData);  
+                List<List<String>> apoderadosData = excelDataMap.get("Apoderados");
+                model.addAttribute("apoderados", apoderadosData); 
+                List<List<String>> programaData = excelDataMap.get("Programa_Integracion");
+                model.addAttribute("programa", programaData); 
+
+                sesion.setAttribute("excelData", excelDataMap);
+                model.addAttribute("message", "Vista previa del archivo: " + file.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("message", "Error al procesar el archivo.");
+            }
+
+            return "Import";
+        }
+        return "Login";
+    }
 
 	
-	@PostMapping("/upload")
-	public String uploadFile(@RequestParam("file") MultipartFile file, Model model, HttpSession sesion) {
-	    if (sesion.getAttribute("user") != null) {
-	        List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
-	        model.addAttribute("uSesion", uSesion.get(0));
-	        model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+    @PostMapping("/upload")
+    public String uploadFile(HttpSession sesion, Model model) {
+        if (sesion.getAttribute("user") != null) {
+            List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
+            model.addAttribute("uSesion", uSesion.get(0));
+            model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
 
-	        if (file.isEmpty()) {
-	            model.addAttribute("message", "Por favor selecciona un archivo para subir.");
-	            model.addAttribute("excelData", new HashMap<String, List<List<String>>>()); // Inicializa excelData como un mapa vacío
-	            return "Import";
-	        }
-	        try {
-	            Map<String, List<List<String>>> excelDataMap = processExcelFile(file.getInputStream());
-	            model.addAttribute("excelData", excelDataMap);
-	            
-	            List<List<String>> estudiantesData = excelDataMap.get("Estudiantes");
-	            model.addAttribute("estudiantes",estudiantesData);  
-	            List<List<String>> apoderadosData = excelDataMap.get("Apoderados");
-	            model.addAttribute("apoderados",apoderadosData); 
-	            List<List<String>> programaData = excelDataMap.get("Programa_Integracion");
-	            model.addAttribute("programa",programaData); 
+            Map<String, List<List<String>>> excelDataMap = (Map<String, List<List<String>>>) sesion.getAttribute("excelData");
+            if (excelDataMap == null) {
+                model.addAttribute("message", "No hay datos para subir.");
+                return "Import";
+            }
 
-	            // Guarda los datos en la base de datos
-	            saveExcelDataToDatabase(excelDataMap);
-	            model.addAttribute("message", "Archivo subido correctamente: " + file.getOriginalFilename());
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            model.addAttribute("message", "Error al subir el archivo.");
-	        }
+            try {
+                // Guarda los datos en la base de datos
+                saveExcelDataToDatabase(excelDataMap);
+                model.addAttribute("message", "Datos subidos correctamente.");
+                sesion.removeAttribute("excelData");
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("message", "Error al subir los datos.");
+            }
 
-	        return "Import";
-	    }
-	    return "Login";
-	}
+            return "Import";
+        }
+        return "Login";
+    }
     
     public Map<String, List<List<String>>> processExcelFile(InputStream inputStream) throws IOException {
         Map<String, List<List<String>>> excelDataMap = new HashMap<>();

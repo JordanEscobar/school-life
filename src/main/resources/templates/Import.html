@@ -25,19 +25,25 @@
     <br>
     <div class="row">
         <div class="col">
-            <!-- Formulario para subir archivo Excel -->
-            <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-                <input class="form-control" type="file" name="file" accept=".xls,.xlsx" />
-                <!-- Mensaje de resultado de la carga -->
-                <p th:text="${message}"></p>
+        	<form action="#" th:action="@{/preview}" th:method="post" enctype="multipart/form-data">
+		        <label for="file">Selecciona un archivo Excel:</label>
+		        <input class="form-control" type="file" id="file" name="file">
 
         </div>
         <div class="col">
-                <button class="btn btn-primary" type="submit">Importar</button>
-            </form>
-
+        	<br>
+			<button class="btn btn-secondary" type="submit">Vista previa</button>
+		    </form>
+		    <div th:if="${message}">
+				<p th:text="${message}"></p>
+			</div>
         </div>
-        <div class="col"></div>
+        <div class="col text-start">        	
+        	<form action="#" th:action="@{/upload}" th:method="post">
+        		<br>
+	            <button class="btn btn-success" type="submit">Subir Datos</button>
+	        </form>
+	    </div>
     </div>
     
 
