@@ -141,7 +141,7 @@ public class UsuarioController {
 			us.setFecha_nacimiento(usuario.getFecha_nacimiento());
 			us.setGenero(usuario.getGenero());
 			us.setNombre(usuario.getNombre());
-			
+			us.setTelefono(usuario.getTelefono());
 			if(rutValidationService.isValidRut(usuario.getRutUsuario())) {
 				for (Usuario u : userService.getAll()) {
 					if(usuario.getRutUsuario().equals(u.getRutUsuario())) {
@@ -159,8 +159,7 @@ public class UsuarioController {
 				model.addAttribute("rutinvalido3", rutinvalido3);
 				return "Registro";				
 			}	
-			us.setRolId(usuario.getRolId());
-			us.setTelefono(usuario.getTelefono());
+			
 			
 			if (errores.hasErrors()) {
 				return "Registro";

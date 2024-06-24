@@ -40,6 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         user.setNombre(usuario.getNombre());
         user.setRutUsuario(usuario.getRutUsuario());
         user.setTelefono(usuario.getTelefono());
+        user.setRolId(usuario.getRolId());
         usuarioR.save(user);
     }
 
