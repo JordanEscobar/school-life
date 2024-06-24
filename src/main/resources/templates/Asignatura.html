@@ -34,43 +34,27 @@
 </div>
 <br><br>
 <div class="container">
-<h1>Cursos</h1>
+<h1><span><a class="btn"  th:href="@{/curso}" data-toggle="tooltip" data-placement="bottom" title="Volver a curso"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Asignaturas</h1>
 <br>
 <div class="container">
-	<a th:href="@{/curso/ingresar}" class="btn btn-outline-dark">Registrar Curso</a>
+	<a th:href="@{/curso/ingresar}" class="btn btn-outline-dark">Registrar Asignatura</a>
 	<br><br>
 	<table class="table table-hover bounded border text-center shadow">
 			<thead class="table">
 				<tr>
-					<th>#</th>
-					<th>Nombre</th>
-					<th>Nivel enseñanza</th>
-					<th>Jornada</th>
-					<th>Capacidad</th>
-					<th>Local</th>
-					<th>Número sala</th>
-					<th>Apodo</th>
-					<th>Establecimiento</th>
-					<th>Opciones</th>
+					<th>ID ASIGNATURA</th>
+					<th>NOMBRE</th>
+					<th>PROFESOR</th>
+					<th>TIENE PROFESOR TITULAR</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="c : ${cursos}">
-					<td th:text="${c.idCurso}"></td>
-					<td th:text="${c.nivel} + ' ' + ${c.letra}"></td>
-					<td th:text="${c.nivel_ensenanza}"></td>
-					<td th:text="${c.jornada}"></td>
-					<td th:text="${c.capacidad}"></td>
-					<td th:text="${c.local}"></td>
-					<td th:text="${c.numero_sala}"></td>
-					<td th:text="${c.apodo}"></td>
-					<td th:each="e : ${establecimientos}" th:if="${c.establecimiento_id == e.rbd}" th:text="${e.nombre}"></td>
-					<td>
-						<a th:href="@{/curso/modificar/} + ${c.idCurso}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
-						<a class="btn btn-light" th:href="@{/asignatura/} + ${c.idCurso}"><i class="fa-solid fa-book" data-toggle="tooltip" data-placement="bottom" title="Asignaturas"></i></a>
-					</td>
-					
-
+				<tr th:each="a : ${asignaturas}">
+					<td th:text="${a.id_asignatura}"></td>
+					<td th:text="${a.nombre}"></td>
+					<td th:text="${a.profesorId}"></td>
+					<td th:text="SI" th:if="${a.tieneProfesorTitular} == True"></td>
+					<td th:text="NO" th:if="${a.tieneProfesorTitular} == False"></td>
 				</tr>
 			</tbody>
 	</table>
