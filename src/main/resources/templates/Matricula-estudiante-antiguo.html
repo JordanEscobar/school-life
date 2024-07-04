@@ -37,7 +37,6 @@
 		<span th:if="${uSesion.rolId} == 3" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Super administrador'"></span>
 		
 	</div>
-
 		<div class="d-flex justify-content-end">
 			<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}"><i
 				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
@@ -48,6 +47,9 @@
 		class="fa-sharp fa-solid fa-chevron-left"></i>&nbsp; Matrículas</a>
 	<br><br>
 		<div class="container">
+			<div class="col-md-4 mt-5">
+				<div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>	
+			</div>
 			<h1>Ingresar Matrícula estudiante antiguo</h1>
 			<br>
 			<br>

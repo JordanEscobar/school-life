@@ -20,6 +20,12 @@
 <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
 <link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.css">
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.js"></script>
+
 </head>
 <body class="pt-sans-regular">
 
@@ -87,7 +93,7 @@
     		<a class="btn btn-info shadow" th:if="${hoja_de_vida.size() > 0}" th:href="@{/Hoja-de-vida/ver/} + ${estudianteId} + '?format=pdf'" target="_blank" >Descargar anotaciones</a>
     	</div>
     	<br>
-        <table class="table table-bordered text-center border rounded container shadow">
+        <table id="tablacontenido" class="table table-hover bounded border text-center shadow">
             <thead>
                 <tr>
                     <th>#</th>
@@ -152,6 +158,36 @@
 
 
 <script>
+
+	$(document).ready(function() {
+	    $('#tablacontenido').DataTable({
+	        "language": {
+	            "decimal": "",
+	            "emptyTable": "No hay datos disponibles en la tabla",
+	            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+	            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+	            "infoFiltered": "(filtrado de _MAX_ entradas totales)",
+	            "infoPostFix": "",
+	            "thousands": ",",
+	            "lengthMenu": "Mostrar _MENU_ entradas",
+	            "loadingRecords": "Cargando...",
+	            "processing": "Procesando...",
+	            "search": "Buscar:",
+	            "zeroRecords": "No se encontraron registros coincidentes",
+	            "paginate": {
+	                "first": "Primero",
+	                "last": "Último",
+	                "next": "Siguiente",
+	                "previous": "Anterior"
+	            },
+	            "aria": {
+	                "sortAscending": ": activar para ordenar la columna de manera ascendente",
+	                "sortDescending": ": activar para ordenar la columna de manera descendente"
+	            }
+	        }
+	    });
+	});
+
 	document.getElementById('filtroSelect').addEventListener('change', function() {
 		document.getElementById('filtroForm').submit();	
 	});

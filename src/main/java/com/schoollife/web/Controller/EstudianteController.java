@@ -451,7 +451,7 @@ public class EstudianteController {
 	
 	// filtrar por Rut matricula de estudiante existente
 		@PostMapping(path = "/filtrarmatricula", consumes = "application/x-www-form-urlencoded")
-		public String filtroMatriculaExistenteByRut(Model model, @RequestParam("filtrorutmatricula") String filtrorutmatricula,HttpSession sesion) {
+		public String filtroMatriculaExistenteByRut(Model model, @RequestParam("filtrorutmatricula") String filtrorutmatricula,HttpSession sesion, RedirectAttributes flash) {
 			if(sesion.getAttribute("user")!=null)
 			{
 				List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
@@ -462,6 +462,10 @@ public class EstudianteController {
 					return "redirect:/matricula/estudiante/antiguo/ingresar";
 				}
 				Estudiante estudiante = estudianteS.findMatriculaExistente(filtrorutmatricula, uSesion.get(0).getEstablecimientoId());
+				if(!estudiante.isEstado()) {
+					flash.addFlashAttribute("success", "Rut Inválido");
+					return "redirect:/matricula/estudiante/antiguo/ingresar";
+				}
 				if(estudiante == null)
 				{
 					return "redirect:/matricula/estudiante/antiguo/ingresar";
