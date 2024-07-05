@@ -81,7 +81,26 @@
 				<!--  <td th:each="r : ${roles}" th:if="${r.id_rol} == ${u.roles[0].id_rol}" th:text="${r.nombre}"></td>-->
 				<td>
 					<a class="btn btn-info" th:href="@{/usuario/modificar/} + ${u.rutUsuario}" data-toggle="tooltip" data-placement="bottom" title="Editar usuario"><i class="fa-solid fa-user-pen"></i></a>
-					<a class="btn btn-danger" th:href="@{/usuario/eliminar/} + ${u.rutUsuario}" data-toggle="tooltip" data-placement="bottom" title="Eliminar usuario"><i class="fa-regular fa-trash-can"></i></a>
+					<a class="btn btn-danger" data-toggle="modal" th:attr="data-target='#confirmDeleteModal_' +${u.rutUsuario}" data-placement="bottom" title="Eliminar usuario"><i class="fa-regular fa-trash-can"></i></a>
+                       
+                       <!-- Modal de confirmación -->
+                        <div class="modal fade" th:id="'confirmDeleteModal_' + ${u.rutUsuario}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" th:id="'confirmDeleteModalLabel_' + ${u.rutUsuario}">Confirmar Eliminación</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estás seguro de que deseas eliminar este usuario?
+                                    </div>
+                                    <div class="modal-footer">
+                                    	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <a th:href="@{/usuario/eliminar/} + ${u.rutUsuario}" class="btn btn-danger">Eliminar usuario</a>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+					
 				</td>
 			</tr>
 		</tbody>

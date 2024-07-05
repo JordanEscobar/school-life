@@ -156,8 +156,45 @@
 				<td>
 							<a th:href="@{/resumenMatricula/} + ${e.runEstudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Ver matrícula en detalle"><i class="fa-regular fa-user"></i></a>
 							<a th:href="@{/matricula/modificar/} + ${e.runEstudiante}" th:if="${e.estado} == True" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
-							<a th:href="@{/matricula/retirada/} + ${e.runEstudiante}" th:if="${e.estado} == True" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Retirar matrícula" ><i class="fa-solid fa-ban"></i></a>				
-							<a th:href="@{/matricula/recuperada/} + ${e.runEstudiante}" th:if="${e.estado} == False" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Recuperar matrícula" ><i class="fa-solid fa-rotate"></i></a>
+																	
+						<a class="btn btn-light" data-toggle="modal" th:if="${e.estado} == True" th:attr="data-target='#retiroModal_' + ${e.runEstudiante}" data-placement="bottom" title="Retirar matrícula"><i class="fa-solid fa-ban"></i></a>    
+                        <!-- Modal de retiro matricula -->
+                        <div class="modal fade" th:id="'retiroModal_' + ${e.runEstudiante}" tabindex="-1" aria-labelledby="retiroModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" th:id="'retiroModalLabel_' + ${e.runEstudiante}">Confirmar Retiro de matrícula</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estás seguro de que deseas retirar la matrícula?
+                                    </div>
+                                    <div class="modal-footer">          
+                                    	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>                         	
+                                        <a th:href="@{/matricula/retirada/} + ${e.runEstudiante}" class="btn btn-danger">Retirar Matrícula</a>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>               							
+							
+						<a class="btn btn-light" data-toggle="modal" th:if="${e.estado} == False" th:attr="data-target='#recuperarModal_' + ${e.runEstudiante}" data-placement="bottom" title="Recuperar matrícula"><i class="fa-solid fa-rotate"></i></a>    
+                        <!-- Modal de recuperar matricula -->
+                        <div class="modal fade" th:id="'recuperarModal_' + ${e.runEstudiante}" tabindex="-1" aria-labelledby="recuperarModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" th:id="'recuperarModalLabel_' + ${e.runEstudiante}">Confirmar Recuperación de matrícula</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estás seguro de que deseas recuperar la matrícula?
+                                    </div>
+                                    <div class="modal-footer">
+                                    	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <a th:href="@{/matricula/recuperada/} + ${e.runEstudiante}" class="btn btn-success">Recuperar matrícula</a>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>              	
+							
 							<a th:href="@{/resumenMatricula/} + ${e.runEstudiante} + '?format=pdf'" target="_blank" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Descargar matrícula"><i class="fa-solid fa-file-arrow-down"></i></a>
 				</td>
 			</tr>		
