@@ -117,7 +117,8 @@
 <br>
 <div class="container">
 	<div class="d-flex justify-content-end">
-		<a class="btn btn-secondary shadow" th:href="@{/upload}">Cargar matriculas</a>
+		<a class="btn btn-secondary shadow" th:href="@{/upload}" data-toggle="tooltip" data-placement="bottom" title="Ingreso múltiple de matrículas">Cargar matriculas</a>&nbsp;
+		<a class="btn btn-success" th:href="@{/downloadTemplate}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Plantilla para ingreso múltiple de matrículas">Descargar Plantilla</a>
 	</div>
 	<br>
 	<table id="tablacontenido" class="table table-hover  text-center border rounded container shadow">

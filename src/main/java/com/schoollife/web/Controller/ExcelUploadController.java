@@ -118,8 +118,8 @@ public class ExcelUploadController {
             }
 
             try {
-                // Guarda los datos en la base de datos
-                saveExcelDataToDatabase(excelDataMap);
+                // Guarda los datos en la base de datos - LE AÑADIMOS LA SESION PARA SACAR EL ID DEL ESTABLECIMIENTO
+                saveExcelDataToDatabase(excelDataMap, sesion);
                 model.addAttribute("message", "Datos subidos correctamente.");
                 sesion.removeAttribute("excelData");
             } catch (Exception e) {
@@ -201,8 +201,11 @@ public class ExcelUploadController {
         }
     }
     
-    private void saveExcelDataToDatabase(Map<String, List<List<String>>> excelDataMap) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+    private void saveExcelDataToDatabase(Map<String, List<List<String>>> excelDataMap, HttpSession sesion) {
+    	List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
+
+    	
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
 
         // Procesar datos de la hoja de Estudiantes
         if (excelDataMap.containsKey("Estudiantes")) {
@@ -217,22 +220,9 @@ public class ExcelUploadController {
                 e.setNombre(rowData.get(1));
                 e.setApaterno(rowData.get(2));
                 e.setAmaterno(rowData.get(3));
-                
-                // Número de matrícula
-                String numeroMatriculaStr = rowData.get(4);
-                if (StringUtils.isNumeric(numeroMatriculaStr)) {
-                    try {
-                        e.setNumero_matricula(Integer.parseInt(numeroMatriculaStr));
-                    } catch (NumberFormatException nfe) {
-                        System.err.println("Error al convertir número de matrícula: " + numeroMatriculaStr);
-                        nfe.printStackTrace();
-                    }
-                } else {
-                    System.err.println("Valor no numérico encontrado para número de matrícula: " + numeroMatriculaStr);
-                }
 
                 // Cantidad de computadores
-                String cantidadComputadoresStr = rowData.get(18);
+                String cantidadComputadoresStr = rowData.get(17);
                 if (StringUtils.isNumeric(cantidadComputadoresStr)) {
                     try {
                         e.setCantidad_computadores_casa(Integer.parseInt(cantidadComputadoresStr));
@@ -246,9 +236,9 @@ public class ExcelUploadController {
 
                 // Fechas
                 try {
-                    Date fechaMatricula = dateFormat.parse(rowData.get(5));
-                    Date fechaNacimiento = dateFormat.parse(rowData.get(6));
-                    Date fechaUltimaVacuna = dateFormat.parse(rowData.get(32));
+                    Date fechaMatricula = dateFormat.parse(rowData.get(4));
+                    Date fechaNacimiento = dateFormat.parse(rowData.get(5));
+                    Date fechaUltimaVacuna = dateFormat.parse(rowData.get(31));
                     e.setFecha_matricula(fechaMatricula);
                     e.setFecha_nacimiento(fechaNacimiento);
                     e.setFecha_ultima_vacuna_COVID(fechaUltimaVacuna);
@@ -258,23 +248,23 @@ public class ExcelUploadController {
                 }
 
                 // Asignar el resto de los datos
-                e.setPais_nacimiento(rowData.get(7));
-                e.setGenero(rowData.get(8));
-                e.setDireccion(rowData.get(9));
-                e.setComuna(rowData.get(10));
-                e.setCorreo_electronico(rowData.get(11));
-                e.setTelefono(rowData.get(12));
-                e.setCelular(rowData.get(13));
-                e.setColegio_procedencia(rowData.get(14));
-                e.setNombre_contacto_emergencia(rowData.get(15));
-                e.setTelefono_emergencia(rowData.get(16));
-                e.setVive_con(rowData.get(17));
-                e.setReligion(rowData.get(19));
-                e.setAcepta_clases_religion("si".equalsIgnoreCase(rowData.get(20)));
-                e.setBeca(rowData.get(21));
+                e.setPais_nacimiento(rowData.get(6));
+                e.setGenero(rowData.get(7));
+                e.setDireccion(rowData.get(8));
+                e.setComuna(rowData.get(9));
+                e.setCorreo_electronico(rowData.get(10));
+                e.setTelefono(rowData.get(11));
+                e.setCelular(rowData.get(12));
+                e.setColegio_procedencia(rowData.get(13));
+                e.setNombre_contacto_emergencia(rowData.get(14));
+                e.setTelefono_emergencia(rowData.get(15));
+                e.setVive_con(rowData.get(16));
+                e.setReligion(rowData.get(18));
+                e.setAcepta_clases_religion("si".equalsIgnoreCase(rowData.get(19)));
+                e.setBeca(rowData.get(20));
 
                 // Estatura
-                String estaturaStr = rowData.get(22);
+                String estaturaStr = rowData.get(21);
                 if (StringUtils.isNumeric(estaturaStr)) {
                     try {
                         e.setEstatura(Integer.parseInt(estaturaStr));
@@ -287,7 +277,7 @@ public class ExcelUploadController {
                 }
 
                 // Peso
-                String pesoStr = rowData.get(23);
+                String pesoStr = rowData.get(22);
                 if (StringUtils.isNumeric(pesoStr)) {
                     try {
                         e.setPeso(Double.parseDouble(pesoStr));
@@ -299,15 +289,15 @@ public class ExcelUploadController {
                     System.err.println("Valor no numérico encontrado para peso: " + pesoStr);
                 }
 
-                e.setGrupo_sanguineo(rowData.get(24));
-                e.setAlergias_alimentos(rowData.get(25));
-                e.setAlergias_medicamentos(rowData.get(26));
-                e.setMedicamentos_contraindicados(rowData.get(27));
-                e.setEnfermedades_cronicas(rowData.get(28));
-                e.setVacuna_covid("si".equalsIgnoreCase(rowData.get(29)));
+                e.setGrupo_sanguineo(rowData.get(23));
+                e.setAlergias_alimentos(rowData.get(24));
+                e.setAlergias_medicamentos(rowData.get(25));
+                e.setMedicamentos_contraindicados(rowData.get(26));
+                e.setEnfermedades_cronicas(rowData.get(27));
+                e.setVacuna_covid("si".equalsIgnoreCase(rowData.get(28)));
 
                 // Cantidad de vacunas COVID
-                String cantidadVacunasCovidStr = rowData.get(30);
+                String cantidadVacunasCovidStr = rowData.get(29);
                 if (StringUtils.isNumeric(cantidadVacunasCovidStr)) {
                     try {
                         e.setCantidad_vacunas_covid(Integer.parseInt(cantidadVacunasCovidStr));
@@ -319,43 +309,91 @@ public class ExcelUploadController {
                     System.err.println("Valor no numérico encontrado para cantidad de vacunas COVID: " + cantidadVacunasCovidStr);
                 }
 
-                e.setEsquema_completo_vacunacion_covid("si".equalsIgnoreCase(rowData.get(31)));
-                e.setApto_educacion_fisica("si".equalsIgnoreCase(rowData.get(33)));
-                e.setSeguro_escolar_privado("si".equalsIgnoreCase(rowData.get(35)));
-                e.setSistema_prevision(rowData.get(34));
-                e.setNacionalidad(rowData.get(36));
-                e.setEtnia(rowData.get(37));
-                e.setConsultorio_clinica(rowData.get(38));
-                e.setObservaciones(rowData.get(39));
-                e.setEstado("MATRICULADO".equalsIgnoreCase(rowData.get(40)));
+                e.setEsquema_completo_vacunacion_covid("si".equalsIgnoreCase(rowData.get(30)));
+                e.setApto_educacion_fisica("si".equalsIgnoreCase(rowData.get(32)));
+                e.setSeguro_escolar_privado("si".equalsIgnoreCase(rowData.get(34)));
+                e.setSistema_prevision(rowData.get(33));
+                e.setNacionalidad(rowData.get(35));
+                e.setEtnia(rowData.get(36));
+                e.setConsultorio_clinica(rowData.get(37));
+                e.setObservaciones(rowData.get(38));
+                //ingresan en estado matriculado
+                e.setEstado(true);
 
-                // Establecimiento ID
-                String establecimientoIdStr = rowData.get(41);
-                if (StringUtils.isNumeric(establecimientoIdStr)) {
-                    try {
-                        e.setEstablecimientoId(Integer.parseInt(establecimientoIdStr));
-                    } catch (NumberFormatException nfe) {
-                        System.err.println("Error al convertir establecimiento ID: " + establecimientoIdStr);
-                        nfe.printStackTrace();
-                    }
-                } else {
-                    System.err.println("Valor no numérico encontrado para establecimiento ID: " + establecimientoIdStr);
-                }
-
-                // Curso ID
-                String cursoIdStr = rowData.get(42);
+                //tomamos el id del establecimiento de la sesion iniciada
+                e.setEstablecimientoId(uSesion.get(0).getEstablecimientoId());
+                
+                // Curso ID se debe modificar al nombre de curso y validar.
+                /*String cursoIdStr = rowData.get(39);
                 if (StringUtils.isNumeric(cursoIdStr)) {
                     try {
-                        e.setCurso_id(Integer.parseInt(cursoIdStr));
+                    	if(cursoIdStr.equalsIgnoreCase("PRIMERO A"))
+                    	{
+                    		e.setCurso_id(1);
+                    	}
+                    	if(cursoIdStr.equalsIgnoreCase("PRIMERO B"))
+                    	{
+                    		e.setCurso_id(2);
+                    	} 
+                        
+                      //número de matrícula  
+                        Integer numeroEstudiantesCurso = estudianteS.findEstudiantePorCurso(Integer.parseInt(cursoIdStr)).size();
+                        Integer numeroEstudiantesEstablecimiento = estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size();
+                        if(numeroEstudiantesCurso < 45) {
+                        	e.setNumero_matricula(numeroEstudiantesEstablecimiento + 1);
+                        	System.out.println("se a agregado la matricula n°: " + numeroEstudiantesEstablecimiento + 1);                 	
+                        }else {
+                        	System.out.println("se a llegado al limite de estudiantes del curso");
+                        }
+                        
                     } catch (NumberFormatException nfe) {
                         System.err.println("Error al convertir curso ID: " + cursoIdStr);
                         nfe.printStackTrace();
                     }
                 } else {
                     System.err.println("Valor no numérico encontrado para curso ID: " + cursoIdStr);
-                }
+                }    */   
+        
+     // Mapa de nombres de curso a IDs
+        Map<String, Integer> cursoMap = new HashMap<>();
+        cursoMap.put("PRIMERO A", 1);
+        cursoMap.put("PRIMERO B", 2);
+        cursoMap.put("SEGUNDO A", 3);
+        cursoMap.put("SEGUNDO B", 4);
+        cursoMap.put("TERCERO A", 5);
+        cursoMap.put("TERCERO B", 6);
+        cursoMap.put("CUARTO A", 7);
+        cursoMap.put("CUARTO B", 8);
+        // Agrega aquí otros cursos según sea necesario
 
-                e.setEs_pie("si".equalsIgnoreCase(rowData.get(43)));
+        // Obteniendo el nombre del curso
+        String cursoNombre = rowData.get(39);
+
+        // Verifica si el nombre del curso está en el mapa
+        if (cursoMap.containsKey(cursoNombre)) {
+            try {
+                int cursoId = cursoMap.get(cursoNombre);
+                e.setCurso_id(cursoId);
+
+                // Número de matrícula
+                Integer numeroEstudiantesCurso = estudianteS.findEstudiantePorCurso(cursoId).size();
+                Integer numeroEstudiantesEstablecimiento = estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size();
+                if (numeroEstudiantesCurso < 45) {
+                    e.setNumero_matricula(numeroEstudiantesEstablecimiento + 1);
+                    System.out.println("Se ha agregado la matrícula n°: " + (numeroEstudiantesEstablecimiento + 1));
+                } else {
+                    System.out.println("Se ha llegado al límite de estudiantes del curso");
+                }
+            } catch (Exception ex) {
+                System.err.println("Error al procesar el curso: " + cursoNombre);
+                ex.printStackTrace();
+            }
+        } else {
+            System.err.println("Nombre del curso no encontrado: " + cursoNombre);
+        }
+
+
+                e.setEs_pie("si".equalsIgnoreCase(rowData.get(40)));
 
                 // Guardar en la base de datos
                 estudianteS.createEstudiante(e);
