@@ -48,6 +48,9 @@
     <div class="col-md-4 mt-5">
         <div class="alert alert-success" th:if="${success} != null" th:text="${success}"></div>    
     </div>
+    <div class="col-md-4 mt-5">
+		<div class="alert alert-warning" th:if="${faltas}" th:text="'PROBLEMA CON LAS FALTAS, tiene 5 o más faltas'"></div>	
+	</div>
     <h1 class=""><span><a class="btn"  th:href="@{/hojadevida}" data-toggle="tooltip" data-placement="bottom" title="Volver a inicio"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Hoja de vida</h1>
     <br><br>
     <div class="row">
@@ -152,9 +155,7 @@
         	<h5>No hay anotaciones registradas actualmente.</h5>
         </div>
     </div>
-    
     <br><br>
-    
 </div>
 
 
@@ -198,6 +199,19 @@
 	});
 
 </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para lanzar el modal automáticamente si faltas es true -->
+    <script>
+        $(document).ready(function() {
+            var faltas = /*[[${faltas}]]*/ false;
+            if (faltas) {
+                $('#faltasModal').modal('show');
+            }
+        });
+    </script>
 
 </body>
 </html>

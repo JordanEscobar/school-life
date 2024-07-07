@@ -50,6 +50,16 @@
                     <label>Tipo de evento</label>
                     <select th:field="*{tipoEvento}" class="form-select">
                         <option th:value="'RECONOCIMIENTO'">RECONOCIMIENTO</option>
+                        <option th:value="'DERIVACIÓN EXTERNA'">DERIVACIÓN EXTERNA</option>
+						<option th:value="'FALTA'">FALTA</option>
+						<option th:value="'FALTA LEVE'">FALTA LEVE</option>
+						<option th:value="'FALTA GRAVE'">FALTA GRAVE</option>
+						<option th:value="'FALTA GRAVÍSIMA'">FALTA GRAVÍSIMA</option>
+						<option th:value="'ENTREVISTA CON EL ESTUDIANTE'">ENTREVISTA CON EL ESTUDIANTE</option>
+						<option th:value="'ANOTACIÓN POSITIVA'">ANOTACIÓN POSITIVA</option>
+						<option th:value="'ANOTACIÓN NEGATIVA'">ANOTACIÓN NEGATIVA</option>
+						<option th:value="'ANOTACIÓN GENERAL DEL CURSO'">ANOTACIÓN GENERAL DEL CURSO</option>
+						<option th:value="'OTROS'">OTROS</option>
                         <!-- Otras opciones -->
                     </select>
                     <span class="text-danger" th:if="${#fields.hasErrors('tipoEvento')}" th:errors="*{tipoEvento}">Error tipoEvento</span>

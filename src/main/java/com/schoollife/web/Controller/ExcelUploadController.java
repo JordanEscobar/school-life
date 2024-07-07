@@ -448,10 +448,31 @@ public class ExcelUploadController {
                 a.setTelefono_apoderado(rowData.get(14));
                 a.setCelular_apoderado(rowData.get(15));
                 a.setCorreo_electronico_apoderado(rowData.get(16));
-                a.setEs_tutor("SI".equalsIgnoreCase(rowData.get(17)));
-                a.setAcepta_manual_convivencia_escolar("SI".equalsIgnoreCase(rowData.get(18)));
-                a.setAutorizacion_fotografia_grabacion("SI".equalsIgnoreCase(rowData.get(19)));
-                a.setAutorizado_retirar_establecimiento("SI".equalsIgnoreCase(rowData.get(20)));
+                
+                if(rowData.get(17).equalsIgnoreCase("si")) {
+                	a.setEs_tutor(true);
+                }else {
+                	a.setEs_tutor(false);
+                }
+                
+                if(rowData.get(18).equalsIgnoreCase("si")) {
+                	a.setAcepta_manual_convivencia_escolar(true);
+                }else {
+                	a.setAcepta_manual_convivencia_escolar(false);
+                }
+                
+                if(rowData.get(19).equalsIgnoreCase("si")) {
+                	a.setAutorizacion_fotografia_grabacion(true);
+                }else {
+                	a.setAutorizacion_fotografia_grabacion(false);
+                }
+                
+                if(rowData.get(20).equalsIgnoreCase("si")) {
+                	a.setAutorizado_retirar_establecimiento(true);
+                }else {
+                	a.setAutorizado_retirar_establecimiento(false);
+                }
+                
                 a.setEstado_civil(rowData.get(21));
 
                 // Guardar en la base de datos
@@ -481,7 +502,12 @@ public class ExcelUploadController {
                 }
 
                 p.setEstudiante_id(rowData.get(1));
-                p.setPermanencia_pie("PERMANENTE".equalsIgnoreCase(rowData.get(2)));
+                if(rowData.get(2).equalsIgnoreCase("si")) {
+                	p.setPermanencia_pie(true);
+                }else {
+                	p.setPermanencia_pie(false);
+                }
+
                 p.setTipo_permanencia(rowData.get(3));
                 p.setIndicaciones_generales(rowData.get(4));
 

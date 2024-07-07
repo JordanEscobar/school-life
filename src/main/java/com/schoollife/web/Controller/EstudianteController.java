@@ -212,13 +212,13 @@ public class EstudianteController {
         if (sesion.getAttribute("user") != null) {
             List<Usuario> uSesion = (List<Usuario>) sesion.getAttribute("user");
             model.addAttribute("user", sesion.getAttribute("user"));
-            model.addAttribute("uSesion",uSesion.get(0));
+            model.addAttribute("uSesion", uSesion.get(0));
             model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
             model.addAttribute("estudianteId", estudianteId);
             var hojas = hojaService.getByEstudianteId(estudianteId);
             sesion.setAttribute("runEstudiante", estudianteId);
             model.addAttribute("runEstudiante", sesion.getAttribute("runEstudiante"));
-            
+
             // Filtrar por año si se proporciona
             if (filtroanio != null) {
                 hojas = hojas.stream()
@@ -228,8 +228,21 @@ public class EstudianteController {
                              .collect(Collectors.toList());
             }
 
+            // Contar faltas
+            boolean faltas = false;
+            int acum = 0;
+            for (Hoja_de_vida h : hojas) {
+                if (h.getTipoEvento().contains("FALTA")) {
+                    acum++;
+                }
+            }
+            if (acum >= 5) {
+                faltas = true;
+            }
+            
+            model.addAttribute("faltas", faltas);
             var curso = cursoS.getAll(uSesion.get(0).getEstablecimientoId());
-            model.addAttribute("cursos",curso);
+            model.addAttribute("cursos", curso);
             model.addAttribute("hoja_de_vida", hojas);
             model.addAttribute("filtrotipohoja", filtrotipohoja);
             model.addAttribute("anios", hojaService.getDistinctYears(estudianteId));  // Agregar lista de años distintos
@@ -239,6 +252,7 @@ public class EstudianteController {
         }
         return "Login";
     }
+
 	
     @PostMapping(path = "/filtrarAnio", consumes = "application/x-www-form-urlencoded")
     public String filtroAnioHoja(@RequestParam(name = "filtroanio", required = false) Integer filtroanio, 

@@ -338,10 +338,10 @@ public class HomeController {
 			e.setCurso_id(estudiante.getCurso_id());
 			
 			if(estudianteS.getAll(uSesion.get(0).getEstablecimientoId()) != null || !uSesion.isEmpty()) {
-				Integer numMatricula = 1300 + estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size();
+				Integer numMatricula = estudianteS.getAll(uSesion.get(0).getEstablecimientoId()).size() + 1;
 				e.setNumero_matricula(numMatricula);
 			}else {
-				e.setNumero_matricula(1);
+				System.out.println("El numero de matricula debe completarse manualmente");
 			}
 			
 			e.setAcepta_clases_religion(estudiante.isAcepta_clases_religion());
