@@ -20,7 +20,7 @@
 <body>
 <br><br>
 <div class="container">
-    <h1><span><a class="btn" th:href="@{/matricula}" data-toggle="tooltip" data-placement="bottom" title="Volver a matrículas"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Carga masiva matrículas</h1>
+    <h1><span><a class="btn" th:href="@{/matricula}" data-toggle="tooltip" data-placement="bottom" title="Volver a matrículas"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span> Cargar matrículas</h1>
     
     <br>
     <div class="row">
@@ -147,7 +147,9 @@
             </tr>
         </tbody>
     </table>
+    </div>
     <br>
+    <div class="table-responsive">
     <h5 th:if="${excelData != null && excelData.size() > 0}">Información del apoderado</h5>
     <table class="table table-bordered text-center border rounded container shadow" th:if="${excelData != null && excelData.size() > 0}">
         <thead>
@@ -203,7 +205,9 @@
             </tr>
         </tbody>
     </table>
+    </div>   
     <br>
+    <div class="table-responsive">
     <h5 th:if="${excelData != null && excelData.size() > 0}">Información del programa de integración</h5>
     <table class="table table-bordered text-center border rounded container shadow" th:if="${excelData != null && excelData.size() > 0}">
         <thead>

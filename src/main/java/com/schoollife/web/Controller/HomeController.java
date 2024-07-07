@@ -286,7 +286,7 @@ public class HomeController {
 			boolean rutex2 = false;
 			model.addAttribute("rutexiste2", rutex2);
 			boolean rutinvalido2 = false;
-			model.addAttribute("rutinvalido2", rutinvalido2);
+			model.addAttribute("rutinvalido", rutinvalido2);
 					
 			Estudiante e = new Estudiante();
 	
@@ -311,7 +311,7 @@ public class HomeController {
 				}
 			}else {
 				rutinvalido2 = true;
-				model.addAttribute("rutinvalido2", rutinvalido2);
+				model.addAttribute("rutinvalido", rutinvalido2);
 				return "Matricula-ingresar";
 			}
 			//fecha actual en local date

@@ -222,13 +222,13 @@
 						</div>
 						<div class="col">
 							<label>Teléfono Celular<span class="text-danger">(*)</span></label> <input id="celular"
-								th:field="*{celular}" placeholder="Número de celular sin el +56 9" class="form-control" type="number">
+								th:field="*{celular}" placeholder="Solo números, sin el +56" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('celular')}"
 								th:errors="*{celular}" class="text-danger">Error Celular</span>
 						</div>
 						<div class="col">
 							<label>Teléfono Fijo<span>(opcional)</span></label> <input id="telefono"
-								th:field="*{telefono}" placeholder="Ingresa solo números" class="form-control" type="number">
+								th:field="*{telefono}" placeholder="Ingrese solo números" class="form-control" type="number">
 							<span th:if="${#fields.hasErrors('telefono')}"
 								th:errors="*{telefono}" class="text-danger">Error Celular</span>
 						</div>
@@ -247,7 +247,7 @@
 						</div>
 						<div class="col">
 							<label>Teléfono emergencia<span class="text-danger">(*)</span></label> <input
-								id="telefono_emergencia"  placeholder="Número de celular sin el +56 9" th:field="*{telefono_emergencia}"
+								id="telefono_emergencia"  placeholder="Solo números, sin el +56" th:field="*{telefono_emergencia}"
 								class="form-control" type="number"> <span
 								th:if="${#fields.hasErrors('telefono_emergencia')}"
 								th:errors="*{telefono_emergencia}" class="text-danger">Error Telefono
