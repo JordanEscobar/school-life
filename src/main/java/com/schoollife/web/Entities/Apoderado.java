@@ -27,7 +27,7 @@ public class Apoderado {
 	//@Length(min = 6, max = 11)
 	//@Pattern(regexp = "^[0-9]+-[0-9kK]{1}$", message = "El Rut debe ser sin puntos y con guión")
 	private String run_apoderado; //obligatorio
-	private String estudiante_id; //obligatorio
+	private String estudianteId; //obligatorio
 	private Integer numero_documento; //obligatorio
 	@NotBlank
 	private String nombres; //obligatorio
@@ -76,7 +76,7 @@ public class Apoderado {
 	private boolean autorizacion_fotografia_grabacion; //obligatorio
 	@NotNull
 	private boolean autorizado_retirar_establecimiento; //obligatorio
-	public Apoderado(@NotBlank String run_apoderado, String estudiante_id, @Min(6) Integer numero_documento,
+	public Apoderado(@NotBlank String run_apoderado, String estudianteId, Integer numero_documento,
 			@NotBlank String nombres, @NotBlank String apaterno_apoderado, @NotBlank String amaterno_apoderado,
 			String pasaporte, @NotBlank String parentesco, @NotBlank String tipo_apoderado,
 			@NotBlank String estado_civil, @NotNull @Past Date fecha_nacimiento_apoderado,
@@ -87,7 +87,7 @@ public class Apoderado {
 			@NotNull boolean autorizado_retirar_establecimiento) {
 		super();
 		this.run_apoderado = run_apoderado;
-		this.estudiante_id = estudiante_id;
+		this.estudianteId = estudianteId;
 		this.numero_documento = numero_documento;
 		this.nombres = nombres;
 		this.apaterno_apoderado = apaterno_apoderado;
@@ -118,11 +118,11 @@ public class Apoderado {
 	public void setRun_apoderado(String run_apoderado) {
 		this.run_apoderado = run_apoderado;
 	}
-	public String getEstudiante_id() {
-		return estudiante_id;
+	public String getEstudianteId() {
+		return estudianteId;
 	}
-	public void setEstudiante_id(String estudiante_id) {
-		this.estudiante_id = estudiante_id;
+	public void setEstudianteId(String estudianteId) {
+		this.estudianteId = estudianteId;
 	}
 	public Integer getNumero_documento() {
 		return numero_documento;
@@ -246,7 +246,7 @@ public class Apoderado {
 	}
 	@Override
 	public String toString() {
-		return "Apoderado [run_apoderado=" + run_apoderado + ", estudiante_id=" + estudiante_id + ", numero_documento="
+		return "Apoderado [run_apoderado=" + run_apoderado + ", estudianteId=" + estudianteId + ", numero_documento="
 				+ numero_documento + ", nombres=" + nombres + ", apaterno_apoderado=" + apaterno_apoderado
 				+ ", amaterno_apoderado=" + amaterno_apoderado + ", pasaporte=" + pasaporte + ", parentesco="
 				+ parentesco + ", tipo_apoderado=" + tipo_apoderado + ", estado_civil=" + estado_civil

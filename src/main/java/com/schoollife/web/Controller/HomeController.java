@@ -435,7 +435,7 @@ public class HomeController {
 		    model.addAttribute("comunas", establecimientoS.comunas());
 		    
 		    // Verificar que el estudiante_id existe en la base de datos
-		    if (!estudianteS.estudianteExiste(apoderado.getEstudiante_id())) {
+		    if (!estudianteS.estudianteExiste(apoderado.getEstudianteId())) {
 		        errores.rejectValue("estudiante_id", "error.apoderado", "El estudiante especificado no existe.");
 		        return "Matricula-ingresar-apoderado";
 		    }
@@ -445,7 +445,7 @@ public class HomeController {
 		    
 		    Estudiante eSesion = (Estudiante) sesion.getAttribute("estudiante");
 		    model.addAttribute("eSesion",eSesion);
-		    a.setEstudiante_id(apoderado.getEstudiante_id());
+		    a.setEstudianteId(apoderado.getEstudianteId());
 		    
 		    a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
 		    a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
@@ -950,5 +950,87 @@ public class HomeController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource);
     }
+    
+    @GetMapping("/modificarApoderado/{estudianteId}")
+    public String modificarApoderado(Apoderado apoderado, Model model,HttpSession sesion) {
+    	if(sesion.getAttribute("user")!=null)
+		{
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));
+			model.addAttribute("user",sesion.getAttribute("user"));				
+			
+			sesion.setAttribute("eSesion", apoderado.getEstudianteId());
+			String eSesion = (String) sesion.getAttribute("eSesion");
+			model.addAttribute("eSesion",eSesion);
+			Boolean rutinvalido2 = false;
+		    model.addAttribute("rutinvalido2", rutinvalido2);
+			apoderado = apoderadoS.findApoderadoPorEstudianteId(apoderado.getEstudianteId());
+	    	model.addAttribute("apoderado", apoderado);    	
+	    	model.addAttribute("comunas",establecimientoS.comunas());
+	    	return "Apoderados";
+			
+		}
+    	return "Login";
+    }
+    
+    @PostMapping(path = "/apoderado/modificado", consumes = "application/x-www-form-urlencoded")
+	public String cursoModificada(@Valid Apoderado apoderado,Errors errores,RedirectAttributes flash,Model model,HttpSession sesion) {
+		if(sesion.getAttribute("user") != null) {
+			
+			model.addAttribute("user",sesion.getAttribute("user"));
+			List<Usuario> uSesion =  (List<Usuario>) sesion.getAttribute("user");
+			model.addAttribute("uSesion",uSesion.get(0));
+			model.addAttribute("establecimientoSesion", establecimientoS.findById(uSesion.get(0).getEstablecimientoId()));				
+			model.addAttribute("comunas",establecimientoS.comunas());
+
+			String eSesion = (String) sesion.getAttribute("eSesion");
+			model.addAttribute("eSesion",eSesion);
+			Boolean rutinvalido2 = false;
+		    model.addAttribute("rutinvalido2", rutinvalido2);
+			Apoderado a = apoderadoS.findApoderadoPorEstudianteId(eSesion);
+			a.setAcepta_manual_convivencia_escolar(apoderado.isAcepta_manual_convivencia_escolar());
+			a.setAmaterno_apoderado(apoderado.getAmaterno_apoderado());
+			a.setApaterno_apoderado(apoderado.getApaterno_apoderado());
+			a.setAutorizacion_fotografia_grabacion(apoderado.isAutorizacion_fotografia_grabacion());
+			a.setAutorizado_retirar_establecimiento(apoderado.isAutorizado_retirar_establecimiento());
+			a.setCelular_apoderado(apoderado.getCelular_apoderado());
+			a.setComuna_apoderado(apoderado.getComuna_apoderado());
+			a.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
+			a.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
+			a.setEs_tutor(apoderado.isEs_tutor());
+			a.setEstado_civil(apoderado.getEstado_civil());
+			a.setEstudianteId(apoderado.getEstudianteId());
+			a.setFecha_nacimiento_apoderado(apoderado.getFecha_nacimiento_apoderado());
+			a.setNivel_educacion(apoderado.getNivel_educacion());
+			a.setNombres(apoderado.getNombres());
+			a.setNumero_documento(apoderado.getNumero_documento());
+			a.setOcupacion(apoderado.getOcupacion());
+			a.setParentesco(apoderado.getParentesco());
+			a.setPasaporte(apoderado.getPasaporte());	
+			a.setTelefono_apoderado(apoderado.getTelefono_apoderado());
+			a.setTipo_apoderado(apoderado.getTipo_apoderado());
+			
+			if(rutValidationService.isValidRut(apoderado.getRun_apoderado())) {
+				a.setRun_apoderado(apoderado.getRun_apoderado());
+				}else {
+				rutinvalido2 = true;
+				model.addAttribute("rutinvalido2", rutinvalido2);
+				return "Apoderados";
+			}
+			
+			
+			if (errores.hasErrors()) {
+				return "Apoderados";
+			}			
+			apoderadoS.updateApoderado(apoderado);
+			flash.addFlashAttribute("success","Apoderado modificado correctamente");
+			model.addAttribute("apoderado",apoderado);	
+			return "redirect:/matricula";
+		}
+		return "Login";	
+	}
+    
+    
 }
 	

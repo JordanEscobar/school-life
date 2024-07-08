@@ -18,6 +18,9 @@ public interface ApoderadoService {
 	//eliminar apoderado
 	void deleteApoderado(String apoderadoid);
 	
+	//buscar apoderado de un estudiante especifico
+	Apoderado findApoderadoPorEstudianteId(String estudianteId);
+	
 	
 
 

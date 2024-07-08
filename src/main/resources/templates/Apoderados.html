@@ -30,56 +30,38 @@
 <link href="/css/estilos.css" rel="stylesheet" type="text/css" crossorigin="anonymous" />
 </head>
 <body class="pt-sans-regular">
-
-	<nav class="navbar bg-dark border-bottom border-body"
-		data-bs-theme="dark">
-
-		
+<nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
 	<div>
 		<a th:href="@{/}"  data-toggle="tooltip" data-placement="bottom" title="volver a inicio" class="btn btn-outline-light  border-dark" aria-disabled="true"><i class="fa-solid fa-house-chimney"></i></a> <span th:if="${uSesion.rolId != 3}" class="text-light" th:text="${establecimientoSesion.nombre}"></span>
 		<span th:if="${uSesion.rolId} == 1" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Administrador'"></span>
 		<span th:if="${uSesion.rolId} == 2" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Usuario'"></span>
 		<span th:if="${uSesion.rolId} == 3" class="text-danger" th:text="'| Usuario: ' + ${uSesion.nombre} + ' | Rol: Super administrador'"></span>
+		
 	</div>
-
-		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-danger" th:href="@{/cerrarSesion}"><i
-				class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
-		</div>
-	</nav>
-
-	<br>
-	<br>
-	<form method="POST" th:action="@{/matricula/ingresar/apoderados}"
+	<div class="d-flex justify-content-end">
+		<a class="btn btn-outline-danger shadow" th:href="@{/cerrarSesion}" data-toggle="tooltip" data-placement="bottom" title="Presione para cerrar la sesión"><i class="fa-solid fa-power-off"></i>&nbsp;Cerrar Sesión</a>
+	</div>
+</nav>
+<form method="POST" th:action="@{/apoderado/modificado}"
 		th:object="${apoderado}">
+<br><br><br>
+	<div class="container border rounded shadow"> 
+	<br>
+		<h1><span><a class="btn"  th:href="@{/matricula}" data-toggle="tooltip" data-placement="bottom" title="Volver a matrícula"><i class="fa-sharp fa-solid fa-chevron-left"></i></a></span>Apoderados</h1>	
+		<br>
 		<div class="container">
-
-			<h2>Apoderados del Estudiante</h2>
-			<br>
-			<br>
-
-			<ul class="nav nav-tabs" id="myTab2" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="apoderados-tab" data-bs-toggle="tab"
-						data-bs-target="#apoderados-tab-pane" type="button" role="tab"
-						aria-controls="apoderados-tab-pane" aria-selected="false">Antecedentes
-						Familiares</button>
-				</li>
-			</ul>
-			<br>
-			<br>
-			<div class="tab-content" id="myTabContent2">
-				<div class="tab-pane fade show active" id="apoderados-tab-pane"
-					role="tabpanel" aria-labelledby="apoderados-tab" tabindex="4">
-					<br>
 					<div class="row">
 						<div class="col">
 							<label class="text-danger">Run Apoderado *</label> <input
 								class="form-control" id="run_apoderado"
 								th:field="*{run_apoderado}" type="text">
 								<span class="text-danger" th:if="${#fields.hasErrors('run_apoderado')}" th:errors="*{run_apoderado}">Error Run apoderado</span>
-								<span class="text-danger" th:if="${rutexiste2} == True" th:text="'el rut ya existe en el sistema, Rut Inválido.'"></span>
 								<span class="text-danger" th:if="${rutinvalido2} == True" th:text="'Rut Inválido.'"></span>							
+						</div>
+						<div class="d-none">
+							<input
+								class="form-control" id="estudianteId"
+								th:field="*{estudianteId}" type="text">
 						</div>
 						<div class="col">
 							<label class="text-danger">Número de Documento *</label> <input
@@ -130,10 +112,6 @@
 								<option th:value="'POSGRADO/POSTÍTULOS'">POSGRADO/POSTÍTULOS</option>
 							</select>
 						</div>
-
-					</div>
-					<br>
-					<div class="row">
 						<div class="col">
 							<label>Estado Civil</label> <select id="estado_civil"
 								th:field="*{estado_civil}" class="form-select">
@@ -144,6 +122,9 @@
 								<option th:value="OTROS">OTROS</option>
 							</select>
 						</div>
+					</div>
+					<br>
+					<div class="row">
 						<div class="col">
 							<label class="text-danger">Vínculo Familiar *</label> <select
 								class="form-select" id="parentesco" th:field="*{parentesco}">
@@ -163,26 +144,28 @@
 									TITULAR</option>
 							</select>
 						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col">
-							<label>Fecha de Nacimiento</label> <input type="date"
-								id="fecha_nacimiento" th:field="*{fecha_nacimiento_apoderado}"
-								class="form-control">
-								<span th:if="${#fields.hasErrors('fecha_nacimiento_apoderado')}" class="text-danger" th:errors="*{fecha_nacimiento_apoderado}">Error fecha nacimiento</span>
-						</div>
-						<div class="col">
-							<label>Dirección</label> <input type="text" id="domicilio"
-								th:field="*{domicilio_apoderado}" class="form-control">
-								<span th:if="${#fields.hasErrors('domicilio_apoderado')}" class="text-danger" th:errors="*{domicilio_apoderado}">Error domicilio</span>
-						</div>
 						<div class="col">
 							<label class="text-danger">Comuna</label> <select
 								class="form-select" id="comuna" th:field="*{comuna_apoderado}">
 								<option th:each="c : ${comunas}" th:text="${c}" th:value="${c}"></option>
 							</select>
 						</div>
+						<div class="col">
+							<label>Fecha de Nacimiento</label> <input type="date"
+								id="fecha_nacimiento" th:field="*{fecha_nacimiento_apoderado}"
+								class="form-control">
+								<span th:if="${#fields.hasErrors('fecha_nacimiento_apoderado')}" class="text-danger" th:errors="*{fecha_nacimiento_apoderado}">Error fecha nacimiento</span>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+
+						<div class="col">
+							<label>Dirección</label> <input type="text" id="domicilio"
+								th:field="*{domicilio_apoderado}" class="form-control">
+								<span th:if="${#fields.hasErrors('domicilio_apoderado')}" class="text-danger" th:errors="*{domicilio_apoderado}">Error domicilio</span>
+						</div>
+
 					</div>
 					<br>
 					<div class="row">
@@ -202,14 +185,15 @@
 								<span th:if="${#fields.hasErrors('celular_apoderado')}" class="text-danger" th:errors="*{celular_apoderado}">Error celular</span>
 								<br>
 						</div>
-					</div>
-					<br>
-					<div class="row">
 						<div class="col">
 							<label>Ocupación</label> <input type="text" class="form-control"
 								id="ocupacion" th:field="*{ocupacion}">
 								<span th:if="${#fields.hasErrors('ocupacion')}" class="text-danger" th:errors="*{ocupacion}">Error ocupación</span>
 						</div>
+					</div>
+					<br>
+					<div class="row">
+
 						<div class="col">
 							<label>¿Es Tutor?</label><br> <input type="radio"
 								value="True" id="es_tutor" th:field="*{es_tutor}" name="estutor"
@@ -226,9 +210,6 @@
 								th:field="*{acepta_manual_convivencia_escolar}"
 								class="form-radio">No
 						</div>
-					</div>
-					<br>
-					<div class="row">
 						<div class="col">
 							<label>¿Autoriza fotografía y grabación?</label><br> <input
 								type="radio" value="True" id="autorizacion_fotografia_grabacion"
@@ -248,59 +229,51 @@
 								id="autorizado_retirar_establecimiento"
 								th:field="*{autorizado_retirar_establecimiento}"
 								class="form-radio">No
-						</div>
-						<div class="col">
-						
-							<div class="d-none">
-							<select id="estudianteId" th:field="*{estudianteId}">
-								<option class="form-select" th:value="${eSesion.runEstudiante}"
-									th:text="${eSesion.runEstudiante}"></option>
-							</select>
-							</div>
+								
 						</div>
 					</div>
 					<br>
-					<br>
-					<br>
-					<div class="row">
-						<div class="col text-end">
-							
-							<button type="button" class="btn btn-success"
-								data-bs-toggle="modal" data-bs-target="#avanzarpieModal">
-								Avanzar a finalizar el proceso</button>
-							<a class="btn btn-danger" th:href="@{/matricula/cancelarProceso}">Cancelar proceso de matricula</a>
-						</div>
 					</div>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
+			<div class="row">
+				<div class="col">
 				</div>
-			</div>
+				<div class="col">
+				</div>
+				<div class="col">
+				</div>
+				<div class="col text-end">
+					<label></label><br>
+					<a class="btn btn-secondary" th:href="@{/matricula}">Atrás</a>
+					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modificarApoderadoModal">
+						Modificar apoderado
+					</button>	
+				</div>
+			</div>	
+			<br>		
 		</div>
-
-		<!-- Modal -->
-		<div class="modal fade" id="avanzarpieModal" tabindex="-1"
-			aria-labelledby="avanzarpieModalLabel" aria-hidden="true">
+		
+	
+			<!-- Modal -->
+		<div class="modal fade" id="modificarApoderadoModal" tabindex="-1"
+			aria-labelledby="modificarApoderadoModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
-					<div class="modal-body">¿Estas seguro que quieres avanzar a finalizar el proceso?</div>
+					<div class="modal-body">¿Estas seguro que quieres modificar los datos del apoderado?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">Cerrar</button>
-						<input class="btn btn-primary" type="submit"
-							value="Pasar a finalizar proceso" />
+						<input class="btn btn-success" type="submit" value="Modificar Apoderado">
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
-
-
+	
+	
+</form>
+<br><br>
 </body>
 </html>

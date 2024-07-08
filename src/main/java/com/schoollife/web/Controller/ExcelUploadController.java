@@ -410,7 +410,7 @@ public class ExcelUploadController {
 
                 // Asignar datos a la entidad Apoderado según tu estructura
                 a.setRun_apoderado(rowData.get(0));
-                a.setEstudiante_id(rowData.get(1));
+                a.setEstudianteId(rowData.get(1));
 
                 // Número de documento
                 String numerodocumentoStr = rowData.get(2);

@@ -154,7 +154,7 @@
 				<td th:if="${e.estado} == False" class="text-danger rounded"><del>Retirado</del></td>
 				<td>
 							<a th:href="@{/resumenMatricula/} + ${e.runEstudiante}" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Ver matrícula en detalle"><i class="fa-regular fa-user"></i></a>
-							<a th:href="@{/matricula/modificar/} + ${e.runEstudiante}" th:if="${e.estado} == True" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar"><i class="fa-solid fa-pencil"></i></a>
+							<a th:href="@{/matricula/modificar/} + ${e.runEstudiante}" th:if="${e.estado} == True" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Editar datos estudiante"><i class="fa-solid fa-pencil"></i></a>
 																	
 						<a class="btn btn-light" data-toggle="modal" th:if="${e.estado} == True" th:attr="data-target='#retiroModal_' + ${e.runEstudiante}" data-placement="bottom" title="Retirar matrícula"><i class="fa-solid fa-ban"></i></a>    
                         <!-- Modal de retiro matricula -->
@@ -194,6 +194,7 @@
                             </div>
                         </div>              								
 							<a th:href="@{/resumenMatricula/} + ${e.runEstudiante} + '?format=pdf'" target="_blank" class="btn btn-light" data-toggle="tooltip" data-placement="bottom" title="Descargar matrícula"><i class="fa-solid fa-file-arrow-down"></i></a>
+							<a th:if="${e.estado} == True" class="btn btn-light" th:href="@{/modificarApoderado/} + ${e.runEstudiante}" data-toggle="tooltip" data-placement="bottom" title="Modificar apoderado"><i class="fa-solid fa-user-pen"></i></a>
 				</td>
 			</tr>		
 		</tbody>

@@ -42,7 +42,7 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 		aA.setComuna_apoderado(apoderado.getComuna_apoderado());
 		aA.setCorreo_electronico_apoderado(apoderado.getCorreo_electronico_apoderado());
 		aA.setDomicilio_apoderado(apoderado.getDomicilio_apoderado());
-		aA.setEstudiante_id(apoderado.getEstudiante_id());
+		aA.setEstudianteId(apoderado.getEstudianteId());
 		aA.setNombres(apoderado.getNombres());
 		aA.setParentesco(apoderado.getParentesco());
 		aA.setPasaporte(apoderado.getPasaporte());
@@ -72,7 +72,7 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 	@Transactional
 	public List<Apoderado> findApoderadoPorEstudiante(String run_estudiante) {
 		List<Apoderado> apoderados = apoderadoR.findAll();		
-		apoderados = apoderados.stream().filter(a -> a.getEstudiante_id().equalsIgnoreCase(run_estudiante)).collect(Collectors.toList());
+		apoderados = apoderados.stream().filter(a -> a.getEstudianteId().equalsIgnoreCase(run_estudiante)).collect(Collectors.toList());
 		return apoderados;
 	}
 
@@ -80,5 +80,11 @@ public class ApoderadoServiceImpl implements ApoderadoService{
 	@Transactional
 	public void deleteApoderado(String apoderadoid) {
 		apoderadoR.deleteById(apoderadoid);
+	}
+
+	@Override
+	@Transactional
+	public Apoderado findApoderadoPorEstudianteId(String estudianteId) {		
+		return apoderadoR.findApoderadoByEstudianteId(estudianteId);
 	}
 }
