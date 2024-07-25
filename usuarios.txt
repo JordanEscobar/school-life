@@ -1,0 +1,7 @@
+ADMIN mreyes@gmail.com Usuario123
+SUPERADMIN  mieres@gmail.com Contrasena1234
+SUPERADMIN jordanescosoto@gmail.com Usuario123
+
+ADMIN OTRO COLEGIO alfonsope@gmail.com Usuario456
+
+
